@@ -20,3 +20,4 @@
 - 고려중임
 1. style components
 2. redux toolkit
+3. 수정 중
