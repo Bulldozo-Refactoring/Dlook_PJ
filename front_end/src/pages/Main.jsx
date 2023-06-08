@@ -1,8 +1,8 @@
 import React from 'react';
 import {SectionsContainer, Section} from 'react-fullpage';
-import MainCard from '../Layout/MainCard';
-import SubmitButton from '../Layout/SubmitButton';
-import mainBack01 from '../../assets/images/mainBack01.png';
+import MainCard from 'components/MainCard';
+import SubmitButton from 'components/SubmitButton';
+import mainBack01 from 'assets/images/mainBack01.png';
 
 function MainPage() {
   let options = {
