@@ -64,12 +64,14 @@ function HeaderUser() {
             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         >
-            <MenuItem onClick={handleClose}><Avatar sx={{background: "#A6B1E1" }}/>
-                <Link to='/login'>Profile</Link>
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-                <ListItemIcon><Logout fontSize="small" /></ListItemIcon>Logout
-            </MenuItem>
+            
+            <Link to='/'>
+                <MenuItem onClick={handleClose}><Avatar sx={{background: "#A6B1E1" }}/>내 정보</MenuItem>
+            </Link>
+            <Link to='/'>
+                <MenuItem onClick={handleClose}><ListItemIcon><Logout fontSize="small" /></ListItemIcon>Logout</MenuItem>
+            </Link>
+
         </Menu>
         </React.Fragment>
     </li>
