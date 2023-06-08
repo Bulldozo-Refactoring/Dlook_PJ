@@ -22,12 +22,13 @@ function Login() {
                     <input type="password" name="userPassword" placeholder="Password"/>
                     <input type="submit" value="Login"/>
                     <p>
-                        <button><img src={google}/></button>
+                        <button><img src={google} alt='구글 로그인'/></button>
                         <button id="searchpassword" onclick="location.href='searchpassword.html'" type="button">비밀번호 찾기</button>
                     </p>
                 </form>
                 <div id="firstvisit">
-                Dlook이 처음이신가요? <button id="signup" onclick="location.href='signup.html'" type="button">회원가입</button>
+                    Dlook이 처음이신가요? 
+                    <button id="signup" onclick="location.href='signup.html'" type="button">회원가입</button>
                 </div>
             </div>        
         </div>
