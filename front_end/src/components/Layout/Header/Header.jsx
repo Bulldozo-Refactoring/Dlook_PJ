@@ -23,16 +23,18 @@ const Header = () => {
 
     return(
         <>
-        <div className="header_inner">
-            <ul className='header_wrapper'>
-                <li><MenuIcon sx={{fontSize: 60, color: "#A6B1E1", zIndex: 1000}} onClick={()=>toggleMenu()}></MenuIcon></li>                
-                <li id='logo'><Link to="/"><img src={logo} /></Link></li>
-                <HeaderUser />
-            </ul>
-            <ul className={isOpen ? "show_menu" : "hide_menu"}>
-                <CloseIcon onClick={()=>toggleMenu()} />
-                <HeaderMenu />
-            </ul>
+        <div id="header">
+            <div className="header_inner">
+                <ul className='header_wrapper'>
+                    <li><MenuIcon sx={{fontSize: 60, color: "#A6B1E1", zIndex: 1000}} onClick={()=>toggleMenu()}></MenuIcon></li>                
+                    <li id='logo'><Link to="/"><img src={logo} alt='logo' /></Link></li>
+                    <HeaderUser />
+                </ul>
+                <ul className={isOpen ? "show_menu" : "hide_menu"}>
+                    <CloseIcon onClick={()=>toggleMenu()} />
+                    <HeaderMenu />
+                </ul>
+            </div>
         </div>
         </>
     );
