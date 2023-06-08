@@ -1,6 +1,5 @@
-import { Route, Routes } from 'react-router-dom';
+import { useRoutes } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
-// container
 import MainPage from './components/page/Main';
 import Board from './components/page/Board';
 import LogIn from './components/auth/Login';
@@ -12,32 +11,27 @@ import AlgorithmsType from './components/page/AlgorithmsType';
 import AlgorithmsWrong from './components/page/AlgorithmsWrong';
 import AlgorithmsRank from './components/page/AlgorithmsRank';
 
-function App() {
-  return (
-    <>
-      <Layout>
-      <Routes>
-        {/* mainpage */}
-        <Route path='/' Component={MainPage}></Route>
-        {/* login - signup */}
-        <Route path='/login' Component={LogIn}></Route>
-        <Route path='/signUp' Component={SignUp}></Route>
-        <Route path='/signupresult' Component={SignUpResult}></Route>
-        {/* 알고리즘 */}
-        <Route path='/algorithms/step' Component={AlgorithmsStep}></Route>
-        <Route path='/algorithms/child' Component={AlgorithmsChild}></Route>
-        <Route path='/algorithms/type' Component={AlgorithmsType}></Route>
-        <Route path='/algorithms/wrong' Component={AlgorithmsWrong}></Route>
-        <Route path='/algorithms/rank' Component={AlgorithmsRank}></Route>
-        {/* 게시판 */}
-        <Route path='/board' Component={Board}></Route>
-        {/* 쓰레기통 */}
-        <Route path='/garbage'></Route>
-        {/* 더보기 */}
-      </Routes>
-      </Layout>
-    </>
-  );
+const App = () => {
+  const element = useRoutes([
+    {
+      path: '/',
+      element: <Layout />,
+      children: [
+        { index: true, element: <MainPage /> },
+        { path: 'login', element: <LogIn /> },
+        { path: 'signUp', element: <SignUp /> },
+        { path: 'signupresult', element: <SignUpResult /> },
+        { path: 'algorithms/step', element: <AlgorithmsStep /> },
+        { path: 'algorithms/child', element: <AlgorithmsChild /> },
+        { path: 'algorithms/type', element: <AlgorithmsType /> },
+        { path: 'algorithms/wrong', element: <AlgorithmsWrong /> },
+        { path: 'algorithms/rank', element: <AlgorithmsRank /> },
+        { path: 'board', element: <Board /> },
+      ]
+    }
+  ])
+
+  return element;
 }
 
 export default App;
