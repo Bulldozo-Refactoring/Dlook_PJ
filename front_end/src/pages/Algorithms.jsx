@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet } from "react-router-dom";
-import AlgorithmsMenu from "../Layout/Algorithms/Menu"
+import AlgorithmsMenu from "components/Algorithms/Menu"
 
 function Algorithms() {
   return (
