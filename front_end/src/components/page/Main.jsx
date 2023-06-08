@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import {SectionsContainer, Section} from 'react-fullpage';
 import MainCard from '../Layout/MainCard';
 import SubmitButton from '../Layout/SubmitButton';
@@ -18,7 +18,7 @@ function MainPage() {
   return (
     <div id='main'>
       <SectionsContainer {...options}>
-        <Section className='mainBox01'>
+        <Section id='mainBox01'>
           <div className="content">
             <p>Welcome</p>
             <h1>Dlook에 오신걸 환영합니다.</h1>
@@ -38,7 +38,7 @@ function MainPage() {
                 zIndex: '0'
           } }></div>
         </Section>
-        <Section className='mainBox02' >
+        <Section id='mainBox02' >
           <div className="content">
             <h1 style={{fontSize: '60px', fontWeight: '500'}}>불도조</h1>
             <p style={{ marginBottom: '20px' }}>
@@ -52,8 +52,8 @@ function MainPage() {
               <div className="card"><MainCard/></div>
           </div>
         </Section>
-        <Section className='mainBox03'>
-          <div className="content">
+        <Section id='mainBox03'>
+          <div className="content container_inner">
             <h1 style={{fontSize: '60px', fontWeight: '500'}}>공지사항</h1>
           </div>
         </Section>
