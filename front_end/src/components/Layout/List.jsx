@@ -1,6 +1,15 @@
 import { Link } from "react-router-dom" ;
 
+
+// title = 오늘의 점메추 
+// date = 2023.06.08
+// content = 오오
+// 
+
+
+
 const List = () => {
+    
     return (
     <>
         <div id="board-list">
@@ -14,14 +23,16 @@ const List = () => {
                 </tr>
                 </thead>
                 <tbody>
+
                 <tr>
-                    <td>6</td>
+                    <td>i</td>
                     <th>
                       <Link to="/">[자유게시판]오늘의 점메추</Link>
                       <p>테스트</p>
                     </th>
                     <td>2023.06.08</td>
                 </tr>
+
                 <tr>
                     <td>5</td>
                     <th>
