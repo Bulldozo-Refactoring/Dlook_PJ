@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from "react-router";
-import { Link } from 'react-router-dom';
-import logo from '../../../assets/images/logo.svg';
+// import { useLocation } from "react-router";
+import { Link, useLocation } from 'react-router-dom';
+import logo from '../../assets/images/logo.svg';
 import CloseIcon from '@mui/icons-material/Close';
 import HeaderMenu from './HeaderMenu';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -12,7 +12,7 @@ const Header = () => {
     const { pathname } = useLocation();
     const toggleMenu = () => {
           setMenu(isOpen => !isOpen);
-      }    
+    }    
     useEffect(() => {
         setMenu(false);
     }, [pathname]);

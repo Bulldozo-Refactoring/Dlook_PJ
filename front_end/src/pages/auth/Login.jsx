@@ -1,5 +1,5 @@
 import React from 'react';
-import google from '../../assets/images/google.png';
+import google from 'assets/images/google.png';
 
 function Login() {
     //const [message, setMessage] = useState("");

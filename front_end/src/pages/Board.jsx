@@ -1,5 +1,5 @@
 import React from 'react';
-import List from '../Layout/List'
+import List from 'components/List';
 
 function board() {
   return (

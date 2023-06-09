@@ -1,37 +1,46 @@
-import { useRoutes } from 'react-router-dom';
-import Layout from './components/Layout/Layout';
-import MainPage from './components/page/Main';
-import Board from './components/page/Board';
-import LogIn from './components/auth/Login';
-import SignUp from './components/auth/SignUp';
-import SignUpResult from './components/auth/SignUpResult';
-import AlgorithmsStep from './components/page/AlgorithmsStep';
-import AlgorithmsChild from './components/page/AlgorithmsChild';
-import AlgorithmsType from './components/page/AlgorithmsType';
-import AlgorithmsWrong from './components/page/AlgorithmsWrong';
-import AlgorithmsRank from './components/page/AlgorithmsRank';
+import React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import MainPage from 'pages/Main';
+import Board from 'pages/Board';
+import Algorithms from 'pages/Algorithms';
 
-const App = () => {
-  const element = useRoutes([
-    {
-      path: '/',
-      element: <Layout />,
-      children: [
-        { index: true, element: <MainPage /> },
-        { path: 'login', element: <LogIn /> },
-        { path: 'signUp', element: <SignUp /> },
-        { path: 'signupresult', element: <SignUpResult /> },
-        { path: 'algorithms/step', element: <AlgorithmsStep /> },
-        { path: 'algorithms/child', element: <AlgorithmsChild /> },
-        { path: 'algorithms/type', element: <AlgorithmsType /> },
-        { path: 'algorithms/wrong', element: <AlgorithmsWrong /> },
-        { path: 'algorithms/rank', element: <AlgorithmsRank /> },
-        { path: 'board', element: <Board /> },
-      ]
-    }
-  ])
+import Layout from 'components/common/Layout';
+import LogIn from 'pages/auth/Login';
+import SignUp from 'pages/auth/SignUp';
+import SignUpResult from './pages/auth/SignUpResult';
+import Step from 'components/Algorithms/Step';
+import Child from 'components/Algorithms/Child';
+import Type from 'components/Algorithms/Type';
+import Wrong from 'components/Algorithms/Wrong';
+import Rank from 'components/Algorithms/Rank';
 
-  return element;
-}
 
-export default App;
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      { path: '', element: <MainPage /> },
+      { path: 'login', element: <LogIn /> },
+      { path: 'signUp', element: <SignUp /> },
+      { path: 'signupresult', element: <SignUpResult /> },
+      { path: 'board', element: <Board /> },
+      {
+        path: 'algorithms',
+        element: <Algorithms />,
+        children: [
+          { path: 'step', element: <Step /> },
+          { path: 'child', element: <Child /> },
+          { path: 'type', element: <Type /> },
+          { path: 'wrong', element: <Wrong /> },
+          { path: 'rank', element: <Rank /> },
+        ],
+      },
+    ],
+  },
+  
+]);
+
+export default function App() {
+  return <RouterProvider router={router} />;
+};
