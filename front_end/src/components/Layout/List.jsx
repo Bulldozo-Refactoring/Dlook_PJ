@@ -6,7 +6,15 @@ import { Link } from "react-router-dom" ;
 // content = 오오
 // 
 
-
+const dummyList = [
+    {
+        id:1,
+        author:"이정환",
+        content:"하이 1",
+        emotion:5,
+        created_date: new Date()
+    }
+]
 
 const List = () => {
     
