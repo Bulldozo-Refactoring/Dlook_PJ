@@ -27,12 +27,7 @@ const RadarCharts = ({ data }) => (
                 symbolSize: 12,
                 symbolShape: 'circle',
                 effects: [
-                    {
-                        on: 'hover',
-                        style: {
-                            itemTextColor: '#000'
-                        }
-                    }
+                    { on: 'hover', style: { itemTextColor: '#000' }}
                 ]
             }
         ]}
