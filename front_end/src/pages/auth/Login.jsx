@@ -15,16 +15,12 @@ function Login() {
               <button>
                 <img src={google} alt="구글 로그인" />
               </button>
-              <button id="searchpassword" onclick={handleLogin}>
-                비밀번호 찾기
-              </button>
+              <button id="searchpassword">비밀번호 찾기</button>
             </p>
           </form>
           <div id="firstvisit">
             Dlook이 처음이신가요?
-            <button id="signup" onclick={handleLogin} type="button">
-              회원가입
-            </button>
+            <button id="signup">회원가입</button>
           </div>
         </div>
       </div>

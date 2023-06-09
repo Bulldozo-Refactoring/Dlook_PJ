@@ -42,15 +42,12 @@ const router = createBrowserRouter([
 ]);
 
 export default function App() {
-  //* toolkit test(1)
+  /* toolkit test(1)
   const test = useSelector((state) => {
     return state;
   });
   console.log(test);
   /**/
 
-  return (
-    <Test />
-    // <RouterProvider router={router} />
-  );
+  return <RouterProvider router={router} />;
 }
