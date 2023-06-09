@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
 function SignUpResult() {
@@ -15,6 +16,8 @@ function SignUpResult() {
 
 export default SignUpResult;
 =======
+=======
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -29,5 +32,9 @@ function SignUpResult() {
   );
 }
 
+<<<<<<< HEAD
 export default SignUpResult;
 >>>>>>> main
+=======
+export default SignUpResult;
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from 'react';
 import google from 'assets/images/google.png';
 
@@ -39,6 +40,8 @@ function Login() {
 
 export default Login;
 =======
+=======
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee
 import React from "react";
 import google from "assets/images/google.png";
 
@@ -73,5 +76,9 @@ function Login() {
   );
 }
 
+<<<<<<< HEAD
 export default Login;
 >>>>>>> main
+=======
+export default Login;
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Link } from "react-router-dom" ;
 
 
@@ -15,6 +16,9 @@ const dummyList = [
         emotion:5,
         created_date: new Date()
 =======
+=======
+import { Link } from "react-router-dom" ;
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee
 import BoardList from "./BoardContent/ListContent";
 
 
@@ -36,7 +40,10 @@ const dummyList = [
         author:"아무개",
         title:"학교교육 및 평생교육을 포함한 교육제도와 그 운영, 교육재정 및 교원의 지위에 관한 기본적인 사항은 법률로 정한다.",
         created_date: "2023.06.09"
+<<<<<<< HEAD
 >>>>>>> main
+=======
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee
     }
 ]
 
@@ -46,11 +53,12 @@ const List = () => {
     <>
         <div id="board-list">
             <div className="container">
-            <table className="board-table">
+            <table className="board-table">https://github.com/Bulldozo/Dlook_PJ/pull/11/conflict?name=front_end%252Fsrc%252Fcomponents%252FMainCard.jsx&base_oid=6eb3fe446656abf3f2b7136c9bcc4b49790c010e&head_oid=efc5584f99dfe2c3f6788500ad109c0d4772eeb0
                 <thead>
                 <tr>
                     <th scope="col" class="th-num">번호</th>
                     <th scope="col" class="th-title">제목</th>
+<<<<<<< HEAD
 <<<<<<< HEAD
                     <th scope="col" class="th-date">등록일</th>
                 </tr>
@@ -99,6 +107,8 @@ const List = () => {
                      <td>2023.06.08</td>
                 </tr>
 =======
+=======
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee
                     <th scope="col" class="th-date">작성자</th>
                     <th scope="col" class="th-author">등록일</th>
                 </tr>
@@ -116,7 +126,10 @@ const List = () => {
                         <td>황영수</td>
                         <td>2023.06.08</td>
                     </tr> */}
+<<<<<<< HEAD
 >>>>>>> main
+=======
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee
                 </tbody>
             </table>
             </div>
@@ -125,6 +138,7 @@ const List = () => {
     );
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 export default List;
 =======
@@ -135,3 +149,6 @@ export default List;
 
   
 >>>>>>> main
+=======
+export default List;
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from 'react';
 import {SectionsContainer, Section} from 'react-fullpage';
 import MainCard from 'components/MainCard';
@@ -21,6 +22,8 @@ function MainPage() {
       <SectionsContainer {...options}>
         <Section id='main_box01'>
 =======
+=======
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee
 import React from "react";
 import { SectionsContainer, Section } from "react-fullpage";
 import MainCard from "components/MainCard";
@@ -42,11 +45,15 @@ function MainPage() {
     <div id="main">
       <SectionsContainer {...options}>
         <Section id="main_box01">
+<<<<<<< HEAD
 >>>>>>> main
+=======
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee
           <div className="content">
             <p>Welcome</p>
             <h1>Dlook에 오신걸 환영합니다.</h1>
             <p>
+<<<<<<< HEAD
 <<<<<<< HEAD
               청춘의 청춘 남는 못하다 봄바람을 있는 속에 실로 것이다.<br/>
               붙잡아 만천하의 것은 있으며,<br/>
@@ -81,6 +88,8 @@ function MainPage() {
           <div className="content">
             <h1 style={{fontSize: '60px', fontWeight: '500'}}>공지사항</h1>
 =======
+=======
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee
               청춘의 청춘 남는 못하다 봄바람을 있는 속에 실로 것이다.
               <br />
               붙잡아 만천하의 것은 있으며,
@@ -138,11 +147,15 @@ function MainPage() {
         <Section id="main_box03">
           <div className="content">
             <h1 style={{ fontSize: "60px", fontWeight: "500" }}>공지사항</h1>
+<<<<<<< HEAD
 >>>>>>> main
+=======
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee
           </div>
         </Section>
       </SectionsContainer>
     </div>
+<<<<<<< HEAD
 <<<<<<< HEAD
   )
 }
@@ -154,3 +167,9 @@ export default MainPage;
 
 export default MainPage;
 >>>>>>> main
+=======
+  );
+}
+
+export default MainPage;
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee

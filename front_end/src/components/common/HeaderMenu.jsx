@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from 'react'
 import { Link, NavLink } from "react-router-dom";
 
@@ -36,6 +37,8 @@ function HeaderMenu() {
         </ul>
     </li>
 =======
+=======
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
@@ -131,13 +134,20 @@ function HeaderMenu() {
           </li>
         </ul>
       </li>
+<<<<<<< HEAD
 >>>>>>> main
+=======
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee
     </>
   );
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export default HeaderMenu
 =======
 export default HeaderMenu;
 >>>>>>> main
+=======
+export default HeaderMenu;
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee

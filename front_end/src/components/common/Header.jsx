@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 // import { useLocation } from "react-router";
 import { Link, useLocation } from 'react-router-dom';
@@ -43,6 +44,8 @@ const Header = () => {
     
 export default Header;
 =======
+=======
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo.svg";
@@ -90,4 +93,7 @@ const Header = () => {
 };
 
 export default Header;
+<<<<<<< HEAD
 >>>>>>> main
+=======
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee

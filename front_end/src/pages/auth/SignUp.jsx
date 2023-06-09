@@ -1,5 +1,6 @@
 //import React, {useEffect, useState} from 'react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from 'react';
 
 function SignUp() {
@@ -25,6 +26,8 @@ function SignUp() {
 
 export default SignUp;
 =======
+=======
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee
 import React from "react";
 
 function SignUp() {
@@ -43,5 +46,9 @@ function SignUp() {
   );
 }
 
+<<<<<<< HEAD
 export default SignUp;
 >>>>>>> main
+=======
+export default SignUp;
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee

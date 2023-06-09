@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
@@ -82,6 +83,8 @@ function HeaderUser() {
 
 export default HeaderUser
 =======
+=======
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee
 import React from "react";
 import { Link } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
@@ -182,4 +185,7 @@ function HeaderUser() {
 }
 
 export default HeaderUser;
+<<<<<<< HEAD
 >>>>>>> main
+=======
+>>>>>>> c421a960b56740ed674a459d776dba36234e78ee
