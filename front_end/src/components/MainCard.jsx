@@ -27,6 +27,6 @@ const MainCard = () => {
       </CardActions>
     </Card>
   );
-};
+}
 
 export default MainCard;

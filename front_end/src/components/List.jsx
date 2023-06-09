@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom" ;
 import BoardList from "./BoardContent/ListContent";
 
 
@@ -28,7 +29,7 @@ const List = () => {
     <>
         <div id="board-list">
             <div className="container">
-            <table className="board-table">
+            <table className="board-table">https://github.com/Bulldozo/Dlook_PJ/pull/11/conflict?name=front_end%252Fsrc%252Fcomponents%252FMainCard.jsx&base_oid=6eb3fe446656abf3f2b7136c9bcc4b49790c010e&head_oid=efc5584f99dfe2c3f6788500ad109c0d4772eeb0
                 <thead>
                 <tr>
                     <th scope="col" class="th-num">번호</th>
@@ -58,9 +59,4 @@ const List = () => {
     );
 }
 
-
-
 export default List;
-
-
-  
