@@ -1,9 +1,9 @@
-// 알고리즘 - 문제추천 - 알고리즘
+// 알고리즘 - 랭킹분석
 import React from 'react';
 
 function Child() {
   return (
-        <div>AlgorithmsChild</div>
+    <div>AlgorithmCRank</div>
   );
 }
 

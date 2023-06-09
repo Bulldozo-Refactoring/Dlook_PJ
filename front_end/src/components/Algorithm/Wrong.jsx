@@ -3,7 +3,7 @@ import React from 'react';
 
 function Wrong() {
   return (
-    <div>AlgorithmsWrong</div>
+    <div>AlgorithmWrong</div>
   )
 }
 
