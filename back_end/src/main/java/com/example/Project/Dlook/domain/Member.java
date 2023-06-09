@@ -18,13 +18,13 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberSeq;
 
-    @Column(columnDefinition = "varchar(255)", nullable = false, length = 30)
+    @Column(columnDefinition = "varchar(255)", nullable = false)
     private String memberName;
 
-    @Column(columnDefinition = "varchar(255)", nullable = false, length = 30)
+    @Column(columnDefinition = "varchar(255)", nullable = false)
     private String memberEmail;
 
-    @Column(columnDefinition = "varchar(255)", nullable = false, length = 100)
+    @Column(columnDefinition = "varchar(255)", nullable = false)
     private String memberPw;
 
     @Column(nullable = false)
