@@ -2,23 +2,33 @@ import { NavLink } from "react-router-dom";
 
 export default function CuteNavLink(props) {
   const disabled = {
-    padding: '15px 20px',
+    padding: "15px 20px",
   };
   const active = {
     fontWeight: "700",
-    padding: '15px 20px',
-    borderBottom: '3px solid #424874',
+    padding: "15px 20px",
+    borderBottom: "3px solid #424874",
   };
 
-  console.log(props.to  + ', ' + props.children);
+  console.log(props.to + ", " + props.children);
 
   return (
     <>
-       <ul className='bottom_menu'>
-          <li><NavLink style={({isActive }) => (isActive ? active : disabled)} to={props.to}>{props.children}</NavLink></li>
-        </ul>
+      <ul className="bottom_menu">
+        <li>
+          <NavLink
+            style={({ isActive }) => (isActive ? active : disabled)}
+            to={props.to}
+          >
+            {props.children}
+          </NavLink>
+        </li>
+      </ul>
 
-      <NavLink style={({isActive }) => (isActive ? active : disabled)} {...props}></NavLink>
+      <NavLink
+        style={({ isActive }) => (isActive ? active : disabled)}
+        {...props}
+      ></NavLink>
     </>
   );
 }
