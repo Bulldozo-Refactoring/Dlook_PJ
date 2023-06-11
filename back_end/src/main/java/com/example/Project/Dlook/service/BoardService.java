@@ -54,4 +54,9 @@ public class BoardService {
         boardRepository.save(board);
         return findById(boardDTO.getBoard_no());
     }
+
+//
+//    public void delete(Long board_no) {
+//        boardRepository.deleteById(board_no);
+//    }
 }

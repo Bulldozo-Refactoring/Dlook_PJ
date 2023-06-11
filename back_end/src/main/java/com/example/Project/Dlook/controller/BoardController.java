@@ -58,6 +58,7 @@ public class BoardController {
         return "updateForm";
     }
 
+
     @PostMapping("/{boardNo}")
     public String updateBoard(@PathVariable("boardNo") Long board_no, @ModelAttribute BoardDTO boardDTO) {
         // 게시글 업데이트
