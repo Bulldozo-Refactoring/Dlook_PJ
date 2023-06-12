@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { styled } from "styled-components";
-import { join } from "app/slices/auth";
+import { join } from "app/slices/member";
 
 function Join() {
   const dispatch = useDispatch();

@@ -1,15 +1,15 @@
 import React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-// import { login } from "app/slices/auth";
+import { useSelector } from "react-redux";
 
 function PrivateRoute() {
   // 로그인 여부 확인
-  const isLogin = true;
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   //  현재 URL 확인
   const location = useLocation();
 
-  if (!isLogin) {
+  if (!isLoggedIn) {
     return <Navigate to="/member/login" state={{ from: location }} />; // from에 현재 URL을 저장하여 리다렉트에 사용
   }
 
