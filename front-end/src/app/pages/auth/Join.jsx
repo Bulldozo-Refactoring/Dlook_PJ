@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { styled } from "styled-components";
+import { join } from "app/slices/auth";
 
 function Join() {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -41,12 +44,13 @@ function Join() {
     // 인증 코드가 맞다면 setIsVerified(true)로 상태 변경
     setIsVerified(true);
     clearErrors("verificationCode"); // 에러 메시지 제거
-    console.log(verificationCode); // 확인용
+    // console.log(verificationCode); // 확인용
   };
 
   const onSubmit = (data) => {
     // 회원가입 처리 로직 작성
-    console.log(data);
+    // console.log(data);
+    dispatch(join(data));
   };
 
   useEffect(() => {
@@ -177,7 +181,7 @@ const Input = styled.input`
   padding: 0 10px;
   box-sizing: border-box;
   border-radius: 6px;
-  background-color: #f5f5f5;
+  background-color: var(--bg-200);
   ::placeholder {
     color: var(--bg-300);
   }
@@ -197,8 +201,8 @@ const Button = styled.button`
 `;
 const SendButton = styled(Button)`
   margin-top: 0;
-  background-color: #424874;
-  color: #fff;
+  background-color: var(--primary-100);
+  color: var(--bg-100);
 `;
 const RemainingTime = styled.span`
   width: 50px;
@@ -210,7 +214,7 @@ const VerifyButton = styled(Button)`
   width: 80px;
   margin: 0 0 0 10px;
   background-color: var(--primary-100);
-  color: #fff;
+  color: var(--bg-100);
 `;
 const VerificationMessage = styled.p`
   width: 11%;

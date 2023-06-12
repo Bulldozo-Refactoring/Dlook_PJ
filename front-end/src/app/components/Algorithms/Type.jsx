@@ -7,7 +7,7 @@ function Type() {
   return (
     <AlgorithmsType>
       <H1>유형별 분석</H1>
-      <div style={{ width: "100%", height: "100%" }}>
+      <div style={{ width: "100%", height: "500px" }}>
         <RadarCharts data={exData} />
       </div>
     </AlgorithmsType>
@@ -49,7 +49,7 @@ const exData = [
 
 const AlgorithmsType = styled.div`
   width: auto;
-  height: 600px;
+  min-height: 600px;
   margin: 0 auto;
   padding: 120px 0 0;
 `;

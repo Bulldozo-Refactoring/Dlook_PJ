@@ -40,7 +40,7 @@ function MainPage() {
             <SubmitButton
               disableRipple
               onClick={() => (document.location.href = "/algorithms/step")}
-              style={{ marginTop: "30px", color: "#fff" }}
+              style={{ marginTop: "30px", color: "var(--bg-100)" }}
             >
               알고리즘 문제 보러가기
             </SubmitButton>
@@ -83,7 +83,7 @@ function MainPage() {
         </Section>
         <Section
           id="main_box03"
-          style={{ margin: "0 auto", backgroundColor: "#fff" }}
+          style={{ margin: "0 auto", backgroundColor: "var(--bg-100)" }}
         >
           <MainBox03>
             <h1 style={{ fontSize: "60px", fontWeight: "500" }}>공지사항</h1>
@@ -117,7 +117,7 @@ const MainBox02 = styled.div`
 const MainBox03 = styled.div`
   height: 100%;
   padding: 80px calc(50% - 400px);
-  background-color: #fff;
+  background-color: var(--bg-100);
   text-align: center;
 `;
 const H1 = styled.h1`

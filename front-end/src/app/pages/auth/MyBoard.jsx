@@ -32,7 +32,7 @@ const Content = styled.div`
 `;
 const Right = styled.div`
   width: calc(100% - 100px);
-  height: 600px;
+  min-height: 600px;
 `;
 
 export default MyBoard;

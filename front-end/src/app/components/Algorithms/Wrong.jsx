@@ -7,7 +7,7 @@ function Wrong() {
   return (
     <AlgorithmsWrong>
       <H1>오답 유형</H1>
-      <div style={{ width: "100%", height: "100%" }}>
+      <div style={{ width: "100%", height: "500px" }}>
         <PieChart data={exData} />
       </div>
     </AlgorithmsWrong>
@@ -16,7 +16,7 @@ function Wrong() {
 
 const AlgorithmsWrong = styled.div`
   width: auto;
-  height: 600px;
+  min-height: 600px;
   margin: 0 auto;
   padding: 120px 0 0;
 `;

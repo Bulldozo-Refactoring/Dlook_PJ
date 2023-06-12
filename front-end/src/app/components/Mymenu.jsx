@@ -42,15 +42,15 @@ const NabStyle = styled(NavLink)`
   display: block;
   padding: 6px 15px;
   border-left: 3px solid;
-  font-size: 1.1em;
+  font-size: 1.3em;
   color: var(--primary-100);
   font-weight: 500;
   &:hover,
   &:focus {
-    color: var(--accent-200);
+    color: FF73A5;
   }
   &:hover::before {
-    background-color: var(--accent-200);
+    background-color: FF73A5;
   }
 `;
 export default Mymenu;
