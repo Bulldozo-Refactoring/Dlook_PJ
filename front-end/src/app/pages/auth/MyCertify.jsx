@@ -28,7 +28,7 @@ const MyCertify = () => {
               <LiStyle>사용 가능 기능2</LiStyle>
               <LiStyle>사용 가능 기능3</LiStyle>
             </UlStyle>
-            <SubmitButton style={{ color: "#292524", width: "40%" }}>
+            <SubmitButton style={{ color: "var(--text-100)", width: "40%" }}>
               백준 연동하러 가기
             </SubmitButton>
           </Before>
@@ -87,23 +87,26 @@ const Content = styled.div`
   margin: 0 auto 2rem;
 `;
 const Right = styled.div`
-  max-width: calc(89% - 102px);
-  height: 600px;
+  // max-width: calc(89% - 102px);
+  width: 100%;
+  min-height: 600px;
 `;
 const Before = styled.div`
   display: none;
   height: 100%;
   padding: 100px 10px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--bg-300);
   border-radius: 10px;
   text-align: center;
 `;
 const After = styled.div`
   display: flex;
+  width: 70%;
   height: 70%;
+  margin: 0 auto;
   padding: 40px;
   background-image: linear-gradient(130deg, #424874, #6f73a3, #d0d3ff);
-  border: 1px solid #ccc;
+  border: 1px solid var(--bg-300);
   border-radius: 10px;
   text-align: center;
 `;
@@ -120,7 +123,7 @@ const Img = styled.img`
   padding: 10px;
   vertical-align: middle;
   border-radius: 10px;
-  background-color: #424874;
+  background-color: var(--primary-100);
 `;
 const PStyle = styled.p`
   margin: 4rem 0 1rem;
@@ -140,7 +143,7 @@ const LiStyle = styled.li`
     transform: translateY(-50%);
     counter-increment: number 1;
     content: counter(number) ".";
-    color: #292524;
+    color: var(--text-100);
     font-size: 0.8em;
     z-index: 1;
   }
@@ -150,7 +153,7 @@ const Circle = styled.p`
   height: 200px;
   margin: 0 auto 2rem;
   border-radius: 50%;
-  background-color: #fff;
+  background-color: var(--bg-100);
 `;
 const PinkText01 = styled.p`
   width: 100%;
@@ -174,6 +177,6 @@ const WhiteText = styled.p`
   width: 35%;
   font-weight: 500;
   font-size: 20px;
-  color: #fff;
+  color: var(--bg-100);
 `;
 export default MyCertify;

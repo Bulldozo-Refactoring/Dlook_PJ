@@ -24,7 +24,7 @@ const Header = () => {
           <HeaderWrapper>
             <li>
               <MenuIcon
-                sx={{ fontSize: 60, color: "#A6B1E1", zIndex: 1000 }}
+                sx={{ fontSize: 60, color: "var(--primary-200)", zIndex: 1000 }}
                 onClick={() => toggleMenu()}
               ></MenuIcon>
             </li>

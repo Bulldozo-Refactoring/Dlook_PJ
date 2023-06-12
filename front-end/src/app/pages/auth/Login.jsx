@@ -26,10 +26,10 @@ function Login() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const user = useSelector((state) => state.auth.user);
 
-  useEffect(() => {
-    console.log("isLoggedIn", isLoggedIn);
-    console.log("user", user);
-  }, [isLoggedIn, user]);
+  // useEffect(() => {
+  //   console.log("isLoggedIn", isLoggedIn);
+  //   console.log("user", user);
+  // }, [isLoggedIn, user]);
 
   return (
     <>
@@ -99,7 +99,7 @@ function Login() {
           </p>
           <div id="firstvisit">
             Dlook이 처음이신가요?
-            <NavLink id="signup" to="/member/signup">
+            <NavLink id="signup" to="/member/join">
               회원가입
             </NavLink>
           </div>
@@ -110,9 +110,10 @@ function Login() {
 }
 
 const Title = styled.h1`
-  font-size: 30px;
-  color: var(--text-100);
   margin-bottom: 20px;
+  font-size: 35px;
+  font-weight: 500;
+  color: var(--text-100);
   text-align: center;
 `;
 const LoginFrom = styled.form``;
@@ -123,15 +124,15 @@ const Input = styled.input`
   box-sizing: border-box;
   margin-bottom: 16px;
   border-radius: 6px;
-  background-color: #f5f5f5;
+  background-color: var(--bg-200);
   ::placeholder {
-    color: #ccc;
+    color: var(--bg-300);
   }
 `;
 const Input01 = styled(Input)`
-  color: #fff;
+  color: var(--bg-100);
   font-size: 16px;
-  background-color: #a6b1e1 !important;
+  background-color: var(--primary-200) !important;
   margin-top: 20px;
 `;
 export default Login;

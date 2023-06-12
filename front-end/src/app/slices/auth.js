@@ -4,12 +4,15 @@ import axios from "axios";
 export const join = createAsyncThunk(
   "member/join",
   async (payload, thunkAPI) => {
+    console.log("회원가입시");
+    console.log(payload);
+    console.log(thunkAPI);
     try {
       const response = await axios.post(
         "http://localhost:8080/member/register",
         payload
       );
-      console.log(response.data);
+      console.log("회원가입시", response);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -20,6 +23,7 @@ export const join = createAsyncThunk(
 export const login = createAsyncThunk(
   "member/login",
   async (payload, thunkAPI) => {
+    console.log("로그인");
     console.log(payload);
     console.log(thunkAPI);
     try {
@@ -27,7 +31,7 @@ export const login = createAsyncThunk(
         "http://localhost:8080/member/login",
         payload
       );
-      console.log(response.data);
+      console.log("로그인시", response);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

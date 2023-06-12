@@ -40,7 +40,11 @@ function HeaderUser() {
                   aria-expanded={open ? "true" : undefined}
                 >
                   <Avatar
-                    sx={{ width: 40, height: 40, background: "#A6B1E1" }}
+                    sx={{
+                      width: 40,
+                      height: 40,
+                      background: "var(--primary-200)",
+                    }}
                   ></Avatar>
                 </IconButton>
               </Tooltip>
@@ -79,7 +83,7 @@ function HeaderUser() {
           >
             <Link to="/mypages/certify">
               <MenuItem onClick={handleClose}>
-                <Avatar sx={{ background: "#A6B1E1" }} />내 정보
+                <Avatar sx={{ background: "var(--primary-200)" }} />내 정보
               </MenuItem>
             </Link>
             <Link to="/">

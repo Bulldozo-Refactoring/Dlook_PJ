@@ -1,20 +1,19 @@
 // 알고리즘 - 랭킹분석
 import React from "react";
-import { NavLink } from "react-router-dom";
 import { styled } from "styled-components";
 import SubmitButton from "../SubmitButton";
 
 function Child() {
   return (
     <AlgorithmsType>
-      <div style={{ marginBottom: "4rem" }}>
+      <div style={{ marginBottom: "6rem" }}>
         <H2>기간별 진행도</H2>
         <Img src="https://ghchart.rshah.org/219138/OlMinje" />
         <SubmitButton
           style={{
             display: "inline-block",
             fontSize: "15px",
-            color: "#fff",
+            color: "var(--bg-100)",
             padding: "5px 20px",
           }}
           onClick={() =>
@@ -28,8 +27,8 @@ function Child() {
         <H2>Rating</H2>
         <Rating style={{ position: "relative" }}>
           <RatingBefore>Rank</RatingBefore>
-          <RatingContent style={{ borderBottom: "1px solid #ccc" }}>
-            <RatingLi style={{ borderRight: "1px solid #ccc" }}>
+          <RatingContent style={{ borderBottom: "1px solid var(--bg-300)" }}>
+            <RatingLi style={{ borderRight: "1px solid var(--bg-300)" }}>
               EXP<Value>2500</Value>
             </RatingLi>
             <RatingLi>
@@ -37,7 +36,7 @@ function Child() {
             </RatingLi>
           </RatingContent>
           <RatingContent>
-            <RatingLi style={{ borderRight: "1px solid #ccc" }}>
+            <RatingLi style={{ borderRight: "1px solid var(--bg-300)" }}>
               Class<Value>2500</Value>
             </RatingLi>
             <RatingLi>
@@ -51,7 +50,7 @@ function Child() {
 }
 const AlgorithmsType = styled.div`
   width: auto;
-  height: 600px;
+  min-height: 600px;
   margin: 0 auto;
   padding: 120px 0 0;
   text-align: center;
@@ -65,13 +64,14 @@ const H2 = styled.h2`
 `;
 const Img = styled.img`
   display: block;
+  width: 80%;
   margin: 0 auto 1rem;
 `;
 const Rating = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  box-shadow: 0 0 0 2px #ccc;
+  box-shadow: 0 0 0 2px var(--bg-300);
   border-radius: 10px;
   height: 200px;
 `;
@@ -83,9 +83,9 @@ const RatingBefore = styled.div`
   height: 60px;
   padding: 19px 0;
   border-radius: 50%;
-  background-color: #a6b1e1;
+  background-color: var(--primary-200);
   font-weight: 500;
-  color: #f5f5f5;
+  color: var(--bg-200);
 `;
 const RatingContent = styled.ul`
   height: 50%;
@@ -105,6 +105,6 @@ const Value = styled.span`
   font-size: 25px;
   line-height: 25px;
   font-weight: 500;
-  color: #d9acf5;
+  color: rgb(255, 115, 165);
 `;
 export default Child;

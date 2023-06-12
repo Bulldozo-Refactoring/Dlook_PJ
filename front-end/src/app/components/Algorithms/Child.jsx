@@ -75,7 +75,7 @@ function Child() {
 
 const AlgorithmsChild = styled.div`
   width: auto;
-  height: 600px;
+  min-height: 600px;
   margin: 0 auto;
   padding: 120px 0 0;
 `;
@@ -105,7 +105,7 @@ const ResetButton = styled.button`
   font-size: 14px;
   line-height: 1.4;
   background-color: #d0d3ff;
-  border-color: #424874;
+  border-color: var(--primary-100);
   font-weight: 500;
 `;
 const TableList = styled.table`
@@ -113,8 +113,8 @@ const TableList = styled.table`
   width: 100%;
 `;
 const TableListHead = styled.thead`
-  border-bottom: 1px solid #ccc;
-  background-color: #f5f5f5;
+  border-bottom: 1px solid var(--bg-300);
+  background-color: var(--bg-200);
 `;
 const HeadTh = styled.th`
   padding: 10px;
@@ -123,7 +123,7 @@ const HeadTh = styled.th`
   font-weight: 700;
 `;
 const TableListBody = styled.tbody`
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--bg-300);
   text-align: center;
 `;
 export default Child;

@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 
 function HeaderMenu() {
   const activeStyle = {
-    color: "#FFCEFE",
+    color: "var(--accent-200)",
     fontWeight: "700",
   };
 
@@ -63,7 +63,7 @@ function HeaderMenu() {
           <Li>
             <NavStyle
               style={({ isActive }) => (isActive ? activeStyle : {})}
-              to="/member/profile"
+              to="/mypages/certify"
             >
               내 정보
             </NavStyle>

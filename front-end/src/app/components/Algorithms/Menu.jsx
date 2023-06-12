@@ -4,21 +4,21 @@ import { NavLink } from "react-router-dom";
 function AlgorithmsMenu() {
   const disabled = {
     padding: "15px 40px",
-    borderBottom: "3px solid #f5f5f5",
+    borderBottom: "3px solid var(--bg-200)",
   };
   const active = {
     fontWeight: "700",
     padding: "15px 40px",
-    borderBottom: "3px solid #424874",
+    borderBottom: "3px solid var(--primary-100)",
   };
   const subDisabled = {
     padding: "16px 0",
-    backgroundColor: "#f5f5f5",
+    backgroundColor: "var(--bg-200)",
     boxSixing: "border-box",
   };
   const subActive = {
     padding: "16px 0",
-    backgroundColor: "#a6b1e1",
+    backgroundColor: "var(--primary-200)",
     boxSixing: "border-box",
   };
   return (
