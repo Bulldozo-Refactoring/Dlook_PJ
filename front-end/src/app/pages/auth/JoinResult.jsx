@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-function SignUpResult() {
+function JoinResult() {
   return (
     <>
       <div>
@@ -11,4 +11,4 @@ function SignUpResult() {
   );
 }
 
-export default SignUpResult;
+export default JoinResult;

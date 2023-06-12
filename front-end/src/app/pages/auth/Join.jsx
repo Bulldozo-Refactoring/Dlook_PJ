@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { styled } from "styled-components";
 
-function SignUp() {
+function Join() {
   const {
     register,
     handleSubmit,
@@ -223,4 +223,4 @@ const ErrorMessage = styled.span`
   color: red;
 `;
 
-export default SignUp;
+export default Join;

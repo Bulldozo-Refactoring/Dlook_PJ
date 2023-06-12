@@ -39,7 +39,7 @@ function Login() {
             display: "inline-block",
             padding: "90px 40px 0",
             boxSizing: "border-box",
-            maxWidth: "450px",
+            maxWidth: "400px",
           }}
         >
           <Title>Login</Title>

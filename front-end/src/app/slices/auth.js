@@ -9,6 +9,7 @@ export const join = createAsyncThunk(
         "http://localhost:8080/member/register",
         payload
       );
+      console.log(response.data);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -26,6 +27,7 @@ export const login = createAsyncThunk(
         "http://localhost:8080/member/login",
         payload
       );
+      console.log(response.data);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
