@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="41c5dbc3-f2de-4a8a-b6f3-a3cc3e2cdca0" name="Changes" comment="modify file">
+      <change beforePath="$PROJECT_DIR$/back_end/src/main/java/com/example/Project/Dlook/controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/src/main/java/com/example/Project/Dlook/controller/BoardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/src/main/java/com/example/Project/Dlook/controller/ReplyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/src/main/java/com/example/Project/Dlook/controller/ReplyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/src/main/java/com/example/Project/Dlook/domain/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/src/main/java/com/example/Project/Dlook/domain/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/src/main/java/com/example/Project/Dlook/domain/Reply.java" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/src/main/java/com/example/Project/Dlook/domain/Reply.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/src/main/java/com/example/Project/Dlook/domain/dto/BoardDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/src/main/java/com/example/Project/Dlook/domain/dto/BoardDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/src/main/java/com/example/Project/Dlook/domain/dto/ReplyDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/src/main/java/com/example/Project/Dlook/domain/dto/ReplyDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/src/main/java/com/example/Project/Dlook/repository/ReplyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/src/main/java/com/example/Project/Dlook/repository/ReplyRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/src/main/java/com/example/Project/Dlook/service/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/src/main/java/com/example/Project/Dlook/service/BoardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/src/main/java/com/example/Project/Dlook/service/ReplyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/src/main/java/com/example/Project/Dlook/service/ReplyService.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/back_end">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Dlook" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="gyu" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/back_end/src/main/java/com/example/Project/Dlook/controller/BoardController.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2QxPiXE9gT92oXjMyKvs2Hd5uDV" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "C:/깃/Dlook_PJ",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\깃\Dlook_PJ\back_end\src\main\java" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="DlookApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.Project.Dlook.DlookApplication" />
+      <module name="Dlook.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.Project.Dlook.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.DlookApplication" />
+        <item itemvalue="Application.DlookApplication" />
+        <item itemvalue="Application.DlookApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="41c5dbc3-f2de-4a8a-b6f3-a3cc3e2cdca0" name="Changes" comment="" />
+      <created>1686292387105</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1686292387105</updated>
+    </task>
+    <task id="LOCAL-00001" summary="BOARD">
+      <created>1686473986820</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1686473986820</updated>
+    </task>
+    <task id="LOCAL-00002" summary="BOARD">
+      <created>1686482829021</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1686482829021</updated>
+    </task>
+    <task id="LOCAL-00003" summary="BOARD">
+      <created>1686528505614</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1686528505614</updated>
+    </task>
+    <task id="LOCAL-00004" summary="modify file">
+      <created>1686535312195</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1686535312195</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="BOARD" />
+    <MESSAGE value="modify file" />
+    <option name="LAST_COMMIT_MESSAGE" value="modify file" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
