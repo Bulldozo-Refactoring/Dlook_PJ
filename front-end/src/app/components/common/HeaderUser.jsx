@@ -77,7 +77,7 @@ function HeaderUser() {
             transformOrigin={{ horizontal: "right", vertical: "top" }}
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
-            <Link to="/member/profile">
+            <Link to="/mypages/certify">
               <MenuItem onClick={handleClose}>
                 <Avatar sx={{ background: "#A6B1E1" }} />내 정보
               </MenuItem>

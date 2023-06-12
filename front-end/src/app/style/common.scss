@@ -173,26 +173,6 @@ button {
     font-weight: bold;
   }
 }
-.sub_menu {
-  li {
-    position: relative;
-  }
-  a {
-    display: block;
-    padding: 6px 15px;
-    border-left: 3px solid;
-    font-size: 0.9em;
-    color: var(--primary-100);
-    font-weight: 500;
-  }
-  a:hover,
-  a:focus {
-    color: var(--accent-200);
-  }
-  a:hover::before {
-    background-color: var(--accent-200);
-  }
-}
 
 /* #main */
 #main {
