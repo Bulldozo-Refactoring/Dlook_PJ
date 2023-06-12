@@ -20,7 +20,7 @@ public class BoardController {
 //list
 
     @PostMapping("/")
-    public ResponseEntity<List<BoardDTO>> boardsList() {
+    public ResponseEntity<String> boardsList(@RequestBody BoardDTO) {
         List<BoardDTO> boardDTOList = boardService.findAll();
         return ResponseEntity.ok(boardDTOList);
     }
@@ -28,11 +28,6 @@ public class BoardController {
 
 //create
 
-    @GetMapping("/write")
-    public ResponseEntity<BoardDTO> writeForm() {
-
-        return ResponseEntity.ok(new BoardDTO());
-    }
 
     @PostMapping("/write")
     public String writeBoard(@ModelAttribute BoardDTO boardDTO) {
@@ -47,7 +42,6 @@ public class BoardController {
         BoardDTO boardDTO = boardService.findById(board_no);
         model.addAttribute("board", boardDTO);
         return "detail";
-
     }
 //update
 
