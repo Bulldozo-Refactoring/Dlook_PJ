@@ -26,6 +26,7 @@ public class Board {
     private Long board_no;
 
     @Column(nullable = false)
+    
     private String member_seq;
 
     @Column(length=255, nullable = false)
