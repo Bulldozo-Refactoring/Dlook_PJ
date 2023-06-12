@@ -1,7 +1,7 @@
 package com.example.Project.Dlook.controller;
 
-import com.example.Project.Dlook.domain.dto.MemberJoinDTO;
-import com.example.Project.Dlook.domain.dto.MemberLoginDTO;
+import com.example.Project.Dlook.domain.dto.JoinRequestDTO;
+import com.example.Project.Dlook.domain.dto.LoginRequestDTO;
 import com.example.Project.Dlook.exception.AppException;
 import com.example.Project.Dlook.exception.ErrorCode;
 import com.example.Project.Dlook.service.MemberService;
@@ -44,7 +44,7 @@ public class MemberControllerTest {
         mockMvc.perform(post("/members/join")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(new MemberJoinDTO(memberName, memberEmail, memberPw))))
+                        .content(objectMapper.writeValueAsBytes(new JoinRequestDTO(memberName, memberEmail, memberPw))))
                         .andDo(print())
                         .andExpect(status().isOk());
     }
@@ -63,7 +63,7 @@ public class MemberControllerTest {
         mockMvc.perform(post("/members/join")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(new MemberJoinDTO(memberName, memberEmail, memberPw))))
+                        .content(objectMapper.writeValueAsBytes(new JoinRequestDTO(memberName, memberEmail, memberPw))))
                         .andDo(print())
                         .andExpect(status().isConflict());
     }
@@ -82,7 +82,7 @@ public class MemberControllerTest {
         mockMvc.perform(post("/members/join")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(new MemberJoinDTO(memberName, memberEmail, memberPw))))
+                        .content(objectMapper.writeValueAsBytes(new JoinRequestDTO(memberName, memberEmail, memberPw))))
                         .andDo(print())
                         .andExpect(status().isConflict());
     }
@@ -94,13 +94,10 @@ public class MemberControllerTest {
         String memberEmail = "chris2769@naver.com";
         String memberPw = "1q2w3e4r";
 
-        when(memberService.login(any(), any()))
-                .thenReturn("token");
-
         mockMvc.perform(post("/members/login")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(new MemberLoginDTO(memberEmail, memberPw))))
+                        .content(objectMapper.writeValueAsBytes(new LoginRequestDTO(memberEmail, memberPw))))
                         .andDo(print())
                         .andExpect(status().isOk());
     }
@@ -118,7 +115,7 @@ public class MemberControllerTest {
         mockMvc.perform(post("/members/login")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(new MemberLoginDTO(memberEmail, memberPw))))
+                        .content(objectMapper.writeValueAsBytes(new LoginRequestDTO(memberEmail, memberPw))))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
@@ -136,7 +133,7 @@ public class MemberControllerTest {
         mockMvc.perform(post("/members/login")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsBytes(new MemberLoginDTO(memberEmail, memberPw))))
+                        .content(objectMapper.writeValueAsBytes(new LoginRequestDTO(memberEmail, memberPw))))
                         .andDo(print())
                         .andExpect(status().isUnauthorized());
     }

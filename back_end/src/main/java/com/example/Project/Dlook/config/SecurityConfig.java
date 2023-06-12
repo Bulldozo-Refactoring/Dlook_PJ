@@ -32,9 +32,10 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.POST, "/**").authenticated()
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // jwt사용하는 경우 씀
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // jwt 사용하는 경우 씀
                 .and()
                 .addFilterBefore(new JwtFilter(memberService, secretKey), UsernamePasswordAuthenticationFilter.class)
+                // UsernamePasswordAuthenticationFilter에 의해 처리되기 전에 먼저 JwtFilter를 통과한다는 것을 의미
                 .build();
     }
 }
