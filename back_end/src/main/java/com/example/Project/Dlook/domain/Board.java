@@ -11,6 +11,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -46,6 +48,11 @@ public class Board {
     @UpdateTimestamp
     private LocalDateTime board_upddate;
 
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Reply> replyList = new ArrayList<>();
+
+
+
     public static Board toSave(BoardDTO boardDTO) {
         Board board= new Board();
         board.setBoard_no(boardDTO.getBoard_no());
@@ -62,6 +69,7 @@ public class Board {
         board.setBoard_title(boardDTO.getBoard_title());
         board.setBoard_content(boardDTO.getBoard_content());
         board.setBoard_ctg(boardDTO.getBoard_ctg());
+
 
         return board;
     }
