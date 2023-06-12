@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { SectionsContainer, Section } from "react-fullpage";
 import MainCard from "app/components/MainCard";
 import SubmitButton from "app/components/SubmitButton";
@@ -14,6 +16,17 @@ function MainPage() {
     verticalAlign: false,
     sectionPaddingBottom: "80px",
     arrowNavigation: true,
+  };
+
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (isLoggedIn) {
+      navigate("/algorithms/step");
+    } else {
+      navigate("/member/login");
+    }
   };
 
   return (
@@ -39,7 +52,7 @@ function MainPage() {
             </p>
             <SubmitButton
               disableRipple
-              onClick={() => (document.location.href = "/algorithms/step")}
+              onClick={handleClick}
               style={{ marginTop: "30px", color: "var(--bg-100)" }}
             >
               알고리즘 문제 보러가기
