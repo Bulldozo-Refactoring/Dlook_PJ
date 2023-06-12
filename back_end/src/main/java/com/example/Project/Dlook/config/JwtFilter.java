@@ -1,7 +1,7 @@
 package com.example.Project.Dlook.config;
 
 import com.example.Project.Dlook.service.MemberService;
-import com.example.Project.Dlook.utils.JwtTokenUtil;
+import com.example.Project.Dlook.utils.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -11,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -34,22 +33,25 @@ public class JwtFilter extends OncePerRequestFilter {
         // token안보내면 Block
         if (authorization == null || !authorization.startsWith("Bearer ")) {
             log.error("Authorization을 잘못 보냈습니다.");
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             filterChain.doFilter(request, response);
             return;
         }
 
         // Token 꺼내기
-        String token = authorization.split(" ")[1]; // Bearer ~~~token 인 경우 Bearer뒤의 " "을 기준으로 뒤쪽이 token
+        String accessToken = authorization.split(" ")[1]; // Bearer ~~~token 인 경우 Bearer뒤의 " "을 기준으로 뒤쪽이 token
 
+        log.error("Token expire");
         // Token Expired되었는지 여부
-        if (JwtTokenUtil.isExpired(token, secretKey)) {
-            log.error("Token이 만료 되었습니다");
+        if (JwtProvider.isExpired(accessToken, secretKey)) {
+            log.error("Token expire exite");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401에러
             filterChain.doFilter(request, response);
             return;
         }
 
         // MemberEmail Token에서 꺼내기
-        String memberEmail = JwtTokenUtil.getMemberEmail(token, secretKey);
+        String memberEmail = JwtProvider.getMemberEmail(accessToken, secretKey);
         log.info("memberEmail : {}", memberEmail);
 
         // 권한 부여
@@ -57,7 +59,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 new UsernamePasswordAuthenticationToken(memberEmail, null, List.of(new SimpleGrantedAuthority("MEMBER")));
         // Detail을 넣어줍니다.
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken); // 사용자 인증, 작업 실행 가능
         filterChain.doFilter(request, response);
     }
 }
