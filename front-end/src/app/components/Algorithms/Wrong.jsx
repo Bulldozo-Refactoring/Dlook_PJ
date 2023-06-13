@@ -7,9 +7,9 @@ function Wrong() {
   return (
     <AlgorithmsWrong>
       <H1>오답 유형</H1>
-      <div style={{ width: "100%", height: "500px" }}>
+      <Wrap>
         <PieChart data={exData} />
-      </div>
+      </Wrap>
     </AlgorithmsWrong>
   );
 }
@@ -26,6 +26,10 @@ const H1 = styled.h1`
   font-size: 45px;
   font-weight: 500;
   line-height: 51px;
+`;
+const Wrap = styled.div`
+  width: 100%;
+  height: 500px;
 `;
 const exData = [
   {

@@ -10,7 +10,8 @@ function PrivateRoute() {
   const location = useLocation();
 
   if (!isLoggedIn) {
-    return <Navigate to="/member/login" state={{ from: location }} />; // from에 현재 URL을 저장하여 리다렉트에 사용
+    // from에 현재 URL을 저장하여 리다렉트에 사용
+    return <Navigate to="/member/login" state={{ from: location }} />;
   }
 
   return <Outlet />; //로그인 상태라면 원래 컴포넌트로 렌더링

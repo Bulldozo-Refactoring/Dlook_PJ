@@ -2,12 +2,15 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { SectionsContainer, Section } from "react-fullpage";
+import styled from "styled-components";
+
 import MainCard from "app/components/MainCard";
 import SubmitButton from "app/components/SubmitButton";
 import mainBack01 from "app/assets/images/mainBack01.png";
-import styled from "styled-components";
+import mainBack02 from "app/assets/images/mainBack02.png";
 
 function MainPage() {
+  // page scroll
   let options = {
     sectionClassName: "section",
     anchors: ["sectionOne", "sectionTwo", "sectionThree"],
@@ -22,21 +25,18 @@ function MainPage() {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    if (isLoggedIn) {
-      navigate("/algorithms/step");
-    } else {
-      navigate("/member/login");
-    }
+    if (isLoggedIn) navigate("/algorithms/step");
+    else navigate("/member/login");
   };
 
   return (
-    <div id="main">
+    <Main>
       <SectionsContainer {...options}>
-        <Section id="main_box01">
+        <Section>
           <MainBox01>
             <p>Welcome</p>
             <H1>Dlook에 오신걸 환영합니다.</H1>
-            <p>
+            <PStyle>
               청춘의 청춘 남는 못하다 봄바람을 있는 속에 실로 것이다.
               <br />
               붙잡아 만천하의 것은 있으며,
@@ -49,33 +49,17 @@ function MainPage() {
               <br />
               그것은 얼마나 보는 새가 방황하여도,
               <br />
-            </p>
-            <SubmitButton
-              disableRipple
-              onClick={handleClick}
-              style={{ marginTop: "30px", color: "var(--bg-100)" }}
-            >
+            </PStyle>
+            <SubmitButton disableRipple onClick={handleClick}>
               알고리즘 문제 보러가기
             </SubmitButton>
           </MainBox01>
-          <div
-            className="back"
-            style={{
-              background:
-                "linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(" +
-                mainBack01 +
-                ") no-repeat center center",
-              backgroundSize: "cover",
-              zIndex: "0",
-              width: "100%",
-              height: "100%",
-            }}
-          ></div>
+          <Back />
         </Section>
         <Section id="main_box02">
           <MainBox02>
             <H1>불도조</H1>
-            <p style={{ marginBottom: "20px" }}>
+            <PStyle>
               청춘의 청춘 남는 못하다 봄바람을 있는 속에 실로 것이다.
               <br />
               붙잡아 만천하의 것은 있으며,
@@ -88,25 +72,34 @@ function MainPage() {
               <br />
               그것은 얼마나 보는 새가 방황하여도,
               <br />
-            </p>
-            <div className="card">
-              <MainCard />
-            </div>
+            </PStyle>
+            <MainCard />
           </MainBox02>
         </Section>
-        <Section
-          id="main_box03"
-          style={{ margin: "0 auto", backgroundColor: "var(--bg-100)" }}
-        >
+        <Section style={{ margin: "0 auto", backgroundColor: "var(--bg-100)" }}>
           <MainBox03>
-            <h1 style={{ fontSize: "60px", fontWeight: "500" }}>공지사항</h1>
+            <H1>공지사항</H1>
           </MainBox03>
         </Section>
       </SectionsContainer>
-    </div>
+    </Main>
   );
 }
-
+const Main = styled.div`
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 6.5%;
+    left: -300px;
+    background: url(${mainBack02}) no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed !important;
+    height: 550px;
+    width: 80%;
+    margin: 0 auto;
+  overflow-x: hidden;
+`;
 const MainBox01 = styled.div`
   position: absolute;
   top: 200px;
@@ -117,6 +110,10 @@ const MainBox01 = styled.div`
   line-height: 26px;
   font-weight: 300;
   z-index: 1;
+  *,
+  button {
+    color: var(--bg-100);
+  }
 `;
 const MainBox02 = styled.div`
   position: absolute;
@@ -126,6 +123,12 @@ const MainBox02 = styled.div`
   font-size: 18px;
   line-height: 24px;
   font-weight: 300;
+  button {
+    padding: 3px 20px;
+    font-size: 13px;
+    color: var(--primary-200);
+    background-color: var(--bg-200);
+  }
 `;
 const MainBox03 = styled.div`
   height: 100%;
@@ -139,5 +142,17 @@ const H1 = styled.h1`
   font-weight: 500;
   line-height: 66px;
 `;
-
+const PStyle = styled.p`
+  margin-bottom: 2rem;
+`;
+const Back = styled.div`
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+    url(${mainBack01});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+`;
 export default MainPage;

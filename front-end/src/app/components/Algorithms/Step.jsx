@@ -3,19 +3,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { styled } from "styled-components";
 
-const dummyList = [
-  {
-    id: 1,
-    title: "문제링크 ",
-    solve: "해결",
-  },
-  {
-    id: 1,
-    title: "문제링크 ",
-    solve: "해결",
-  },
-];
-
 function Step() {
   return (
     <AlgorithmsStep>
@@ -26,24 +13,22 @@ function Step() {
       </StepTop>
       <TableList>
         <TableListHead>
-          <tr>
+          <BodyTr>
             <HeadTh>문제 번호</HeadTh>
-            <HeadTh>제목</HeadTh>
+            <HeadTh style={{ width: "80%" }}>제목</HeadTh>
             <HeadTh>해결 여부</HeadTh>
-          </tr>
+          </BodyTr>
         </TableListHead>
         <TableListBody>
           {dummyList.map((it) => {
             return (
-              <tr>
-                <td style={{ padding: "10px" }}>{it.id}</td>
-                <th>
-                  <NavLink to="/" style={{ fontWeight: "400" }}>
-                    {it.title}
-                  </NavLink>
-                </th>
-                <td>{it.solve}</td>
-              </tr>
+              <BodyTr>
+                <BodyTd>{it.id}</BodyTd>
+                <BodyTd>
+                  <TdLink to="/algorithms/step">{it.title}</TdLink>
+                </BodyTd>
+                <BodyTd>{it.solve}</BodyTd>
+              </BodyTr>
             );
           })}
         </TableListBody>
@@ -57,55 +42,88 @@ const AlgorithmsStep = styled.div`
   height: 600px;
   margin: 0 auto;
   padding: 120px 0 0;
-`;
-const H1 = styled.h1`
-  margin-bottom: 2rem;
-  text-align: center;
-  font-size: 45px;
-  font-weight: 500;
-  line-height: 51px;
+  * {
+    font-weight: 500;
+  }
 `;
 const StepTop = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 10px;
+  margin-bottom: 0.4rem;
+`;
+const H1 = styled.h1`
+  margin-bottom: 5rem;
+  text-align: center;
+  font-size: 45px;
+  line-height: 51px;
 `;
 const H2 = styled.h2`
   font-size: 40px;
   line-height: 18px;
-  font-weight: 500;
 `;
 const ResetButton = styled.button`
-  color: #1976d2;
   padding: 6px 15px;
   max-height: 40px;
+  border: 1px solid var(--primary-100);
   border-radius: 8px;
-  font-size: 14px;
-  line-height: 1.4;
+  box-sizing: border-box;
   background-color: #d0d3ff;
-  border-color: #424874;
-  font-weight: 500;
+  font-size: 14px;
+  color: var(--primary-100);
 `;
 const TableList = styled.table`
-  border-collapse: collapse;
-  border-spacing: 0;
   margin: 0 auto;
   width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  box-shadow: 0px 6px 3px 2px var(--bg-300);
 `;
 const TableListHead = styled.thead`
-  border-bottom: 1px solid #ccc;
-  background-color: #f5f5f5;
-`;
-const HeadTh = styled.th`
-  padding: 10px;
-  width: 12%;
-  text-align: center;
-  font-weight: 700;
+  border-bottom: 1px solid var(--bg-300);
+  background-color: var(--bg-200);
 `;
 const TableListBody = styled.tbody`
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--bg-300);
   text-align: center;
   font-weight: 400;
 `;
+const HeadTh = styled.th`
+  padding: 10px;
+  border: 1px solid var(--bg-300);
+  text-align: center;
+  cursor: pointer;
+`;
+const BodyTd = styled.td`
+  padding: 15px 10px;
+  border: 1px solid var(--bg-300);
+  font-weight: 300;
+`;
+const BodyTr = styled.tr`
+  &:hover {
+    ${BodyTd} {
+      font-weight: 500;
+      background-color: var(--primary-200);
+      color: var(--bg-100);
+      opacity: 0.5;
+    }
+  }
+`;
+const TdLink = styled(NavLink)`
+  display: inline-block;
+  width: 100%;
+  font-weight: 300;
+`;
+const dummyList = [
+  {
+    id: 1,
+    title: "문제링크 ",
+    solve: "해결",
+  },
+  {
+    id: 1,
+    title: "문제링크 ",
+    solve: "해결",
+  },
+];
 export default Step;

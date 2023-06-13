@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, login } from "app/slices/member";
+import { styled } from "styled-components";
 import Cookies from "js-cookie";
 
 import Avatar from "@mui/material/Avatar";
@@ -19,25 +20,21 @@ function HeaderUser() {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const handleClick = (event) => setAnchorEl(event.currentTarget);
+  const handleClose = () => setAnchorEl(null);
 
   const handleLogout = () => {
+    // 로그아웃 시  로그인 상태 및  유저 정보 쿠키 삭제
     Cookies.remove("isLoggedIn");
+    // Cookies.remove("user");
     dispatch(logout());
   };
 
   useEffect(() => {
     // 페이지가 로드될 때 쿠키에서 로그인 정보를 읽어와 Redux 상태에 반영
     const storedLoginStatus = Cookies.get("isLoggedIn");
-    if (storedLoginStatus === "true") {
-      // 쿠키에 저장된 로그인 상태가 true인 경우 Redux 상태를 업데이트
-      dispatch(login()); // 로그인 액션을 디스패치
-    }
+    // 쿠키에 저장된 로그인 상태가 true인 경우 Redux 상태를 업데이트
+    if (storedLoginStatus === "true") dispatch(login()); // 로그인 액션을 디스패치
   }, [dispatch]);
 
   const linkTo = isLoggedIn ? "/mypages/certify" : "/member/login";
@@ -47,14 +44,8 @@ function HeaderUser() {
       <li>
         <React.Fragment>
           <Link to={linkTo}>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                textAlign: "center",
-              }}
-            >
-              <Tooltip title="Account settings">
+            <BoxStyle>
+              <Tooltip title="내 정보">
                 <IconButton
                   onClick={handleClick}
                   sx={{ ml: 2 }}
@@ -62,16 +53,10 @@ function HeaderUser() {
                   aria-haspopup="true"
                   aria-expanded={open ? "true" : undefined}
                 >
-                  <Avatar
-                    sx={{
-                      width: 40,
-                      height: 40,
-                      background: "var(--primary-200)",
-                    }}
-                  ></Avatar>
+                  <Avatar sx={{ background: "var(--primary-200)" }}></Avatar>
                 </IconButton>
               </Tooltip>
-            </Box>
+            </BoxStyle>
           </Link>
           {isLoggedIn && ( // 로그인 상태에서만 보이도록 조건부 렌더링
             <Menu
@@ -130,4 +115,9 @@ function HeaderUser() {
   );
 }
 
+const BoxStyle = styled(Box)`
+  display: flex;
+  align-items: center;
+  text-align: center;
+`;
 export default HeaderUser;
