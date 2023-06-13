@@ -2,6 +2,8 @@ package com.example.Project.Dlook.controller;
 
 import com.example.Project.Dlook.domain.dto.JoinRequestDTO;
 import com.example.Project.Dlook.domain.dto.LoginRequestDTO;
+import com.example.Project.Dlook.domain.dto.TokenDto;
+import com.example.Project.Dlook.domain.dto.TokenRequestDto;
 import com.example.Project.Dlook.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,17 +23,17 @@ public class MemberController {
 
     @PostMapping("/join")
     public ResponseEntity<String> join(@RequestBody JoinRequestDTO dto) {
-        memberService.join(dto.getMemberName(), dto.getMemberEmail(), dto.getMemberPw());
+        memberService.join(dto);
         return ResponseEntity.ok().body("join success");
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody LoginRequestDTO dto) {
-        Map<String, String> tokens = memberService.login(dto.getMemberEmail(), dto.getMemberPw());
-        return ResponseEntity.ok().body(tokens);
+    public ResponseEntity<TokenDto> login(@RequestBody LoginRequestDTO dto) {
+        return ResponseEntity.ok(memberService.login(dto));
     }
 
-    @PostMapping("/review")
-    public void review(@RequestBody LoginRequestDTO dto) {
+    @PostMapping("/reissue")
+    public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequestDto dto) {
+        return ResponseEntity.ok(memberService.reissue(dto));
     }
 }

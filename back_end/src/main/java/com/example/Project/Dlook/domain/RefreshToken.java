@@ -15,12 +15,13 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class RefreshToken {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long refreshTokenId;
+    private String refreshKey; // Member ID °ª
 
-    @Column(nullable = false)
-    private String refreshToken;
+    @Column
+    private String refreshValue; // Refresh Token String
 
-    @Column(nullable = false)
-    private String memberEmail;
+    public RefreshToken updateValue(String token) {
+        this.refreshValue = token;
+        return this;
+    }
 }
