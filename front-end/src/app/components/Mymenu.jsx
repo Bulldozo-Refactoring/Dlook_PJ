@@ -1,36 +1,21 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink as BaseNavLink } from "react-router-dom";
 import { styled } from "styled-components";
 
 function Mymenu() {
-  const activeStyle = {
-    color: "#FF73A5",
-    fontWeight: "700",
-  };
-
   return (
-    <Menu>
+    <MenuUl>
       <MenuLi>
-        <NabStyle
-          style={({ isActive }) => (isActive ? activeStyle : {})}
-          to="/mypages/certify"
-        >
-          백준 연동
-        </NabStyle>
+        <NavStyle to="/mypages/certify">백준 연동</NavStyle>
       </MenuLi>
       <MenuLi>
-        <NabStyle
-          style={({ isActive }) => (isActive ? activeStyle : {})}
-          to="/mypages/board"
-        >
-          글/댓글 관리
-        </NabStyle>
+        <NavStyle to="/mypages/board">글/댓글 관리</NavStyle>
       </MenuLi>
-    </Menu>
+    </MenuUl>
   );
 }
 
-const Menu = styled.ul`
+const MenuUl = styled.ul`
   min-width: 220px;
   height: 100px;
   text-align: center;
@@ -38,7 +23,7 @@ const Menu = styled.ul`
 const MenuLi = styled.li`
   position: relative;
 `;
-const NabStyle = styled(NavLink)`
+const NavStyle = styled(BaseNavLink)`
   display: block;
   padding: 6px 15px;
   border-left: 3px solid;
@@ -51,6 +36,10 @@ const NabStyle = styled(NavLink)`
   }
   &:hover::before {
     background-color: FF73A5;
+  }
+  &.active {
+    color: #ff73a5;
+    font-weight: 700;
   }
 `;
 export default Mymenu;

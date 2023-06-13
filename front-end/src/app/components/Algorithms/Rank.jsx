@@ -1,7 +1,6 @@
 // 알고리즘 - 랭킹분석
 import React from "react";
 import { styled } from "styled-components";
-import SubmitButton from "../SubmitButton";
 
 function Child() {
   return (
@@ -9,23 +8,17 @@ function Child() {
       <div style={{ marginBottom: "6rem" }}>
         <H2>기간별 진행도</H2>
         <Img src="https://ghchart.rshah.org/219138/OlMinje" />
-        <SubmitButton
-          style={{
-            display: "inline-block",
-            fontSize: "15px",
-            color: "var(--bg-100)",
-            padding: "5px 20px",
-          }}
+        <LinkStyle
           onClick={() =>
-            (document.location.href = "https://github.com/Bulldozo/Dlook_PJ")
+            (document.location.href = "https://github.com/Bulldozo")
           }
         >
           깃허브 바로가기
-        </SubmitButton>
+        </LinkStyle>
       </div>
       <div style={{ width: "40%", margin: "0 auto" }}>
         <H2>Rating</H2>
-        <Rating style={{ position: "relative" }}>
+        <Rating>
           <RatingBefore>Rank</RatingBefore>
           <RatingContent style={{ borderBottom: "1px solid var(--bg-300)" }}>
             <RatingLi style={{ borderRight: "1px solid var(--bg-300)" }}>
@@ -65,9 +58,19 @@ const H2 = styled.h2`
 const Img = styled.img`
   display: block;
   width: 80%;
+  height: 150px;
   margin: 0 auto 1rem;
 `;
+const LinkStyle = styled.a`
+  display: inline-block;
+  background: none;
+  text-decoration: underline;
+  font-size: 15px;
+  color: #1976d2;
+  cursor: pointer;
+`;
 const Rating = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;

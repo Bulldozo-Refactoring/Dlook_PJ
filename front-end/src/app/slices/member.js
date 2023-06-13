@@ -5,6 +5,8 @@ import axios from "./axuisMock";
 export const join = createAsyncThunk(
   "member/join",
   async (payload, thunkAPI) => {
+    console.log(payload);
+    console.log(thunkAPI);
     try {
       const response = await axios.post(
         "http://localhost:8080/member/join",
@@ -20,6 +22,8 @@ export const join = createAsyncThunk(
 export const login = createAsyncThunk(
   "member/login",
   async (payload, thunkAPI) => {
+    console.log(payload);
+    console.log(thunkAPI);
     try {
       const response = await axios.post(
         "http://localhost:8080/member/login",
@@ -42,7 +46,8 @@ export const logout = createAsyncThunk("member/logout", async (_, thunkAPI) => {
     await axios.post("http://localhost:8080/member/logout", null, {
       withCredentials: true,
     });
-    return null; // 로그아웃 성공 시 반환값은 null
+    // 로그아웃 성공 시 반환값은 null
+    return null;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data);
   }

@@ -5,6 +5,136 @@ import { styled } from "styled-components";
 import Autocomplete from "@mui/joy/Autocomplete";
 import FormControl from "@mui/joy/FormControl";
 
+function Child() {
+  return (
+    <AlgorithmsChild>
+      <H1>알고리즘 추천</H1>
+      <StepTop>
+        <H2>Level</H2>
+        <div className="right" style={{ display: "flex" }}>
+          <FormControl id="multiple-limit-tags">
+            <AutocompleteStyle
+              multiple
+              placeholder="List"
+              size="sm"
+              limitTags={2}
+              options={List}
+              getOptionLabel={(option) => option.title}
+              defaultValue={[List[1]]}
+            />
+          </FormControl>
+          <ResetButton>새로고침</ResetButton>
+        </div>
+      </StepTop>
+      <TableList>
+        <TableListHead>
+          <BodyTr>
+            <HeadTh>문제 번호</HeadTh>
+            <HeadTh style={{ width: "80%" }}>제목</HeadTh>
+            <HeadTh>해결 여부</HeadTh>
+          </BodyTr>
+        </TableListHead>
+        <TableListBody>
+          {dummyList.map((it) => {
+            return (
+              <BodyTr>
+                <BodyTd>{it.id}</BodyTd>
+                <BodyTd>
+                  <TdLink to="/algorithms/step">{it.title}</TdLink>
+                </BodyTd>
+                <BodyTd>{it.solve}</BodyTd>
+              </BodyTr>
+            );
+          })}
+        </TableListBody>
+      </TableList>
+    </AlgorithmsChild>
+  );
+}
+
+const AlgorithmsChild = styled.div`
+  width: auto;
+  height: 600px;
+  margin: 0 auto;
+  padding: 120px 0 0;
+  * {
+    font-weight: 500;
+  }
+`;
+const StepTop = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 0.4rem;
+`;
+const H1 = styled.h1`
+  margin-bottom: 5rem;
+  text-align: center;
+  font-size: 45px;
+  line-height: 51px;
+`;
+const H2 = styled.h2`
+  font-size: 40px;
+  line-height: 18px;
+`;
+const AutocompleteStyle = styled(Autocomplete)`
+  width: 100%;
+  max-width: 400px;
+  margin-left: -10px;
+  border-color: var(--primary-100) !important;
+`;
+const ResetButton = styled.button`
+  padding: 6px 15px;
+  max-height: 40px;
+  border: 1px solid var(--primary-100);
+  border-radius: 8px;
+  box-sizing: border-box;
+  background-color: #d0d3ff;
+  font-size: 14px;
+  color: var(--primary-100);
+`;
+const TableList = styled.table`
+  margin: 0 auto;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  box-shadow: 0px 6px 3px 2px var(--bg-300);
+`;
+const TableListHead = styled.thead`
+  border-bottom: 1px solid var(--bg-300);
+  background-color: var(--bg-200);
+`;
+const TableListBody = styled.tbody`
+  border-bottom: 1px solid var(--bg-300);
+  text-align: center;
+  font-weight: 400;
+`;
+const HeadTh = styled.th`
+  padding: 10px;
+  border: 1px solid var(--bg-300);
+  text-align: center;
+  cursor: pointer;
+`;
+const BodyTd = styled.td`
+  padding: 15px 10px;
+  border: 1px solid var(--bg-300);
+  font-weight: 300;
+`;
+const BodyTr = styled.tr`
+  &:hover {
+    ${BodyTd} {
+      font-weight: 500;
+      background-color: var(--primary-200);
+      color: var(--bg-100);
+      opacity: 0.5;
+    }
+  }
+`;
+const TdLink = styled(NavLink)`
+  display: inline-block;
+  width: 100%;
+  font-weight: 300;
+`;
 const dummyList = [
   {
     id: 1,
@@ -24,106 +154,4 @@ const List = [
   { title: "알고리즘 종류1" },
   { title: "알고리즘 종류1" },
 ];
-
-function Child() {
-  return (
-    <AlgorithmsChild>
-      <H1>알고리즘 추천</H1>
-      <StepTop>
-        <H2>Level</H2>
-        <div className="right" style={{ display: "flex" }}>
-          <FormControl id="multiple-limit-tags">
-            <Autocomplete
-              multiple
-              placeholder="List"
-              size="sm"
-              limitTags={2}
-              options={List}
-              getOptionLabel={(option) => option.title}
-              defaultValue={[List[1]]}
-              sx={{ width: "100%", maxWidth: "400px" }}
-            />
-          </FormControl>
-          <ResetButton>새로고침</ResetButton>
-        </div>
-      </StepTop>
-      <TableList>
-        <TableListHead>
-          <tr>
-            <HeadTh>문제 번호</HeadTh>
-            <HeadTh>제목</HeadTh>
-            <HeadTh>해결 여부</HeadTh>
-          </tr>
-        </TableListHead>
-        <TableListBody>
-          {dummyList.map((it) => {
-            return (
-              <tr>
-                <td style={{ padding: "10px" }}>{it.id}</td>
-                <th>
-                  <NavLink to="/">{it.title}</NavLink>
-                </th>
-                <td>{it.solve}</td>
-              </tr>
-            );
-          })}
-        </TableListBody>
-      </TableList>
-    </AlgorithmsChild>
-  );
-}
-
-const AlgorithmsChild = styled.div`
-  width: auto;
-  min-height: 600px;
-  margin: 0 auto;
-  padding: 120px 0 0;
-`;
-const H1 = styled.h1`
-  margin-bottom: 2rem;
-  text-align: center;
-  font-size: 45px;
-  font-weight: 500;
-  line-height: 51px;
-`;
-const StepTop = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 10px;
-`;
-const H2 = styled.h2`
-  font-size: 40px;
-  line-height: 18px;
-  font-weight: 500;
-`;
-const ResetButton = styled.button`
-  color: #1976d2;
-  padding: 6px 15px;
-  max-height: 32px;
-  border-radius: 8px;
-  font-size: 14px;
-  line-height: 1.4;
-  background-color: #d0d3ff;
-  border-color: var(--primary-100);
-  font-weight: 500;
-`;
-const TableList = styled.table`
-  margin: 0 auto;
-  width: 100%;
-`;
-const TableListHead = styled.thead`
-  border-bottom: 1px solid var(--bg-300);
-  background-color: var(--bg-200);
-`;
-const HeadTh = styled.th`
-  padding: 10px;
-  width: 12%;
-  text-align: center;
-  font-weight: 700;
-`;
-const TableListBody = styled.tbody`
-  border-bottom: 1px solid var(--bg-300);
-  text-align: center;
-`;
 export default Child;

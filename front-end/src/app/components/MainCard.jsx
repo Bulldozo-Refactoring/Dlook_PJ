@@ -1,4 +1,4 @@
-// main페이지에 사용하는 카드
+// main페이지에 사용하는 카드 - 스타일 컴포넌트로 바꿀지 고민중
 import * as React from "react";
 import SubmitButton from "./SubmitButton";
 import Card from "@mui/material/Card";
@@ -27,6 +27,6 @@ const MainCard = () => {
       </CardActions>
     </Card>
   );
-}
+};
 
 export default MainCard;

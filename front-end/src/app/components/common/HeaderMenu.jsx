@@ -1,107 +1,66 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink as BaseNavLink } from "react-router-dom";
 import { styled } from "styled-components";
 
 function HeaderMenu() {
-  const activeStyle = {
-    color: "var(--accent-200)",
-    fontWeight: "700",
-  };
-
   return (
     <>
       <li>
-        <p>알고리즘 문제 풀이</p>
-        <ul className="sub_menu">
+        <Title>알고리즘 문제 풀이</Title>
+        <ul>
           <Li>
-            <NavStyle
-              style={({ isActive }) => (isActive ? activeStyle : {})}
-              to="/algorithms/step"
-            >
-              문제 추천
-            </NavStyle>
+            <NavStyle to="/algorithms/step">문제 추천</NavStyle>
           </Li>
           <Li>
-            <NavStyle
-              style={({ isActive }) => (isActive ? activeStyle : {})}
-              to="/algorithms/type"
-            >
-              알고리즘 문제 분석
-            </NavStyle>
+            <NavStyle to="/algorithms/type">알고리즘 문제 분석</NavStyle>
           </Li>
         </ul>
       </li>
       <li>
-        <p>전체 게시판</p>
-        <ul className="sub_menu">
+        <Title>전체 게시판</Title>
+        <ul>
           <Li>
-            <NavStyle
-              style={({ isActive }) => (isActive ? activeStyle : {})}
-              to="/board"
-            >
-              전체 게시판
-            </NavStyle>
+            <NavStyle to="/board">전체 게시판</NavStyle>
           </Li>
         </ul>
       </li>
       <li>
-        <p>쓰레기통</p>
-        <ul className="sub_menu">
+        <Title>쓰레기통</Title>
+        <ul>
           <Li>
-            <NavStyle
-              style={({ isActive }) => (isActive ? activeStyle : {})}
-              to="/garbage"
-            >
-              쓰레기통
-            </NavStyle>
+            <NavStyle to="/garbage">쓰레기통</NavStyle>
           </Li>
         </ul>
       </li>
       <li>
-        <p>더보기</p>
-        <ul className="sub_menu">
+        <Title>더보기</Title>
+        <ul>
           <Li>
-            <NavStyle
-              style={({ isActive }) => (isActive ? activeStyle : {})}
-              to="/mypages/certify"
-            >
-              내 정보
-            </NavStyle>
+            <NavStyle to="/mypages/certify">내 정보</NavStyle>
           </Li>
           <Li>
-            <NavStyle
-              style={({ isActive }) => (isActive ? activeStyle : {})}
-              to="/notice"
-            >
-              공지사항/이벤트
-            </NavStyle>
+            <NavStyle to="/notice">공지사항/이벤트</NavStyle>
           </Li>
           <Li>
-            <NavStyle
-              style={({ isActive }) => (isActive ? activeStyle : {})}
-              to="/"
-            >
-              이용방법
-            </NavStyle>
+            <NavStyle to="/">이용방법</NavStyle>
           </Li>
           <Li>
-            <NavStyle
-              style={({ isActive }) => (isActive ? activeStyle : {})}
-              to="/"
-            >
-              서비스 정책
-            </NavStyle>
+            <NavStyle to="/">서비스 정책</NavStyle>
           </Li>
         </ul>
       </li>
     </>
   );
 }
-
+const Title = styled.p`
+  margin-bottom: 0.5em;
+  font-size: 1.24em;
+  font-weight: bold;
+`;
 const Li = styled.li`
   position: relative;
 `;
-const NavStyle = styled(NavLink)`
+const NavStyle = styled(BaseNavLink)`
   display: block;
   padding: 6px 15px;
   border-left: 3px solid;
@@ -114,6 +73,10 @@ const NavStyle = styled(NavLink)`
   }
   &:hover::before {
     background-color: var(--accent-200);
+  }
+  &.active {
+    color: var(--accent-200);
+    font-weight: 700;
   }
 `;
 export default HeaderMenu;
