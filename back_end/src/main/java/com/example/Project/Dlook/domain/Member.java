@@ -1,5 +1,6 @@
 package com.example.Project.Dlook.domain;
 
+import com.example.Project.Dlook.exception.Authority;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,6 +28,9 @@ public class Member {
     @Column(columnDefinition = "varchar(255)", nullable = false)
     private String memberPw;
 
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
+
     @Column(nullable = false)
     private Integer certify;
 
@@ -35,5 +39,12 @@ public class Member {
         if (certify == null) {
             certify = 0;
         }
+    }
+
+    @Builder
+    public Member(String memberEmail, String memberPw, Authority authority) {
+        this.memberEmail = memberEmail;
+        this.memberPw = memberPw;
+        this.authority = authority;
     }
 }
