@@ -1,15 +1,17 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import axios from "axios";
-import axios from "./axuisMock";
+import axios from "axios";
+// import axios from "./axuisMock";
 
 export const join = createAsyncThunk(
   "members/join",
   async (payload, thunkAPI) => {
+    console.log(payload);
     try {
       const response = await axios.post(
-        "http://localhost:8080/members/join",
+        "http://localhost:8080/members/join", null,
         payload
       );
+      console.log("회원가입 진입");
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -20,13 +22,14 @@ export const join = createAsyncThunk(
 export const login = createAsyncThunk(
   "members/login",
   async (payload, thunkAPI) => {
-    // console.log(payload);
+    console.log(payload);
     try {
       const response = await axios.post(
         "http://localhost:8080/members/login",
         payload,
         { withCredentials: true }
       );
+      console.log("진입확인");
       const { refreshToken, accessToken } = response.data;
       // local storage - token save
       localStorage.setItem("refreshToken", refreshToken);

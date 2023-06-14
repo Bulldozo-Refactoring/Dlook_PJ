@@ -32,7 +32,7 @@ public class JwtProvider {
     }
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_TYPE = "Bearer";
-    private Long accessTokenExpireTimeMs = 1000 * 10l; // 1시간 (실험 위해서 40초)
+    private Long accessTokenExpireTimeMs = 1000 * 10l; // 1시간 (실험 위해서 10초)
     private Long refreshTokenExpireTimeMs = 1000 * 20 * 60l; // 일주일 (실험 위해서 20분)
 
     public TokenDto generateTokenDto(Authentication authentication) {
@@ -88,7 +88,6 @@ public class JwtProvider {
 
     public boolean validateToken(String token) {
         try {
-            log.info("token : {}", token);
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
