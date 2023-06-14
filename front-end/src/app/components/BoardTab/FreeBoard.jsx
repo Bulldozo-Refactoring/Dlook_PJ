@@ -1,6 +1,7 @@
 import React from "react";
 import List from "app/components/List";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 function FreeBoard() {
   return (
@@ -34,6 +35,11 @@ function FreeBoard() {
                 </button>
               </div>
             </form>
+            <NavLink to="./write">
+              <button type="button" className="btn btn-dark boardwrite">
+                글작성하기
+              </button>
+            </NavLink>
           </div>
         </div>
       </div>

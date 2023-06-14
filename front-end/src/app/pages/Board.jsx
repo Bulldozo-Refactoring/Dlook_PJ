@@ -1,10 +1,10 @@
 import React from "react";
 // import List from 'app/components/List';
 import { useState } from "react";
-import "./BoardTab/Tab.css";
-import NoticeBoard from "./BoardTab/NoticeBoard";
-import FreeBoard from "./BoardTab/FreeBoard";
-import QaBoard from "./BoardTab/QaBoard";
+import "../components/BoardTab/Tab.css";
+import NoticeBoard from "../components/BoardTab/NoticeBoard";
+import FreeBoard from "../components/BoardTab/FreeBoard";
+import QaBoard from "../components/BoardTab/QaBoard";
 import "../style/style.css";
 
 function Tabs() {
@@ -23,12 +23,14 @@ function Tabs() {
         >
           공지사항
         </button>
+
         <button
           className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
           onClick={() => toggleTab(2)}
         >
           자유게시판
         </button>
+        
         <button
           className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
           onClick={() => toggleTab(3)}
