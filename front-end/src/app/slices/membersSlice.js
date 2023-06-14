@@ -23,6 +23,7 @@ export const login = createAsyncThunk(
   "members/login",
   async (payload, thunkAPI) => {
     console.log(payload);
+    console.log(thunkAPI);
     try {
       const response = await axios.post(
         "http://localhost:8080/members/login",
