@@ -57,7 +57,7 @@ function Join() {
           <Label>이메일</Label>
           <Input
             type="email"
-            {...register("member_email", {
+            {...register("memberEmail", {
               required: "이메일은 필수로 작성해주세요.",
               pattern: {
                 value: /\S+@\S+\.\S+/,
@@ -65,9 +65,9 @@ function Join() {
               },
             })}
           />
-          {errors.member_email && (
+          {errors.memberEmail && (
             <ErrorMessage role="alert">
-              {errors.member_email.message}
+              {errors.memberEmail.message}
             </ErrorMessage>
           )}
         </FormStyle>
@@ -107,13 +107,13 @@ function Join() {
           <Label>이름</Label>
           <Input
             type="text"
-            {...register("member_name", {
+            {...register("memberName", {
               required: "이름은 필수로 작성해주세요",
             })}
           />
-          {errors.member_name && (
+          {errors.memberName && (
             <ErrorMessage role="alert">
-              {errors.member_name.message}
+              {errors.memberName.message}
             </ErrorMessage>
           )}
         </FormStyle>
@@ -121,7 +121,7 @@ function Join() {
           <Label>비밀번호</Label>
           <Input
             type="password"
-            {...register("member_pw", {
+            {...register("memberPw", {
               required: "비밀번호는 필수로 작성해주세요.",
               minLength: {
                 value: 8,
@@ -129,8 +129,8 @@ function Join() {
               },
             })}
           />
-          {errors.member_pw && (
-            <ErrorMessage role="alert">{errors.member_pw.message}</ErrorMessage>
+          {errors.memberPw && (
+            <ErrorMessage role="alert">{errors.memberPw.message}</ErrorMessage>
           )}
         </FormStyle>
         <Button type="submit" disabled={isSubmitting || !isDirty}>

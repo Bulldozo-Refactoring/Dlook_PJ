@@ -6,18 +6,16 @@ import com.example.Project.Dlook.domain.dto.TokenDto;
 import com.example.Project.Dlook.domain.dto.TokenRequestDto;
 import com.example.Project.Dlook.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/members")
 @RequiredArgsConstructor
+@Slf4j
 public class MemberController {
     private final MemberService memberService;
 
@@ -33,7 +31,14 @@ public class MemberController {
     }
 
     @PostMapping("/reissue")
-    public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequestDto dto) {
-        return ResponseEntity.ok(memberService.reissue(dto));
+    public ResponseEntity<TokenDto> reissue(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization").substring(7);
+        String refreshToken = request.getHeader("RefreshToken");
+        return ResponseEntity.ok(memberService.reissue(accessToken, refreshToken));
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(@RequestBody LoginRequestDTO dto) {
+        return ResponseEntity.ok(memberService.logout(dto));
     }
 }

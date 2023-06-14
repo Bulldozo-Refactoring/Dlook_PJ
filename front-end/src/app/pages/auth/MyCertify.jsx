@@ -18,8 +18,8 @@ const MyCertify = () => {
     }
     return null;
   });
-  // user.certify = true;
-  user.certify = false;
+  user.certify = true;
+  // user.certify = false;
 
   if (isLoggedIn && user && user.certify) {
     // 연동 후
