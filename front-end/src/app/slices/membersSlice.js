@@ -8,7 +8,7 @@ export const join = createAsyncThunk(
     console.log(payload);
     try {
       const response = await axios.post(
-        "http://localhost:8080/members/join", null,
+        "http://localhost:8080/members/join",
         payload
       );
       console.log("회원가입 진입");

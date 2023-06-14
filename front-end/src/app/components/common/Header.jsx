@@ -8,10 +8,10 @@ import HeaderUser from "./HeaderUser";
 import logo from "../../assets/images/logo.svg";
 
 const Header = () => {
-  const [isOpen, setMenu] = useState(false);
+  const [open, setMenu] = useState(false);
   const { pathname } = useLocation();
 
-  const toggleMenu = () => setMenu((isOpen) => !isOpen);
+  const toggleMenu = () => setMenu((open) => !open);
   useEffect(() => setMenu(false), [pathname]);
 
   return (
@@ -32,7 +32,7 @@ const Header = () => {
             </Li>
             <HeaderUser />
           </HeaderWrapper>
-          <Menu isOpen={isOpen ? 1 : 0}>
+          <Menu open={open ? 1 : 0}>
             <CloseIcon onClick={() => toggleMenu()} />
             <HeaderMenu />
           </Menu>
@@ -73,7 +73,7 @@ const Menu = styled.ul`
   width: 100%;
   height: 320px;
   position: absolute;
-  top: ${(props) => (props.isOpen ? "0" : "-999px")};
+  top: ${(props) => (props.open ? "0" : "-999px")};
   left: 0;
   transition: 0.7s;
   display: flex;

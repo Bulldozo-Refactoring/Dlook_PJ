@@ -7,7 +7,7 @@ function Garbage() {
     <Conainter>
       <H1>Garbage Collection</H1>
       <Phone></Phone>
-      <PhoneBtn>작성</PhoneBtn>
+      <PhoneBtn to="/garbage/write">작성</PhoneBtn>
     </Conainter>
   );
 }
@@ -34,7 +34,7 @@ const Phone = styled.div`
 const PhoneBtn = styled(NavLink)`
   position: absolute;
   left: calc(50% - 35px);
-  bottom: 8px;
+  bottom: 7.7%;
   width: 70px;
   height: 70px;
   padding: 25px 10px;
