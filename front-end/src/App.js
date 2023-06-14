@@ -19,6 +19,7 @@ import JoinResult from "app/pages/auth/JoinResult";
 import ForgotPassword from "app/pages/auth/ForgotPassword";
 import MyCertify from "app/pages/auth/MyCertify";
 import MyBoard from "app/pages/auth/MyBoard";
+import BoardWrite from "app/pages/BoardWrite";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -36,7 +37,9 @@ const App = () => {
           // board - 회원
           path: "board",
           element: <PrivateRoute />,
-          children: [{ path: "", element: "", method: "get" }],
+          children: [
+            { path: "write", element: <BoardWrite />, method: "post" },
+          ],
         },
         {
           // garbage -- 비회원

@@ -1,5 +1,5 @@
 import "./App.css";
-import "../Board";
+import "../../pages/Board";
 
 function App() {
   return (
