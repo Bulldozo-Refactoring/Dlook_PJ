@@ -1,66 +1,93 @@
 // 백준 연동
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { styled } from "styled-components";
 import Mymenu from "app/components/Mymenu";
 import SubmitButton from "app/components/SubmitButton";
 import logo from "app/assets/images/logo.svg";
 
 const MyCertify = () => {
-  const { certify } = useParams();
+  const isLoggedIn = useSelector((state) => state.members.isLoggedIn);
+  // 실제 코드
+  // const user = useSelector((state) => state.members.user);
+  // 테스트용 코드
+  const user = useSelector((state) => {
+    const userData = state.members.user;
+    if (userData) {
+      return { ...userData };
+    }
+    return null;
+  });
+  // user.certify = true;
+  user.certify = false;
 
-  return (
-    <Container>
-      <H1>내정보</H1>
-      <Content>
-        <Mymenu />
-        <Right>
-          {/* 연동 전 */}
-          <Before>
-            <Img src={logo} alt="logo" />
-            <PStyle>
-              해당 페이지는 백준 아이디를 연동해야만 사용 가능합니다.
-              <br />
-              연동에 성공하면 해당 기능을 사용할 수 있습니다.
-            </PStyle>
-            <UlStyle>
-              <LiStyle>사용 가능 기능1</LiStyle>
-              <LiStyle>사용 가능 기능2</LiStyle>
-              <LiStyle>사용 가능 기능3</LiStyle>
-            </UlStyle>
-            <SubmitButton style={{ color: "var(--text-100)", width: "40%" }}>
-              백준 연동하러 가기
-            </SubmitButton>
-          </Before>
-          {/* 연동 후 */}
-          <After>
-            <div style={{ width: "30%" }}>
-              <Circle></Circle>
-              <PinkText01>Sliver</PinkText01>
-              <BlueText>딸기너구리</BlueText>
-            </div>
-            <div style={{ width: "70%", textAlign: "left", padding: "0 30px" }}>
-              <PinkText02>User Bio - 힘들어요 제법 쓰러질듯해요</PinkText02>
-              <div>
-                <p>
-                  <WhiteText>SolvedCount</WhiteText>
-                  <PinkText03>2658</PinkText03>
-                </p>
-                <p>
-                  <WhiteText>exp</WhiteText>
-                  <PinkText03>48469349284</PinkText03>
-                </p>
-                <p>
-                  <WhiteText>Class</WhiteText>
-                  <PinkText03>8</PinkText03>
-                </p>
+  if (isLoggedIn && user && user.certify) {
+    // 연동 후
+    return (
+      <Container>
+        <H1>내정보</H1>
+        <Content>
+          <Mymenu />
+          <Right>
+            <After>
+              <div style={{ width: "30%" }}>
+                <Circle></Circle>
+                <PinkText01>Sliver</PinkText01>
+                <BlueText>딸기너구리</BlueText>
               </div>
-            </div>
-          </After>
-        </Right>
-      </Content>
-    </Container>
-  );
+              <div
+                style={{ width: "70%", textAlign: "left", padding: "0 30px" }}
+              >
+                <PinkText02>User Bio - 힘들어요 제법 쓰러질듯해요</PinkText02>
+                <div>
+                  <p>
+                    <WhiteText>SolvedCount</WhiteText>
+                    <PinkText03>2658</PinkText03>
+                  </p>
+                  <p>
+                    <WhiteText>exp</WhiteText>
+                    <PinkText03>48469349284</PinkText03>
+                  </p>
+                  <p>
+                    <WhiteText>Class</WhiteText>
+                    <PinkText03>8</PinkText03>
+                  </p>
+                </div>
+              </div>
+            </After>
+          </Right>
+        </Content>
+      </Container>
+    );
+  } else {
+    // 연동 전
+    return (
+      <Container>
+        <H1>내정보</H1>
+        <Content>
+          <Mymenu />
+          <Right>
+            <Before>
+              <Img src={logo} alt="logo" />
+              <PStyle>
+                해당 페이지는 백준 아이디를 연동해야만 사용 가능합니다.
+                <br />
+                연동에 성공하면 해당 기능을 사용할 수 있습니다.
+              </PStyle>
+              <UlStyle>
+                <LiStyle>사용 가능 기능1</LiStyle>
+                <LiStyle>사용 가능 기능2</LiStyle>
+                <LiStyle>사용 가능 기능3</LiStyle>
+              </UlStyle>
+              <SubmitButton style={{ color: "var(--text-100)", width: "40%" }}>
+                백준 연동하러 가기
+              </SubmitButton>
+            </Before>
+          </Right>
+        </Content>
+      </Container>
+    );
+  }
 };
 const Container = styled.div`
   padding: 80px 0 0;
@@ -83,7 +110,7 @@ const Right = styled.div`
   min-height: 600px;
 `;
 const Before = styled.div`
-  display: none;
+  // display: none;
   height: 100%;
   padding: 100px 10px;
   border: 1px solid var(--bg-300);

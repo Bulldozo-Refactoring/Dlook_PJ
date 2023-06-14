@@ -21,12 +21,12 @@ function MainPage() {
     arrowNavigation: true,
   };
 
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.members.isLoggedIn);
   const navigate = useNavigate();
 
   const handleClick = () => {
     if (isLoggedIn) navigate("/algorithms/step");
-    else navigate("/member/login");
+    else navigate("/members/login");
   };
 
   return (

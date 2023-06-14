@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { styled } from "styled-components";
-import { join } from "app/slices/member";
+import { join } from "app/slices/membersSlice";
 
 function Join() {
   const dispatch = useDispatch();
@@ -138,8 +138,8 @@ function Join() {
         </Button>
       </form>
       <div id="firstvisit">
-        이미 계정이 있으시다면!
-        <NavStyle to="/member/login">로그인</NavStyle>
+        이미 계정이 있으시다면
+        <NavStyle to="/members/login">로그인</NavStyle>
       </div>
     </SignUpTemplate>
   );

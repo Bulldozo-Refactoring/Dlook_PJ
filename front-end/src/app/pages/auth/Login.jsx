@@ -3,25 +3,26 @@ import { NavLink, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { styled } from "styled-components";
-import { login } from "app/slices/member";
+import { login } from "app/slices/membersSlice";
+import { setToken } from "app/slices/tokenSlice";
 import google from "app/assets/images/google.png";
 
 // 쿠키 설정
-function setCookie(name, value, days) {
-  const expires = new Date();
-  expires.setDate(expires.getDate() + days);
+// function setCookie(name, value, days) {
+//   const expires = new Date();
+//   expires.setDate(expires.getDate() + days);
 
-  const cookie = `${encodeURIComponent(name)}=${encodeURIComponent(
-    value
-  )}; expires=${expires.toUTCString()}; path=/`;
-  document.cookie = cookie;
-}
+//   const cookie = `${encodeURIComponent(name)}=${encodeURIComponent(
+//     value
+//   )}; expires=${expires.toUTCString()}; path=/`;
+//   document.cookie = cookie;
+// }
 
 // 쿠키 읽기
-function getCookie(name) {
-  const cookie = document.cookie.match(`(^|;) ?${name}=([^;]*)(;|$)`);
-  return cookie ? decodeURIComponent(cookie[2]) : null;
-}
+// function getCookie(name) {
+//   const cookie = document.cookie.match(`(^|;) ?${name}=([^;]*)(;|$)`);
+//   return cookie ? decodeURIComponent(cookie[2]) : null;
+// }
 
 function Login() {
   const dispatch = useDispatch();
@@ -31,13 +32,32 @@ function Login() {
     formState: { isSubmitting, isDirty, errors },
   } = useForm();
 
-  let onSubmit = (data) => dispatch(login(data));
+  const handleLogin = (token) => {
+    localStorage.setItem("token", token);
+    dispatch(setToken(token));
+  };
 
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const user = useSelector((state) => state.auth.user);
+  let onSubmit = (data) => {
+    dispatch(login(data));
+    // api
+    //   .login(data)
+    //   .then((response) => {
+    //     const { token } = response.data;
+    //     // dispatch(login(data));
+    //     handleLogin(token);
+    //   })
+    //   .catch((error) => {
+    //     return alert("실패!");
+    //   });
+  };
+
+  const isLoggedIn = useSelector((state) => state.members.isLoggedIn);
+  const user = useSelector((state) => state.members.user);
 
   useEffect(() => {
-    if (isLoggedIn && user) setCookie("isLoggedIn", "true", 7); // 7일 - setCookie("user", JSON.stringify(user), 7);
+    // if (isLoggedIn && user) setCookie("isLoggedIn", "true", 7);
+    localStorage.setItem("isLoggedIn", "true");
+    // localStorage.setItem("user", JSON.stringify(user));
   }, [isLoggedIn, user]);
 
   return (
@@ -103,11 +123,11 @@ function Login() {
             </LoginFrom>
             <p style={{ marginBottom: "30px" }}>
               <img src={google} alt="구글 로그인" onClick={() => {}} />
-              <NavStyleR to="/">비밀번호 찾기</NavStyleR>
+              <NavStyleR to="/members/password">비밀번호 찾기</NavStyleR>
             </p>
             <div style={{ textAlign: " center" }}>
               Dlook이 처음이신가요?
-              <NavStyle to="/member/join">회원가입</NavStyle>
+              <NavStyle to="/members/join">회원가입</NavStyle>
             </div>
           </Wrap>
         )}
