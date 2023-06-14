@@ -3,13 +3,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "./axuisMock";
 
 export const join = createAsyncThunk(
-  "member/join",
+  "members/join",
   async (payload, thunkAPI) => {
-    console.log(payload);
-    console.log(thunkAPI);
     try {
       const response = await axios.post(
-        "http://localhost:8080/member/join",
+        "http://localhost:8080/members/join",
         payload
       );
       return response.data;
@@ -20,16 +18,20 @@ export const join = createAsyncThunk(
 );
 
 export const login = createAsyncThunk(
-  "member/login",
+  "members/login",
   async (payload, thunkAPI) => {
-    console.log(payload);
-    console.log(thunkAPI);
+    // console.log(payload);
     try {
       const response = await axios.post(
-        "http://localhost:8080/member/login",
+        "http://localhost:8080/members/login",
         payload,
         { withCredentials: true }
       );
+      const { refreshToken, accessToken } = response.data;
+      // local storage - token save
+      localStorage.setItem("refreshToken", refreshToken);
+      localStorage.setItem("accessToken", accessToken);
+
       return response.data;
     } catch (e) {
       let error = e;
@@ -41,17 +43,23 @@ export const login = createAsyncThunk(
   }
 );
 
-export const logout = createAsyncThunk("member/logout", async (_, thunkAPI) => {
-  try {
-    await axios.post("http://localhost:8080/member/logout", null, {
-      withCredentials: true,
-    });
-    // 로그아웃 성공 시 반환값은 null
-    return null;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
+export const logout = createAsyncThunk(
+  "members/logout",
+  async (_, thunkAPI) => {
+    try {
+      await axios.post("http://localhost:8080/members/logout", null, {
+        withCredentials: true,
+      });
+      // local storage 토큰 초기화
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("accessToken");
+      // 로그아웃 성공 시 반환값은 null
+      return null;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
   }
-});
+);
 
 const initialState = {
   isLoggedIn: false,
@@ -59,8 +67,8 @@ const initialState = {
   error: null,
 };
 
-const memberSlice = createSlice({
-  name: "member",
+const membersSlice = createSlice({
+  name: "members",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -99,4 +107,4 @@ const memberSlice = createSlice({
   },
 });
 
-export default memberSlice.reducer;
+export default membersSlice.reducer;

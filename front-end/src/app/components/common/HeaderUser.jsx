@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout, login } from "app/slices/member";
+import { logout, login } from "app/slices/membersSlice";
 import { styled } from "styled-components";
 import Cookies from "js-cookie";
 
@@ -16,7 +16,7 @@ import Tooltip from "@mui/material/Tooltip";
 
 function HeaderUser() {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.members.isLoggedIn);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -37,7 +37,7 @@ function HeaderUser() {
     if (storedLoginStatus === "true") dispatch(login()); // 로그인 액션을 디스패치
   }, [dispatch]);
 
-  const linkTo = isLoggedIn ? "/mypages/certify" : "/member/login";
+  const linkTo = isLoggedIn ? "/mypages/certify" : "/members/login";
 
   return (
     <>

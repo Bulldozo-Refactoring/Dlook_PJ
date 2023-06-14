@@ -16,6 +16,7 @@ import Rank from "app/components/Algorithms/Rank";
 import Login from "app/pages/auth/Login";
 import Join from "app/pages/auth/Join";
 import JoinResult from "app/pages/auth/JoinResult";
+import ForgotPassword from "app/pages/auth/ForgotPassword";
 import MyCertify from "app/pages/auth/MyCertify";
 import MyBoard from "app/pages/auth/MyBoard";
 
@@ -54,17 +55,18 @@ const App = () => {
           children: [{ path: "", element: <Notice />, method: "get" }],
         },
         {
-          // member - 비회원
-          path: "member",
+          // members - 비회원
+          path: "members",
           children: [
             { path: "join", element: <Join />, method: "post" },
             { path: "login", element: <Login />, method: "Post" },
             { path: "joinresult", element: <JoinResult /> },
+            { path: "password", element: <ForgotPassword /> },
           ],
         },
         {
-          // member - 회원
-          path: "member",
+          // members - 회원
+          path: "members",
           element: <PrivateRoute />,
           children: [{ path: "logout", element: "" }],
         },
@@ -86,7 +88,7 @@ const App = () => {
               path: "",
               element: <Algorithms />,
               children: [
-                { path: "step", element: <Step />, isAuth: true },
+                { path: "step", element: <Step />, ismembers: true },
                 { path: "child", element: <Child /> },
                 { path: "type", element: <Type /> },
                 { path: "wrong", element: <Wrong /> },
