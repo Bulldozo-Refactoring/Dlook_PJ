@@ -40,18 +40,18 @@ const MyCertify = () => {
               >
                 <PinkText02>User Bio - 힘들어요 제법 쓰러질듯해요</PinkText02>
                 <div>
-                  <p>
+                  <div>
                     <WhiteText>SolvedCount</WhiteText>
                     <PinkText03>2658</PinkText03>
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                     <WhiteText>exp</WhiteText>
                     <PinkText03>48469349284</PinkText03>
-                  </p>
-                  <p>
+                  </div>
+                  <div>
                     <WhiteText>Class</WhiteText>
                     <PinkText03>8</PinkText03>
-                  </p>
+                  </div>
                 </div>
               </div>
             </After>

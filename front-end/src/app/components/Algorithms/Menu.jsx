@@ -7,7 +7,7 @@ function AlgorithmsMenu() {
   return (
     <>
       <div className="menu">
-        <TopUi className="top_menu">
+        <TopUi>
           <TopLi>
             <NavStyle to="/algorithms/step">문제 추천</NavStyle>
             <BottomUi>
