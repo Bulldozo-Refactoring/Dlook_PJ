@@ -1,90 +1,113 @@
 package com.example.Project.Dlook.utils;
 
-import com.example.Project.Dlook.domain.RefreshToken;
-import com.example.Project.Dlook.service.MemberService;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.RequiredArgsConstructor;
+import com.example.Project.Dlook.domain.dto.TokenDto;
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
+import java.security.Key;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
+import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
+@Slf4j
+@Component
 public class JwtProvider {
-    private final MemberService memberService;
 
-    @Value("${jwt.secret}") // application.yml 파일에 있는 secret 값이 들어간다.
-    private String secretKey;
-    private Long accessTokenExpireTimeMs = 1000 * 60l; // 1시간 (실험 위해서 1분)
-    private Long refreshTokenExpireTimeMs = 1000 * 10 * 60l; // 일주일 (실험 위해서 10분)
+    private final Key key;
 
-    public static String getMemberEmail(String token, String secretKey) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token)
-                .getBody().get("memberEmail", String.class);
+    public JwtProvider(@Value("${jwt.secret}") String secretKey) {
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        this.key = Keys.hmacShaKeyFor(keyBytes);
     }
-    public static boolean isExpired(String token, String secretKey) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token)
-                .getBody().getExpiration().before(new Date());
-        // token이 만료된 것이 지금보다 전이면 token이 만료된 것이다.
-    }
+    private static final String AUTHORITIES_KEY = "auth";
+    private static final String BEARER_TYPE = "Bearer";
+    private Long accessTokenExpireTimeMs = 1000 * 10l; // 1시간 (실험 위해서 40초)
+    private Long refreshTokenExpireTimeMs = 1000 * 20 * 60l; // 일주일 (실험 위해서 20분)
 
-    public static String createAccessToken(String memberEmail, String key, Long accessTokenExpireTimeMs) {
-        Claims claims = Jwts.claims();
-        claims.put("memberEmail", memberEmail);
+    public TokenDto generateTokenDto(Authentication authentication) {
+        // 권한들 가져오기
+        String authorities = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
 
-        return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + accessTokenExpireTimeMs))
-                .signWith(SignatureAlgorithm.HS256, key)
-                .compact();
-    }
+        long now = (new Date()).getTime();
 
-    public static String createRefreshToken(String memberEmail, String secretKey, Long refreshTokenExpireTimeMs) {
-        Claims claims = Jwts.claims();
-        claims.put("memberEmail", memberEmail);
-
-        return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + refreshTokenExpireTimeMs))
-                .signWith(SignatureAlgorithm.HS256, secretKey)
-                .compact();
-    }
-
-    public static String validationRefreshToken(RefreshToken refreshTokenObj, String memberEmail, String secretKey, Long accessTokenExpireTimeMs){
-        // refresh 객체에서 refreshToken 추출
-        String refreshToken = refreshTokenObj.getRefreshToken();
-
-        try {
-            // 검증
-            Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(refreshToken);
-            //refresh 토큰의 만료시간이 지나지 않았을 경우, 새로운 access 토큰을 생성합니다.
-            if (!claims.getBody().getExpiration().before(new Date())) {
-                return recreationAccessToken(memberEmail, secretKey, accessTokenExpireTimeMs);
-            }
-        } catch (Exception e) {
-            //refresh 토큰이 만료되었을 경우, 로그인이 필요합니다.
-            return null;
-        }
-        return null;
-    }
-
-    public static String recreationAccessToken(String memberEmail, String secretKey, Long accessTokenExpireTimeMs){
-        Claims claims = Jwts.claims();
-        claims.put("memberEmail", memberEmail); // 정보는 key / value 쌍으로 저장된다.
-
-        //Access Token
+        // Access Token 생성
+        Date accessTokenExpiresIn = new Date(now + accessTokenExpireTimeMs);
         String accessToken = Jwts.builder()
-                .setClaims(claims) // 정보 저장
-                .setIssuedAt(new Date(System.currentTimeMillis())) // 토큰 발행 시간 정보
-                .setExpiration(new Date(System.currentTimeMillis() + accessTokenExpireTimeMs)) // set Expire Time
-                .signWith(SignatureAlgorithm.HS256, secretKey)  // 사용할 암호화 알고리즘과
-                // signature 에 들어갈 secret값 세팅
+                .setSubject(authentication.getName())       // payload "sub": "name"
+                .claim(AUTHORITIES_KEY, authorities)        // payload "auth": "ROLE_USER"
+                .setExpiration(accessTokenExpiresIn)        // payload "exp": 1516239022 (예시)
+                .signWith(key, SignatureAlgorithm.HS512)    // header "alg": "HS512"
                 .compact();
 
-        return accessToken;
+        // Refresh Token 생성
+        String refreshToken = Jwts.builder()
+                .setExpiration(new Date(now + refreshTokenExpireTimeMs))
+                .signWith(key, SignatureAlgorithm.HS512)
+                .compact();
+
+        return TokenDto.builder()
+                .grantType(BEARER_TYPE)
+                .accessToken(accessToken)
+                .accessTokenExpiresIn(accessTokenExpiresIn.getTime())
+                .refreshToken(refreshToken)
+                .build();
+    }
+
+    public Authentication getAuthentication(String accessToken) {
+        // 토큰 복호화
+        Claims claims = parseClaims(accessToken);
+
+        if (claims.get(AUTHORITIES_KEY) == null) {
+            throw new RuntimeException("Unauthorized Token");
+        }
+
+        // 클레임에서 권한 정보 가져오기
+        Collection<? extends GrantedAuthority> authorities =
+                Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
+                        .map(SimpleGrantedAuthority::new)
+                        .collect(Collectors.toList());
+
+        // UserDetails 객체를 만들어서 Authentication 리턴
+        UserDetails principal = new User(claims.getSubject(), "", authorities);
+
+        return new UsernamePasswordAuthenticationToken(principal, "", authorities);
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            log.info("token : {}", token);
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            return true;
+        } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
+            log.info("INVALID_JWT_SIGNATURE");
+        } catch (ExpiredJwtException e) {
+            log.info("EXPIRED_JWT");
+        } catch (UnsupportedJwtException e) {
+            log.info("INVALID_JWT");
+        } catch (IllegalArgumentException e) {
+            log.info("INVALID_JWT");
+        }
+        return false;
+    }
+
+    private Claims parseClaims(String accessToken) {
+        try {
+            return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
+        } catch (ExpiredJwtException e) {
+            return e.getClaims();
+        }
     }
 }

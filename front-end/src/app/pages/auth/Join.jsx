@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { styled } from "styled-components";
-import { join } from "app/slices/member";
+import { join } from "app/slices/membersSlice";
 
 function Join() {
   const dispatch = useDispatch();
@@ -21,8 +21,7 @@ function Join() {
   const [remainingTime, setRemainingTime] = useState(60);
 
   const sendVerificationEmail = () => {
-    // 이메일 전송 로직 작성
-    // 성공적으로 이메일을 전송했다면 setIsEmailSent(true)로 상태 변경
+    // 이메일 전송 로직 작성 - 성공적으로 이메일을 전송했다면 setIsEmailSent(true)로 상태 변경
     setIsEmailSent(true);
     setVerificationCode({ value: "", isValid: false }); // verificationCode 초기화
     startTimer();
@@ -33,30 +32,21 @@ function Join() {
     const timer = setInterval(() => {
       seconds--;
       setRemainingTime(seconds);
-      if (seconds === 0) {
-        clearInterval(timer);
-      }
+      if (seconds === 0) clearInterval(timer);
     }, 1000);
   };
 
   const verifyCode = () => {
-    // 인증 코드 확인 로직 작성
-    // 인증 코드가 맞다면 setIsVerified(true)로 상태 변경
+    // 인증 코드 확인 로직 작성 - 인증 코드가 맞다면 setIsVerified(true)로 상태 변경
     setIsVerified(true);
     clearErrors("verificationCode"); // 에러 메시지 제거
-    // console.log(verificationCode); // 확인용
   };
 
-  const onSubmit = (data) => {
-    // 회원가입 처리 로직 작성
-    // console.log(data);
-    dispatch(join(data));
-  };
+  // 회원가입 처리 로직
+  const onSubmit = (data) => dispatch(join(data));
 
   useEffect(() => {
-    if (remainingTime === 0) {
-      setIsEmailSent(false);
-    }
+    if (remainingTime === 0) setIsEmailSent(false);
   }, [remainingTime]);
 
   return (
@@ -66,8 +56,8 @@ function Join() {
         <FormStyle>
           <Label>이메일</Label>
           <Input
-            type="text"
-            {...register("email", {
+            type="email"
+            {...register("member_email", {
               required: "이메일은 필수로 작성해주세요.",
               pattern: {
                 value: /\S+@\S+\.\S+/,
@@ -75,10 +65,12 @@ function Join() {
               },
             })}
           />
+          {errors.member_email && (
+            <ErrorMessage role="alert">
+              {errors.member_email.message}
+            </ErrorMessage>
+          )}
         </FormStyle>
-        {errors.email && (
-          <ErrorMessage role="alert">{errors.email.message}</ErrorMessage>
-        )}
         {isEmailSent ? (
           <FormStyle>
             <Label01>인증번호</Label01>
@@ -115,19 +107,21 @@ function Join() {
           <Label>이름</Label>
           <Input
             type="text"
-            {...register("username", {
+            {...register("member_name", {
               required: "이름은 필수로 작성해주세요",
             })}
           />
+          {errors.member_name && (
+            <ErrorMessage role="alert">
+              {errors.member_name.message}
+            </ErrorMessage>
+          )}
         </FormStyle>
-        {errors.username && (
-          <ErrorMessage role="alert">{errors.username.message}</ErrorMessage>
-        )}
         <FormStyle>
           <Label>비밀번호</Label>
           <Input
             type="password"
-            {...register("password", {
+            {...register("member_pw", {
               required: "비밀번호는 필수로 작성해주세요.",
               minLength: {
                 value: 8,
@@ -135,19 +129,17 @@ function Join() {
               },
             })}
           />
+          {errors.member_pw && (
+            <ErrorMessage role="alert">{errors.member_pw.message}</ErrorMessage>
+          )}
         </FormStyle>
-        {errors.password && (
-          <ErrorMessage role="alert">{errors.password.message}</ErrorMessage>
-        )}
         <Button type="submit" disabled={isSubmitting || !isDirty}>
           Sign Up
         </Button>
       </form>
       <div id="firstvisit">
-        이미 계정이 있으시다면!
-        <NavLink id="signup" to="/member/login">
-          로그인
-        </NavLink>
+        이미 계정이 있으시다면
+        <NavStyle to="/members/login">로그인</NavStyle>
       </div>
     </SignUpTemplate>
   );
@@ -157,19 +149,24 @@ const SignUpTemplate = styled.div`
   padding: 90px 40px 0px;
   max-width: 500px;
   margin: 0 auto;
+  * {
+    font-weight: 500;
+    text-align: center;
+  }
 `;
 const Title = styled.h1`
   font-size: 30px;
   color: var(--text-100);
   margin-bottom: 20px;
-  text-align: center;
 `;
 const FormStyle = styled.div`
   display: flex;
+  position: relative;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 1.8rem;
 `;
 const Label = styled.label`
+  text-align: left;
   width: 80px;
 `;
 const Label01 = styled(Label)`
@@ -195,9 +192,9 @@ const Button = styled.button`
   margin: 20px auto 0;
   box-sizing: border-box;
   border-radius: 6px;
+  background-color: var(--primary-200);
   color: var(--bg-100);
   font-size: 16px;
-  background-color: var(--primary-200);
 `;
 const SendButton = styled(Button)`
   margin-top: 0;
@@ -220,11 +217,16 @@ const VerificationMessage = styled.p`
   width: 11%;
   margin-left: 10px;
   font-size: 14px;
-  text-align: center;
   color: green;
 `;
 const ErrorMessage = styled.span`
+  position: absolute;
+  bottom: -59%;
+  left: 16%;
   color: red;
 `;
-
+const NavStyle = styled(NavLink)`
+  margin-left: 10px;
+  color: #6a24fe;
+`;
 export default Join;

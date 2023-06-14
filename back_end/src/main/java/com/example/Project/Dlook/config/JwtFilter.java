@@ -1,14 +1,11 @@
 package com.example.Project.Dlook.config;
 
-import com.example.Project.Dlook.service.MemberService;
 import com.example.Project.Dlook.utils.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -16,50 +13,39 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
 public class JwtFilter extends OncePerRequestFilter {
-    private final MemberService memberService;
-    private final String secretKey;
+    public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String BEARER_PREFIX = "Bearer ";
 
+    private final JwtProvider jwtProvider;
+
+    // 실제 필터링 로직은 doFilterInternal 에 들어감
+    // JWT 토큰의 인증 정보를 현재 쓰레드의 SecurityContext 에 저장하는 역할 수행
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
 
-        final String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
-        log.info("authorization : {}", authorization);
+        // 1. Request Header 에서 토큰을 꺼냄
+        String jwt = resolveToken(request);
 
-        // token안보내면 Block
-        if (authorization == null || !authorization.startsWith("Bearer ")) {
-            log.error("Authorization을 잘못 보냈습니다.");
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            filterChain.doFilter(request, response);
-            return;
+        // 2. validateToken 으로 토큰 유효성 검사
+        // 정상 토큰이면 해당 토큰으로 Authentication 을 가져와서 SecurityContext 에 저장
+        if (StringUtils.hasText(jwt) && jwtProvider.validateToken(jwt)) {
+            Authentication authentication = jwtProvider.getAuthentication(jwt);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
-        // Token 꺼내기
-        String accessToken = authorization.split(" ")[1]; // Bearer ~~~token 인 경우 Bearer뒤의 " "을 기준으로 뒤쪽이 token
-
-        log.error("Token expire");
-        // Token Expired되었는지 여부
-        if (JwtProvider.isExpired(accessToken, secretKey)) {
-            log.error("Token expire exite");
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401에러
-            filterChain.doFilter(request, response);
-            return;
-        }
-
-        // MemberEmail Token에서 꺼내기
-        String memberEmail = JwtProvider.getMemberEmail(accessToken, secretKey);
-        log.info("memberEmail : {}", memberEmail);
-
-        // 권한 부여
-        UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(memberEmail, null, List.of(new SimpleGrantedAuthority("MEMBER")));
-        // Detail을 넣어줍니다.
-        authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-        SecurityContextHolder.getContext().setAuthentication(authenticationToken); // 사용자 인증, 작업 실행 가능
         filterChain.doFilter(request, response);
+    }
+
+    // Request Header 에서 토큰 정보를 꺼내오기
+    private String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
+            return bearerToken.substring(7);
+        }
+        return null;
     }
 }
