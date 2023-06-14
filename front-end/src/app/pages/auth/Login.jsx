@@ -71,18 +71,18 @@ function Login() {
             <LoginFrom method="post" onSubmit={handleSubmit(onSubmit)}>
               <Box>
                 <Input
-                  id="member_email"
-                  name="member_email"
+                  id="memberEmail"
+                  name="memberEmail"
                   type="text"
                   placeholder="Email"
                   aria-invalid={
                     !isDirty
                       ? undefined
-                      : errors.member_email
+                      : errors.memberEmail
                       ? "true"
                       : "false"
                   }
-                  {...register("member_email", {
+                  {...register("memberEmail", {
                     required: "이메일은 필수 입력입니다.",
                     pattern: {
                       value: /\S+@\S+\.\S+/,
@@ -94,20 +94,20 @@ function Login() {
                     },
                   })}
                 />
-                {errors.member_email && (
-                  <Small role="alert">{errors.member_email.message}</Small>
+                {errors.memberEmail && (
+                  <Small role="alert">{errors.memberEmail.message}</Small>
                 )}
               </Box>
               <Box>
                 <Input
-                  id="member_pw"
-                  name="member_pw"
+                  id="memberPw"
+                  name="memberPw"
                   type="password"
                   placeholder="****************"
                   aria-invalid={
-                    !isDirty ? undefined : errors.member_pw ? "true" : "false"
+                    !isDirty ? undefined : errors.memberPw ? "true" : "false"
                   }
-                  {...register("member_pw", {
+                  {...register("memberPw", {
                     required: "비밀번호는 필수 입력입니다.",
                     minLength: {
                       value: 8,
@@ -115,8 +115,8 @@ function Login() {
                     },
                   })}
                 />
-                {errors.member_pw && (
-                  <Small role="alert">{errors.member_pw.message}</Small>
+                {errors.memberPw && (
+                  <Small role="alert">{errors.memberPw.message}</Small>
                 )}
               </Box>
               <Input01 type="submit" value="Login" disabled={isSubmitting} />
