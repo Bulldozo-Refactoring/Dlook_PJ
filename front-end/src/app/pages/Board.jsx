@@ -1,43 +1,70 @@
 import React from "react";
-import List from "../components/List";
+// import List from 'app/components/List';
+import { useState } from "react";
+import "./BoardTab/Tab.css";
+import NoticeBoard from "./BoardTab/NoticeBoard";
+import FreeBoard from "./BoardTab/FreeBoard";
+import QaBoard from "./BoardTab/QaBoard";
+import "../style/style.css";
 
-function board() {
+function Tabs() {
+  const [toggleState, setToggleState] = useState(1);
+
+  const toggleTab = (index) => {
+    setToggleState(index);
+  };
+
   return (
-    <section className="notice">
-      <div className="page-title">
-        <div className="container">
-          <h3>공지사항</h3>
-        </div>
+    <div className="container">
+      <div className="bloc-tabs">
+        <button
+          className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
+          onClick={() => toggleTab(1)}
+        >
+          공지사항
+        </button>
+        <button
+          className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
+          onClick={() => toggleTab(2)}
+        >
+          자유게시판
+        </button>
+        <button
+          className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
+          onClick={() => toggleTab(3)}
+        >
+          Q&A게시판
+        </button>
       </div>
 
-      <List />
+      <div className="content-tabs">
+        <div
+          className={toggleState === 1 ? "content  active-content" : "content"}
+        >
+          {/* <h2>Content 1</h2>
+          <hr />
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
+            praesentium incidunt quia aspernatur quasi quidem facilis quo nihil
+            vel voluptatum?
+          </p> */}
+          <NoticeBoard />
+        </div>
 
-      {/* -- board seach area -- */}
-      <div id="board-search">
-        <div className="container">
-          <div className="search-window">
-            <form action="">
-              <div className="search-wrap">
-                <label for="search" className="blind">
-                  공지사항 내용 검색
-                </label>
-                <input
-                  id="search"
-                  type="search"
-                  name=""
-                  placeholder="검색어를 입력해주세요."
-                  value=""
-                />
-                <button type="submit" className="btn btn-dark">
-                  검색
-                </button>
-              </div>
-            </form>
-          </div>
+        <div
+          className={toggleState === 2 ? "content  active-content" : "content"}
+        >
+          <FreeBoard />
+        </div>
+
+        <div
+          className={toggleState === 3 ? "content  active-content" : "content"}
+        >
+          <QaBoard />
         </div>
       </div>
-    </section>
+    </div>
   );
 }
 
-export default board;
+export default Tabs;
