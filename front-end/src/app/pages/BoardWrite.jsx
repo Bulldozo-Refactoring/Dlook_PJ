@@ -1,30 +1,59 @@
-import React, { useEffect, useRef, useState } from "react";
-import "./BoardWrite.css";
+import React, { useState } from 'react';
+import "app/style/BoardWrite.css"
 
-function BoardWrite() {
-  const [Title, setTitle] = useState(""); // 글 타이틀 저장
-  const [Text, setText] = useState(""); // 내용 저장
+const BoardWrite = () => {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const handleContentChange = (e) => {
+    setContent(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // 게시글 작성 로직 구현
+    console.log('게시글 작성:', title, content);
+    // 필요에 따라 서버로 데이터를 전송하거나 다른 동작 수행 가능
+  };
 
   return (
-    <div>
+    <div className="post-form-container">
+      <h2>전체 게시판</h2>
+      <span>작성자</span> 작성자명
+      <span>카테고리</span>
       <select size="2" className="category">
-        <option selected value="free">자유게시판</option>
+        <option selected value="free">
+          자유게시판
+        </option>
         <option value="qa">Q&A게시판</option>
       </select>
-      {/* 카테고리 선택란 */}
-      {/* 제목 작성란 */}
-      <div className="title">
-        <h4>글제목</h4>
-        안녕하세요
-      </div>
-      {/* 내용 작성란  */}
-
-      {/* 작성하기 돌아가기란 */}
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="title">글제목</label>
+        <input
+          type="text"
+          id="title"
+          value={title}
+          onChange={handleTitleChange}
+        />
+        <label htmlFor="content"></label>
+        <textarea
+          id="content"
+          value={content}
+          onChange={handleContentChange}
+        ></textarea>
+        <button type="submit" className="btn-darks">
+          작성하기
+        </button>
+        <button type="submit" className="btn-darks">
+          돌아가기
+        </button>
+      </form>
     </div>
   );
-}
+};
 
 export default BoardWrite;
-
-
-
