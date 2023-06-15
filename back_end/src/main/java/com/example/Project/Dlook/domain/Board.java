@@ -15,7 +15,6 @@ public class Board extends BaseTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardNo;
 
-//    주석 추가
 //    @ManyToOne
 //    @JoinColumn(name="memberSeq")
 //    private Member memberSeq;
