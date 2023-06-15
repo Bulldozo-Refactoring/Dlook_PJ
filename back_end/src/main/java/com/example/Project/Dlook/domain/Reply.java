@@ -1,49 +1,38 @@
-//package com.example.Project.Dlook.domain;
-//
-//import com.example.Project.Dlook.domain.dto.ReplyDTO;
-//import lombok.Getter;
-//import lombok.Setter;
-//import org.hibernate.annotations.CreationTimestamp;
-//
-//import javax.persistence.*;
-//import java.time.LocalDateTime;
-//
-//@Entity
-//@Getter
-//@Setter
-//@Table(name="reply_table")
-//public class Reply {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long reply_no;
-//
-//    @Column(nullable = false)
-//    private Long board_no;
-//
-//    @Column(nullable = false)
-//    private Long member_seq;
-//
-//    @Column(nullable = false)
-//    private String reply_writer;
-//
-//    @Column(length=255, nullable = false)
-//    private String reply_content;
-//
-//    @Column(nullable = false)
-//    @CreationTimestamp
-//    private LocalDateTime reply_date;
-//
+package com.example.Project.Dlook.domain;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Builder
+public class Reply extends BaseTime {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long replyNo;
+
 //    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "board_no")
-//    private Board board;
-//
-//    public static Reply toSave(ReplyDTO replyDTO, Board board) {
-//        Reply reply = new Reply();
-//        reply.setReply_no(replyDTO.getReply_no());
-//        reply.setReply_writer(replyDTO.getReply_writer());
-//        reply.setReply_content(replyDTO.getReply_content());
-//        reply.setReply_date(replyDTO.getReply_date());
-//        return reply;
-//    }
-//}
+//    @JoinColumn(name = "user_id")
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+//    private Member memberseq;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "boardNo")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Board boardNo;
+
+    @Column(nullable = false)
+    private String replyContent;
+
+    @Column(nullable = false)
+    private String replyWriter;
+}

@@ -1,19 +1,25 @@
-//package com.example.Project.Dlook.domain.dto;
-//
-//import lombok.Getter;
-//import lombok.Setter;
-//import lombok.ToString;
-//
-//import java.time.LocalDateTime;
-//
-//@Getter
-//@Setter
-//@ToString
-//public class ReplyDTO {
-//    private Long reply_no;
-//    private Long board_no;
-//    private Long member_seq;
-//    private String reply_writer;
-//    private String reply_content;
-//    private LocalDateTime reply_date;
-//}
+package com.example.Project.Dlook.domain.dto;
+
+import com.example.Project.Dlook.domain.Reply;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class ReplyDTO {
+    private Long replyNo;
+    private String replyContent;
+    private String replyWriter;
+
+    public static ReplyDTO newDTO(Reply reply) {
+        return new ReplyDTO(
+                reply.getReplyNo(),
+                reply.getReplyContent(),
+                reply.getReplyWriter()
+        );
+    }
+}
