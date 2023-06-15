@@ -33,8 +33,8 @@ const List = () => {
                 <tr>
                     <th scope="col" className="th-num">번호</th>
                     <th scope="col" className="th-title">제목</th>
-                    <th scope="col" className="th-date">작성자</th>
-                    <th scope="col" className="th-author">등록일</th>
+                    <th scope="col" className="th-author">작성자</th>
+                    <th scope="col" className="th-date">등록일</th>
                 </tr>
                 </thead>
                 <tbody>
