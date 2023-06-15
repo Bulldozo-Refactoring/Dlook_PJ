@@ -1,4 +1,4 @@
-package com.example.Project.Dlook.config;
+package com.example.Project.Dlook.config.filter;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

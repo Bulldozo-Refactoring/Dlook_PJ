@@ -1,5 +1,4 @@
 package com.example.Project.Dlook.domain;
-import com.example.Project.Dlook.domain.dto.BoardDTO;
 import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;

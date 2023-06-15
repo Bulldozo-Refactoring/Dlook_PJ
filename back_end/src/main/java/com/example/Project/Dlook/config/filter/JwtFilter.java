@@ -1,4 +1,4 @@
-package com.example.Project.Dlook.config;
+package com.example.Project.Dlook.config.filter;
 
 import com.example.Project.Dlook.utils.JwtProvider;
 import lombok.RequiredArgsConstructor;

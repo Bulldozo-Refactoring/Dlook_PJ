@@ -1,4 +1,4 @@
-package com.example.Project.Dlook.config;
+package com.example.Project.Dlook.config.filter;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -14,7 +14,7 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException, IOException {
-        // ÇÊ¿äÇÑ ±ÇÇÑÀÌ ¾øÀÌ Á¢±ÙÇÏ·Á ÇÒ¶§ 403
+        // ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½Ò¶ï¿½ 403
         response.sendError(HttpServletResponse.SC_FORBIDDEN);
     }
 }

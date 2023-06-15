@@ -1,4 +1,4 @@
-package com.example.Project.Dlook.config;
+package com.example.Project.Dlook.config.filter;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
