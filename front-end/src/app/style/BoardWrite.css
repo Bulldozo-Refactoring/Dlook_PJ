@@ -1,10 +1,8 @@
 .post-form-container {
-  max-width: 500px;
+  max-width: 90%;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #f7f7f7;
+  background-color: white;
 }
 
 .post-form-container h2 {
@@ -68,18 +66,13 @@
 }
 
 .post-form-container textarea {
-  height: 150px;
+  height: 400px;
 }
 
 .post-form-container option {
   background-color: #f7f7f7;
   color: #555;
 }
-
-/* .post-form-container button {
-  background-color: #f7f7f7;
-  color: #555;
-} */
 
 .post-form-container .btn-dark {
   background: #555;
@@ -88,10 +81,35 @@
 
 .post-form-container .btn-dark:hover,
 .post-form-container .btn-dark:focus {
+  background: #373737;
   border-color: #373737;
-  background: #6A24FE;
+  color: #fff;
 }
 
+.cate, .authorName {
+  float: left;
+}
+.categorySelect {
+  float: right;
+}
+.post-form-container .boardTitle {
+  float: left;
+}
 
+.post-form-container #title {
+  position: absolute;
+  width: 500px;
+  left: 250px;
+  height: 30px;
+}
 
+.buttonWb {
+  display: flex;
+  justify-content: flex-end;
+}
 
+section::after {
+  content: "";
+  display: block;
+  clear: both;
+}
