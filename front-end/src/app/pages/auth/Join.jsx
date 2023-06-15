@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { styled } from "styled-components";
 import { join } from "app/slices/membersSlice";
 
 function Join() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -15,10 +16,10 @@ function Join() {
     clearErrors,
   } = useForm();
 
-  const [isEmailSent, setIsEmailSent] = useState(false); // 이메일 전송 여부 상태
-  const [verificationCode, setVerificationCode] = useState("");
-  const [isVerified, setIsVerified] = useState(false);
-  const [remainingTime, setRemainingTime] = useState(60);
+  const [isEmailSent, setIsEmailSent] = useState(false); // Send an email
+  const [verificationCode, setVerificationCode] = useState(""); // Error message
+  const [isVerified, setIsVerified] = useState(false); // Authentication code
+  const [remainingTime, setRemainingTime] = useState(60); // Authentication time
 
   const sendVerificationEmail = () => {
     // 이메일 전송 로직 작성 - 성공적으로 이메일을 전송했다면 setIsEmailSent(true)로 상태 변경
@@ -39,11 +40,15 @@ function Join() {
   const verifyCode = () => {
     // 인증 코드 확인 로직 작성 - 인증 코드가 맞다면 setIsVerified(true)로 상태 변경
     setIsVerified(true);
-    clearErrors("verificationCode"); // 에러 메시지 제거
+    clearErrors("verificationCode");
   };
 
-  // 회원가입 처리 로직
-  const onSubmit = (data) => dispatch(join(data));
+  const onSubmit = handleSubmit((data) => {
+    dispatch(join(data))
+      .unwrap()
+      .then((response) => navigate("/members/joinresult"))
+      .catch((error) => console.log("회원가입 실패!"));
+  });
 
   useEffect(() => {
     if (remainingTime === 0) setIsEmailSent(false);
@@ -57,7 +62,7 @@ function Join() {
           <Label>이메일</Label>
           <Input
             type="email"
-            {...register("member_email", {
+            {...register("memberEmail", {
               required: "이메일은 필수로 작성해주세요.",
               pattern: {
                 value: /\S+@\S+\.\S+/,
@@ -65,9 +70,9 @@ function Join() {
               },
             })}
           />
-          {errors.member_email && (
+          {errors.memberEmail && (
             <ErrorMessage role="alert">
-              {errors.member_email.message}
+              {errors.memberEmail.message}
             </ErrorMessage>
           )}
         </FormStyle>
@@ -107,13 +112,13 @@ function Join() {
           <Label>이름</Label>
           <Input
             type="text"
-            {...register("member_name", {
+            {...register("memberName", {
               required: "이름은 필수로 작성해주세요",
             })}
           />
-          {errors.member_name && (
+          {errors.memberName && (
             <ErrorMessage role="alert">
-              {errors.member_name.message}
+              {errors.memberName.message}
             </ErrorMessage>
           )}
         </FormStyle>
@@ -121,7 +126,7 @@ function Join() {
           <Label>비밀번호</Label>
           <Input
             type="password"
-            {...register("member_pw", {
+            {...register("memberPw", {
               required: "비밀번호는 필수로 작성해주세요.",
               minLength: {
                 value: 8,
@@ -129,8 +134,8 @@ function Join() {
               },
             })}
           />
-          {errors.member_pw && (
-            <ErrorMessage role="alert">{errors.member_pw.message}</ErrorMessage>
+          {errors.memberPw && (
+            <ErrorMessage role="alert">{errors.memberPw.message}</ErrorMessage>
           )}
         </FormStyle>
         <Button type="submit" disabled={isSubmitting || !isDirty}>

@@ -1,15 +1,17 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-// import axios from "axios";
-import axios from "./axuisMock";
+import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
+import axios from "axios";
+// import axios from "./axuisMock";
 
 export const join = createAsyncThunk(
   "members/join",
   async (payload, thunkAPI) => {
+    console.log(payload);
     try {
       const response = await axios.post(
         "http://localhost:8080/members/join",
         payload
       );
+      console.log("회원가입 진입");
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -20,15 +22,16 @@ export const join = createAsyncThunk(
 export const login = createAsyncThunk(
   "members/login",
   async (payload, thunkAPI) => {
-    // console.log(payload);
+    console.log(payload);
+    console.log(thunkAPI);
     try {
       const response = await axios.post(
         "http://localhost:8080/members/login",
         payload,
         { withCredentials: true }
       );
+      console.log("진입확인");
       const { refreshToken, accessToken } = response.data;
-      // local storage - token save
       localStorage.setItem("refreshToken", refreshToken);
       localStorage.setItem("accessToken", accessToken);
 
@@ -50,10 +53,8 @@ export const logout = createAsyncThunk(
       await axios.post("http://localhost:8080/members/logout", null, {
         withCredentials: true,
       });
-      // local storage 토큰 초기화
       localStorage.removeItem("refreshToken");
       localStorage.removeItem("accessToken");
-      // 로그아웃 성공 시 반환값은 null
       return null;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -61,10 +62,13 @@ export const logout = createAsyncThunk(
   }
 );
 
+export const joinSuccess = createAction("members/joinsuccess");
+
 const initialState = {
   isLoggedIn: false,
   user: null,
   error: null,
+  joinResult: null,
 };
 
 const membersSlice = createSlice({
@@ -72,9 +76,7 @@ const membersSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(login.pending, (state) => {
-      state.status = "loading";
-    });
+    builder.addCase(login.pending, (state) => (state.status = "loading"));
     builder.addCase(login.fulfilled, (state, { payload }) => {
       state.status = "success";
       state.isLoggedIn = true;
@@ -82,15 +84,10 @@ const membersSlice = createSlice({
     });
     builder.addCase(login.rejected, (state, action) => {
       state.status = "failed";
-      if (action.payload) {
-        state.error = action.payload;
-      } else {
-        state.error = action.error.message;
-      }
+      if (action.payload) state.error = action.payload;
+      else state.error = action.error.message;
     });
-    builder.addCase(logout.pending, (state) => {
-      state.status = "loading";
-    });
+    builder.addCase(logout.pending, (state) => (state.status = "loading"));
     builder.addCase(logout.fulfilled, (state) => {
       state.status = "success";
       state.isLoggedIn = false;
@@ -98,10 +95,17 @@ const membersSlice = createSlice({
     });
     builder.addCase(logout.rejected, (state, action) => {
       state.status = "failed";
-      if (action.payload) {
-        state.error = action.payload;
-      } else {
-        state.error = action.error.message;
+      if (action.payload) state.error = action.payload;
+      else state.error = action.error.message;
+    });
+    builder.addCase(join.fulfilled, (state, action) => {
+      if (action.payload === "join success") {
+        state.joinResult = "/members/joinresult";
+      }
+    });
+    builder.addCase(joinSuccess, (state, action) => {
+      if (action.payload === "join success") {
+        state.joinResult = "/members/joinresult";
       }
     });
   },

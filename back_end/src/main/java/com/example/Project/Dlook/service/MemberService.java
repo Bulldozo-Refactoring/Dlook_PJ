@@ -32,6 +32,7 @@ public class MemberService {
 
     @Transactional
     public String join(JoinRequestDTO dto) {
+
         // memberName 중복 체크
         memberRepository.findByMemberName(dto.getMemberName())
                 .ifPresent(member -> {
@@ -81,21 +82,21 @@ public class MemberService {
     }
 
     @Transactional
-    public TokenDto reissue(TokenRequestDto tokenRequestDto) {
+    public TokenDto reissue(String accessToken, String refreshToken) {
         // 1. Refresh Token 검증
-        if (!jwtProvider.validateToken(tokenRequestDto.getRefreshToken())) {
+        if (!jwtProvider.validateToken(refreshToken)) {
             throw new RuntimeException("Invalid Refresh Token");
         }
 
         // 2. Access Token 에서 Member ID 가져오기
-        Authentication authentication = jwtProvider.getAuthentication(tokenRequestDto.getAccessToken());
+        Authentication authentication = jwtProvider.getAuthentication(accessToken);
 
         // 3. 저장소에서 Member ID 를 기반으로 Refresh Token 값 가져옴
-        RefreshToken refreshToken = refreshTokenRepository.findByRefreshKey(authentication.getName())
+        RefreshToken refreshTokenValue = refreshTokenRepository.findByRefreshKey(authentication.getName())
                 .orElseThrow(() -> new RuntimeException("Member Logout"));
 
         // 4. Refresh Token 일치하는지 검사
-        if (!refreshToken.getRefreshValue().equals(tokenRequestDto.getRefreshToken())) {
+        if (!refreshTokenValue.getRefreshValue().equals(refreshToken)) {
             throw new RuntimeException("Refresh Token not match");
         }
 
@@ -103,10 +104,14 @@ public class MemberService {
         TokenDto tokenDto = jwtProvider.generateTokenDto(authentication);
 
         // 6. 저장소 정보 업데이트
-        RefreshToken newRefreshToken = refreshToken.updateValue(tokenDto.getRefreshToken());
+        RefreshToken newRefreshToken = refreshTokenValue.updateValue(refreshToken);
         refreshTokenRepository.save(newRefreshToken);
 
         // 토큰 발급
         return tokenDto;
+    }
+
+    public String logout(LoginRequestDTO dto) {
+        return "1232";
     }
 }

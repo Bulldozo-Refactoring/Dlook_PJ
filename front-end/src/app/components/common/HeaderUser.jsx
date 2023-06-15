@@ -26,15 +26,13 @@ function HeaderUser() {
   const handleLogout = () => {
     // 로그아웃 시  로그인 상태 및  유저 정보 쿠키 삭제
     Cookies.remove("isLoggedIn");
-    // Cookies.remove("user");
     dispatch(logout());
   };
 
   useEffect(() => {
-    // 페이지가 로드될 때 쿠키에서 로그인 정보를 읽어와 Redux 상태에 반영
+    // 페이지가 로드될 때 쿠키에서 로그인 정보를 읽어와 Redux에 반영
     const storedLoginStatus = Cookies.get("isLoggedIn");
-    // 쿠키에 저장된 로그인 상태가 true인 경우 Redux 상태를 업데이트
-    if (storedLoginStatus === "true") dispatch(login()); // 로그인 액션을 디스패치
+    if (storedLoginStatus === "true") dispatch(login());
   }, [dispatch]);
 
   const linkTo = isLoggedIn ? "/mypages/certify" : "/members/login";

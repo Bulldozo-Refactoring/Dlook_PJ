@@ -9,7 +9,7 @@ const ForgotPassword = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 비밀번호 찾기 로직을 추가 필요
+    // 비밀번호 찾기 로직 추가 필요
 
     setIsSubmitted(true);
   };
@@ -28,9 +28,9 @@ const ForgotPassword = () => {
           </PStyle>
           <Input
             type="email"
-            id="member_email"
+            id="memberEmail"
             value={email}
-            // onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Button type="submit">비밀번호 재설정</Button>
         </Form>

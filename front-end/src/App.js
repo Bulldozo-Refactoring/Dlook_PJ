@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PrivateRoute from "app/components/common/PrivateRoute";
 // page import
 import Layout from "app/components/common/Layout";
+import Error from "app/pages/Error";
 import MainPage from "app/pages/Main";
 import Board from "app/pages/Board";
 import Notice from "app/pages/Notice";
@@ -19,6 +20,7 @@ import JoinResult from "app/pages/auth/JoinResult";
 import ForgotPassword from "app/pages/auth/ForgotPassword";
 import MyCertify from "app/pages/auth/MyCertify";
 import MyBoard from "app/pages/auth/MyBoard";
+import BoardWrite from "app/pages/BoardWrite";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -26,63 +28,88 @@ const App = () => {
       path: "/",
       element: <Layout />,
       children: [
-        { path: "", element: <MainPage />, method: "get" },
-        {
-          // board - 비회원
-          path: "board",
-          children: [{ path: "", element: <Board />, method: "get" }],
-        },
-        {
-          // board - 회원
-          path: "board",
-          element: <PrivateRoute />,
-          children: [{ path: "", element: "", method: "get" }],
-        },
-        {
-          // garbage -- 비회원
-          path: "garbage",
-          children: [{ path: "", element: <Garbage />, method: "get" }],
-        },
-        {
-          // garbage --회원
-          path: "garbage",
-          element: <PrivateRoute />,
-          children: [{ path: "", element: <Garbage />, method: "get" }],
-        },
-        {
-          // notice -- 관리자 x
-          path: "notice",
-          children: [{ path: "", element: <Notice />, method: "get" }],
-        },
+        { path: "", element: <MainPage />, errorElement: "mainpage error" },
         {
           // members - 비회원
           path: "members",
+          errorElement: <Error />,
           children: [
-            { path: "join", element: <Join />, method: "post" },
-            { path: "login", element: <Login />, method: "Post" },
+            { path: "join", element: <Join /> },
             { path: "joinresult", element: <JoinResult /> },
-            { path: "password", element: <ForgotPassword /> },
+            { path: "login", element: <Login /> },
+            {
+              path: "password",
+              element: <ForgotPassword />,
+              children: [{ path: ":/memberSeq" }],
+            },
+            { path: "email" },
           ],
         },
         {
           // members - 회원
           path: "members",
-          element: <PrivateRoute />,
-          children: [{ path: "logout", element: "" }],
-        },
-        {
-          // mypage -- 회원
-          path: "mypages",
+          errorElement: <Error />,
           element: <PrivateRoute />,
           children: [
-            { path: "certify", element: <MyCertify /> },
-            { path: "board", element: <MyBoard /> },
+            { path: "reissue" },
+            { path: "logout" },
+            { path: ":memberSeq" },
+            {
+              // 관리자는 로그인 상태에서 url 접근 가능하게..?
+              path: "auth",
+              element: "auth 확인",
+              children: [{ path: "login", element: "auth 로그인" }],
+            },
           ],
         },
+        {
+          // board - 비회원
+          path: "board",
+          errorElement: <Error />,
+          children: [
+            { path: "", element: <Board /> },
+            { path: "detail/:boardNo", element: "" },
+          ],
+        },
+        {
+          // board - 회원
+          path: "board",
+          element: <PrivateRoute />,
+          errorElement: <Error />,
+          children: [
+            { path: "write", element: <BoardWrite /> },
+            { path: ":boardNo", element: <BoardWrite /> },
+          ],
+        },
+        {
+          // garbage - 비회원
+          path: "garbage",
+          errorElement: <Error />,
+          children: [{ path: "", element: <Garbage /> }],
+        },
+        {
+          // garbage - 회원
+          path: "garbage",
+          element: <PrivateRoute />,
+          errorElement: <Error />,
+          children: [{ path: "write", element: "쓰레기통 작성" }],
+        },
+        {
+          // notice - 관리자 x
+          path: "notice",
+          errorElement: <Error />,
+          children: [
+            { path: "", element: <Notice /> },
+            { path: "detail", element: "글 상세" },
+          ],
+        },
+        { path: "manual", element: "이용방법" },
+        { path: "rule", element: "서비스 정책" },
         {
           // 알고리즘 - 회원
           path: "algorithms",
           element: <PrivateRoute />,
+          errorElement: <Error />,
           children: [
             {
               path: "",
@@ -95,6 +122,17 @@ const App = () => {
                 { path: "rank", element: <Rank /> },
               ],
             },
+          ],
+        },
+        {
+          // mypage -- 회원
+          path: "mypages",
+          element: <PrivateRoute />,
+          errorElement: <Error />,
+          children: [
+            { path: "certify", element: <MyCertify /> },
+            { path: "board", element: <MyBoard /> },
+            { path: "replys", element: "헝" },
           ],
         },
       ],

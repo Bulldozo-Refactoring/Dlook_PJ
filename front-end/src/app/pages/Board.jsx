@@ -1,11 +1,10 @@
 import React from "react";
-// import List from 'app/components/List';
 import { useState } from "react";
-import "./BoardTab/Tab.css";
-import NoticeBoard from "./BoardTab/NoticeBoard";
-import FreeBoard from "./BoardTab/FreeBoard";
-import QaBoard from "./BoardTab/QaBoard";
-import "../style/style.css";
+import "app/style/Tab.css"
+import NoticeBoard from "../components/BoardTab/NoticeBoard";
+import FreeBoard from "../components/BoardTab/FreeBoard";
+import QaBoard from "../components/BoardTab/QaBoard";
+import "app/style/style.css"
 
 function Tabs() {
   const [toggleState, setToggleState] = useState(1);
@@ -23,12 +22,14 @@ function Tabs() {
         >
           공지사항
         </button>
+
         <button
           className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
           onClick={() => toggleTab(2)}
         >
           자유게시판
         </button>
+        
         <button
           className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
           onClick={() => toggleTab(3)}
@@ -41,13 +42,6 @@ function Tabs() {
         <div
           className={toggleState === 1 ? "content  active-content" : "content"}
         >
-          {/* <h2>Content 1</h2>
-          <hr />
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-            praesentium incidunt quia aspernatur quasi quidem facilis quo nihil
-            vel voluptatum?
-          </p> */}
           <NoticeBoard />
         </div>
 
