@@ -9,7 +9,7 @@ const axiosInstance = axios.create();
 const mock = new MockAdapter(axiosInstance);
 
 mock.onPost("http://localhost:8080/members/join").reply(200, {
-  // 200 상태 코드와 함께 가짜 응답 데이터를 반환
+  message: "join success",
   member_seq: 1,
   member_name: "exampleUser",
   member_email: "example@example.com",

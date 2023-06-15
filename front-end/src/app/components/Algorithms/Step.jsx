@@ -20,9 +20,9 @@ function Step() {
           </BodyTr>
         </TableListHead>
         <TableListBody>
-          {dummyList.map((it) => {
+          {dummyList.map((it, index) => {
             return (
-              <BodyTr>
+              <BodyTr key={index}>
                 <BodyTd>{it.id}</BodyTd>
                 <BodyTd>
                   <TdLink to="/algorithms/step">{it.title}</TdLink>
@@ -121,7 +121,7 @@ const dummyList = [
     solve: "해결",
   },
   {
-    id: 1,
+    id: 2,
     title: "문제링크 ",
     solve: "해결",
   },

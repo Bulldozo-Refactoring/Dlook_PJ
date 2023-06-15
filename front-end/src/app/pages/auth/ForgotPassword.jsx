@@ -28,9 +28,9 @@ const ForgotPassword = () => {
           </PStyle>
           <Input
             type="email"
-            id="member_email"
+            id="memberEmail"
             value={email}
-            // onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Button type="submit">비밀번호 재설정</Button>
         </Form>
