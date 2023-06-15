@@ -1,5 +1,6 @@
-package com.example.Project.Dlook.config;
+package com.example.Project.Dlook.config.filter;
 
+import com.example.Project.Dlook.config.filter.JwtFilter;
 import com.example.Project.Dlook.utils.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
@@ -11,7 +12,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
     private final JwtProvider jwtProvider;
 
-    // JwtProvider ¸¦ ÁÖÀÔ¹Þ¾Æ¼­ JwtFilter ¸¦ ÅëÇØ Security ·ÎÁ÷¿¡ ÇÊÅÍ¸¦ µî·Ï
+    // JwtProvider ï¿½ï¿½ ï¿½ï¿½ï¿½Ô¹Þ¾Æ¼ï¿½ JwtFilter ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Security ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½
     @Override
     public void configure(HttpSecurity http) {
         JwtFilter customFilter = new JwtFilter(jwtProvider);

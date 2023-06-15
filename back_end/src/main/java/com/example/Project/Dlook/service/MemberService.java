@@ -5,7 +5,6 @@ import com.example.Project.Dlook.domain.RefreshToken;
 import com.example.Project.Dlook.domain.dto.JoinRequestDTO;
 import com.example.Project.Dlook.domain.dto.LoginRequestDTO;
 import com.example.Project.Dlook.domain.dto.TokenDto;
-import com.example.Project.Dlook.domain.dto.TokenRequestDto;
 import com.example.Project.Dlook.exception.AppException;
 import com.example.Project.Dlook.exception.ErrorCode;
 import com.example.Project.Dlook.repository.MemberRepository;
