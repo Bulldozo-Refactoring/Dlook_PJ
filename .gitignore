@@ -3,3 +3,10 @@ front-end/package.json
 front-end/package.json
 *.json
 front-end/package.json
+
+# 규원님 파일
+.idea/shelf/Uncommitted_changes_before_Checkout_at_2023-06-15__11_50__Changes_.xml
+.idea/workspace.xml
+.idea/shelf/Uncommitted_changes_before_Checkout_at_2023-06-15_오전_11_50_[Changes]/shelved.patch
+.idea/shelf/Uncommitted_changes_before_Checkout_at_2023-06-15__11_50__Changes_1.xml
+.idea/compiler.xml
