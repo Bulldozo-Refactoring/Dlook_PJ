@@ -1,11 +1,10 @@
 import React from "react";
-// import List from 'app/components/List';
 import { useState } from "react";
-import "../components/BoardTab/Tab.css";
+import "app/style/Tab.css"
 import NoticeBoard from "../components/BoardTab/NoticeBoard";
 import FreeBoard from "../components/BoardTab/FreeBoard";
 import QaBoard from "../components/BoardTab/QaBoard";
-import "../style/style.css";
+import "app/style/style.css"
 
 function Tabs() {
   const [toggleState, setToggleState] = useState(1);
@@ -43,13 +42,6 @@ function Tabs() {
         <div
           className={toggleState === 1 ? "content  active-content" : "content"}
         >
-          {/* <h2>Content 1</h2>
-          <hr />
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-            praesentium incidunt quia aspernatur quasi quidem facilis quo nihil
-            vel voluptatum?
-          </p> */}
           <NoticeBoard />
         </div>
 

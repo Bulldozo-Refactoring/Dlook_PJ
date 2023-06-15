@@ -41,15 +41,6 @@ const List = () => {
                     {dummyList.map((it) => {
                         return <BoardList boardList={it} />
                     })}
-                    {/* <tr>
-                        <td>i</td>
-                        <th>
-                        <NavLink to="/">오늘의 점메추</NavLink>
-                        <p>테스트</p>
-                        </th>
-                        <td>황영수</td>
-                        <td>2023.06.08</td>
-                    </tr> */}
                 </tbody>
             </table>
             </div>

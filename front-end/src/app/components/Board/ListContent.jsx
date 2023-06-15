@@ -9,7 +9,6 @@ const BoardList = ({ boardList }) => {
             <td>{boardList.id}</td>
             <th>
             <NavLink to="/">{boardList.title}</NavLink>
-            {/* <p>테스트</p> */}
             </th>
             <td>{boardList.author}</td>
             <td>{boardList.created_date}</td>
