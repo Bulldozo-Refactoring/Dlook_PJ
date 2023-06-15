@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { styled } from "styled-components";
 import { join } from "app/slices/membersSlice";
 
 function Join() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -15,10 +16,10 @@ function Join() {
     clearErrors,
   } = useForm();
 
-  const [isEmailSent, setIsEmailSent] = useState(false); // 이메일 전송 여부 상태
-  const [verificationCode, setVerificationCode] = useState("");
-  const [isVerified, setIsVerified] = useState(false);
-  const [remainingTime, setRemainingTime] = useState(60);
+  const [isEmailSent, setIsEmailSent] = useState(false); // Send an email
+  const [verificationCode, setVerificationCode] = useState(""); // Error message
+  const [isVerified, setIsVerified] = useState(false); // Authentication code
+  const [remainingTime, setRemainingTime] = useState(60); // Authentication time
 
   const sendVerificationEmail = () => {
     // 이메일 전송 로직 작성 - 성공적으로 이메일을 전송했다면 setIsEmailSent(true)로 상태 변경
@@ -39,11 +40,15 @@ function Join() {
   const verifyCode = () => {
     // 인증 코드 확인 로직 작성 - 인증 코드가 맞다면 setIsVerified(true)로 상태 변경
     setIsVerified(true);
-    clearErrors("verificationCode"); // 에러 메시지 제거
+    clearErrors("verificationCode");
   };
 
-  // 회원가입 처리 로직
-  const onSubmit = (data) => dispatch(join(data));
+  const onSubmit = handleSubmit((data) => {
+    dispatch(join(data))
+      .unwrap()
+      .then((response) => navigate("/members/joinresult"))
+      .catch((error) => console.log("회원가입 실패!"));
+  });
 
   useEffect(() => {
     if (remainingTime === 0) setIsEmailSent(false);
