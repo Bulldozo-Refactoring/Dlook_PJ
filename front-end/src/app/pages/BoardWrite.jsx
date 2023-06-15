@@ -20,35 +20,37 @@ const BoardWrite = () => {
     // 필요에 따라 서버로 데이터를 전송하거나 다른 동작 수행 가능
   };
 
+  
+
+  
+
   return (
     <div className="post-form-container">
       <h2>전체 게시판</h2>
       <span>작성자</span> 작성자명
       <span>카테고리</span>
       <select size="2" className="category">
-        <option selected value="free">
-          자유게시판
-        </option>
-        <option value="qa">Q&A게시판</option>
+        <option defaultValue="free">자유게시판</option>
+        <option defaultValue="qa">Q&A게시판</option>
       </select>
       <form onSubmit={handleSubmit}>
         <label htmlFor="title">글제목</label>
         <input
           type="text"
           id="title"
-          value={title}
+          defaultValue={title}
           onChange={handleTitleChange}
         />
         <label htmlFor="content"></label>
         <textarea
           id="content"
-          value={content}
+          defaultValue={content}
           onChange={handleContentChange}
         ></textarea>
-        <button type="submit" className="btn-darks">
+        <button type="submit" className="btn-dark">
           작성하기
         </button>
-        <button type="submit" className="btn-darks">
+        <button type="submit" className="btn-dark">
           돌아가기
         </button>
       </form>
