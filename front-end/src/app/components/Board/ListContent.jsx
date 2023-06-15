@@ -1,20 +1,19 @@
 import { NavLink } from "react-router-dom" ;
 import React from "react";
 
-const BoardList = ({ boardList }) => {
-  console.log(boardList);
+const ListContent = ({ listContent }) => {
   return (
     <>
         <tr>
-            <td>{boardList.id}</td>
+            <td>{listContent.id}</td>
             <th>
-            <NavLink to="/">{boardList.title}</NavLink>
+            <NavLink to="/">{listContent.title}</NavLink>
             </th>
-            <td>{boardList.author}</td>
-            <td>{boardList.created_date}</td>
+            <td>{listContent.author}</td>
+            <td>{listContent.created_date}</td>
         </tr>
     </>
   );
 };
 
-export default BoardList;
+export default ListContent;

@@ -20,7 +20,7 @@ function QaBoard() {
           <div className="search-window">
             <form action="">
               <div className="search-wrap">
-                <label for="search" className="blind">
+                <label htmlFor="search" className="blind">
                   Q&A게시판 내용 검색
                 </label>
                 <input
@@ -28,7 +28,7 @@ function QaBoard() {
                   type="search"
                   name=""
                   placeholder="검색어를 입력해주세요."
-                  value=""
+                  defaultValue=""
                 />
                 <button type="submit" className="btn btn-dark">
                   검색
