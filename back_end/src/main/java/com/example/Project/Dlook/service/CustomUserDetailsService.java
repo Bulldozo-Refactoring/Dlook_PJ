@@ -28,12 +28,12 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException(memberEmail + " -> can not find Database"));
     }
 
-    // DB ¿¡ User °ªÀÌ Á¸ÀçÇÑ´Ù¸é UserDetails °´Ã¼·Î ¸¸µé¾î¼­ ¸®ÅÏ
+    // DB ì— User ê°’ì´ ì¡´ì¬í•œë‹¤ë©´ UserDetails ê°ì²´ë¡œ ë§Œë“¤ì–´ì„œ ë¦¬í„´
     private UserDetails createUserDetails(Member member) {
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(member.getAuthority().toString());
 
         return new User(
-                String.valueOf(member.getMemberSeq()),
+                String.valueOf(member.getMemberName()),
                 member.getMemberPw(),
                 Collections.singleton(grantedAuthority)
         );

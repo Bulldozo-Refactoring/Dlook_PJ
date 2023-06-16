@@ -1,9 +1,11 @@
 package com.example.Project.Dlook.utils;
 
 import com.example.Project.Dlook.domain.dto.TokenDto;
+import com.example.Project.Dlook.repository.MemberRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,8 +34,8 @@ public class JwtProvider {
     }
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_TYPE = "Bearer";
-    private Long accessTokenExpireTimeMs = 1000 * 10l; // 1시간 (실험 위해서 10초)
-    private Long refreshTokenExpireTimeMs = 1000 * 20 * 60l; // 일주일 (실험 위해서 20분)
+    private Long accessTokenExpireTimeMs = 1000 * 60l; // 1시간 (실험 위해서 10초)
+    private Long refreshTokenExpireTimeMs = 1000 * 20 * 120l; // 일주일 (실험 위해서 20분)
 
     public TokenDto generateTokenDto(Authentication authentication) {
         // 권한들 가져오기
@@ -61,6 +63,7 @@ public class JwtProvider {
         return TokenDto.builder()
                 .grantType(BEARER_TYPE)
                 .accessToken(accessToken)
+                .memberName(authentication.getName())
                 .accessTokenExpiresIn(accessTokenExpiresIn.getTime())
                 .refreshToken(refreshToken)
                 .build();
@@ -108,5 +111,13 @@ public class JwtProvider {
         } catch (ExpiredJwtException e) {
             return e.getClaims();
         }
+    }
+
+    public Long getExpiration(String accessToken) {
+        // accessToken 남은 유효시간
+        Date expiration = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody().getExpiration();
+        // 현재 시간
+        Long now = new Date().getTime();
+        return (expiration.getTime() - now);
     }
 }

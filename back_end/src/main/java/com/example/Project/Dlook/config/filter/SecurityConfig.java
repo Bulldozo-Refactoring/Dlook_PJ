@@ -1,5 +1,6 @@
 package com.example.Project.Dlook.config.filter;
 
+import com.example.Project.Dlook.repository.BlackListRepository;
 import com.example.Project.Dlook.utils.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ public class SecurityConfig {
     private final JwtProvider jwtProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+    private final BlackListRepository blackListRepository;
     @Value("${jwt.secret}")
     private String secretKey;
 
@@ -47,12 +49,12 @@ public class SecurityConfig {
                 // 로그인, 회원가입 API, 재발급은 토큰이 없는 상태에서 요청이 들어오기 때문에 permitAll 설정
                 .and()
                 .authorizeRequests()
-                .antMatchers("/members/join", "/members/login", "/members/reissue").permitAll()
+                .antMatchers("/members/join", "/members/login", "/members/reissue", "/members/logout").permitAll()
                 .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
 
                 // JwtFilter 를 addFilterBefore 로 등록했던 JwtSecurityConfig 클래스를 적용
                 .and()
-                .apply(new JwtSecurityConfig(jwtProvider));
+                .apply(new JwtSecurityConfig(jwtProvider, blackListRepository));
 
         return http.build();
     }
