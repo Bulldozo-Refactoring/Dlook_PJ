@@ -15,7 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class RefreshToken {
     @Id
-    private String refreshKey; // Member ID °ª
+    private String refreshKey; // memberEmail ê°’
 
     @Column
     private String refreshValue; // Refresh Token String

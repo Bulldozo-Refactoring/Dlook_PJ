@@ -1,12 +1,15 @@
 package com.example.Project.Dlook.service;
 
+import com.example.Project.Dlook.domain.BlackList;
 import com.example.Project.Dlook.domain.Member;
 import com.example.Project.Dlook.domain.RefreshToken;
 import com.example.Project.Dlook.domain.dto.JoinRequestDTO;
 import com.example.Project.Dlook.domain.dto.LoginRequestDTO;
 import com.example.Project.Dlook.domain.dto.TokenDto;
+import com.example.Project.Dlook.domain.dto.TokenRequestDto;
 import com.example.Project.Dlook.exception.AppException;
 import com.example.Project.Dlook.exception.ErrorCode;
+import com.example.Project.Dlook.repository.BlackListRepository;
 import com.example.Project.Dlook.repository.MemberRepository;
 import com.example.Project.Dlook.repository.RefreshTokenRepository;
 import com.example.Project.Dlook.utils.JwtProvider;
@@ -24,9 +27,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
+    private final BlackListRepository blackListRepository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtProvider jwtProvider;
-    private final RefreshTokenRepository refreshTokenRepository;
     private final BCryptPasswordEncoder encoder;
 
     @Transactional
@@ -47,7 +51,7 @@ public class MemberService {
         Member member = dto.toMember(encoder);
         memberRepository.save(member);
 
-        return "SUCCESS";
+        return "join success";
     }
 
     @Transactional
@@ -82,7 +86,7 @@ public class MemberService {
 
     @Transactional
     public TokenDto reissue(String accessToken, String refreshToken) {
-        // 1. Refresh Token 검증
+        // 1. Refresh Token 검증 (accesstoken이 만료된 이후라 인증없이 항상 permit 해둠, logout 이후의 접근을 막기 위해 필요)
         if (!jwtProvider.validateToken(refreshToken)) {
             throw new RuntimeException("Invalid Refresh Token");
         }
@@ -110,7 +114,29 @@ public class MemberService {
         return tokenDto;
     }
 
-    public String logout(LoginRequestDTO dto) {
-        return "1232";
+    public String logout(String accessToken, String refreshToken) {
+        // 1. accessToken 검증
+        if (!jwtProvider.validateToken(accessToken)) {
+            throw new RuntimeException("Invalid accessToken");
+        }
+
+        // 2. Access Token 에서 Member ID 가져오기
+        Authentication authentication = jwtProvider.getAuthentication(accessToken);
+
+        // 3. 저장소에서 Member ID 를 기반으로 Refresh Token 값 가져옴
+        RefreshToken refreshTokenValue = refreshTokenRepository.findByRefreshKey(authentication.getName())
+                .orElseThrow(() -> new RuntimeException("Member Logout"));
+        if (refreshTokenValue != null) {
+            refreshTokenRepository.delete(refreshTokenValue);
+        }
+
+        Long expiration = jwtProvider.getExpiration(accessToken);
+        BlackList blackList = BlackList.builder()
+                .accessToken(accessToken)
+                .message("logout")
+                .expiration(expiration)
+                .build();
+        blackListRepository.save(blackList);
+        return "logout success";
     }
 }

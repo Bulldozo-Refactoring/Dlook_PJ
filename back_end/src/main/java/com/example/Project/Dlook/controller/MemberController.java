@@ -1,5 +1,6 @@
 package com.example.Project.Dlook.controller;
 
+import com.example.Project.Dlook.domain.RefreshToken;
 import com.example.Project.Dlook.domain.dto.JoinRequestDTO;
 import com.example.Project.Dlook.domain.dto.LoginRequestDTO;
 import com.example.Project.Dlook.domain.dto.TokenDto;
@@ -37,8 +38,11 @@ public class MemberController {
         return ResponseEntity.ok(memberService.reissue(accessToken, refreshToken));
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity<?> logout(@RequestBody LoginRequestDTO dto) {
-        return ResponseEntity.ok(memberService.logout(dto));
+    @GetMapping("/logout")
+    public ResponseEntity<String> logout(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization").substring(7);
+        String refreshToken = request.getHeader("RefreshToken");
+        memberService.logout(accessToken, refreshToken);
+        return ResponseEntity.ok().body("logout success");
     }
 }
