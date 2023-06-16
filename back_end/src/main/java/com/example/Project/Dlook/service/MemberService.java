@@ -100,7 +100,7 @@ public class MemberService {
 
         // 4. Refresh Token 일치하는지 검사
         if (!refreshTokenValue.getRefreshValue().equals(refreshToken)) {
-            throw new RuntimeException("Refresh Token not match");
+            throw new RuntimeException("REFRESHTOKEN_NOT_FOUND");
         }
 
         // 5. 새로운 토큰 생성

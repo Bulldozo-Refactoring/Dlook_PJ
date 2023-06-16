@@ -1,7 +1,7 @@
 package com.example.Project.Dlook.utils;
 
 import com.example.Project.Dlook.domain.dto.TokenDto;
-import com.example.Project.Dlook.repository.MemberRepository;
+import com.example.Project.Dlook.repository.BlackListRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -27,10 +27,12 @@ import java.util.stream.Collectors;
 public class JwtProvider {
 
     private final Key key;
+    private final BlackListRepository blackListRepository;
 
-    public JwtProvider(@Value("${jwt.secret}") String secretKey) {
+    public JwtProvider(BlackListRepository blackListRepository, @Value("${jwt.secret}") String secretKey) {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         this.key = Keys.hmacShaKeyFor(keyBytes);
+        this.blackListRepository = blackListRepository;
     }
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_TYPE = "Bearer";
@@ -92,6 +94,9 @@ public class JwtProvider {
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            if(blackListRepository.existsByAccessToken(token)) {
+                throw new RuntimeException("logout member");
+            }
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
             log.info("INVALID_JWT_SIGNATURE");
@@ -100,7 +105,7 @@ public class JwtProvider {
         } catch (UnsupportedJwtException e) {
             log.info("INVALID_JWT");
         } catch (IllegalArgumentException e) {
-            log.info("INVALID_JWT");
+            log.info("JWT Token is invalid");
         }
         return false;
     }
