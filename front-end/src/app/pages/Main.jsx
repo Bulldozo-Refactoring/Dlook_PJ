@@ -1,23 +1,23 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { SectionsContainer, Section } from "react-fullpage";
-import styled from "styled-components";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { SectionsContainer, Section } from 'react-fullpage';
+import styled from 'styled-components';
 
-import MainCard from "app/components/MainCard";
-import SubmitButton from "app/components/SubmitButton";
-import mainBack01 from "app/assets/images/mainBack01.png";
-import mainBack02 from "app/assets/images/mainBack02.png";
+import MainCard from 'app/components/MainCard';
+import SubmitButton from 'app/components/SubmitButton';
+import mainBack01 from 'app/assets/images/mainBack01.png';
+import mainBack02 from 'app/assets/images/mainBack02.png';
 
 function MainPage() {
   // page scroll
   let options = {
-    sectionClassName: "section",
-    anchors: ["sectionOne", "sectionTwo", "sectionThree"],
+    sectionClassName: 'section',
+    anchors: ['sectionOne', 'sectionTwo', 'sectionThree'],
     scrollBar: false,
     navigation: true,
     verticalAlign: false,
-    sectionPaddingBottom: "80px",
+    sectionPaddingBottom: '80px',
     arrowNavigation: true,
   };
 
@@ -25,8 +25,8 @@ function MainPage() {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    if (isLoggedIn) navigate("/algorithms/step");
-    else navigate("/members/login");
+    if (isLoggedIn) navigate('/algorithms/step');
+    else navigate('/members/login');
   };
 
   return (
@@ -76,7 +76,7 @@ function MainPage() {
             <MainCard />
           </MainBox02>
         </Section>
-        <Section style={{ margin: "0 auto", backgroundColor: "var(--bg-100)" }}>
+        <Section style={{ margin: '0 auto', backgroundColor: 'var(--bg-100)' }}>
           <MainBox03>
             <H1>공지사항</H1>
           </MainBox03>
@@ -146,8 +146,7 @@ const PStyle = styled.p`
   margin-bottom: 2rem;
 `;
 const Back = styled.div`
-  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-    url(${mainBack01});
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(${mainBack01});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;

@@ -1,7 +1,7 @@
 // 알고리즘 - 문제추천 - 실력별
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { styled } from "styled-components";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { styled } from 'styled-components';
 
 function Step() {
   return (
@@ -15,7 +15,7 @@ function Step() {
         <TableListHead>
           <BodyTr>
             <HeadTh>문제 번호</HeadTh>
-            <HeadTh style={{ width: "80%" }}>제목</HeadTh>
+            <HeadTh style={{ width: '80%' }}>제목</HeadTh>
             <HeadTh>해결 여부</HeadTh>
           </BodyTr>
         </TableListHead>
@@ -117,13 +117,13 @@ const TdLink = styled(NavLink)`
 const dummyList = [
   {
     id: 1,
-    title: "문제링크 ",
-    solve: "해결",
+    title: '문제링크 ',
+    solve: '해결',
   },
   {
     id: 2,
-    title: "문제링크 ",
-    solve: "해결",
+    title: '문제링크 ',
+    solve: '해결',
   },
 ];
 export default Step;

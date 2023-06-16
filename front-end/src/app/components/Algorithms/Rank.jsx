@@ -1,27 +1,21 @@
 // 알고리즘 - 랭킹분석
-import React from "react";
-import { styled } from "styled-components";
+import React from 'react';
+import { styled } from 'styled-components';
 
 function Child() {
   return (
     <AlgorithmsType>
-      <div style={{ marginBottom: "6rem" }}>
+      <div style={{ marginBottom: '6rem' }}>
         <H2>기간별 진행도</H2>
         <Img src="https://ghchart.rshah.org/219138/OlMinje" />
-        <LinkStyle
-          onClick={() =>
-            (document.location.href = "https://github.com/Bulldozo")
-          }
-        >
-          깃허브 바로가기
-        </LinkStyle>
+        <LinkStyle onClick={() => (document.location.href = 'https://github.com/Bulldozo')}>깃허브 바로가기</LinkStyle>
       </div>
-      <div style={{ width: "40%", margin: "0 auto" }}>
+      <div style={{ width: '40%', margin: '0 auto' }}>
         <H2>Rating</H2>
         <Rating>
           <RatingBefore>Rank</RatingBefore>
-          <RatingContent style={{ borderBottom: "1px solid var(--bg-300)" }}>
-            <RatingLi style={{ borderRight: "1px solid var(--bg-300)" }}>
+          <RatingContent style={{ borderBottom: '1px solid var(--bg-300)' }}>
+            <RatingLi style={{ borderRight: '1px solid var(--bg-300)' }}>
               EXP<Value>2500</Value>
             </RatingLi>
             <RatingLi>
@@ -29,7 +23,7 @@ function Child() {
             </RatingLi>
           </RatingContent>
           <RatingContent>
-            <RatingLi style={{ borderRight: "1px solid var(--bg-300)" }}>
+            <RatingLi style={{ borderRight: '1px solid var(--bg-300)' }}>
               Class<Value>2500</Value>
             </RatingLi>
             <RatingLi>

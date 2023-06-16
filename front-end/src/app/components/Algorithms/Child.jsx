@@ -1,9 +1,9 @@
 // 알고리즘 - 문제추천 - 알고리즘
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { styled } from "styled-components";
-import Autocomplete from "@mui/joy/Autocomplete";
-import FormControl from "@mui/joy/FormControl";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { styled } from 'styled-components';
+import Autocomplete from '@mui/joy/Autocomplete';
+import FormControl from '@mui/joy/FormControl';
 
 function Child() {
   return (
@@ -11,7 +11,7 @@ function Child() {
       <H1>알고리즘 추천</H1>
       <StepTop>
         <H2>Level</H2>
-        <div className="right" style={{ display: "flex" }}>
+        <div className="right" style={{ display: 'flex' }}>
           <FormControl id="multiple-limit-tags">
             <AutocompleteStyle
               multiple
@@ -30,7 +30,7 @@ function Child() {
         <TableListHead>
           <BodyTr>
             <HeadTh>문제 번호</HeadTh>
-            <HeadTh style={{ width: "80%" }}>제목</HeadTh>
+            <HeadTh style={{ width: '80%' }}>제목</HeadTh>
             <HeadTh>해결 여부</HeadTh>
           </BodyTr>
         </TableListHead>
@@ -138,20 +138,20 @@ const TdLink = styled(NavLink)`
 const dummyList = [
   {
     id: 1,
-    title: "문제링크 ",
-    solve: "해결",
+    title: '문제링크 ',
+    solve: '해결',
   },
   {
     id: 2,
-    title: "문제링크 ",
-    solve: "해결",
+    title: '문제링크 ',
+    solve: '해결',
   },
 ];
 
 const List = [
-  { title: "알고리즘 종류1" },
-  { title: "알고리즘 종류1" },
-  { title: "알고리즘 종류1" },
-  { title: "알고리즘 종류1" },
+  { title: '알고리즘 종류1' },
+  { title: '알고리즘 종류1' },
+  { title: '알고리즘 종류1' },
+  { title: '알고리즘 종류1' },
 ];
 export default Child;

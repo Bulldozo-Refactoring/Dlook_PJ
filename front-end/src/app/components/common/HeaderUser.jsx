@@ -1,18 +1,18 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { logout, login } from "app/slices/membersSlice";
-import { styled } from "styled-components";
-import Cookies from "js-cookie";
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout, login } from 'app/slices/tokenSlice';
+import { styled } from 'styled-components';
+import Cookies from 'js-cookie';
 
-import Avatar from "@mui/material/Avatar";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import Logout from "@mui/icons-material/Logout";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Tooltip from "@mui/material/Tooltip";
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Logout from '@mui/icons-material/Logout';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Tooltip from '@mui/material/Tooltip';
 
 function HeaderUser() {
   const dispatch = useDispatch();
@@ -24,18 +24,17 @@ function HeaderUser() {
   const handleClose = () => setAnchorEl(null);
 
   const handleLogout = () => {
-    // 로그아웃 시  로그인 상태 및  유저 정보 쿠키 삭제
-    Cookies.remove("isLoggedIn");
+    Cookies.remove('isLoggedIn');
+    Cookies.remove('memberName');
     dispatch(logout());
   };
 
   useEffect(() => {
-    // 페이지가 로드될 때 쿠키에서 로그인 정보를 읽어와 Redux에 반영
-    const storedLoginStatus = Cookies.get("isLoggedIn");
-    if (storedLoginStatus === "true") dispatch(login());
+    const storedLoginStatus = Cookies.get('isLoggedIn');
+    if (storedLoginStatus === 'true') dispatch(login());
   }, [dispatch]);
 
-  const linkTo = isLoggedIn ? "/mypages/certify" : "/members/login";
+  const linkTo = isLoggedIn ? '/mypages/certify' : '/members/login';
 
   return (
     <>
@@ -47,16 +46,16 @@ function HeaderUser() {
                 <IconButton
                   onClick={handleClick}
                   sx={{ ml: 2 }}
-                  aria-controls={open ? "account-menu" : undefined}
+                  aria-controls={open ? 'account-menu' : undefined}
                   aria-haspopup="true"
-                  aria-expanded={open ? "true" : undefined}
+                  aria-expanded={open ? 'true' : undefined}
                 >
-                  <Avatar sx={{ background: "var(--primary-200)" }}></Avatar>
+                  <Avatar sx={{ background: 'var(--primary-200)' }}></Avatar>
                 </IconButton>
               </Tooltip>
             </BoxStyle>
           </Link>
-          {isLoggedIn && ( // 로그인 상태에서만 보이도록 조건부 렌더링
+          {isLoggedIn && (
             <Menu
               anchorEl={anchorEl}
               id="account-menu"
@@ -66,35 +65,35 @@ function HeaderUser() {
               PaperProps={{
                 elevation: 0,
                 sx: {
-                  overflow: "visible",
-                  filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                  overflow: 'visible',
+                  filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
                   mt: 1.5,
-                  "& .MuiAvatar-root": {
+                  '& .MuiAvatar-root': {
                     width: 32,
                     height: 32,
                     ml: -0.5,
                     mr: 1,
                   },
-                  "&:before": {
+                  '&:before': {
                     content: '""',
-                    display: "block",
-                    position: "absolute",
+                    display: 'block',
+                    position: 'absolute',
                     top: 0,
                     right: 23,
                     width: 10,
                     height: 10,
-                    bgcolor: "background.paper",
-                    transform: "translateY(-50%) rotate(45deg)",
+                    bgcolor: 'background.paper',
+                    transform: 'translateY(-50%) rotate(45deg)',
                     zIndex: 0,
                   },
                 },
               }}
-              transformOrigin={{ horizontal: "right", vertical: "top" }}
-              anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+              transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+              anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
               <Link to="/mypages/certify">
                 <MenuItem onClick={handleClose}>
-                  <Avatar sx={{ background: "var(--primary-200)" }} />내 정보
+                  <Avatar sx={{ background: 'var(--primary-200)' }} />내 정보
                 </MenuItem>
               </Link>
               <Link to="/">
@@ -118,4 +117,5 @@ const BoxStyle = styled(Box)`
   align-items: center;
   text-align: center;
 `;
+
 export default HeaderUser;

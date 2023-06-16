@@ -1,27 +1,28 @@
 // 백준 연동
-import React from "react";
-import { useSelector } from "react-redux";
-import { styled } from "styled-components";
-import Mymenu from "app/components/Mymenu";
-import SubmitButton from "app/components/SubmitButton";
-import logo from "app/assets/images/logo.svg";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { styled } from 'styled-components';
+import Mymenu from 'app/components/Mymenu';
+import SubmitButton from 'app/components/SubmitButton';
+import logo from 'app/assets/images/logo.svg';
 
 const MyCertify = () => {
   const isLoggedIn = useSelector((state) => state.members.isLoggedIn);
   // 실제 코드
   // const user = useSelector((state) => state.members.user);
   // 테스트용 코드
-  const user = useSelector((state) => {
-    const userData = state.members.user;
-    if (userData) {
-      return { ...userData };
-    }
-    return null;
-  });
-  user.certify = true;
+  // const user = useSelector((state) => {
+  //   const userData = state.members.user;
+  //   if (userData) {
+  //     return { ...userData };
+  //   }
+  //   return null;
+  // });
+  // user.certify = true;
   // user.certify = false;
 
-  if (isLoggedIn && user && user.certify) {
+  // if (isLoggedIn && user.certify) {
+  if (isLoggedIn) {
     // 연동 후
     return (
       <Container>
@@ -30,14 +31,12 @@ const MyCertify = () => {
           <Mymenu />
           <Right>
             <After>
-              <div style={{ width: "30%" }}>
+              <div style={{ width: '30%' }}>
                 <Circle></Circle>
                 <PinkText01>Sliver</PinkText01>
                 <BlueText>딸기너구리</BlueText>
               </div>
-              <div
-                style={{ width: "70%", textAlign: "left", padding: "0 30px" }}
-              >
+              <div style={{ width: '70%', textAlign: 'left', padding: '0 30px' }}>
                 <PinkText02>User Bio - 힘들어요 제법 쓰러질듯해요</PinkText02>
                 <div>
                   <div>
@@ -79,9 +78,7 @@ const MyCertify = () => {
                 <LiStyle>사용 가능 기능2</LiStyle>
                 <LiStyle>사용 가능 기능3</LiStyle>
               </UlStyle>
-              <SubmitButton style={{ color: "var(--text-100)", width: "40%" }}>
-                백준 연동하러 가기
-              </SubmitButton>
+              <SubmitButton style={{ color: 'var(--text-100)', width: '40%' }}>백준 연동하러 가기</SubmitButton>
             </Before>
           </Right>
         </Content>
@@ -149,7 +146,7 @@ const LiStyle = styled.li`
     left: calc(50% - 65px);
     transform: translateY(-50%);
     counter-increment: number 1;
-    content: counter(number) ".";
+    content: counter(number) '.';
     color: var(--text-100);
     font-size: 0.8em;
     z-index: 1;

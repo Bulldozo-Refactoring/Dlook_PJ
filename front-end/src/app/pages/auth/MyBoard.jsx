@@ -1,7 +1,7 @@
 // 글/댓글 관리
-import React from "react";
-import { styled } from "styled-components";
-import Mymenu from "app/components/Mymenu";
+import React from 'react';
+import { styled } from 'styled-components';
+import Mymenu from 'app/components/Mymenu';
 
 function MyBoard() {
   return (

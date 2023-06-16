@@ -1,7 +1,7 @@
 // 알고리즘 메뉴
-import React from "react";
-import { NavLink as BaseNavLink } from "react-router-dom";
-import { styled } from "styled-components";
+import React from 'react';
+import { NavLink as BaseNavLink } from 'react-router-dom';
+import { styled } from 'styled-components';
 
 function AlgorithmsMenu() {
   return (
@@ -49,7 +49,7 @@ const TopUi = styled.ul`
   min-height: 39px;
   z-index: 10;
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 57px;
     border-bottom: 3px solid var(--bg-200);

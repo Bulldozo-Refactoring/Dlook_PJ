@@ -1,6 +1,6 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import AlgorithmsMenu from "../components/Algorithms/Menu";
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import AlgorithmsMenu from '../components/Algorithms/Menu';
 
 const Algorithms = () => {
   return (

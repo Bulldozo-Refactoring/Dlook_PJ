@@ -1,6 +1,6 @@
-import React from "react";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import React from 'react';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function PrivateRoute() {
   // 로그인 여부 확인

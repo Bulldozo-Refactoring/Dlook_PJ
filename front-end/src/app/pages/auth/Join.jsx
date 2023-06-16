@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useForm } from "react-hook-form";
-import { styled } from "styled-components";
-import { join } from "app/slices/membersSlice";
+import React, { useState, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { styled } from 'styled-components';
+import { join } from 'app/slices/membersSlice';
 
 function Join() {
   const dispatch = useDispatch();
@@ -17,14 +17,14 @@ function Join() {
   } = useForm();
 
   const [isEmailSent, setIsEmailSent] = useState(false); // Send an email
-  const [verificationCode, setVerificationCode] = useState(""); // Error message
+  const [verificationCode, setVerificationCode] = useState(''); // Error message
   const [isVerified, setIsVerified] = useState(false); // Authentication code
   const [remainingTime, setRemainingTime] = useState(60); // Authentication time
 
   const sendVerificationEmail = () => {
     // 이메일 전송 로직 작성 - 성공적으로 이메일을 전송했다면 setIsEmailSent(true)로 상태 변경
     setIsEmailSent(true);
-    setVerificationCode({ value: "", isValid: false }); // verificationCode 초기화
+    setVerificationCode({ value: '', isValid: false }); // verificationCode 초기화
     startTimer();
   };
 
@@ -40,14 +40,14 @@ function Join() {
   const verifyCode = () => {
     // 인증 코드 확인 로직 작성 - 인증 코드가 맞다면 setIsVerified(true)로 상태 변경
     setIsVerified(true);
-    clearErrors("verificationCode");
+    clearErrors('verificationCode');
   };
 
   const onSubmit = handleSubmit((data) => {
     dispatch(join(data))
       .unwrap()
-      .then((response) => navigate("/members/joinresult"))
-      .catch((error) => console.log("회원가입 실패!"));
+      .then((response) => navigate('/members/joinresult'))
+      .catch((error) => console.log('회원가입 실패!'));
   });
 
   useEffect(() => {
@@ -57,24 +57,20 @@ function Join() {
   return (
     <SignUpTemplate>
       <Title>Sign Up</Title>
-      <form onSubmit={handleSubmit(onSubmit)} style={{ marginBottom: "20px" }}>
+      <form onSubmit={handleSubmit(onSubmit)} style={{ marginBottom: '20px' }}>
         <FormStyle>
           <Label>이메일</Label>
           <Input
             type="email"
-            {...register("memberEmail", {
-              required: "이메일은 필수로 작성해주세요.",
+            {...register('memberEmail', {
+              required: '이메일은 필수로 작성해주세요.',
               pattern: {
                 value: /\S+@\S+\.\S+/,
-                message: "올바른 이메일 형식을 입력해주세요.",
+                message: '올바른 이메일 형식을 입력해주세요.',
               },
             })}
           />
-          {errors.memberEmail && (
-            <ErrorMessage role="alert">
-              {errors.memberEmail.message}
-            </ErrorMessage>
-          )}
+          {errors.memberEmail && <ErrorMessage role="alert">{errors.memberEmail.message}</ErrorMessage>}
         </FormStyle>
         {isEmailSent ? (
           <FormStyle>
@@ -83,15 +79,11 @@ function Join() {
               type="text"
               value={verificationCode}
               onChange={(e) => setVerificationCode(e.target.value)}
-              {...register("verificationCode", {
-                required: "인증 번호를 적어주세요.",
+              {...register('verificationCode', {
+                required: '인증 번호를 적어주세요.',
               })}
             />
-            {errors.verificationCode && (
-              <ErrorMessage role="alert">
-                {errors.verificationCode.message}
-              </ErrorMessage>
-            )}
+            {errors.verificationCode && <ErrorMessage role="alert">{errors.verificationCode.message}</ErrorMessage>}
             <RemainingTime>{remainingTime}초</RemainingTime>
             {isVerified ? (
               <VerificationMessage>PASS</VerificationMessage>
@@ -112,31 +104,25 @@ function Join() {
           <Label>이름</Label>
           <Input
             type="text"
-            {...register("memberName", {
-              required: "이름은 필수로 작성해주세요",
+            {...register('memberName', {
+              required: '이름은 필수로 작성해주세요',
             })}
           />
-          {errors.memberName && (
-            <ErrorMessage role="alert">
-              {errors.memberName.message}
-            </ErrorMessage>
-          )}
+          {errors.memberName && <ErrorMessage role="alert">{errors.memberName.message}</ErrorMessage>}
         </FormStyle>
         <FormStyle>
           <Label>비밀번호</Label>
           <Input
             type="password"
-            {...register("memberPw", {
-              required: "비밀번호는 필수로 작성해주세요.",
+            {...register('memberPw', {
+              required: '비밀번호는 필수로 작성해주세요.',
               minLength: {
                 value: 8,
-                message: "비밀번호는 8자 이상이어야 합니다.",
+                message: '비밀번호는 8자 이상이어야 합니다.',
               },
             })}
           />
-          {errors.memberPw && (
-            <ErrorMessage role="alert">{errors.memberPw.message}</ErrorMessage>
-          )}
+          {errors.memberPw && <ErrorMessage role="alert">{errors.memberPw.message}</ErrorMessage>}
         </FormStyle>
         <Button type="submit" disabled={isSubmitting || !isDirty}>
           Sign Up
@@ -210,7 +196,7 @@ const RemainingTime = styled.span`
   width: 50px;
   font-size: 14px;
   text-align: right;
-  display: ${(props) => (props.isVerified ? "none" : "inline")};
+  display: ${(props) => (props.isVerified ? 'none' : 'inline')};
 `;
 const VerifyButton = styled(Button)`
   width: 80px;
