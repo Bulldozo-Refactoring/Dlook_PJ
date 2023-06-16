@@ -7,7 +7,7 @@ const ListContent = ({ listContent }) => {
         <tr>
             <td>{listContent.id}</td>
             <th>
-            <NavLink to="/">{listContent.title}</NavLink>
+            <NavLink to="detail/1">{listContent.title}</NavLink>
             </th>
             <td>{listContent.author}</td>
             <td>{listContent.created_date}</td>
