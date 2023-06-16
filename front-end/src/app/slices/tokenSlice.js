@@ -1,32 +1,73 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAction } from '@reduxjs/toolkit';
+import Cookies from 'js-cookie';
+import axios from './axuisMock';
+// import axios from 'axios';
 
-export const saveToken = createSlice({
-  name: "members/saveToken",
-  initialState: {
-    refreshToken: localStorage.getItem("refreshToken") || null,
-    accessToken: localStorage.getItem("accessToken") || null,
-    user: null,
-  },
+const initialState = {
+  isLoggedIn: false,
+  accessToken: null,
+  refreshToken: Cookies.get('refreshToken') || null,
+  memberName: null,
+};
+
+export const login = (payload) => async (dispatch) => {
+  try {
+    const response = await axios.post('http://localhost:8080/members/login', payload, { withCredentials: true });
+    console.log('로그인 진입확인');
+    const { accessToken, refreshToken, memberName } = response.data;
+    localStorage.setItem('accessToken', accessToken);
+    Cookies.set('refreshToken', refreshToken, { path: '/' });
+
+    dispatch(setLoggedIn({ memberName }));
+
+    dispatch(setTokens({ accessToken, refreshToken }));
+
+    return { accessToken, refreshToken, memberName };
+  } catch (error) {
+    console.error('로그인 실패:', error);
+    throw error;
+  }
+};
+
+export const logout = () => async (dispatch) => {
+  try {
+    await axios.patch('http://localhost:8080/members/logout', null, {
+      withCredentials: true,
+    });
+
+    localStorage.removeItem('accessToken');
+    Cookies.remove('refreshToken', { path: '/' });
+
+    dispatch(logoutAction());
+
+    return null;
+  } catch (error) {
+    console.error('로그아웃 실패:', error);
+    throw error;
+  }
+};
+
+const tokenSlice = createSlice({
+  name: 'token',
+  initialState,
   reducers: {
-    clearToken: (state) => {
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("accessToken");
-      return {
-        refreshToken: null,
-        accessToken: null,
-        user: null,
-      };
+    setLoggedIn: (state, action) => {
+      state.isLoggedIn = true;
+      state.memberName = action.payload.memberName;
     },
-    setToken: (state, action) => {
-      state.accessToken = action.payload;
+    setTokens: (state, action) => {
+      state.accessToken = action.payload.accessToken;
+      state.refreshToken = action.payload.refreshToken;
     },
-    initializeToken: (state) => {
-      state.refreshToken = localStorage.getItem("refreshToken") || null;
-      state.accessToken = localStorage.getItem("accessToken") || null;
+    logoutAction: (state) => {
+      state.isLoggedIn = false;
+      state.accessToken = null;
+      state.refreshToken = null;
+      state.memberName = null;
     },
   },
 });
 
-export const { initializeToken, setToken } = saveToken.actions;
+export const { setLoggedIn, setTokens, logoutAction } = tokenSlice.actions;
 
-export default saveToken.reducer;
+export default tokenSlice.reducer;

@@ -1,5 +1,5 @@
 // 오답유형 그래프
-import { ResponsivePie } from "@nivo/pie";
+import { ResponsivePie } from '@nivo/pie';
 
 const PieChart = ({ data }) => (
   <ResponsivePie
@@ -8,91 +8,91 @@ const PieChart = ({ data }) => (
     sortByValue={true}
     innerRadius={0.35}
     activeOuterRadiusOffset={8}
-    colors={{ scheme: "blue_purple" }}
+    colors={{ scheme: 'blue_purple' }}
     borderWidth={6}
     borderColor={{
-      from: "color",
-      modifiers: [["darker", "0.3"]],
+      from: 'color',
+      modifiers: [['darker', '0.3']],
     }}
     arcLinkLabelsSkipAngle={10}
     arcLinkLabelsTextColor="#333333"
     arcLinkLabelsThickness={2}
-    arcLinkLabelsColor={{ from: "color" }}
+    arcLinkLabelsColor={{ from: 'color' }}
     arcLabelsSkipAngle={10}
     arcLabelsTextColor={{
-      from: "color",
-      modifiers: [["darker", 2]],
+      from: 'color',
+      modifiers: [['darker', 2]],
     }}
     fill={[
       {
         match: {
-          id: "ruby",
+          id: 'ruby',
         },
-        id: "dots",
+        id: 'dots',
       },
       {
         match: {
-          id: "c",
+          id: 'c',
         },
-        id: "dots",
+        id: 'dots',
       },
       {
         match: {
-          id: "go",
+          id: 'go',
         },
-        id: "dots",
+        id: 'dots',
       },
       {
         match: {
-          id: "python",
+          id: 'python',
         },
-        id: "dots",
+        id: 'dots',
       },
       {
         match: {
-          id: "scala",
+          id: 'scala',
         },
-        id: "lines",
+        id: 'lines',
       },
       {
         match: {
-          id: "lisp",
+          id: 'lisp',
         },
-        id: "lines",
+        id: 'lines',
       },
       {
         match: {
-          id: "elixir",
+          id: 'elixir',
         },
-        id: "lines",
+        id: 'lines',
       },
       {
         match: {
-          id: "javascript",
+          id: 'javascript',
         },
-        id: "lines",
+        id: 'lines',
       },
     ]}
     legends={[
       {
-        anchor: "bottom",
-        direction: "row",
+        anchor: 'bottom',
+        direction: 'row',
         justify: false,
         translateX: 0,
         translateY: 56,
         itemsSpacing: 0,
         itemWidth: 100,
         itemHeight: 18,
-        itemTextColor: "#999",
-        itemDirection: "left-to-right",
+        itemTextColor: '#999',
+        itemDirection: 'left-to-right',
         itemOpacity: 1,
         symbolSize: 18,
-        symbolShape: "circle",
+        symbolShape: 'circle',
         effects: [
           {
-            on: "hover",
+            on: 'hover',
             style: {
-              itemTextColor: "#000",
+              itemTextColor: '#000',
             },
           },
         ],

@@ -1,7 +1,7 @@
 // 알고리즘 - 문제분석 - 유형별 분석
-import React from "react";
-import RadarCharts from "./RadarCharts";
-import { styled } from "styled-components";
+import React from 'react';
+import RadarCharts from './RadarCharts';
+import { styled } from 'styled-components';
 
 function Type() {
   return (
@@ -33,31 +33,31 @@ const Wrap = styled.div`
 `;
 const exData = [
   {
-    taste: "fruity",
+    taste: 'fruity',
     chardonay: 95,
     carmenere: 103,
     syrah: 55,
   },
   {
-    taste: "bitter",
+    taste: 'bitter',
     chardonay: 115,
     carmenere: 80,
     syrah: 30,
   },
   {
-    taste: "heavy",
+    taste: 'heavy',
     chardonay: 118,
     carmenere: 41,
     syrah: 74,
   },
   {
-    taste: "strong",
+    taste: 'strong',
     chardonay: 84,
     carmenere: 117,
     syrah: 43,
   },
   {
-    taste: "sunny",
+    taste: 'sunny',
     chardonay: 24,
     carmenere: 45,
     syrah: 112,

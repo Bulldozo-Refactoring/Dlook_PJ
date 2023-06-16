@@ -1,14 +1,14 @@
 // main페이지에 사용하는 카드 - 스타일 컴포넌트로 바꿀지 고민중
-import * as React from "react";
-import SubmitButton from "./SubmitButton";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
+import * as React from 'react';
+import SubmitButton from './SubmitButton';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 
 const MainCard = () => {
   return (
-    <Card sx={{ maxWidth: 350, margin: "0 auto" }}>
+    <Card sx={{ maxWidth: 350, margin: '0 auto' }}>
       <CardContent sx={{ paddingBottom: 0 }}>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           Kakao

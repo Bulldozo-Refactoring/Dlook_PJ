@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { styled } from "styled-components";
-import SubmitButton from "app/components/SubmitButton";
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { styled } from 'styled-components';
+import SubmitButton from 'app/components/SubmitButton';
 
 const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = (e) => {
@@ -26,12 +26,7 @@ const ForgotPassword = () => {
             <br />
             비밀번호 재설정 링크를 보내드립니다.
           </PStyle>
-          <Input
-            type="email"
-            id="memberEmail"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          <Input type="email" id="memberEmail" value={email} onChange={(e) => setEmail(e.target.value)} />
           <Button type="submit">비밀번호 재설정</Button>
         </Form>
       )}

@@ -1,28 +1,12 @@
-import React, { useEffect } from "react";
-import { NavLink, Navigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
-import { styled } from "styled-components";
-import { login } from "app/slices/membersSlice";
-import { setToken } from "app/slices/tokenSlice";
-import google from "app/assets/images/google.png";
+import React from 'react';
+import { NavLink, Navigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { styled } from 'styled-components';
+import Cookies from 'js-cookie';
+import { login, setLoggedIn, setTokens } from 'app/slices/tokenSlice';
 
-// 쿠키 설정
-// function setCookie(name, value, days) {
-//   const expires = new Date();
-//   expires.setDate(expires.getDate() + days);
-
-//   const cookie = `${encodeURIComponent(name)}=${encodeURIComponent(
-//     value
-//   )}; expires=${expires.toUTCString()}; path=/`;
-//   document.cookie = cookie;
-// }
-
-// 쿠키 읽기
-// function getCookie(name) {
-//   const cookie = document.cookie.match(`(^|;) ?${name}=([^;]*)(;|$)`);
-//   return cookie ? decodeURIComponent(cookie[2]) : null;
-// }
+import google from 'app/assets/images/google.png';
 
 function Login() {
   const dispatch = useDispatch();
@@ -31,34 +15,23 @@ function Login() {
     handleSubmit,
     formState: { isSubmitting, isDirty, errors },
   } = useForm();
+  const setCookie = (name, value, days) => Cookies.set(name, value, { expires: days });
 
-  const handleLogin = (token) => {
-    localStorage.setItem("token", token);
-    dispatch(setToken(token));
-  };
-
-  let onSubmit = (data) => {
-    dispatch(login(data));
-    // api
-    //   .login(data)
-    //   .then((response) => {
-    //     const { token } = response.data;
-    //     // dispatch(login(data));
-    //     handleLogin(token);
-    //   })
-    //   .catch((error) => {
-    //     return alert("실패!");
-    //   });
+  const onSubmit = (data) => {
+    dispatch(login(data)).then((payload) => {
+      if (payload) {
+        // result => payload로 수정
+        const { accessToken, refreshToken, memberName } = payload;
+        dispatch(setTokens({ accessToken, refreshToken }));
+        dispatch(setLoggedIn({ memberName })); // setLoggedIn을 dispatch 함수를 사용하여 액션 디스패치로 수정
+        setCookie('isLoggedIn', 'true', 7);
+        setCookie('memberName', memberName, 7);
+      }
+    });
   };
 
   const isLoggedIn = useSelector((state) => state.members.isLoggedIn);
-  const user = useSelector((state) => state.members.user);
-
-  useEffect(() => {
-    // if (isLoggedIn && user) setCookie("isLoggedIn", "true", 7);
-    localStorage.setItem("isLoggedIn", "true");
-    // localStorage.setItem("user", JSON.stringify(user));
-  }, [isLoggedIn, user]);
+  const memberName = useSelector((state) => state.members.memberName);
 
   return (
     <>
@@ -75,28 +48,20 @@ function Login() {
                   name="memberEmail"
                   type="text"
                   placeholder="Email"
-                  aria-invalid={
-                    !isDirty
-                      ? undefined
-                      : errors.memberEmail
-                      ? "true"
-                      : "false"
-                  }
-                  {...register("memberEmail", {
-                    required: "이메일은 필수 입력입니다.",
+                  aria-invalid={!isDirty ? undefined : errors.memberEmail ? 'true' : 'false'}
+                  {...register('memberEmail', {
+                    required: '이메일은 필수 입력입니다.',
                     pattern: {
                       value: /\S+@\S+\.\S+/,
-                      message: "이메일 형식에 맞지 않습니다.",
+                      message: '이메일 형식에 맞지 않습니다.',
                     },
                     minLength: {
                       value: 5,
-                      message: "5자 이상으로 적어주세요.",
+                      message: '5자 이상으로 적어주세요.',
                     },
                   })}
                 />
-                {errors.memberEmail && (
-                  <Small role="alert">{errors.memberEmail.message}</Small>
-                )}
+                {errors.memberEmail && <Small role="alert">{errors.memberEmail.message}</Small>}
               </Box>
               <Box>
                 <Input
@@ -104,28 +69,24 @@ function Login() {
                   name="memberPw"
                   type="password"
                   placeholder="****************"
-                  aria-invalid={
-                    !isDirty ? undefined : errors.memberPw ? "true" : "false"
-                  }
-                  {...register("memberPw", {
-                    required: "비밀번호는 필수 입력입니다.",
+                  aria-invalid={!isDirty ? undefined : errors.memberPw ? 'true' : 'false'}
+                  {...register('memberPw', {
+                    required: '비밀번호는 필수 입력입니다.',
                     minLength: {
                       value: 8,
-                      message: "8자리 이상 비밀번호를 사용하세요.",
+                      message: '8자리 이상 비밀번호를 사용하세요.',
                     },
                   })}
                 />
-                {errors.memberPw && (
-                  <Small role="alert">{errors.memberPw.message}</Small>
-                )}
+                {errors.memberPw && <Small role="alert">{errors.memberPw.message}</Small>}
               </Box>
               <Input01 type="submit" value="Login" disabled={isSubmitting} />
             </LoginFrom>
-            <p style={{ marginBottom: "30px" }}>
+            <p style={{ marginBottom: '30px' }}>
               <img src={google} alt="구글 로그인" onClick={() => {}} />
               <NavStyleR to="/members/password">비밀번호 찾기</NavStyleR>
             </p>
-            <div style={{ textAlign: " center" }}>
+            <div style={{ textAlign: ' center' }}>
               Dlook이 처음이신가요?
               <NavStyle to="/members/join">회원가입</NavStyle>
             </div>

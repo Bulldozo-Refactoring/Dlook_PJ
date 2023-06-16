@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { styled } from "styled-components";
-import CloseIcon from "@mui/icons-material/Close";
-import MenuIcon from "@mui/icons-material/Menu";
-import HeaderMenu from "./HeaderMenu";
-import HeaderUser from "./HeaderUser";
-import logo from "../../assets/images/logo.svg";
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { styled } from 'styled-components';
+import CloseIcon from '@mui/icons-material/Close';
+import MenuIcon from '@mui/icons-material/Menu';
+import HeaderMenu from './HeaderMenu';
+import HeaderUser from './HeaderUser';
+import logo from '../../assets/images/logo.svg';
 
 const Header = () => {
   const [open, setMenu] = useState(false);
@@ -20,10 +20,7 @@ const Header = () => {
         <HeaderInner>
           <HeaderWrapper>
             <Li>
-              <MenuIconStyle
-                style={{ fontSize: "60px" }}
-                onClick={() => toggleMenu()}
-              ></MenuIconStyle>
+              <MenuIconStyle style={{ fontSize: '60px' }} onClick={() => toggleMenu()}></MenuIconStyle>
             </Li>
             <Li>
               <Link to="/">
@@ -73,7 +70,7 @@ const Menu = styled.ul`
   width: 100%;
   height: 320px;
   position: absolute;
-  top: ${(props) => (props.open ? "0" : "-999px")};
+  top: ${(props) => (props.open ? '0' : '-999px')};
   left: 0;
   transition: 0.7s;
   display: flex;
