@@ -38,7 +38,7 @@ public class MemberController {
         return ResponseEntity.ok(memberService.reissue(accessToken, refreshToken));
     }
 
-    @GetMapping("/logout")
+    @GetMapping("/logout") // 전달값 없기에 Get
     public ResponseEntity<String> logout(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization").substring(7);
         String refreshToken = request.getHeader("RefreshToken");
