@@ -31,8 +31,51 @@ public class Board extends BaseTime {
     @Column(nullable = false)
     private Integer boardCtg;
 
-    @OneToMany(mappedBy = "boardNo", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Reply> replyList = new ArrayList<>();
+//    @OneToMany(mappedBy = "boardNo", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Reply> replyList = new ArrayList<>();
+//
+
+
+    public String getBoardTitle() {
+        return boardTitle;
+    }
+
+    public void setBoardTitle(String boardTitle) {
+        this.boardTitle = boardTitle;
+    }
+
+    public String getBoardWriter() {
+        return boardWriter;
+    }
+
+    public void setBoardWriter(String boardWriter) {
+        this.boardWriter = boardWriter;
+    }
+
+    public String getBoardContent() {
+        return boardContent;
+    }
+
+    public void setBoardContent(String boardContent) {
+        this.boardContent = boardContent;
+    }
+
+    public Integer getBoardCtg() {
+        return boardCtg;
+    }
+
+    public void setBoardCtg(Integer boardCtg) {
+        this.boardCtg = boardCtg;
+    }
+
+    public Long getBoardNo() {
+        return boardNo;
+    }
+
+    public void setBoardNo(Long boardNo) {
+        this.boardNo = boardNo;
+    }
+
 }
 
 
