@@ -26,7 +26,9 @@ function HeaderUser() {
   const handleLogout = () => {
     Cookies.remove('isLoggedIn');
     Cookies.remove('memberName');
-    dispatch(logout());
+    localStorage.removeItem('accessToken');
+    Cookies.remove('refreshToken', { path: '/' });
+    // dispatch(logout());
   };
 
   useEffect(() => {

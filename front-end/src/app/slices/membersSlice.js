@@ -6,6 +6,7 @@ import { setLoggedIn, logoutAction } from './tokenSlice';
 const initialState = {
   isLoggedIn: false,
   memberName: null,
+  certify: null,
   error: null,
   joinResult: null,
 };

@@ -17,6 +17,7 @@ mock.onPost('http://localhost:8080/members/join').reply(200, {
 
 mock.onPost('http://localhost:8080/members/login').reply(200, {
   memberSeq: 2,
+  accessToken: '11421lklke;r',
   memberName: 'exampleUser',
   memberEmail: 'example@example.com',
   memberPw: 'exampleUser',
