@@ -60,13 +60,28 @@ public class BoardService {
     }
 
     public void update(BoardDTO updatedBoardDTO) {
+        Long boardNo = updatedBoardDTO.getBoardNo();
+        Optional<Board> optionalBoardEntity = boardRepository.findById(boardNo);
 
+        if (optionalBoardEntity.isPresent()) {
+            Board board = optionalBoardEntity.get();
+            board = Board.builder()
+                    .boardNo(boardNo)
+                    .boardTitle(updatedBoardDTO.getBoardTitle())
+                    .boardWriter(updatedBoardDTO.getBoardWriter())
+                    .boardContent(updatedBoardDTO.getBoardContent())
+                    .boardCtg(updatedBoardDTO.getBoardCtg())
+                    .build();
+
+            boardRepository.save(board);
+        } else {
+            throw new IllegalArgumentException("게시글을 찾을 수 없습니다.");
+        }
     }
 
     public void delete(Long boardNo) {
         boardRepository.deleteById(boardNo);
     }
-
 }
 
 

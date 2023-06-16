@@ -33,19 +33,26 @@ public class BoardController {
 
     // read
     @GetMapping("/detail/{boardNo}")
-    public ResponseEntity<String> findById(@PathVariable Long boardNo, Model model) {
-        Optional<BoardDTO> boardDTO = boardService.findById(boardNo);
-        model.addAttribute("board", boardDTO);
-        return ResponseEntity.ok("Success");
+    public ResponseEntity<BoardDTO> findById(@PathVariable Long boardNo, Model model) {
+        Optional<BoardDTO> boardDTOOptional = boardService.findById(boardNo);
+        if (boardDTOOptional.isPresent()) {
+            BoardDTO boardDTO = boardDTOOptional.get();
+            model.addAttribute("board", boardDTO);
+            return ResponseEntity.ok(boardDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // update
-    @PostMapping("/{boardNo}")
-    public ResponseEntity<String> updateBoard(@PathVariable("boardNo") Long boardNo, BoardDTO boardDTO) {
-        BoardDTO updatedBoardDTO = new BoardDTO(boardDTO.getBoardTitle(), boardDTO.getBoardWriter(), boardDTO.getBoardContent(), boardDTO.getBoardCtg());
-        boardService.update(updatedBoardDTO);
+
+    @PutMapping("/{boardNo}")
+    public ResponseEntity<String> updateBoard(@PathVariable("boardNo") Long boardNo, @RequestBody BoardDTO boardDTO) {
+        boardDTO.setBoardNo(boardNo);
+        boardService.update(boardDTO);
         return ResponseEntity.ok("Success");
     }
+
 
     // delete
     @DeleteMapping("/{boardNo}")
@@ -53,5 +60,6 @@ public class BoardController {
         boardService.delete(boardNo);
         return ResponseEntity.ok("Success");
     }
+
 
 }
