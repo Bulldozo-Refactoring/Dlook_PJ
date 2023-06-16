@@ -7,6 +7,7 @@ const initialState = {
   isLoggedIn: false,
   accessToken: null,
   refreshToken: Cookies.get('refreshToken') || null,
+  certify: null,
   memberName: null,
 };
 
@@ -17,6 +18,7 @@ export const login = (payload) => async (dispatch) => {
     const { accessToken, refreshToken, memberName } = response.data;
     localStorage.setItem('accessToken', accessToken);
     Cookies.set('refreshToken', refreshToken, { path: '/' });
+    Cookies.set('memberName', memberName, { path: '/' });
 
     dispatch(setLoggedIn({ memberName }));
 
@@ -31,12 +33,12 @@ export const login = (payload) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   try {
-    await axios.patch('http://localhost:8080/members/logout', null, {
+    await axios.get('http://localhost:8080/members/logout', null, {
       withCredentials: true,
     });
 
-    localStorage.removeItem('accessToken');
-    Cookies.remove('refreshToken', { path: '/' });
+    // localStorage.removeItem('accessToken');
+    // Cookies.remove('refreshToken', { path: '/' });
 
     dispatch(logoutAction());
 
@@ -61,8 +63,8 @@ const tokenSlice = createSlice({
     },
     logoutAction: (state) => {
       state.isLoggedIn = false;
-      state.accessToken = null;
-      state.refreshToken = null;
+      // state.accessToken = null;
+      // state.refreshToken = null;
       state.memberName = null;
     },
   },

@@ -9,7 +9,8 @@ import logo from 'app/assets/images/logo.svg';
 const MyCertify = () => {
   const isLoggedIn = useSelector((state) => state.members.isLoggedIn);
   // 실제 코드
-  // const user = useSelector((state) => state.members.user);
+  const user = useSelector((state) => state.members);
+  console.log("User:{}",user);
   // 테스트용 코드
   // const user = useSelector((state) => {
   //   const userData = state.members.user;

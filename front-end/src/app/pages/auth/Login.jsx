@@ -20,12 +20,13 @@ function Login() {
   const onSubmit = (data) => {
     dispatch(login(data)).then((payload) => {
       if (payload) {
-        // result => payload로 수정
         const { accessToken, refreshToken, memberName } = payload;
         dispatch(setTokens({ accessToken, refreshToken }));
-        dispatch(setLoggedIn({ memberName })); // setLoggedIn을 dispatch 함수를 사용하여 액션 디스패치로 수정
-        setCookie('isLoggedIn', 'true', 7);
-        setCookie('memberName', memberName, 7);
+        if (refreshToken && memberName) {
+          dispatch(setLoggedIn({ memberName }));
+          setCookie('isLoggedIn', 'true', 7);
+          setCookie('memberName', memberName, 7);
+        }
       }
     });
   };
