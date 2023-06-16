@@ -21,6 +21,9 @@ import ForgotPassword from 'app/pages/auth/ForgotPassword';
 import MyCertify from 'app/pages/auth/MyCertify';
 import MyBoard from 'app/pages/auth/MyBoard';
 import BoardWrite from 'app/pages/BoardWrite';
+import BoardDetail from 'app/pages/BoardDetail';
+import BoardModify from 'app/pages/BoardModify';
+
 
 const App = () => {
   const router = createBrowserRouter([
@@ -69,7 +72,7 @@ const App = () => {
           errorElement: <Error />,
           children: [
             { path: '', element: <Board /> },
-            { path: 'detail/:boardNo', element: '' },
+            { path: 'detail/1', element: <BoardDetail /> },
           ],
         },
         {
@@ -79,7 +82,7 @@ const App = () => {
           errorElement: <Error />,
           children: [
             { path: 'write', element: <BoardWrite /> },
-            { path: ':boardNo', element: <BoardWrite /> },
+            { path: ':1', element: <BoardModify /> },
           ],
         },
         {

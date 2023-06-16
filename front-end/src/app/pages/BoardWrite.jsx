@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "app/style/BoardWrite.css";
-import "app/components/DropDown";
 import DropDown from "app/components/DropDown";
 import { styled } from "styled-components";
 import { NavLink } from "react-router-dom";
