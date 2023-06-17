@@ -15,12 +15,16 @@ import com.example.Project.Dlook.repository.RefreshTokenRepository;
 import com.example.Project.Dlook.utils.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +38,7 @@ public class MemberService {
     private final BCryptPasswordEncoder encoder;
 
     @Transactional
-    public String join(JoinRequestDTO dto) {
+    public ResponseEntity<String> join(JoinRequestDTO dto) {
 
         // memberName 중복 체크
         memberRepository.findByMemberName(dto.getMemberName())
@@ -51,11 +55,11 @@ public class MemberService {
         Member member = dto.toMember(encoder);
         memberRepository.save(member);
 
-        return "join success";
+        return ResponseEntity.ok().body("login success");
     }
 
     @Transactional
-    public TokenDto login(LoginRequestDTO dto) {
+    public ResponseEntity<String> login(LoginRequestDTO dto, HttpServletResponse response) {
         // memberEmail 없음
         Member selectedMemberEmail = memberRepository.findByMemberEmail(dto.getMemberEmail())
                 .orElseThrow(() -> new AppException(ErrorCode.MEMBEREMAIL_NOT_FOUND, dto.getMemberEmail() + " MEMBEREMAIL_NOT_FOUND"));
@@ -74,6 +78,9 @@ public class MemberService {
 
         // 3. 인증 정보를 기반으로 JWT 토큰 생성
         TokenDto tokenDto = jwtProvider.generateTokenDto(authentication);
+        response.addHeader("Authorization", "Bearer " + tokenDto.getAccessToken());
+        response.addHeader("RefreshToken", tokenDto.getRefreshToken());
+        response.addHeader("MemberName", authentication.getName());
 
         RefreshToken refreshToken = RefreshToken.builder()
                 .refreshKey(authentication.getName())
@@ -81,11 +88,14 @@ public class MemberService {
                 .build();
         refreshTokenRepository.save(refreshToken);
 
-        return tokenDto;
+        return ResponseEntity.ok().body("login success");
     }
 
     @Transactional
-    public TokenDto reissue(String accessToken, String refreshToken) {
+    public ResponseEntity<String> reissue(HttpServletRequest request, HttpServletResponse response) {
+        String accessToken = request.getHeader("Authorization").substring(7);
+        String refreshToken = request.getHeader("RefreshToken");
+
         // 1. Refresh Token 검증 (accesstoken이 만료된 이후라 인증없이 항상 permit 해둠, logout 이후의 접근을 막기 위해 필요)
         if (!jwtProvider.validateToken(refreshToken)) {
             throw new RuntimeException("Invalid Refresh Token");
@@ -105,16 +115,21 @@ public class MemberService {
 
         // 5. 새로운 토큰 생성
         TokenDto tokenDto = jwtProvider.generateTokenDto(authentication);
+        response.addHeader("Authorization", "Bearer " + accessToken);
+        response.addHeader("RefreshToken", refreshToken);
+        response.addHeader("MemberName", authentication.getName());
 
         // 6. 저장소 정보 업데이트
         RefreshToken newRefreshToken = refreshTokenValue.updateValue(refreshToken);
         refreshTokenRepository.save(newRefreshToken);
 
         // 토큰 발급
-        return tokenDto;
+        return ResponseEntity.ok().body("Token reissue");
     }
 
-    public String logout(String accessToken, String refreshToken) {
+    public ResponseEntity<String> logout(HttpServletRequest request) {
+        String accessToken = request.getHeader("Authorization").substring(7);
+
         // 1. accessToken 검증
         if (!jwtProvider.validateToken(accessToken)) {
             throw new RuntimeException("Invalid accessToken");
@@ -137,6 +152,7 @@ public class MemberService {
                 .expiration(expiration)
                 .build();
         blackListRepository.save(blackList);
-        return "logout success";
+
+        return ResponseEntity.ok().body("logout success");
     }
 }

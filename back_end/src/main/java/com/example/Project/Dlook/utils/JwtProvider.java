@@ -36,8 +36,8 @@ public class JwtProvider {
     }
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_TYPE = "Bearer";
-    private Long accessTokenExpireTimeMs = 1000 * 60l; // 1시간 (실험 위해서 10초)
-    private Long refreshTokenExpireTimeMs = 1000 * 20 * 120l; // 일주일 (실험 위해서 20분)
+    private Long accessTokenExpireTimeMs = 1000 * 60l * 60; // 1시간
+    private Long refreshTokenExpireTimeMs = 1000 * 60l * 10080; // 일주일
 
     public TokenDto generateTokenDto(Authentication authentication) {
         // 권한들 가져오기
