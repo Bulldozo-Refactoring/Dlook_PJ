@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/members")
@@ -22,27 +23,21 @@ public class MemberController {
 
     @PostMapping("/join")
     public ResponseEntity<String> join(@RequestBody JoinRequestDTO dto) {
-        memberService.join(dto);
-        return ResponseEntity.ok().body("join success");
+        return memberService.join(dto);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(@RequestBody LoginRequestDTO dto) {
-        return ResponseEntity.ok(memberService.login(dto));
+    public ResponseEntity<String> login(@RequestBody LoginRequestDTO dto, HttpServletResponse response) {
+        return memberService.login(dto, response);
     }
 
     @PostMapping("/reissue")
-    public ResponseEntity<TokenDto> reissue(HttpServletRequest request) {
-        String accessToken = request.getHeader("Authorization").substring(7);
-        String refreshToken = request.getHeader("RefreshToken");
-        return ResponseEntity.ok(memberService.reissue(accessToken, refreshToken));
+    public ResponseEntity<String> reissue(HttpServletRequest request, HttpServletResponse response) {
+        return memberService.reissue(request, response);
     }
 
     @GetMapping("/logout") // 전달값 없기에 Get
     public ResponseEntity<String> logout(HttpServletRequest request) {
-        String accessToken = request.getHeader("Authorization").substring(7);
-        String refreshToken = request.getHeader("RefreshToken");
-        memberService.logout(accessToken, refreshToken);
-        return ResponseEntity.ok().body("logout success");
+        return memberService.logout(request);
     }
 }
