@@ -2,8 +2,8 @@
 //
 //import com.example.Project.Dlook.domain.dto.ReplyDTO;
 //import com.example.Project.Dlook.domain.Reply;
-//import com.example.Project.Dlook.domain.Board;
-//import com.example.Project.Dlook.repository.BoardRepository;
+//import com.example.Project.Dlook.boards.domain.Board;
+//import com.example.Project.Dlook.boards.repository.BoardRepository;
 //import com.example.Project.Dlook.repository.ReplyRepository;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.stereotype.Service;

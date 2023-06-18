@@ -1,7 +1,7 @@
-package com.example.Project.Dlook.service;
-import com.example.Project.Dlook.domain.dto.BoardDTO;
-import com.example.Project.Dlook.domain.Board;
-import com.example.Project.Dlook.repository.BoardRepository;
+package com.example.Project.Dlook.boards.service;
+import com.example.Project.Dlook.boards.domain.dto.BoardDTO;
+import com.example.Project.Dlook.boards.domain.Board;
+import com.example.Project.Dlook.boards.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;

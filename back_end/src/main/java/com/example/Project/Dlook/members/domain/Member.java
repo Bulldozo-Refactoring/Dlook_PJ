@@ -1,4 +1,4 @@
-package com.example.Project.Dlook.domain;
+package com.example.Project.Dlook.members.domain;
 
 import com.example.Project.Dlook.exception.Authority;
 import lombok.AllArgsConstructor;

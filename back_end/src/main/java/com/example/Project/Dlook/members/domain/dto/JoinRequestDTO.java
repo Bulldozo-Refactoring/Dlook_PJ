@@ -1,6 +1,6 @@
-package com.example.Project.Dlook.domain.dto;
+package com.example.Project.Dlook.members.domain.dto;
 
-import com.example.Project.Dlook.domain.Member;
+import com.example.Project.Dlook.members.domain.Member;
 import com.example.Project.Dlook.exception.Authority;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

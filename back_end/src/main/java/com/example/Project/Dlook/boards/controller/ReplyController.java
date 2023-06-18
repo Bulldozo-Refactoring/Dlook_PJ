@@ -1,8 +1,8 @@
 //package com.example.Project.Dlook.controller;
 //
-////import com.example.Project.Dlook.domain.dto.BoardDTO;
+////import com.example.Project.Dlook.boards.domain.dto.BoardDTO;
 //import com.example.Project.Dlook.domain.dto.ReplyDTO;
-////import com.example.Project.Dlook.domain.Board;
+////import com.example.Project.Dlook.boards.domain.Board;
 //import com.example.Project.Dlook.service.ReplyService;
 //import lombok.AllArgsConstructor;
 //

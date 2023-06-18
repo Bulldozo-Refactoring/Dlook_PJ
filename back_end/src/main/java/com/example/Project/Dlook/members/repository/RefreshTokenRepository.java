@@ -1,6 +1,6 @@
-package com.example.Project.Dlook.repository;
+package com.example.Project.Dlook.members.repository;
 
-import com.example.Project.Dlook.domain.RefreshToken;
+import com.example.Project.Dlook.members.domain.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

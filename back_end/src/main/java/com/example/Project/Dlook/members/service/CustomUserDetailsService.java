@@ -1,7 +1,7 @@
-package com.example.Project.Dlook.service;
+package com.example.Project.Dlook.members.service;
 
-import com.example.Project.Dlook.domain.Member;
-import com.example.Project.Dlook.repository.MemberRepository;
+import com.example.Project.Dlook.members.domain.Member;
+import com.example.Project.Dlook.members.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

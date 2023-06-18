@@ -1,4 +1,4 @@
-package com.example.Project.Dlook.domain.dto;
+package com.example.Project.Dlook.members.domain.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,8 +1,7 @@
-package com.example.Project.Dlook.domain;
+package com.example.Project.Dlook.boards.domain;
+import com.example.Project.Dlook.boards.domain.BaseTime;
 import lombok.*;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter

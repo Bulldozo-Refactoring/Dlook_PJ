@@ -1,11 +1,8 @@
-package com.example.Project.Dlook.controller;
+package com.example.Project.Dlook.members.controller;
 
-import com.example.Project.Dlook.domain.RefreshToken;
-import com.example.Project.Dlook.domain.dto.JoinRequestDTO;
-import com.example.Project.Dlook.domain.dto.LoginRequestDTO;
-import com.example.Project.Dlook.domain.dto.TokenDto;
-import com.example.Project.Dlook.domain.dto.TokenRequestDto;
-import com.example.Project.Dlook.service.MemberService;
+import com.example.Project.Dlook.members.domain.dto.JoinRequestDTO;
+import com.example.Project.Dlook.members.domain.dto.LoginRequestDTO;
+import com.example.Project.Dlook.members.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

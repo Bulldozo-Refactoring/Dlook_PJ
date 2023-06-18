@@ -1,6 +1,6 @@
 package com.example.Project.Dlook.config.filter;
 
-import com.example.Project.Dlook.repository.BlackListRepository;
+import com.example.Project.Dlook.members.repository.BlackListRepository;
 import com.example.Project.Dlook.utils.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;

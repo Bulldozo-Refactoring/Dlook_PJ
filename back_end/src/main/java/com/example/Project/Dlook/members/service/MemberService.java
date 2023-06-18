@@ -1,17 +1,16 @@
-package com.example.Project.Dlook.service;
+package com.example.Project.Dlook.members.service;
 
-import com.example.Project.Dlook.domain.BlackList;
-import com.example.Project.Dlook.domain.Member;
-import com.example.Project.Dlook.domain.RefreshToken;
-import com.example.Project.Dlook.domain.dto.JoinRequestDTO;
-import com.example.Project.Dlook.domain.dto.LoginRequestDTO;
-import com.example.Project.Dlook.domain.dto.TokenDto;
-import com.example.Project.Dlook.domain.dto.TokenRequestDto;
+import com.example.Project.Dlook.members.domain.BlackList;
+import com.example.Project.Dlook.members.domain.Member;
+import com.example.Project.Dlook.members.domain.RefreshToken;
+import com.example.Project.Dlook.members.domain.dto.JoinRequestDTO;
+import com.example.Project.Dlook.members.domain.dto.LoginRequestDTO;
+import com.example.Project.Dlook.members.domain.dto.TokenDto;
 import com.example.Project.Dlook.exception.AppException;
 import com.example.Project.Dlook.exception.ErrorCode;
-import com.example.Project.Dlook.repository.BlackListRepository;
-import com.example.Project.Dlook.repository.MemberRepository;
-import com.example.Project.Dlook.repository.RefreshTokenRepository;
+import com.example.Project.Dlook.members.repository.BlackListRepository;
+import com.example.Project.Dlook.members.repository.MemberRepository;
+import com.example.Project.Dlook.members.repository.RefreshTokenRepository;
 import com.example.Project.Dlook.utils.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

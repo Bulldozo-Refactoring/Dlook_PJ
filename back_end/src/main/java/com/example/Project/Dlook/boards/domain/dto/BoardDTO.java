@@ -1,4 +1,4 @@
-package com.example.Project.Dlook.domain.dto;
+package com.example.Project.Dlook.boards.domain.dto;
 import lombok.*;
 @Data
 @NoArgsConstructor
