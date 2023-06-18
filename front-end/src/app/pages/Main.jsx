@@ -1,7 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { SectionsContainer, Section } from 'react-fullpage';
+import Cookies from 'js-cookie';
 import styled from 'styled-components';
 
 import MainCard from 'app/components/MainCard';
@@ -21,7 +21,7 @@ function MainPage() {
     arrowNavigation: true,
   };
 
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const isLoggedIn = Cookies.get('isLoggedIn');
   const navigate = useNavigate();
 
   const handleClick = () => {

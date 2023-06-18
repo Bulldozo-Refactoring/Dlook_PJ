@@ -1,37 +1,30 @@
 import React from 'react';
-import { NavLink, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { styled } from 'styled-components';
+import { login } from 'app/slices/CookieSlice';
 import Cookies from 'js-cookie';
-import { login, setLoggedIn, setTokens } from 'app/slices/CookieSlice';
 
 import google from 'app/assets/images/google.png';
 
 function Login() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, isDirty, errors },
   } = useForm();
-  const setCookie = (name, value, days) => Cookies.set(name, value, { expires: days });
 
-  const onSubmit = (data) => {
-    dispatch(login(data)).then((payload) => {
-      if (payload) {
-        const { accessToken, refreshToken, memberName } = payload;
-        dispatch(setTokens({ accessToken, refreshToken }));
-        if (refreshToken && memberName) {
-          dispatch(setLoggedIn({ memberName }));
-          setCookie('isLoggedIn', 'true', 7);
-          setCookie('memberName', memberName, 7);
-        }
-      }
-    });
-  };
+  const onSubmit = handleSubmit((data) => {
+    dispatch(login(data))
+      .unwrap()
+      .then((response) => navigate('/'))
+      .catch((error) => console.log('로그인 실패!'));
+  });
 
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
+  const isLoggedIn = Cookies.get('isLoggedIn');
 
   return (
     <>

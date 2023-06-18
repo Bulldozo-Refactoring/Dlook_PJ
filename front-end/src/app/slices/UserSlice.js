@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import instance from './Instance';
-import { setLoggedIn, logoutAction } from './CookieSlice';
 
 export const join = createAsyncThunk('members/join', async (payload) => {
   try {
@@ -26,24 +25,7 @@ const UserSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(join.fulfilled, (state, action) => {
-      if (action.payload === 'join success') {
-        state.joinResult = '/members/joinresult';
-      }
-    });
-    builder.addCase(join.rejected, (state, action) => {
-      state.error = action.payload ? action.payload : action.error.message;
-    });
-    builder.addCase(setLoggedIn, (state, action) => {
-      state.isLoggedIn = true;
-      state.memberName = action.payload.memberName;
-    });
-    builder.addCase(logoutAction, (state) => {
-      state.isLoggedIn = false;
-      state.memberName = null;
-    });
-  },
+  extraReducers: (builder) => {},
 });
 
 export const { setJoinResult } = UserSlice.actions;
