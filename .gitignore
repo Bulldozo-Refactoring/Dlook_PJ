@@ -10,3 +10,18 @@ front-end/package.json
 .idea/shelf/Uncommitted_changes_before_Checkout_at_2023-06-15_오전_11_50_[Changes]/shelved.patch
 .idea/shelf/Uncommitted_changes_before_Checkout_at_2023-06-15__11_50__Changes_1.xml
 .idea/compiler.xml
+.DS_Store
+.gitignore 2
+.gitignore 3
+.idea/Dlook_PJ.iml
+.idea/gradle.xml
+.idea/jarRepositories.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/modules/Dlook.main.iml
+.idea/sonarlint/issuestore/index.pb
+.idea/sonarlint/securityhotspotstore/index.pb
+.idea/vcs.xml
+back_end/src/main/java/com/example/Project/Dlook/utils/JwtProvider.java
+.idea/sonarlint/issuestore/a/1/a131fe2c2a2bc96a6c024488ae4c19c28904841f
+.idea/sonarlint/securityhotspotstore/a/1/a131fe2c2a2bc96a6c024488ae4c19c28904841f

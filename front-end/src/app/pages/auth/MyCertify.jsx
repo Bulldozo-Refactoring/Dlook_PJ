@@ -7,13 +7,13 @@ import SubmitButton from 'app/components/SubmitButton';
 import logo from 'app/assets/images/logo.svg';
 
 const MyCertify = () => {
-  const isLoggedIn = useSelector((state) => state.members.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   // 실제 코드
-  const user = useSelector((state) => state.members);
-  console.log("User:{}",user);
+  const user = useSelector((state) => state.user);
+  console.log('User:{}', user);
   // 테스트용 코드
   // const user = useSelector((state) => {
-  //   const userData = state.members.user;
+  //   const userData = state.user.user;
   //   if (userData) {
   //     return { ...userData };
   //   }

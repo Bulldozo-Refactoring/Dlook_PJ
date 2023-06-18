@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { styled } from 'styled-components';
 import Cookies from 'js-cookie';
-import { login, setLoggedIn, setTokens } from 'app/slices/tokenSlice';
+import { login, setLoggedIn, setTokens } from 'app/slices/CookieSlice';
 
 import google from 'app/assets/images/google.png';
 
@@ -31,8 +31,7 @@ function Login() {
     });
   };
 
-  const isLoggedIn = useSelector((state) => state.members.isLoggedIn);
-  const memberName = useSelector((state) => state.members.memberName);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   return (
     <>

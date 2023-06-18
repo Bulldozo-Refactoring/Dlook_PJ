@@ -1,7 +1,18 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from './axuisMock';
-// import axios from 'axios';
-import { setLoggedIn, logoutAction } from './tokenSlice';
+import instance from './Instance';
+import { setLoggedIn, logoutAction } from './CookieSlice';
+
+export const join = createAsyncThunk('members/join', async (payload) => {
+  try {
+    const response = await instance.post('members/join', payload);
+    console.log('회원가입 진입', response);
+
+    return response.data;
+  } catch (error) {
+    console.error('회원가입 실패: ', error);
+    throw error;
+  }
+});
 
 const initialState = {
   isLoggedIn: false,
@@ -11,19 +22,8 @@ const initialState = {
   joinResult: null,
 };
 
-export const join = createAsyncThunk('members/join', async (payload, thunkAPI) => {
-  try {
-    const response = await axios.post('http://localhost:8080/members/join', payload);
-    console.log('회원가입 진입');
-
-    return response.data;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
-  }
-});
-
-const membersSlice = createSlice({
-  name: 'members',
+const UserSlice = createSlice({
+  name: 'user',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -46,4 +46,6 @@ const membersSlice = createSlice({
   },
 });
 
-export default membersSlice.reducer;
+export const { setJoinResult } = UserSlice.actions;
+
+export default UserSlice.reducer;

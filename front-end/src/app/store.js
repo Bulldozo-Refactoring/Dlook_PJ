@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import membersReducer from 'app/slices/membersSlice';
-import saveTokenReducer from 'app/slices/tokenSlice';
+import userReducer from 'app/slices/UserSlice';
+import cookieReducer from 'app/slices/CookieSlice';
 
 const reducer = {
-  members: membersReducer,
-  saveToken: saveTokenReducer,
+  user: userReducer,
+  cookie: cookieReducer,
 };
 
 export const store = configureStore({

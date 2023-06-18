@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 function PrivateRoute() {
   // 로그인 여부 확인
-  const isLoggedIn = useSelector((state) => state.members.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   //  현재 URL 확인
   const location = useLocation();
