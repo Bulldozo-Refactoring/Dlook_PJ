@@ -54,7 +54,7 @@ public class MemberService {
         Member member = dto.toMember(encoder);
         memberRepository.save(member);
 
-        return ResponseEntity.ok().body("login success");
+        return ResponseEntity.ok().body("join success");
     }
 
     @Transactional
