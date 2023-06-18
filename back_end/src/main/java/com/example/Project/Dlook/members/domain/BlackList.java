@@ -1,4 +1,4 @@
-package com.example.Project.Dlook.domain;
+package com.example.Project.Dlook.members.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

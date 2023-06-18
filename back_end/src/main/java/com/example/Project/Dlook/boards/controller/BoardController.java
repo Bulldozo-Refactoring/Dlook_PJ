@@ -1,7 +1,7 @@
-package com.example.Project.Dlook.controller;
+package com.example.Project.Dlook.boards.controller;
 
-import com.example.Project.Dlook.domain.dto.BoardDTO;
-import com.example.Project.Dlook.service.BoardService;
+import com.example.Project.Dlook.boards.domain.dto.BoardDTO;
+import com.example.Project.Dlook.boards.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,5 @@
 package com.example.Project.Dlook.config.filter;
 
-import com.example.Project.Dlook.repository.BlackListRepository;
 import com.example.Project.Dlook.utils.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

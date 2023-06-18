@@ -1,4 +1,4 @@
-package com.example.Project.Dlook.domain;
+package com.example.Project.Dlook.boards.domain;
 
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
