@@ -21,6 +21,7 @@ bin/
 src/main/resources/*.yml
 src/main/resources/*.properties
 .idea
+*.idea
 *.iws
 *.iml
 *.ipr
