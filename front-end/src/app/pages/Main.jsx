@@ -21,7 +21,7 @@ function MainPage() {
     arrowNavigation: true,
   };
 
-  const isLoggedIn = useSelector((state) => state.members.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
   const navigate = useNavigate();
 
   const handleClick = () => {

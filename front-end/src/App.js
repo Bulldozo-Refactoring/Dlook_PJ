@@ -8,6 +8,7 @@ import MainPage from 'app/pages/Main';
 import Board from 'app/pages/Board';
 import Notice from 'app/pages/Notice';
 import Garbage from 'app/pages/Garbage';
+import GarbageWrite from 'app/pages/GarbageWrite';
 import Algorithms from 'app/pages/Algorithms';
 import Step from 'app/components/Algorithms/Step';
 import Child from 'app/components/Algorithms/Child';
@@ -23,7 +24,6 @@ import MyBoard from 'app/pages/auth/MyBoard';
 import BoardWrite from 'app/pages/BoardWrite';
 import BoardDetail from 'app/pages/BoardDetail';
 import BoardModify from 'app/pages/BoardModify';
-
 
 const App = () => {
   const router = createBrowserRouter([
@@ -96,7 +96,7 @@ const App = () => {
           path: 'garbage',
           element: <PrivateRoute />,
           errorElement: <Error />,
-          children: [{ path: 'write', element: '쓰레기통 작성' }],
+          children: [{ path: 'write', element: <GarbageWrite /> }],
         },
         {
           // notice - 관리자 x

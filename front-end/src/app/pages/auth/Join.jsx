@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { styled } from 'styled-components';
-import { join } from 'app/slices/membersSlice';
+import { join } from 'app/slices/UserSlice';
 
 function Join() {
   const dispatch = useDispatch();
@@ -22,9 +22,9 @@ function Join() {
   const [remainingTime, setRemainingTime] = useState(60); // Authentication time
 
   const sendVerificationEmail = () => {
-    // 이메일 전송 로직 작성 - 성공적으로 이메일을 전송했다면 setIsEmailSent(true)로 상태 변경
+    // 이메일을 성공적으로 전송했다면 setIsEmailSent(true)
     setIsEmailSent(true);
-    setVerificationCode({ value: '', isValid: false }); // verificationCode 초기화
+    setVerificationCode({ value: '', isValid: false });
     startTimer();
   };
 
@@ -38,7 +38,7 @@ function Join() {
   };
 
   const verifyCode = () => {
-    // 인증 코드 확인 로직 작성 - 인증 코드가 맞다면 setIsVerified(true)로 상태 변경
+    // 인증 코드가 맞다면 setIsVerified(true)
     setIsVerified(true);
     clearErrors('verificationCode');
   };
