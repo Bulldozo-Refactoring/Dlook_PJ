@@ -7,8 +7,9 @@ import SubmitButton from 'app/components/SubmitButton';
 import logo from 'app/assets/images/logo.svg';
 
 const MyCertify = () => {
+  // 작업 예정 코드 다 삭제할거임
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-  // 실제 코드
+
   const user = useSelector((state) => state.user);
   console.log('User:{}', user);
   // 테스트용 코드

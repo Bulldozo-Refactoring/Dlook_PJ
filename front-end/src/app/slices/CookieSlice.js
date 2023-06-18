@@ -3,27 +3,22 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
 import instance from './Instance';
 
-export const login = createAsyncThunk('members/login', async (payload, thunkAPI) => {
+export const login = createAsyncThunk('members/login', async (payload) => {
   try {
     const response = await instance.post('/members/login', payload, { withCredentials: true });
     console.log('로그인 진입확인:', response);
 
-    // 받아오는 값이 없음
-    const { refreshToken, memberName } = response.headers;
-    const { Authorization } = response.config.headers;
+    const { refreshtoken, membername } = response.headers;
+    const accessToken = response.headers.authorization.split('Bearer ')[1];
 
-    console.log(response.headers);
+    // cookie -> 시간 세팅 필요 1일..?
+    if (accessToken && refreshtoken && membername) {
+      localStorage.setItem('accessToken', accessToken);
+      Cookies.set('refreshToken', refreshtoken, { path: '/' });
+      Cookies.set('memberName', membername);
+      Cookies.set('isLoggedIn', true);
 
-    if (Authorization && refreshToken && memberName) {
-      localStorage.setItem('accessToken', Authorization);
-      Cookies.set('refreshToken', refreshToken, { path: '/' });
-      Cookies.set('memberName', memberName, { path: '/' });
-      Cookies.set('isLoggedIn', true, { path: '/' });
-
-      thunkAPI.dispatch(setLoggedIn({ memberName }));
-      thunkAPI.dispatch(setTokens({ Authorization, refreshToken }));
-
-      return { Authorization, refreshToken, memberName };
+      return { accessToken, refreshtoken, membername };
     } else {
       console.error('로그인 실패: 응답 헤더에 필요한 정보가 없습니다.');
     }
@@ -32,22 +27,23 @@ export const login = createAsyncThunk('members/login', async (payload, thunkAPI)
   }
 });
 
-export const logout = createAsyncThunk('members/logout', async (payload, thunkAPI) => {
+export const logout = createAsyncThunk('members/logout', async () => {
   try {
-    await instance.get('/members/logout', null, {
-      withCredentials: true,
-    });
+    const response = await instance.get('/members/logout', null, { withCredentials: true });
+    console.log('로그아웃 진입확인:', response);
+
+    const { refreshtoken, membername } = response.headers;
+    const accessToken = response.headers.authorization.split('Bearer ')[1];
 
     // 변경
-    thunkAPI.dispatch(logoutAction());
+    if (accessToken && refreshtoken && membername) {
+      localStorage.removeItem('accessToken');
+      Cookies.remove('refreshtoken', { path: '/' });
+      Cookies.remove('membername', { path: '/' });
+      Cookies.set('isLoggedIn', false, { path: '/' });
 
-    // 토큰 삭제
-    localStorage.removeItem('accessToken');
-    Cookies.remove('refreshToken', { path: '/' });
-    // Cookies.remove('memberName', { path: '/' });
-    Cookies.set('isLoggedIn', false, { path: '/' });
-
-    return null;
+      return null;
+    }
   } catch (error) {
     console.error('로그아웃 실패:', error);
   }
@@ -56,28 +52,16 @@ export const logout = createAsyncThunk('members/logout', async (payload, thunkAP
 const initialState = {
   isLoggedIn: false,
   accessToken: localStorage.getItem('accessToken') || null,
-  refreshToken: Cookies.get('refreshToken') || null,
+  refreshToken: Cookies.get('refreshtoken') || null,
   certify: null,
-  memberName: Cookies.get('memberName') || null,
+  memberName: Cookies.get('membername') || null,
+  loginResult: null,
 };
 
 const CookieSlice = createSlice({
   name: 'cookie',
   initialState,
-  reducers: {
-    setLoggedIn: (state, action) => {
-      state.memberName = action.payload.memberName;
-    },
-    setTokens: (state, action) => {
-      state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
-    },
-    logoutAction: (state) => {
-      state.memberName = null;
-    },
-  },
+  reducers: {},
 });
-
-export const { setLoggedIn, setTokens, logoutAction } = CookieSlice.actions;
 
 export default CookieSlice.reducer;

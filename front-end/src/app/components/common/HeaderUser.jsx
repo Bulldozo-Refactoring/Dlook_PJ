@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout, login } from 'app/slices/CookieSlice';
+import { useDispatch } from 'react-redux';
 import { styled } from 'styled-components';
+import { logout, login } from 'app/slices/CookieSlice';
 import Cookies from 'js-cookie';
 
 import Avatar from '@mui/material/Avatar';
@@ -16,8 +16,7 @@ import Tooltip from '@mui/material/Tooltip';
 
 function HeaderUser() {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-
+  const isLoggedIn = Cookies.get('isLoggedIn');
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
@@ -26,15 +25,12 @@ function HeaderUser() {
   const handleLogout = () => {
     dispatch(logout())
       .then(() => {
-        console.log('로그아웃 성공');
         Cookies.remove('isLoggedIn');
         Cookies.remove('memberName');
         localStorage.removeItem('accessToken');
         Cookies.remove('refreshToken', { path: '/' });
       })
-      .catch((error) => {
-        console.error('로그아웃 실패:', error);
-      });
+      .catch((error) => console.error('로그아웃 실패:', error));
   };
 
   useEffect(() => {
