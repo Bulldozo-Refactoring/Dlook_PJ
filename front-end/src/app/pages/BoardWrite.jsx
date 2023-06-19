@@ -4,9 +4,11 @@ import DropDown from "app/components/DropDown";
 import { styled } from "styled-components";
 import { NavLink } from "react-router-dom";
 
+
 const BoardWrite = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
