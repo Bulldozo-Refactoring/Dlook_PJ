@@ -12,6 +12,22 @@ const BoardModify = () => {
     setTitle(e.target.value);
   };
 
+  const doDelete = () => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      alert("삭제되었습니다.");
+    } else {
+      alert("취소되었습니다.");
+    }
+  };
+
+  const doModify = () => {
+    if (window.confirm("정말 수정하시겠습니까?")) {
+      alert("수정되었습니다.");
+    } else {
+      alert("취소되었습니다.");
+    }
+  };
+  
   const handleContentChange = (e) => {
     setContent(e.target.value);
   };
@@ -19,7 +35,7 @@ const BoardModify = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // 게시글 작성 로직 구현
-    console.log("게시글 작성:", title, content);
+    console.log("게시글 수정:", title, content);
     // 필요에 따라 서버로 데이터를 전송하거나 다른 동작 수행 가능
   };
 
@@ -57,11 +73,11 @@ const BoardModify = () => {
             onChange={handleContentChange}
           ></textarea>
           <div className="buttonWb">
-            <button type="submit" className="btn-dark">
+            <button type="submit" className="btn-dark" onClick={doDelete}>
               <NavLink to="/board">삭제하기</NavLink>
             </button>
-            <button type="submit" className="btn-dark">
-              <NavLink to="/">수정하기</NavLink>
+            <button type="submit" className="btn-dark" onClick={doModify}>
+              <NavLink to="../detail/1">수정하기</NavLink>
             </button>
           </div>
         </form>

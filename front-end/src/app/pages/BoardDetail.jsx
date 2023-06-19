@@ -1,21 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import "app/style/BoardDetail.css";
 import { styled } from "styled-components";
 import { NavLink } from "react-router-dom";
+import CommentRun from "app/components/CommentRun";
 
 const BoardDetail = () => {
-  const [comment, setComment] = useState("");
 
-  const handleCommentChange = (e) => {
-    setComment(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // 게시글 작성 로직 구현
-    console.log("게시글 작성:", comment);
-    // 필요에 따라 서버로 데이터를 전송하거나 다른 동작 수행 가능
-  };
+   const doDelete = () => {
+      if(window.confirm("정말 삭제하시겠습니까?")){
+        alert("삭제되었습니다.");
+      } else{
+        alert("취소되었습니다.");
+      }
+   };
 
   return (
     <section>
@@ -61,7 +58,7 @@ const BoardDetail = () => {
             </p>
             <br />
             <div className="buttonWb">
-              <button type="submit" className="btn-dark">
+              <button type="submit" className="btn-dark" onClick={doDelete}>
                 <NavLink to="/board">삭제하기</NavLink>
               </button>
               <button type="submit" className="btn-dark">
@@ -71,35 +68,7 @@ const BoardDetail = () => {
           </form>
         </div>
       </div>
-      <div className="comment">
-        댓글3
-        <hr></hr>
-        <form onSubmit={handleSubmit} className="commentForm">
-          <input
-            type="text"
-            className="commentWrite"
-            defaultValue={comment}
-            onChange={handleCommentChange}
-          />
-          <button type="submit" className="btn-dark">
-            작성
-          </button>
-          <br />
-          <div></div>
-          <span>작성자명</span>
-          <p>
-            환경권의 내용과 행사에 관하여는 법률로 정한다. 행정권은 대통령을
-            수반으로 한다.
-          </p>
-          <span>작성자명</span>
-          <p>
-            감사원의 조직·직무범위·감사위원의 자격·감사대상공무원의 범위 기타
-            필요한 사항이다.
-          </p>
-          <span>작성자명</span>
-          <p>사법권은 법관으로 구성된 법원에 속한다.</p>
-        </form>
-      </div>
+      <CommentRun></CommentRun>
     </section>
   );
 };
