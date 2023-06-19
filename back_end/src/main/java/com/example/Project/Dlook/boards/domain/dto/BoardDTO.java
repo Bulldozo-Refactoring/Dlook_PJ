@@ -17,4 +17,29 @@ public class BoardDTO {
         this.boardContent = boardContent;
         this.boardCtg = boardCtg;
     }
+
+    public String getBoardTitle() {
+        return boardTitle;
+    }
+
+    public String getBoardWriter() {
+        return boardWriter;
+    }
+
+    public String getBoardContent() {
+        return boardContent;
+    }
+
+    public Integer getBoardCtg() {
+        return boardCtg;
+    }
+
+    public Long getBoardNo() {
+        return boardNo;
+    }
+
+    public void setBoardNo(Long boardNo) {
+        this.boardNo = boardNo;
+    }
+
 }

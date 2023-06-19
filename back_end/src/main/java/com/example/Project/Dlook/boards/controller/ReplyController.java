@@ -18,14 +18,14 @@
 //public class ReplyController {
 //
 //    private final ReplyService replyService;
-////
-////    @GetMapping("/")
-////    public ResponseEntity<List<ReplyDTO>> replyList() {
-////        List<ReplyDTO> replyDTOList = replyService.findAll();
-////        return ResponseEntity.ok(replyDTOList);
-////    }
 //
-//    //댓글리스트
+//    @GetMapping("/")
+//    public ResponseEntity<List<ReplyDTO>> replyList() {
+//        List<ReplyDTO> replyDTOList = replyService.findAll();
+//        return ResponseEntity.ok(replyDTOList);
+//    }
+
+    //댓글리스트
 //    @GetMapping("/")
 //    public ResponseEntity<List<ReplyDTO>> replyList(@PathVariable("boardNo") Long boardNo) {
 //        return ResponseEntity.ok(replyService.findAllByBoardNo(boardNo));

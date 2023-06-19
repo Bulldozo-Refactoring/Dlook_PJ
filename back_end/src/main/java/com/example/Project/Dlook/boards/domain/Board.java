@@ -1,5 +1,5 @@
 package com.example.Project.Dlook.boards.domain;
-import com.example.Project.Dlook.boards.domain.BaseTime;
+import com.example.Project.Dlook.members.domain.Member;
 import lombok.*;
 import javax.persistence.*;
 
