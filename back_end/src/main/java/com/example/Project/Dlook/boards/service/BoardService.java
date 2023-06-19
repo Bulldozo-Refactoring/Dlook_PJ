@@ -3,6 +3,10 @@ import com.example.Project.Dlook.boards.domain.dto.BoardDTO;
 import com.example.Project.Dlook.boards.domain.Board;
 import com.example.Project.Dlook.boards.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +20,7 @@ public class BoardService {
 
     public void save(BoardDTO boardDTO) {
         Board board = Board.builder()
+                .boardNo(boardDTO.getBoardNo())
                 .boardTitle(boardDTO.getBoardTitle())
                 .boardWriter(boardDTO.getBoardWriter())
                 .boardContent(boardDTO.getBoardContent())
@@ -25,22 +30,38 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    public List<BoardDTO> findAll() {
-        List<Board> boardList = boardRepository.findAll();
-        List<BoardDTO> boardDTOList = new ArrayList<>();
+    public Page<BoardDTO> findAll(Pageable pageable) {
+        Page<Board> boardPage = boardRepository.findAll(pageable);
+        return boardPage.map(board -> BoardDTO.builder()
+                .boardNo(board.getBoardNo())
+                .boardTitle(board.getBoardTitle())
+                .boardWriter(board.getBoardWriter())
+                .boardContent(board.getBoardContent())
+                .boardCtg(board.getBoardCtg())
+                .build());
+    }
 
-        for (Board board : boardList) {
-            BoardDTO boardDTO = BoardDTO.builder()
-                    .boardTitle(board.getBoardTitle())
-                    .boardWriter(board.getBoardWriter())
-                    .boardContent(board.getBoardContent())
-                    .boardCtg(board.getBoardCtg())
-                    .build();
+    public Page<BoardDTO> list(int page) {
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "boardNo"));
+        return findAll(pageable);
+    }
 
-            boardDTOList.add(boardDTO);
-        }
 
-        return boardDTOList;
+    public Page<BoardDTO> paging(Pageable pageable) {
+        int page = pageable.getPageNumber();
+        int pageLimit = 10;
+
+        Page<Board> boardPage = boardRepository.findAll(
+                PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "boardNo"))
+        );
+
+        return boardPage.map(board -> BoardDTO.builder()
+                .boardNo(board.getBoardNo())
+                .boardTitle(board.getBoardTitle())
+                .boardWriter(board.getBoardWriter())
+                .boardContent(board.getBoardContent())
+                .build()
+        );
     }
 
     public Optional<BoardDTO> findById(Long boardNo) {
@@ -48,6 +69,7 @@ public class BoardService {
         if (optionalBoardEntity.isPresent()) {
             Board board = optionalBoardEntity.get();
             BoardDTO boardDTO = BoardDTO.builder()
+                    .boardNo(board.getBoardNo())
                     .boardWriter(board.getBoardWriter())
                     .boardTitle(board.getBoardTitle())
                     .boardContent(board.getBoardContent())
