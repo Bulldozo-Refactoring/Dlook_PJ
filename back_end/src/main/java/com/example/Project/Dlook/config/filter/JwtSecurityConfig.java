@@ -11,7 +11,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
     private final JwtProvider jwtProvider;
-    private final BlackListRepository blackListRepository;
 
     // JwtProvider 를 주입받아서 JwtFilter 를 통해 Security 로직에 필터를 등록
     @Override

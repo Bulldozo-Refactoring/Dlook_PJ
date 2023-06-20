@@ -21,10 +21,10 @@ const BoardDetail = () => {
         <hr />
         <div>
           <div className="authorName">
-            <Span>작성자</Span> 작성자명
+            <Spans>작성자</Spans> 작성자명
           </div>
           <div className="categorySelect">
-            <Span>카테고리</Span>
+            <Spans>카테고리</Spans>
             자유게시판
           </div>
         </div>
@@ -34,7 +34,7 @@ const BoardDetail = () => {
           <form>
             <div className="boardTitle">
               <label>
-                <Span>글제목</Span>
+                <Spans>글제목</Spans>
               </label>
               <p>
                 대통령은 법률안의 일부에 대하여 또는 법률안을 수정하여 재의를
@@ -73,7 +73,7 @@ const BoardDetail = () => {
   );
 };
 
-const Span = styled.span`
+const Spans = styled.span`
   border-style: solid;
   border: 1px solid #ccc;
   padding: 5px 40px;
