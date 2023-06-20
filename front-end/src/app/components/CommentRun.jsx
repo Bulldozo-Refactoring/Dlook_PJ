@@ -1,63 +1,46 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
 
-function CommentForm({ addComment }) {
-  const [comment, setComment] = useState("");
+function CommentRun() {
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (comment.trim() !== "") {
-      addComment(comment);
-      setComment("");
+    if (newComment.trim() !== "") {
+      setComments([...comments, newComment]);
+      setNewComment("");
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <Input
-        type="text"
-        value={comment}
-        onChange={(e) => setComment(e.target.value)}
-        placeholder="댓글을 작성하세요"
-        required
-      />
-      <Button type="submit">작성</Button>
-    </form>
-  );
-}
-
-function CommentList({ comments, deleteComment }) {
-  return (
-    <ul>
-      {comments.map((comment, index) => (
-        <li key={index}>
-          <Span>{comment}</Span>
-          <Button onClick={() => deleteComment(index)}>삭제</Button>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function CommentRun() {
-  const [comments, setComments] = useState([]);
-
-  const addComment = (comment) => {
-    setComments([...comments, comment]);
-  };
-
-  const deleteComment = (index) => {
-    const updatedComments = [...comments];
-    updatedComments.splice(index, 1);
+  const handleDelete = (index) => {
+    const updatedComments = comments.filter((_, i) => i !== index);
     setComments(updatedComments);
   };
 
   return (
-    <div>
-      <h1>댓글</h1><hr />
-      <CommentForm addComment={addComment} />
-      <CommentList comments={comments} deleteComment={deleteComment} />
-    </div>
+    <Div>
+      <h1>댓글</h1>
+      <hr />
+      <form onSubmit={handleSubmit}>
+        <Input
+          type="text"
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+          placeholder="댓글을 작성하세요"
+          required
+        />
+        <Button type="submit">작성</Button>
+      </form>
+      <ul>
+        {comments.map((comment, index) => (
+          <li key={index}>
+            <Span>{comment}</Span>
+            <Button onClick={() => handleDelete(index)}>삭제</Button>
+          </li>
+        ))}
+      </ul>
+    </Div>
   );
 }
 
@@ -66,7 +49,7 @@ const Input = styled.input`
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 70%;
+  width: 94%;
 `;
 
 const Button = styled.button`
@@ -94,5 +77,14 @@ const Span = styled.span`
   border-radius: 4px;
   width: 70%;
 `;
+
+const Div = styled.div`
+  text-align: center;
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+`;
+
+
 
 export default CommentRun;
