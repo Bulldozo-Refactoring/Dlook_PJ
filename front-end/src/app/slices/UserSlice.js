@@ -6,7 +6,7 @@ export const join = createAsyncThunk('members/join', async (payload) => {
     const response = await instance.post('members/join', payload);
     console.log('회원가입 진입', response);
 
-    return response.data;
+    // return response.data;
   } catch (error) {
     console.error('회원가입 실패: ', error);
     throw error;

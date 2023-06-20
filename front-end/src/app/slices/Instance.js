@@ -10,11 +10,19 @@ const instance = axios.create({
 // 요청할 때 accesstoken 게속 보내기
 instance.interceptors.request.use(
   async (config) => {
-    const accessToken = config.authorization;
-    config.authorization = `Bearer ${accessToken}`;
+    const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = Cookies.get('refreshToken');
 
-    console.log('요청 넘김요 ', config);
-    return config;
+    if (accessToken !== null) {
+      config.headers.authorization = `Bearer ${accessToken}`;
+      console.log('요청 보냄', config);
+      return config;
+    } else {
+      config.headers.authorization = `Bearer ${accessToken}`;
+      config.headers.refreshToken = refreshToken;
+      console.log('요청 보냄', config);
+      return config;
+    }
   },
   function (error) {
     return Promise.reject(error);
@@ -23,43 +31,52 @@ instance.interceptors.request.use(
 
 // 응답 받을 때 성공/실패에 따른 토큰 재발급
 instance.interceptors.response.use(
-  function (response) {
-    console.log('instance 응답 성공옴 ', response);
+  async (response) => {
     return response;
   },
   async (error) => {
-    console.log('instance 응답 실패옴 ', error);
+    console.log('응답 실패 ', error);
+    const { config, response } = error;
+    const status = response ? response.status : null;
+    console.log(status);
+    const originalConfig = config;
 
-    // 요청 하고 오는 응답이 실패해서 아직 작업 X
-    const originalConfig = error.config;
-    const accessToken = originalConfig.authorization;
-    const refreshToken = Cookies.get('refreshToken');
-
-    if (error.response.data === 'Invalid Refresh Token') {
-      console.log('드디어 진입헀다..');
+    if (status === 401) {
+      console.log('토큰 만료 진입');
+      // if (response.data === 'Invalid Refresh Token') {
       try {
-        const response = await axios.post('http://localhost:8080/members/reissue', null, {
-          headers: { Authorization: accessToken, RefreshToken: refreshToken },
-        });
+        const { data } = await axios.post(
+          'http://localhost:8080/members/reissue',
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+              RefreshToken: Cookies.get('refreshToken'),
+            },
+          }
+        );
 
-        if (error.config) {
-          console.log(error);
-          const { accessToken, refreshToken } = response.data;
+        //새로운 토큰 저장
+        const newAccessToken = data.accessToken;
+        localStorage.setItem('accessToken', newAccessToken);
 
-          localStorage.setItem('accessToken', accessToken);
-          Cookies.set('refreshToken', refreshToken);
-
-          originalConfig.headers.authorization = accessToken;
-
-          return await instance.request(originalConfig);
-        }
+        // 401로 요청 실패했던 요청 새로운 accessToken으로 재요청
+        originalConfig.headers.authorization = `Bearer ${newAccessToken}`;
+        return axios(originalConfig);
       } catch (error) {
         console.log('토큰 갱신 에러');
         logout();
         return Promise.reject(error);
       }
+      // } else {
+      //   console.log('토큰 갱신 ');
+      //     logout();
+      //     return Promise.reject(error);
+      // }
+    } else if (status === 404) {
+      window.alert('404 error');
     }
-    // 여기까지 작업 X
+
     return Promise.reject(error);
   }
 );

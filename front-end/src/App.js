@@ -73,6 +73,7 @@ const App = () => {
           children: [
             { path: '', element: <Board /> },
             { path: 'detail/1', element: <BoardDetail /> },
+            // { path: 'detail/:id', element: <BoardDetail /> },
           ],
         },
         {
