@@ -22,8 +22,6 @@ public class SecurityConfig {
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final BlackListRepository blackListRepository;
-    @Value("${jwt.secret}")
-    private String secretKey;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -49,12 +47,12 @@ public class SecurityConfig {
                 // 로그인, 회원가입 API, 재발급은 토큰이 없는 상태에서 요청이 들어오기 때문에 permitAll 설정
                 .and()
                 .authorizeRequests()
-                .antMatchers("/members/join", "/members/login", "/members/reissue", "/members/logout").permitAll()
+                .antMatchers("/members/join", "/members/login", "/members/reissue", "members/logout").permitAll()
                 .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
 
                 // JwtFilter 를 addFilterBefore 로 등록했던 JwtSecurityConfig 클래스를 적용
                 .and()
-                .apply(new JwtSecurityConfig(jwtProvider, blackListRepository));
+                .apply(new JwtSecurityConfig(jwtProvider));
 
         return http.build();
     }

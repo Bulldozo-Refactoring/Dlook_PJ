@@ -10,8 +10,15 @@ public class ExceptionManager {
     @ExceptionHandler(AppException.class)
     public ResponseEntity<?> appExceptionHandler(AppException e) {
         return ResponseEntity.status(e.getErrorCode().getHttpStatus())
-                .body(e.getErrorCode().name() + " " + e.getMessage());
+                        .body(e.getErrorCode().name());
     }
+
+    @ExceptionHandler(DataNotFoundException.class)
+    public ResponseEntity<?> dataNotFoundExceptionHandler(DataNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("entity not found: " + e.getMessage());
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<?> runtimeExceptionHandler(RuntimeException e) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
