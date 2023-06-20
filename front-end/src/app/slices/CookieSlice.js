@@ -8,17 +8,25 @@ export const login = createAsyncThunk('members/login', async (payload) => {
     const response = await instance.post('/members/login', payload, { withCredentials: true });
     console.log('로그인 진입확인:', response);
 
-    const { refreshtoken, membername } = response.headers;
+    const refreshToken = response.headers.refreshtoken;
+    const memberName = response.headers.membername;
     const accessToken = response.headers.authorization.split('Bearer ')[1];
+    console.log('로그인 진입 이후 받은 값 가져오기');
+    console.log(refreshToken);
+    console.log(memberName);
+    console.log(accessToken);
 
-    // cookie -> 시간 세팅 필요 1일..?
-    if (accessToken && refreshtoken && membername) {
+    const expirationTime = 1; // 쿠키의 만료 시간(단위: 일)
+    const currentDate = new Date();
+    const expirationDate = new Date(currentDate.getTime() + expirationTime * 24 * 60 * 60 * 1000); // 현재 시간에 만료 시간을 더한 일자
+
+    if (accessToken != null && refreshToken != null && memberName != null) {
       localStorage.setItem('accessToken', accessToken);
-      Cookies.set('refreshToken', refreshtoken, { path: '/' });
-      Cookies.set('memberName', membername);
-      Cookies.set('isLoggedIn', true);
+      Cookies.set('refreshToken', refreshToken, { path: '/', expires: expirationDate });
+      Cookies.set('memberName', memberName, { expires: expirationDate });
+      Cookies.set('isLoggedIn', true, { expires: expirationDate });
 
-      return { accessToken, refreshtoken, membername };
+      return { accessToken, refreshToken, memberName };
     } else {
       console.error('로그인 실패: 응답 헤더에 필요한 정보가 없습니다.');
     }
@@ -34,16 +42,17 @@ export const logout = createAsyncThunk('members/logout', async () => {
 
     const { refreshtoken, membername } = response.headers;
     const accessToken = response.headers.authorization.split('Bearer ')[1];
+    console.log('로그아웃 진입 이후');
+    console.log(refreshtoken);
+    console.log(membername);
+    console.log(accessToken);
 
-    // 변경
-    if (accessToken && refreshtoken && membername) {
-      localStorage.removeItem('accessToken');
-      Cookies.remove('refreshtoken', { path: '/' });
-      Cookies.remove('membername', { path: '/' });
-      Cookies.set('isLoggedIn', false, { path: '/' });
+    localStorage.removeItem('accessToken');
+    Cookies.remove('refreshToken', { path: '/' });
+    Cookies.remove('memberName', { path: '/' });
+    Cookies.set('isLoggedIn', false, { path: '/' });
 
-      return null;
-    }
+    return null;
   } catch (error) {
     console.error('로그아웃 실패:', error);
   }
@@ -52,9 +61,9 @@ export const logout = createAsyncThunk('members/logout', async () => {
 const initialState = {
   isLoggedIn: false,
   accessToken: localStorage.getItem('accessToken') || null,
-  refreshToken: Cookies.get('refreshtoken') || null,
+  refreshToken: Cookies.get('refreshToken') || null,
   certify: null,
-  memberName: Cookies.get('membername') || null,
+  memberName: Cookies.get('memberName') || null,
   loginResult: null,
 };
 

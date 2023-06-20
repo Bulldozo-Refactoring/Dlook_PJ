@@ -10,7 +10,6 @@ import logo from '../../assets/images/logo.svg';
 const Header = () => {
   const [open, setMenu] = useState(false);
   const { pathname } = useLocation();
-
   const toggleMenu = () => setMenu((open) => !open);
   useEffect(() => setMenu(false), [pathname]);
 

@@ -19,19 +19,10 @@ function HeaderUser() {
   const isLoggedIn = Cookies.get('isLoggedIn');
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
-
-  const handleLogout = () => {
-    dispatch(logout())
-      .then(() => {
-        Cookies.remove('isLoggedIn');
-        Cookies.remove('memberName');
-        localStorage.removeItem('accessToken');
-        Cookies.remove('refreshToken', { path: '/' });
-      })
-      .catch((error) => console.error('로그아웃 실패:', error));
-  };
+  const handleLogout = () => dispatch(logout());
 
   useEffect(() => {
     const storedLoginStatus = Cookies.get('isLoggedIn');
