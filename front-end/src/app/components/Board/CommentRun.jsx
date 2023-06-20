@@ -20,7 +20,7 @@ function CommentRun() {
 
   return (
     <Div>
-      <h1>댓글</h1>
+      <H1>댓글</H1>
       <hr />
       <form onSubmit={handleSubmit}>
         <Input
@@ -43,6 +43,10 @@ function CommentRun() {
     </Div>
   );
 }
+
+const H1 = styled.h1`
+  text-align : left;
+`;
 
 const Input = styled.input`
   padding: 10px;

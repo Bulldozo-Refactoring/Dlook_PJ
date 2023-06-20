@@ -1,49 +1,47 @@
 import React from "react";
-import "app/style/BoardDetail.css";
 import { styled } from "styled-components";
 import { NavLink } from "react-router-dom";
-import CommentRun from "app/components/CommentRun";
+import CommentRun from "app/components/Board/CommentRun";
 
 const BoardDetail = () => {
-
-   const doDelete = () => {
-      if(window.confirm("정말 삭제하시겠습니까?")){
-        alert("삭제되었습니다.");
-      } else{
-        alert("취소되었습니다.");
-      }
-   };
+  const doDelete = () => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      alert("삭제되었습니다.");
+    } else {
+      alert("취소되었습니다.");
+    }
+  };
 
   return (
     <section>
-      <div className="post-form-container">
-        <h2>전체 게시판</h2>
+      <BoardForm>
+        <AllBoard>전체 게시판</AllBoard>
         <hr />
-        <div>
-          <div className="authorName">
-            <Spans>작성자</Spans> 작성자명
+        <DivFlex>
+          <div>
+            <Span>작성자</Span> 작성자명
           </div>
-          <div className="categorySelect">
-            <Spans>카테고리</Spans>
+          <div>
+            <Span>카테고리</Span>
             자유게시판
           </div>
-        </div>
+        </DivFlex>
         <br />
         <br />
         <div>
           <form>
-            <div className="boardTitle">
+            <BoardTitle>
               <label>
-                <Spans>글제목</Spans>
+                <Span>글제목</Span>
               </label>
               <p>
-                대통령은 법률안의 일부에 대하여 또는 법률안을 수정하여 재의를
+                 대통령은 법률안의 일부에 대하여 또는 법률안을 수정하여 재의를
                 요구할 수 없다.
               </p>
-            </div>
+            </BoardTitle>
             <br />
             <label></label>
-            <p className="boardContent">
+            <BoardContent>
               모든 국민은 보건에 관하여 국가의 보호를 받는다. 국회의원과 정부는
               법률안을 제출할 수 있다. 행정각부의 설치·조직과 직무범위는 법률로
               정한다. 국회는 헌법개정안이 공고된 날로부터 60일 이내에 의결하여야
@@ -55,28 +53,84 @@ const BoardDetail = () => {
               때까지 예산안이 의결되지 못한 때에는 정부는 국회에서 예산안이
               의결될 때까지 다음의 목적을 위한 경비는 전년도 예산에 준하여
               집행할 수 있다.
-            </p>
+            </BoardContent>
             <br />
-            <div className="buttonWb">
-              <button type="submit" className="btn-dark" onClick={doDelete}>
+            <DivButton>
+              <Button type="submit" onClick={doDelete}>
                 <NavLink to="/board">삭제하기</NavLink>
-              </button>
-              <button type="submit" className="btn-dark">
+              </Button>
+              <Button type="submit">
                 <NavLink to="/board/1">수정하기</NavLink>
-              </button>
-            </div>
+              </Button>
+            </DivButton>
           </form>
         </div>
-      </div>
+      </BoardForm>
       <CommentRun></CommentRun>
     </section>
   );
 };
 
-const Spans = styled.span`
+const Span = styled.span`
   border-style: solid;
   border: 1px solid #ccc;
   padding: 5px 40px;
+  margin-right: 5px;
+  `;
+
+const BoardForm = styled.div`
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+`;
+
+const AllBoard = styled.h2`
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 24px;
+  text-align: center;
+`;
+
+const BoardTitle = styled.div`
+  display: flex;
+`;
+
+const BoardContent = styled.p`
+  padding: 10px;
+  margin-bottom: 10px;
+`;
+
+const Button = styled.button`
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  background: #555;
+  color: #fff;
+  &:hover,
+  &:focus {
+    background: #373737;
+    border-color: #373737;
+    color: #fff;
+  }
+  margin-right: 10px;
+`;
+
+const DivButton = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const DivFlex = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-right: 25px;
 `;
 
 export default BoardDetail;
+
