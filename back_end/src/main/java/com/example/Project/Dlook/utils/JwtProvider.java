@@ -1,5 +1,7 @@
 package com.example.Project.Dlook.utils;
 
+import com.example.Project.Dlook.exception.AppException;
+import com.example.Project.Dlook.exception.ErrorCode;
 import com.example.Project.Dlook.members.domain.dto.TokenDto;
 import com.example.Project.Dlook.members.repository.BlackListRepository;
 import io.jsonwebtoken.*;
@@ -35,7 +37,7 @@ public class JwtProvider {
     }
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_TYPE = "Bearer";
-    private Long accessTokenExpireTimeMs = 1000 * 60l * 60; // 1시간
+    private Long accessTokenExpireTimeMs = 1000 * 10l; // 1시간
     private Long refreshTokenExpireTimeMs = 1000 * 60l * 10080; // 일주일
 
     public TokenDto generateTokenDto(Authentication authentication) {
@@ -75,7 +77,7 @@ public class JwtProvider {
         Claims claims = parseClaims(accessToken);
 
         if (claims.get(AUTHORITIES_KEY) == null) {
-            throw new RuntimeException("Unauthorized Token");
+            throw new AppException(ErrorCode.INVALID_TOKEN);
         }
 
         // 클레임에서 권한 정보 가져오기
@@ -94,17 +96,17 @@ public class JwtProvider {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             if(blackListRepository.existsByAccessToken(token)) {
-                throw new RuntimeException("logout member");
+                throw new AppException(ErrorCode.MEMBER_LOGOUT);
             }
             return true;
-        } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-            log.info("INVALID_JWT_SIGNATURE");
+        } catch (SecurityException | MalformedJwtException e) {
+            log.info("INVALID_SIGNATURE");
         } catch (ExpiredJwtException e) {
-            log.info("EXPIRED_JWT");
+            log.info("EXPIRED_TOKEN");
         } catch (UnsupportedJwtException e) {
-            log.info("INVALID_JWT");
+            log.info("INVALID_TOKEN");
         } catch (IllegalArgumentException e) {
-            log.info("JWT Token is invalid");
+            log.info("INVALID_TOKEN");
         }
         return false;
     }
@@ -118,10 +120,14 @@ public class JwtProvider {
     }
 
     public Long getExpiration(String accessToken) {
-        // accessToken 남은 유효시간
-        Date expiration = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody().getExpiration();
-        // 현재 시간
-        Long now = new Date().getTime();
-        return (expiration.getTime() - now);
+        try {
+            Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken);
+            Date expiration = claimsJws.getBody().getExpiration();
+            // 현재 시간
+            long now = System.currentTimeMillis();
+            return expiration.getTime() - now;
+        } catch (ExpiredJwtException e) {
+            throw new AppException(ErrorCode.EXPIRED_TOKEN);
+        }
     }
 }

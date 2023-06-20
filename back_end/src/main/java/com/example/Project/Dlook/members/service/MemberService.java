@@ -42,13 +42,13 @@ public class MemberService {
         // memberName 중복 체크
         memberRepository.findByMemberName(dto.getMemberName())
                 .ifPresent(member -> {
-                    throw new AppException(ErrorCode.MEMBERNAME_DUPLICATED, dto.getMemberName() + " already Exist");
+                    throw new AppException(ErrorCode.MEMBERNAME_DUPLICATED);
                 });
 
         // memberEmail 중복 체크
         memberRepository.findByMemberEmail(dto.getMemberEmail())
                 .ifPresent(member -> {
-                    throw new AppException(ErrorCode.MEMBEREMAIL_DUPLICATED, dto.getMemberEmail() + " already Exist");
+                    throw new AppException(ErrorCode.MEMBEREMAIL_DUPLICATED);
                 });
 
         Member member = dto.toMember(encoder);
@@ -61,12 +61,12 @@ public class MemberService {
     public ResponseEntity<String> login(LoginRequestDTO dto, HttpServletResponse response) {
         // memberEmail 없음
         Member selectedMemberEmail = memberRepository.findByMemberEmail(dto.getMemberEmail())
-                .orElseThrow(() -> new AppException(ErrorCode.MEMBEREMAIL_NOT_FOUND, dto.getMemberEmail() + " MEMBEREMAIL_NOT_FOUND"));
+                .orElseThrow(() -> new AppException(ErrorCode.MEMBEREMAIL_NOT_FOUND));
 
         // memberPw 틀림 ( memberRepository에 있는 pw와 들어온 pw 비교)
         // log.info("selectedPw:{} pw:{}", selectedMemberEmail.getMemberPw(), memberPw);
         if (!encoder.matches(dto.getMemberPw(), selectedMemberEmail.getMemberPw())) {
-            throw new AppException(ErrorCode.INVALID_PASSWORD, " INVALID_PASSWORD");
+            throw new AppException(ErrorCode.INVALID_PASSWORD);
         }
 
         UsernamePasswordAuthenticationToken authenticationToken = dto.toAuthentication();
@@ -95,30 +95,25 @@ public class MemberService {
         String accessToken = request.getHeader("Authorization").substring(7);
         String refreshToken = request.getHeader("RefreshToken");
 
-        // 1. Refresh Token 검증 (accesstoken이 만료된 이후라 인증없이 항상 permit 해둠, logout 이후의 접근을 막기 위해 필요)
-        if (!jwtProvider.validateToken(refreshToken)) {
-            throw new RuntimeException("Invalid Refresh Token");
-        }
-
-        // 2. Access Token 에서 Member ID 가져오기
+        // 1. Access Token 에서 Member ID 가져오기
         Authentication authentication = jwtProvider.getAuthentication(accessToken);
 
-        // 3. 저장소에서 Member ID 를 기반으로 Refresh Token 값 가져옴
+        // 2. 저장소에서 Member ID 를 기반으로 Refresh Token 값 가져옴
         RefreshToken refreshTokenValue = refreshTokenRepository.findByRefreshKey(authentication.getName())
-                .orElseThrow(() -> new RuntimeException("Member Logout"));
+                .orElseThrow(() -> new AppException(ErrorCode.MEMBER_LOGOUT));
 
-        // 4. Refresh Token 일치하는지 검사
+        // 3. Refresh Token 일치하는지 검사
         if (!refreshTokenValue.getRefreshValue().equals(refreshToken)) {
-            throw new RuntimeException("REFRESHTOKEN_NOT_FOUND");
+            throw new AppException(ErrorCode.INVALID_TOKEN);
         }
 
-        // 5. 새로운 토큰 생성
+        // 4. 새로운 토큰 생성
         TokenDto tokenDto = jwtProvider.generateTokenDto(authentication);
         response.addHeader("Authorization", "Bearer " + accessToken);
         response.addHeader("RefreshToken", refreshToken);
         response.addHeader("MemberName", authentication.getName());
 
-        // 6. 저장소 정보 업데이트
+        // 5. 저장소 정보 업데이트
         RefreshToken newRefreshToken = refreshTokenValue.updateValue(refreshToken);
         refreshTokenRepository.save(newRefreshToken);
 
@@ -129,17 +124,13 @@ public class MemberService {
     public ResponseEntity<String> logout(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization").substring(7);
 
-        // 1. accessToken 검증
-        if (!jwtProvider.validateToken(accessToken)) {
-            throw new RuntimeException("Invalid accessToken");
-        }
-
-        // 2. Access Token 에서 Member ID 가져오기
+        // 1. Access Token 에서 Member ID 가져오기
         Authentication authentication = jwtProvider.getAuthentication(accessToken);
 
-        // 3. 저장소에서 Member ID 를 기반으로 Refresh Token 값 가져옴
+        // 2. 저장소에서 Member ID 를 기반으로 Refresh Token 값 가져옴
         RefreshToken refreshTokenValue = refreshTokenRepository.findByRefreshKey(authentication.getName())
-                .orElseThrow(() -> new RuntimeException("Member Logout"));
+                .orElseThrow(() -> new AppException(ErrorCode.MEMBER_LOGOUT));
+
         if (refreshTokenValue != null) {
             refreshTokenRepository.delete(refreshTokenValue);
         }
