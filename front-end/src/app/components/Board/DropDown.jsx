@@ -9,12 +9,12 @@ function DropDown() {
   };
 
   return (
-    <Div>
+    <>
       <Select value={option} onChange={handleOnchange}>
         <Option key={10}>자유게시판</Option>
         <Option key={20}>Q&A게시판</Option>
       </Select>
-    </Div>
+    </>
   );
 }
 
@@ -26,12 +26,11 @@ const Option = styled.option`
     background-color: #595959;
   }
 `;
-const Div = styled.div`
-  float: left;
-`;
+
 const Select = styled.select`
   width: 250px;
-  height: 36px;
+  height: 33px;
+  margin-left:5px;
 `;
 
 export default DropDown;

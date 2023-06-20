@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import "app/style/BoardWrite.css";
-import DropDown from "app/components/DropDown";
+import DropDown from "app/components/Board/DropDown";
 import { styled } from "styled-components";
 import { NavLink } from "react-router-dom";
 
@@ -12,24 +11,24 @@ const BoardModify = () => {
     setTitle(e.target.value);
   };
 
+  const handleContentChange = (e) => {
+    setContent(e.target.value);
+  };
+
   const doDelete = () => {
-    if (window.confirm("정말 삭제하시겠습니까?")) {
-      alert("삭제되었습니다.");
-    } else {
-      alert("취소되었습니다.");
-    }
+     if (window.confirm("정말 삭제하시겠습니까?")) {
+       alert("삭제되었습니다.");
+     } else {
+       alert("취소되었습니다.");
+     }
   };
 
   const doModify = () => {
-    if (window.confirm("정말 수정하시겠습니까?")) {
-      alert("수정되었습니다.");
-    } else {
-      alert("취소되었습니다.");
-    }
-  };
-  
-  const handleContentChange = (e) => {
-    setContent(e.target.value);
+     if (window.confirm("정말 수정하시겠습니까?")) {
+       alert("수정되었습니다.");
+     } else {
+       alert("취소되었습니다.");
+     }
   };
 
   const handleSubmit = (e) => {
@@ -40,49 +39,49 @@ const BoardModify = () => {
   };
 
   return (
-    <section className="post-form-container">
-      <h2>전체 게시판</h2>
+    <Section>
+      <H2>전체 게시판</H2>
       <hr />
-      <div>
-        <div className="authorName">
+      <DivFlex>
+        <div>
           <Span>작성자</Span> 작성자명
         </div>
-        <div className="categorySelect">
-          <Span className="cate">카테고리</Span>
+        <div>
+          <Span>카테고리</Span>
           <DropDown />
         </div>
-      </div>
+      </DivFlex>
       <br />
       <br />
-      <div>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="title" className="boardTitle">
+      <Form onSubmit={handleSubmit}>
+        <div>
+          <Label>
             <Span>글제목</Span>
-          </label>
-          <input
+          </Label>
+          <Input
             type="text"
             id="title"
             defaultValue={title}
             onChange={handleTitleChange}
           />
-          <br />
-          <label htmlFor="content"></label>
-          <textarea
-            id="content"
-            defaultValue={content}
-            onChange={handleContentChange}
-          ></textarea>
-          <div className="buttonWb">
-            <button type="submit" className="btn-dark" onClick={doDelete}>
-              <NavLink to="/board">삭제하기</NavLink>
-            </button>
-            <button type="submit" className="btn-dark" onClick={doModify}>
-              <NavLink to="../detail/1">수정하기</NavLink>
-            </button>
-          </div>
-        </form>
-      </div>
-    </section>
+        </div>
+        <br />
+        <Label></Label>
+        <TextArea
+          id="content"
+          defaultValue={content}
+          onChange={handleContentChange}
+        ></TextArea>
+        <DivButton>
+          <Button type="submit" onClick={doDelete}>
+            <NavLink to="/board">삭제하기</NavLink>
+          </Button>
+          <Button type="submit" onClick={doModify}>
+            <NavLink to="../detail/1">수정하기</NavLink>
+          </Button>
+        </DivButton>
+      </Form>
+    </Section>
   );
 };
 
@@ -90,6 +89,82 @@ const Span = styled.span`
   border-style: solid;
   border: 1px solid #ccc;
   padding: 5px 40px;
+`;
+
+const Section = styled.section`
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+  &::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+`;
+
+const H2 = styled.h2`
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 24px;
+  text-align: center;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Label = styled.label`
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #555;
+`;
+
+const Input = styled.input`
+  margin-bottom: 10px;
+  border: 1px solid #968d8d;
+  width: 500px;
+  height: 33px;
+  margin-left: 5px;
+`;
+
+const TextArea = styled.textarea`
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 400px;
+`;
+
+const Button = styled.button`
+  padding: 10px 15px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  margin-right: 10px;
+  background: #555;
+  &:hover,
+  &:focus {
+    background: #373737;
+    border-color: #373737;
+    color: #fff;
+  }
+`;
+
+const DivFlex = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const DivButton = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 export default BoardModify;
