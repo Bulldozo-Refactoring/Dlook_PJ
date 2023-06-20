@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { SectionsContainer, Section } from 'react-fullpage';
 import Cookies from 'js-cookie';
 import styled from 'styled-components';
@@ -78,7 +78,17 @@ function MainPage() {
         </Section>
         <Section style={{ margin: '0 auto', backgroundColor: 'var(--bg-100)' }}>
           <MainBox03>
-            <H1>공지사항</H1>
+            <H1>NOTICE</H1>
+            <NoticeUl>
+              {/* 반복 돌려 */}
+              <NoticeLi>
+                <NoticeNav to="">+</NoticeNav>
+                <NoticeDiv>
+                  청춘의 청춘 남는 못하다 봄바람을 있는 속에 실로 것이다. 붙잡아 만천하의 것은 있으며, 그들에게 쓸쓸한 풀밭에 찾아 우는
+                  것이다. 이상 가치를 무엇을 피부가 공자는 크고 속에 대고, 이것이다.
+                </NoticeDiv>
+              </NoticeLi>
+            </NoticeUl>
           </MainBox03>
         </Section>
       </SectionsContainer>
@@ -133,7 +143,7 @@ const MainBox02 = styled.div`
 const MainBox03 = styled.div`
   height: 100%;
   padding: 80px calc(50% - 400px);
-  background-color: var(--bg-100);
+  background-color: var(--bg-200);
   text-align: center;
 `;
 const H1 = styled.h1`
@@ -153,5 +163,40 @@ const Back = styled.div`
   z-index: 0;
   width: 100%;
   height: 100%;
+`;
+const NoticeUl = styled.ul`
+  text-align: center;
+`;
+const NoticeLi = styled.li`
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--bg-100);
+  padding: 20px 10px;
+`;
+const NoticeNav = styled(NavLink)`
+  display: inline-block;
+  position: reletive;
+  padding: 12px 10px 0 10px;
+  font-size: 80px;
+  line-height: 0;
+  font-weight: 600;
+  color: var(--primary-200);
+  &::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+  }
+`;
+const NoticeDiv = styled.div`
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  width: 600px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 `;
 export default MainPage;

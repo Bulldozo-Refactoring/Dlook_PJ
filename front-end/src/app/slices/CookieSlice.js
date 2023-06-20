@@ -1,4 +1,3 @@
-// CookieSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
 import instance from './Instance';
@@ -37,21 +36,14 @@ export const login = createAsyncThunk('members/login', async (payload) => {
 
 export const logout = createAsyncThunk('members/logout', async () => {
   try {
-    const response = await instance.get('/members/logout', null, { withCredentials: true });
-    console.log('로그아웃 진입확인:', response);
-
-    const { refreshtoken, membername } = response.headers;
-    const accessToken = response.headers.authorization.split('Bearer ')[1];
-    console.log('로그아웃 진입 이후');
-    console.log(refreshtoken);
-    console.log(membername);
-    console.log(accessToken);
+    await instance.get('/members/logout', null, { withCredentials: true });
 
     localStorage.removeItem('accessToken');
     Cookies.remove('refreshToken', { path: '/' });
     Cookies.remove('memberName', { path: '/' });
-    Cookies.set('isLoggedIn', false, { path: '/' });
+    Cookies.remove('isLoggedIn', false, { path: '/' });
 
+    console.log('로그아웃 성공 아닐까.');
     return null;
   } catch (error) {
     console.error('로그아웃 실패:', error);
