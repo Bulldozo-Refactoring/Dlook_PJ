@@ -122,6 +122,7 @@ public class MemberService {
     }
 
     public ResponseEntity<String> logout(HttpServletRequest request) {
+        log.info("why");
         String accessToken = request.getHeader("Authorization").substring(7);
 
         // 1. Access Token 에서 Member ID 가져오기
@@ -134,8 +135,9 @@ public class MemberService {
         if (refreshTokenValue != null) {
             refreshTokenRepository.delete(refreshTokenValue);
         }
-
+        log.info("weqr");
         Long expiration = jwtProvider.getExpiration(accessToken);
+        log.info("htr");
         BlackList blackList = BlackList.builder()
                 .accessToken(accessToken)
                 .message("logout")
