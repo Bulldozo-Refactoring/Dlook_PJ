@@ -21,15 +21,16 @@ const handleTokenRefreshAndRetry = async (error) => {
     );
 
     if (refreshResponse.data === 'Token reissue') {
-      const newAccessToken = refreshResponse.headers.authorization.split('Bearer ')[1];
-      const newRefreshToken = refreshResponse.headers.refreshtoken;
+      const { authorization, refreshtoken } = refreshResponse.headers;
+      if (authorization && refreshtoken) {
+        localStorage.setItem('accessToken', authorization.split('Bearer ')[1]);
+        Cookies.set('refreshToken', refreshtoken);
 
-      localStorage.setItem('accessToken', newAccessToken);
-      Cookies.set('refreshToken', newRefreshToken);
+        config.headers.authorization = authorization;
+        config.headers.refreshtoken = refreshtoken;
 
-      config.headers.authorization = `Bearer ${newAccessToken}`;
-      config.headers.refreshtoken = newRefreshToken;
-      return config;
+        return await instance.request(config);
+      }
     }
     return Promise.reject(error);
   } catch (error) {
@@ -37,7 +38,6 @@ const handleTokenRefreshAndRetry = async (error) => {
   }
 };
 
-// 요청할 때 accesstoken 게속 보내기
 instance.interceptors.request.use(
   async (config) => {
     const accessToken = localStorage.getItem('accessToken');
@@ -47,7 +47,6 @@ instance.interceptors.request.use(
   async (error) => Promise.reject(error)
 );
 
-// 응답 받을 때 성공/실패에 따른 토큰 재발급
 instance.interceptors.response.use(
   async (response) => response,
   async (error) => {
