@@ -92,29 +92,27 @@ public class MemberService {
 
     @Transactional
     public ResponseEntity<String> reissue(HttpServletRequest request, HttpServletResponse response) {
-        String accessToken = request.getHeader("Authorization").substring(7);
         String refreshToken = request.getHeader("RefreshToken");
 
-        // 1. Access Token 에서 Member ID 가져오기
-        Authentication authentication = jwtProvider.getAuthentication(accessToken);
-
-        // 2. 저장소에서 Member ID 를 기반으로 Refresh Token 값 가져옴
-        RefreshToken refreshTokenValue = refreshTokenRepository.findByRefreshKey(authentication.getName())
-                .orElseThrow(() -> new AppException(ErrorCode.MEMBER_LOGOUT));
-
-        // 3. Refresh Token 일치하는지 검사
-        if (!refreshTokenValue.getRefreshValue().equals(refreshToken)) {
-            throw new AppException(ErrorCode.INVALID_TOKEN);
+        if (!jwtProvider.validateToken(refreshToken)) {
+            throw new AppException(ErrorCode.EXPIRED_TOKEN);
         }
 
-        // 4. 새로운 토큰 생성
-        TokenDto tokenDto = jwtProvider.generateTokenDto(authentication);
-        response.addHeader("Authorization", "Bearer " + accessToken);
-        response.addHeader("RefreshToken", refreshToken);
-        response.addHeader("MemberName", authentication.getName());
+        // 1. Access Token 에서 Member ID 가져오기
+        Authentication authentication = jwtProvider.getAuthentication(refreshToken);
 
-        // 5. 저장소 정보 업데이트
-        RefreshToken newRefreshToken = refreshTokenValue.updateValue(refreshToken);
+        RefreshToken newRefreshToken = refreshTokenRepository.findByRefreshKey(authentication.getName())
+                .orElseThrow(() -> new AppException(ErrorCode.MEMBER_LOGOUT));
+
+        // 2. 새로운 토큰 생성
+        TokenDto tokenDto = jwtProvider.generateTokenDto(authentication);
+        response.addHeader("Authorization", "Bearer " + tokenDto.getAccessToken());
+        response.addHeader("RefreshToken", tokenDto.getRefreshToken());
+        response.addHeader("MemberName", tokenDto.getMemberName());
+
+
+        // 3. 저장소 정보 업데이트
+        newRefreshToken.updateValue(tokenDto.getRefreshToken());
         refreshTokenRepository.save(newRefreshToken);
 
         // 토큰 발급
@@ -122,7 +120,6 @@ public class MemberService {
     }
 
     public ResponseEntity<String> logout(HttpServletRequest request) {
-        log.info("why");
         String accessToken = request.getHeader("Authorization").substring(7);
 
         // 1. Access Token 에서 Member ID 가져오기
@@ -135,9 +132,8 @@ public class MemberService {
         if (refreshTokenValue != null) {
             refreshTokenRepository.delete(refreshTokenValue);
         }
-        log.info("weqr");
+
         Long expiration = jwtProvider.getExpiration(accessToken);
-        log.info("htr");
         BlackList blackList = BlackList.builder()
                 .accessToken(accessToken)
                 .message("logout")
