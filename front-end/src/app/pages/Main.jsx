@@ -10,6 +10,7 @@ import mainBack01 from 'app/assets/images/mainBack01.png';
 import mainBack02 from 'app/assets/images/mainBack02.png';
 
 function MainPage() {
+  const navigate = useNavigate();
   // page scroll
   let options = {
     sectionClassName: 'section',
@@ -20,14 +21,8 @@ function MainPage() {
     sectionPaddingBottom: '80px',
     arrowNavigation: true,
   };
-
-  const isLoggedIn = Cookies.get('isLoggedIn');
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    if (isLoggedIn) navigate('/algorithms/step');
-    else navigate('/members/login');
-  };
+  const handleClick = () => navigate('/members/login');
+  // 공지사항
 
   return (
     <Main>
@@ -88,6 +83,7 @@ function MainPage() {
                   것이다. 이상 가치를 무엇을 피부가 공자는 크고 속에 대고, 이것이다.
                 </NoticeDiv>
               </NoticeLi>
+              ;{/* 여기까지 돌려 */}
             </NoticeUl>
           </MainBox03>
         </Section>
@@ -170,28 +166,35 @@ const NoticeUl = styled.ul`
 const NoticeLi = styled.li`
   display: inline-flex;
   align-items: center;
+  margin-bottom: 2rem;
+  padding: 20px 15px;
   background-color: var(--bg-100);
-  padding: 20px 10px;
 `;
 const NoticeNav = styled(NavLink)`
   display: inline-block;
-  position: reletive;
-  padding: 12px 10px 0 10px;
-  font-size: 80px;
+  margin-right: 20px;
+  position: relative;
+  padding-top: 12px;
+  font-size: 100px;
   line-height: 0;
   font-weight: 600;
   color: var(--primary-200);
+  z-index: 1;
   &::before {
     content: '';
     position: absolute;
-    width: 20px;
-    height: 20px;
+    top: -24px;
+    left: -3px;
+    width: 57px;
+    height: 57px;
+    background-color: var(--primary-100);
+    z-index: -1;
   }
 `;
 const NoticeDiv = styled.div`
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
-  line-height: 22px;
+  line-height: 24px;
   width: 600px;
   overflow: hidden;
   text-overflow: ellipsis;

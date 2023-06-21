@@ -5,32 +5,27 @@ import instance from './Instance';
 export const login = createAsyncThunk('members/login', async (payload) => {
   try {
     const response = await instance.post('/members/login', payload, { withCredentials: true });
-    console.log('로그인 진입확인:', response);
 
-    const refreshToken = response.headers.refreshtoken;
-    const memberName = response.headers.membername;
-    const accessToken = response.headers.authorization.split('Bearer ')[1];
-    console.log('로그인 진입 이후 받은 값 가져오기');
-    console.log(refreshToken);
-    console.log(memberName);
-    console.log(accessToken);
+    const { authorization, refreshtoken, membername } = response.headers;
 
-    const expirationTime = 1; // 쿠키의 만료 시간(단위: 일)
-    const currentDate = new Date();
-    const expirationDate = new Date(currentDate.getTime() + expirationTime * 24 * 60 * 60 * 1000); // 현재 시간에 만료 시간을 더한 일자
+    if (authorization != null && refreshtoken != null && membername != null) {
+      const expirationTime = 1;
+      const currentDate = new Date();
+      const expirationDate = new Date(currentDate.getTime() + expirationTime * 24 * 60 * 60 * 1000);
 
-    if (accessToken != null && refreshToken != null && memberName != null) {
-      localStorage.setItem('accessToken', accessToken);
-      Cookies.set('refreshToken', refreshToken, { path: '/', expires: expirationDate });
-      Cookies.set('memberName', memberName, { expires: expirationDate });
-      Cookies.set('isLoggedIn', true, { expires: expirationDate });
+      localStorage.setItem('accessToken', authorization.split('Bearer ')[1]);
+      Cookies.set('refreshToken', refreshtoken, { path: '/', expires: expirationDate });
+      Cookies.set('memberName', membername, { path: '/', expires: expirationDate });
+      Cookies.set('isLoggedIn', true, { path: '/', expires: expirationDate });
 
-      return { accessToken, refreshToken, memberName };
+      return { accessToken: authorization, refreshToken: refreshtoken, memberName: membername };
     } else {
       console.error('로그인 실패: 응답 헤더에 필요한 정보가 없습니다.');
+      window.alert('로그인 실패');
     }
   } catch (error) {
     console.error('로그인 실패:', error);
+    window.alert('로그인 실패');
   }
 });
 
@@ -43,10 +38,10 @@ export const logout = createAsyncThunk('members/logout', async () => {
     Cookies.remove('memberName', { path: '/' });
     Cookies.remove('isLoggedIn', false, { path: '/' });
 
-    console.log('로그아웃 성공 아닐까.');
     return null;
   } catch (error) {
     console.error('로그아웃 실패:', error);
+    window.alert('로그아웃 실패');
   }
 });
 
