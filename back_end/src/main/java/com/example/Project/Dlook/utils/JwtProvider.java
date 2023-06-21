@@ -37,7 +37,7 @@ public class JwtProvider {
     }
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_TYPE = "Bearer";
-    private Long accessTokenExpireTimeMs = 1000 * 3l; // 1시간
+    private Long accessTokenExpireTimeMs = 1000 * 60l * 60; // 1시간
     private Long refreshTokenExpireTimeMs = 1000 * 60l * 10080; // 일주일
 
     public TokenDto generateTokenDto(Authentication authentication) {
@@ -59,6 +59,8 @@ public class JwtProvider {
 
         // Refresh Token 생성
         String refreshToken = Jwts.builder()
+                .setSubject(authentication.getName())
+                .claim(AUTHORITIES_KEY, authorities)
                 .setExpiration(new Date(now + refreshTokenExpireTimeMs))
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
@@ -72,9 +74,9 @@ public class JwtProvider {
                 .build();
     }
 
-    public Authentication getAuthentication(String accessToken) {
+    public Authentication getAuthentication(String token) {
         // 토큰 복호화
-        Claims claims = parseClaims(accessToken);
+        Claims claims = parseClaims(token);
 
         if (claims.get(AUTHORITIES_KEY) == null) {
             throw new AppException(ErrorCode.INVALID_TOKEN);
