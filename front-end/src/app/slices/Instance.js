@@ -1,12 +1,24 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { logout } from './CookieSlice';
+import { getLogout } from 'app/slices/CookieSlice';
 
+/**
+ * @brief intercepter setting
+ */
 const instance = axios.create({
   baseURL: 'http://localhost:8080',
   headers: { 'Content-type': 'application/json', withCredentials: true },
 });
 
+/**
+ * @brief 401 error인 경우 token 재발급 처리
+ * @details
+ * 1. 401 error 응답이 들어오면 cookie에 저장된 refreshToken을 request 보냄
+ * 2. "Token resiuuse"가 들어오면 재발급 받은 token을 새로 저장
+ * 3. 재발급 받은 accessToken을 원래의 request에 다시 보냄
+ * @param {*} error
+ * @returns await instance.request(config)
+ */
 const handleTokenRefreshAndRetry = async (error) => {
   try {
     const { config } = error;
@@ -38,6 +50,12 @@ const handleTokenRefreshAndRetry = async (error) => {
   }
 };
 
+/**
+ * @brief interceptor request
+ * @details accessToken을 담아 request 보냄
+ * @param config
+ * @returns config
+ */
 instance.interceptors.request.use(
   async (config) => {
     const accessToken = localStorage.getItem('accessToken');
@@ -47,8 +65,18 @@ instance.interceptors.request.use(
   async (error) => Promise.reject(error)
 );
 
+/**
+ * @brief interceptor response
+ * @detail response에 따른 정상/비정상 처리
+ * @param response
+ * @return respnse, handleTokenRefreshAndRetry(error), window.alert, Promise.reject(error)
+ */
 instance.interceptors.response.use(
-  async (response) => response,
+  async (response) => {
+    // const accessToken = localStorage.getItem('accessToken');
+    // if (accessToken) response.headers.authorization = `Bearer ${accessToken}`;
+    return response;
+  },
   async (error) => {
     const status = error.response.status;
 
@@ -57,9 +85,9 @@ instance.interceptors.response.use(
     } else if (status === 404) {
       window.alert('404 error');
     } else if (status === 409) {
-      window.alert('409 error');
+      return console.error(error);
     } else {
-      logout();
+      getLogout();
       return Promise.reject(error);
     }
 

@@ -1,35 +1,39 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
-import instance from './Instance';
+import jwt_decode from 'jwt-decode';
+import instance from 'app/slices/Instance';
 
-export const login = createAsyncThunk('members/login', async (payload) => {
-  try {
-    const response = await instance.post('/members/login', payload, { withCredentials: true });
+/**
+ * @brief 로그인 처리 함수(post)
+ * @detail  header에서 token 꺼내서 localStorage/Cookie에 token저장
+ * @param async (payload)
+ * @return  accessToken: authorization, refreshToken: refreshtoken, memberName: memberName }
+ */
+export const postLogin = createAsyncThunk('members/login', async (payload) => {
+  const response = await instance.post('/members/login', payload, { withCredentials: true });
+  const { authorization, refreshtoken } = response.headers;
+  const memberName = jwt_decode(authorization.split('Bearer ')[1]).sub;
 
-    const { authorization, refreshtoken, membername } = response.headers;
+  if (authorization != null && refreshtoken != null && memberName != null) {
+    const expirationTime = 1;
+    const expirationDate = new Date(Date.now() + expirationTime * 24 * 60 * 60 * 1000);
 
-    if (authorization != null && refreshtoken != null && membername != null) {
-      const expirationTime = 1;
-      const currentDate = new Date();
-      const expirationDate = new Date(currentDate.getTime() + expirationTime * 24 * 60 * 60 * 1000);
+    localStorage.setItem('accessToken', authorization.split('Bearer ')[1]);
+    Cookies.set('refreshToken', refreshtoken, { path: '/', expires: expirationDate });
+    Cookies.set('memberName', memberName, { path: '/', expires: expirationDate });
+    Cookies.set('isLoggedIn', true, { path: '/', expires: expirationDate });
 
-      localStorage.setItem('accessToken', authorization.split('Bearer ')[1]);
-      Cookies.set('refreshToken', refreshtoken, { path: '/', expires: expirationDate });
-      Cookies.set('memberName', membername, { path: '/', expires: expirationDate });
-      Cookies.set('isLoggedIn', true, { path: '/', expires: expirationDate });
-
-      return { accessToken: authorization, refreshToken: refreshtoken, memberName: membername };
-    } else {
-      console.error('로그인 실패: 응답 헤더에 필요한 정보가 없습니다.');
-      window.alert('로그인 실패');
-    }
-  } catch (error) {
-    console.error('로그인 실패:', error);
-    window.alert('로그인 실패');
+    return { accessToken: authorization, refreshToken: refreshtoken };
   }
 });
 
-export const logout = createAsyncThunk('members/logout', async () => {
+/**
+ * @brief 로그아웃 처리 함수(get)
+ * @detail localStorage/Cookie에 있는 정보 삭제
+ * @param async ()
+ * @return  null
+ */
+export const getLogout = createAsyncThunk('members/logout', async () => {
   try {
     await instance.get('/members/logout', null, { withCredentials: true });
 
@@ -38,26 +42,31 @@ export const logout = createAsyncThunk('members/logout', async () => {
     Cookies.remove('memberName', { path: '/' });
     Cookies.remove('isLoggedIn', false, { path: '/' });
 
+    console.log('로그아웃 성공');
     return null;
   } catch (error) {
     console.error('로그아웃 실패:', error);
-    window.alert('로그아웃 실패');
   }
 });
 
-const initialState = {
-  isLoggedIn: false,
-  accessToken: localStorage.getItem('accessToken') || null,
-  refreshToken: Cookies.get('refreshToken') || null,
-  certify: null,
-  memberName: Cookies.get('memberName') || null,
-  loginResult: null,
-};
-
+/**
+ * @brief cookieSlice
+ * @detail 함수, 리듀서 사용
+ * @return loading, isLoggenIn
+ */
 const CookieSlice = createSlice({
   name: 'cookie',
-  initialState,
+  initialState: {
+    memberName: null,
+  },
   reducers: {},
+  extraReducers: {
+    [postLogin.fulfilled]: (state, action) => {
+      const token = action.payload.accessToken.split('Bearer ')[1];
+      state.memberName = jwt_decode(token).sub;
+    },
+  },
 });
 
+export const { setCookieTime, setLogin, setLogout } = CookieSlice.actions;
 export default CookieSlice.reducer;

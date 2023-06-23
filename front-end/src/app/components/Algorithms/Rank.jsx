@@ -1,5 +1,4 @@
 // 알고리즘 - 랭킹분석
-import React from 'react';
 import { styled } from 'styled-components';
 
 function Child() {

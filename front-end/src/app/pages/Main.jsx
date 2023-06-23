@@ -1,7 +1,5 @@
-import React from 'react';
-import { useNavigate, NavLink } from 'react-router-dom';
-import { SectionsContainer, Section } from 'react-fullpage';
-import Cookies from 'js-cookie';
+import { Section, SectionsContainer } from 'react-fullpage';
+import { NavLink, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import MainCard from 'app/components/MainCard';

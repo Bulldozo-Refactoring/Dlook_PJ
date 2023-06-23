@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import SubmitButton from 'app/components/SubmitButton';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
-import SubmitButton from 'app/components/SubmitButton';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');

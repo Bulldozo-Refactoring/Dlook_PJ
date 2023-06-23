@@ -2,8 +2,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
-import Autocomplete from '@mui/joy/Autocomplete';
-import FormControl from '@mui/joy/FormControl';
+import { Autocomplete, FormControl } from '@mui/joy';
 
 function Child() {
   return (
@@ -148,10 +147,5 @@ const dummyList = [
   },
 ];
 
-const List = [
-  { title: '알고리즘 종류1' },
-  { title: '알고리즘 종류1' },
-  { title: '알고리즘 종류1' },
-  { title: '알고리즘 종류1' },
-];
+const List = [{ title: '알고리즘 종류1' }, { title: '알고리즘 종류1' }, { title: '알고리즘 종류1' }, { title: '알고리즘 종류1' }];
 export default Child;

@@ -1,16 +1,17 @@
-import React from 'react';
-import { NavLink, Navigate, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { postLogin } from 'app/slices/CookieSlice';
+import { checkAuthentication } from 'app/store';
+import jwt_decode from 'jwt-decode';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { login } from 'app/slices/CookieSlice';
-import Cookies from 'js-cookie';
 
 import google from 'app/assets/images/google.png';
 
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const checkUser = checkAuthentication();
   const {
     register,
     handleSubmit,
@@ -18,18 +19,20 @@ function Login() {
   } = useForm();
 
   const onSubmit = handleSubmit((data) => {
-    dispatch(login(data))
+    dispatch(postLogin(data))
       .unwrap()
-      .then((response) => navigate('/'))
+      .then((response) => {
+        const memberName = jwt_decode(response.accessToken.split('Bearer ')[1]).sub;
+        window.alert(memberName + '님 로그인에 성공하셨습니다.!');
+        navigate('/');
+      })
       .catch((error) => console.log('로그인 실패!'));
   });
-
-  const isLoggedIn = Cookies.get('isLoggedIn');
 
   return (
     <>
       <Container>
-        {isLoggedIn ? (
+        {checkUser ? (
           <Navigate to="/" />
         ) : (
           <Wrap>

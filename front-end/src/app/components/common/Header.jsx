@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { Close, Menu } from '@mui/icons-material';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
-import CloseIcon from '@mui/icons-material/Close';
-import MenuIcon from '@mui/icons-material/Menu';
-import HeaderMenu from './HeaderMenu';
-import HeaderUser from './HeaderUser';
-import logo from '../../assets/images/logo.svg';
+import logo from 'app/assets/images/logo.svg';
+import HeaderMenu from 'app/components/common/HeaderMenu';
+import HeaderUser from 'app/components/common/HeaderUser';
 
 const Header = () => {
   const [open, setMenu] = useState(false);
@@ -19,19 +18,21 @@ const Header = () => {
         <HeaderInner>
           <HeaderWrapper>
             <Li>
-              <MenuIconStyle style={{ fontSize: '60px' }} onClick={() => toggleMenu()}></MenuIconStyle>
+              <MenuIconStyle sx={{ fontSize: '50px' }} onClick={() => toggleMenu()}></MenuIconStyle>
             </Li>
             <Li>
               <Link to="/">
                 <Img src={logo} alt="logo" />
               </Link>
             </Li>
-            <HeaderUser />
+            <LastLi>
+              <HeaderUser />
+            </LastLi>
           </HeaderWrapper>
-          <Menu open={open ? 1 : 0}>
-            <CloseIcon onClick={() => toggleMenu()} />
+          <MenuUl open={open ? 1 : 0}>
+            <Close onClick={() => toggleMenu()} />
             <HeaderMenu />
-          </Menu>
+          </MenuUl>
         </HeaderInner>
       </div>
     </>
@@ -51,20 +52,25 @@ const HeaderWrapper = styled.ul`
   color: inherit;
 `;
 const Li = styled.li`
-  width: 100px;
+  width: 200px;
   height: 80px;
   text-align: center;
 `;
-const MenuIconStyle = styled(MenuIcon)`
+const LastLi = styled(Li)`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+`;
+const MenuIconStyle = styled(Menu)`
   position: absolute;
-  top: 10%;
+  top: 15px;
   left: 40px;
   cursor: pointer;
   * {
     color: var(--primary-200);
   }
 `;
-const Menu = styled.ul`
+const MenuUl = styled.ul`
   padding: 100px 50px 20px;
   width: 100%;
   height: 320px;

@@ -1,8 +1,5 @@
-import React from 'react';
-// import { useState } from 'react';
 import 'app/style/Tab.css';
-import FreeBoard from '../components/Board/FreeBoard';
-// import QaBoard from '../components/Board/QaBoard';
+import FreeBoard from 'app/components/Board/FreeBoard';
 import 'app/style/style.css';
 
 function notice() {
