@@ -50,6 +50,7 @@ public class JwtProvider {
 
         // Access Token 생성
         Date accessTokenExpiresIn = new Date(now + accessTokenExpireTimeMs);
+        Date refreshTokenExpireIn = new Date(now + refreshTokenExpireTimeMs);
         String accessToken = Jwts.builder()
                 .setSubject(authentication.getName())       // payload "sub": "name"
                 .claim(AUTHORITIES_KEY, authorities)        // payload "auth": "ROLE_USER"
@@ -61,7 +62,7 @@ public class JwtProvider {
         String refreshToken = Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
-                .setExpiration(new Date(now + refreshTokenExpireTimeMs))
+                .setExpiration(refreshTokenExpireIn)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
 

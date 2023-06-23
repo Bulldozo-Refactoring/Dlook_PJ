@@ -1,7 +1,14 @@
 package com.example.Project.Dlook.boards.domain.dto;
+import com.example.Project.Dlook.boards.domain.Board;
+import com.example.Project.Dlook.exception.Authority;
+import com.example.Project.Dlook.members.domain.Member;
 import lombok.*;
-@Data
+
+import java.time.LocalDateTime;
+
+@AllArgsConstructor
 @NoArgsConstructor
+@Getter
 @Builder
 public class BoardDTO {
     private Long boardNo;
@@ -10,36 +17,14 @@ public class BoardDTO {
     private String boardContent;
     private Integer boardCtg;
 
-    public BoardDTO(Long boardNo, String boardTitle, String boardWriter, String boardContent, Integer boardCtg) {
-        this.boardNo = boardNo;
-        this.boardTitle = boardTitle;
-        this.boardWriter = boardWriter;
-        this.boardContent = boardContent;
-        this.boardCtg = boardCtg;
+    public Board toBoard(Member member) {
+        return Board.builder()
+                .member(member)
+                .boardTitle(boardTitle)
+                .boardWriter(boardWriter)
+                .boardContent(boardContent)
+                .boardCtg(boardCtg)
+                .authority(Authority.ROLE_USER)
+                .build();
     }
-
-    public String getBoardTitle() {
-        return boardTitle;
-    }
-
-    public String getBoardWriter() {
-        return boardWriter;
-    }
-
-    public String getBoardContent() {
-        return boardContent;
-    }
-
-    public Integer getBoardCtg() {
-        return boardCtg;
-    }
-
-    public Long getBoardNo() {
-        return boardNo;
-    }
-
-    public void setBoardNo(Long boardNo) {
-        this.boardNo = boardNo;
-    }
-
 }

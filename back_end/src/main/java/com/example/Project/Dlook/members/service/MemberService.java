@@ -25,6 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The type Member service.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -36,6 +39,12 @@ public class MemberService {
     private final JwtProvider jwtProvider;
     private final BCryptPasswordEncoder encoder;
 
+    /**
+     * Join response entity.
+     *
+     * @param dto the dto
+     * @return the response entity
+     */
     @Transactional
     public ResponseEntity<String> join(JoinRequestDTO dto) {
 
@@ -57,6 +66,13 @@ public class MemberService {
         return ResponseEntity.ok().body("join success");
     }
 
+    /**
+     * Login response entity.
+     *
+     * @param dto      the dto
+     * @param response the response
+     * @return the response entity
+     */
     @Transactional
     public ResponseEntity<String> login(LoginRequestDTO dto, HttpServletResponse response) {
         // memberEmail 없음
@@ -79,7 +95,6 @@ public class MemberService {
         TokenDto tokenDto = jwtProvider.generateTokenDto(authentication);
         response.addHeader("Authorization", "Bearer " + tokenDto.getAccessToken());
         response.addHeader("RefreshToken", tokenDto.getRefreshToken());
-        response.addHeader("MemberName", authentication.getName());
 
         RefreshToken refreshToken = RefreshToken.builder()
                 .refreshKey(authentication.getName())
@@ -90,12 +105,19 @@ public class MemberService {
         return ResponseEntity.ok().body("login success");
     }
 
+    /**
+     * Reissue response entity.
+     *
+     * @param request  the request
+     * @param response the response
+     * @return the response entity
+     */
     @Transactional
     public ResponseEntity<String> reissue(HttpServletRequest request, HttpServletResponse response) {
         String refreshToken = request.getHeader("RefreshToken");
 
         if (!jwtProvider.validateToken(refreshToken)) {
-            throw new AppException(ErrorCode.EXPIRED_TOKEN);
+            throw new AppException(ErrorCode.INVALID_TOKEN);
         }
 
         // 1. Access Token 에서 Member ID 가져오기
@@ -108,7 +130,6 @@ public class MemberService {
         TokenDto tokenDto = jwtProvider.generateTokenDto(authentication);
         response.addHeader("Authorization", "Bearer " + tokenDto.getAccessToken());
         response.addHeader("RefreshToken", tokenDto.getRefreshToken());
-        response.addHeader("MemberName", tokenDto.getMemberName());
 
 
         // 3. 저장소 정보 업데이트
@@ -119,6 +140,12 @@ public class MemberService {
         return ResponseEntity.ok().body("Token reissue");
     }
 
+    /**
+     * Logout response entity.
+     *
+     * @param request the request
+     * @return the response entity
+     */
     public ResponseEntity<String> logout(HttpServletRequest request) {
         String accessToken = request.getHeader("Authorization").substring(7);
 
