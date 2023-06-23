@@ -1,81 +1,47 @@
 package com.example.Project.Dlook.boards.domain;
+import com.example.Project.Dlook.boards.domain.dto.BoardDTO;
+import com.example.Project.Dlook.exception.Authority;
 import com.example.Project.Dlook.members.domain.Member;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.w3c.dom.Text;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="boards")
+@Table(name = "boards")
+@DynamicUpdate
 public class Board extends BaseTime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardNo;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="memberSeq")
-    private Member memberSeq;
+    private Member member;
 
-    @Column(length=255, nullable = false)
-    private String boardWriter;
-
-    @Column(length=255, nullable = false)
+    @Column(columnDefinition = "varchar(255)", nullable = false)
     private String boardTitle;
 
-    @Column(length = 255, nullable = false)
+    @Column(columnDefinition = "varchar(255)", nullable = false)
+    private String boardWriter;
+
+    @Column(columnDefinition = "varchar(1500)", nullable = false)
     private String boardContent;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "INTEGER", nullable = false)
     private Integer boardCtg;
 
-//    @OneToMany(mappedBy = "boardNo", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Reply> replyList = new ArrayList<>();
-//
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
 
-
-    public String getBoardTitle() {
-        return boardTitle;
-    }
-
-    public void setBoardTitle(String boardTitle) {
-        this.boardTitle = boardTitle;
-    }
-
-    public String getBoardWriter() {
-        return boardWriter;
-    }
-
-    public void setBoardWriter(String boardWriter) {
-        this.boardWriter = boardWriter;
-    }
-
-    public String getBoardContent() {
-        return boardContent;
-    }
-
-    public void setBoardContent(String boardContent) {
-        this.boardContent = boardContent;
-    }
-
-    public Integer getBoardCtg() {
-        return boardCtg;
-    }
-
-    public void setBoardCtg(Integer boardCtg) {
-        this.boardCtg = boardCtg;
-    }
-
-    public Long getBoardNo() {
-        return boardNo;
-    }
-
-    public void setBoardNo(Long boardNo) {
-        this.boardNo = boardNo;
-    }
-
+//    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
+//    private List<Reply> replyList;
 }
-
-
-
