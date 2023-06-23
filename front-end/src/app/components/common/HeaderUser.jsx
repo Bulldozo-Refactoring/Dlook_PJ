@@ -1,62 +1,67 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { getLogout } from 'app/slices/CookieSlice';
+import { checkAuthentication } from 'app/store';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { logout, login } from 'app/slices/CookieSlice';
-import Cookies from 'js-cookie';
 
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import Logout from '@mui/icons-material/Logout';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Tooltip from '@mui/material/Tooltip';
+import { Login, Logout } from '@mui/icons-material';
+import { Avatar, Box, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
 
-function HeaderUser() {
+const HeaderUser = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isLoggedIn = Cookies.get('isLoggedIn');
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+  const checkUser = checkAuthentication();
+  const memberName = useSelector((state) => state.cookie.memberName);
+  const [openMenu, setOpenMenu] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = (event) => setAnchorEl(event.currentTarget);
-  const handleClose = () => setAnchorEl(null);
-  const handleLogout = () => dispatch(logout());
-
-  useEffect(() => {
-    const storedLoginStatus = Cookies.get('isLoggedIn');
-    if (storedLoginStatus === 'true') dispatch(login());
-  }, [dispatch]);
-
-  const linkTo = isLoggedIn ? '/mypages/certify' : '/members/login';
+  const handleLogout = () => dispatch(getLogout());
+  const handleClick = () => {
+    if (checkUser) navigate('/mypages/certify');
+    else navigate('/members/login');
+  };
+  const handleOpenMenu = (e) => {
+    setAnchorEl(e.currentTarget);
+    if (checkUser) setOpenMenu(true);
+    else navigate('/members/login');
+  };
+  const handleCloseMenu = () => setOpenMenu(false);
 
   return (
     <>
-      <li>
+      {!checkUser ? (
         <React.Fragment>
-          <Link to={linkTo}>
+          <BoxStyle>
+            <Tooltip title="로그인">
+              <LoginIcon onClick={handleClick} sx={{ fontSize: 35, color: 'var(--primary-200)' }}></LoginIcon>
+            </Tooltip>
+          </BoxStyle>
+        </React.Fragment>
+      ) : (
+        <>
+          <PStyled>{memberName} 님</PStyled>
+          <React.Fragment>
             <BoxStyle>
-              <Tooltip title="내 정보">
+              <Tooltip title="내정보">
                 <IconButton
                   onClick={handleClick}
+                  onMouseEnter={handleOpenMenu}
                   sx={{ ml: 2 }}
-                  aria-controls={open ? 'account-menu' : undefined}
+                  aria-controls={openMenu ? 'account-menu' : undefined}
                   aria-haspopup="true"
-                  aria-expanded={open ? 'true' : undefined}
+                  aria-expanded={openMenu ? 'true' : undefined}
                 >
                   <Avatar sx={{ background: 'var(--primary-200)' }}></Avatar>
                 </IconButton>
               </Tooltip>
             </BoxStyle>
-          </Link>
-          {isLoggedIn && (
             <Menu
               anchorEl={anchorEl}
               id="account-menu"
-              open={open}
-              onClose={handleClose}
-              onClick={handleClose}
+              open={openMenu}
+              onClose={handleCloseMenu}
+              onClick={handleCloseMenu}
               PaperProps={{
                 elevation: 0,
                 sx: {
@@ -87,8 +92,8 @@ function HeaderUser() {
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
               <Link to="/mypages/certify">
-                <MenuItem onClick={handleClose}>
-                  <Avatar sx={{ background: 'var(--primary-200)' }} />내 정보
+                <MenuItem onClick={handleCloseMenu}>
+                  <Avatar sx={{ background: 'primary' }} />내 정보
                 </MenuItem>
               </Link>
               <Link to="/">
@@ -100,17 +105,26 @@ function HeaderUser() {
                 </MenuItem>
               </Link>
             </Menu>
-          )}
-        </React.Fragment>
-      </li>
+          </React.Fragment>
+        </>
+      )}
     </>
   );
-}
-
+};
+const PStyled = styled.p`
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--bg-100);
+`;
 const BoxStyle = styled(Box)`
   display: flex;
   align-items: center;
   text-align: center;
+`;
+const LoginIcon = styled(Login)`
+  path {
+    color: var(--primary-200);
+  }
 `;
 
 export default HeaderUser;

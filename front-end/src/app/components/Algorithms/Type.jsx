@@ -1,7 +1,6 @@
 // 알고리즘 - 문제분석 - 유형별 분석
-import React from 'react';
-import RadarCharts from './RadarCharts';
 import { styled } from 'styled-components';
+import RadarCharts from './RadarCharts';
 
 function Type() {
   return (

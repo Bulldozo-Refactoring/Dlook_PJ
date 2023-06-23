@@ -1,5 +1,4 @@
 // 알고리즘 - 문제추천 - 실력별
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
 

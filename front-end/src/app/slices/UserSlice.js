@@ -1,7 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import instance from './Instance';
+import instance from 'app/slices/Instance';
 
-export const join = createAsyncThunk('members/join', async (payload) => {
+/**
+ * @brief 회원가입 처리(post)
+ * @param async (payload)
+ * @return  response.data
+ */
+export const PostJoin = createAsyncThunk('members/join', async (payload) => {
   try {
     const response = await instance.post('members/join', payload);
     return response.data;
@@ -11,21 +16,15 @@ export const join = createAsyncThunk('members/join', async (payload) => {
   }
 });
 
-const initialState = {
-  isLoggedIn: false,
-  memberName: null,
-  certify: null,
-  error: null,
-  joinResult: null,
-};
-
+/**
+ * @brief userSlice
+ * @detail 함수, 리듀서 사용
+ */
 const UserSlice = createSlice({
   name: 'user',
-  initialState,
+  initialState: {},
   reducers: {},
   extraReducers: (builder) => {},
 });
-
-export const { setJoinResult } = UserSlice.actions;
 
 export default UserSlice.reducer;

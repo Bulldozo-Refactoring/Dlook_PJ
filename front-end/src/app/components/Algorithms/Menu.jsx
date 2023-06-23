@@ -1,5 +1,4 @@
 // 알고리즘 메뉴
-import React from 'react';
 import { NavLink as BaseNavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
 
