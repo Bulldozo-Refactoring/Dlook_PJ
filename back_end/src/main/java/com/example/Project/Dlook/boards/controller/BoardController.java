@@ -5,6 +5,7 @@ import com.example.Project.Dlook.boards.domain.dto.BoardDTO;
 import com.example.Project.Dlook.boards.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,14 +22,16 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/boards")
 @RequiredArgsConstructor
+@Slf4j
 public class BoardController {
 
     private final BoardService boardService;
 
     // list
-    @GetMapping
-    public ResponseEntity<Page<BoardDTO>> boardList(@RequestParam(required = false, defaultValue = "0", value = "page") int page) {
-        return boardService.list(page);
+    @GetMapping("/{boardCtg}")
+    public ResponseEntity<Page<BoardDTO>> boardList(@RequestParam(required = false, defaultValue = "0", value = "page") int page, @PathVariable int boardCtg) {
+        log.info("boardCtg : {}", boardCtg);
+        return boardService.list(page, boardCtg);
     }
 
     // create

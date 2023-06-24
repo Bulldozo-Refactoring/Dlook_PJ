@@ -10,15 +10,14 @@ import com.example.Project.Dlook.members.domain.Member;
 import com.example.Project.Dlook.members.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,10 +29,11 @@ public class BoardService {
 
     // 어느 토큰이든 값이 나온다.
     @Transactional
-    public ResponseEntity<Page<BoardDTO>> list(int page) {
+    public ResponseEntity<Page<BoardDTO>> list(int page, int boardCtg) {
         int pageLimit = 10;
         Pageable pageable = PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "boardNo"));
-        Page<BoardDTO> boardPage = findAll(pageable);
+        Page<BoardDTO> boardPage = findAllByCategory(pageable, boardCtg);
+
         return ResponseEntity.ok().body(boardPage);
     }
 
@@ -102,6 +102,31 @@ public class BoardService {
 
         boardRepository.delete(board);
         return ResponseEntity.ok().body("delete success");
+    }
+
+    public Page<BoardDTO> findAllByCategory(Pageable pageable, int boardCtg) {
+        Sort sort = Sort.by(Sort.Direction.DESC, "boardNo");
+        List<Board> boardList = boardRepository.findAll(sort); // Fetch all boards with descending order
+
+        List<Board> filteredList = boardList.stream()
+                .filter(board -> board.getBoardCtg() == boardCtg)
+                .collect(Collectors.toList());
+
+        int startIndex = (int) pageable.getOffset();
+        int endIndex = Math.min((startIndex + pageable.getPageSize()), filteredList.size());
+        List<Board> sublist = filteredList.subList(startIndex, endIndex);
+
+        List<BoardDTO> boardDTOList = sublist.stream()
+                .map(board -> BoardDTO.builder()
+                        .boardNo(board.getBoardNo())
+                        .boardTitle(board.getBoardTitle())
+                        .boardWriter(board.getBoardWriter())
+                        .boardContent(board.getBoardContent())
+                        .boardCtg(board.getBoardCtg())
+                        .build())
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(boardDTOList, pageable, filteredList.size());
     }
 
     // Board 엔티티 객체를 BoardDTO 객체로 변환
