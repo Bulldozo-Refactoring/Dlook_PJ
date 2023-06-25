@@ -1,5 +1,5 @@
+// [ ] 게시글 작성 작업 필요
 import React, { useState } from 'react';
-import DropDown from 'app/components/Board01/DropDown';
 import { styled } from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
@@ -32,7 +32,6 @@ const BoardWrite = () => {
         </div>
         <div>
           <Span>카테고리</Span>
-          <DropDown />
         </div>
       </DivFlex>
       <br />

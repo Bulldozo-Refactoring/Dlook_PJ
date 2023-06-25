@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import Cookies from 'js-cookie';
-import userReducer from 'app/slices/UserSlice';
-import cookieReducer from 'app/slices/CookieSlice';
 import BoardReducer from 'app/slices/BoardSlice';
+import cookieReducer from 'app/slices/CookieSlice';
+import userReducer from 'app/slices/UserSlice';
+import Cookies from 'js-cookie';
 
 const reducer = {
   user: userReducer,
