@@ -36,8 +36,8 @@ public class Board extends BaseTime {
     @Column(columnDefinition = "varchar(1500)", nullable = false)
     private String boardContent;
 
-    @Column(columnDefinition = "INTEGER", nullable = false)
-    private Integer boardCtg;
+    @Column(columnDefinition = "Integer", nullable = false)
+    private int boardCtg;
 
     @Enumerated(EnumType.STRING)
     private Authority authority;

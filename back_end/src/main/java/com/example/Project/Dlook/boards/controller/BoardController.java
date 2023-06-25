@@ -28,10 +28,20 @@ public class BoardController {
     private final BoardService boardService;
 
     // list
+//    @GetMapping("/{boardCtg}")
+//    public ResponseEntity<Page<BoardDTO>> boardList(@RequestParam(required = false, defaultValue = "0", value = "page") int page, @PathVariable int boardCtg) {
+//        log.info("boardCtg : {}", boardCtg);
+//        return boardService.list(page, boardCtg);
+//    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<BoardDTO>> getAllBoardList(@RequestParam(required = false, value="page") int page){
+            return boardService.getAllBoardList(page);
+    }
+
     @GetMapping("/{boardCtg}")
-    public ResponseEntity<Page<BoardDTO>> boardList(@RequestParam(required = false, defaultValue = "0", value = "page") int page, @PathVariable int boardCtg) {
-        log.info("boardCtg : {}", boardCtg);
-        return boardService.list(page, boardCtg);
+    public ResponseEntity<List<BoardDTO>> getCategoryList(@PathVariable int boardCtg, @RequestParam(required = false, defaultValue = "0",  value = "page") int page) {
+        return boardService.getCategoryList(boardCtg, page);
     }
 
     // create

@@ -15,7 +15,7 @@ public class BoardDTO {
     private String boardTitle;
     private String boardWriter;
     private String boardContent;
-    private Integer boardCtg;
+    private int boardCtg;
 
     public Board toBoard(Member member) {
         return Board.builder()
