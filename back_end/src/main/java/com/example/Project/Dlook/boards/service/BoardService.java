@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,14 +29,57 @@ public class BoardService {
     private final MemberRepository memberRepository;
 
     // 어느 토큰이든 값이 나온다.
-    @Transactional
-    public ResponseEntity<Page<BoardDTO>> list(int page, int boardCtg) {
-        int pageLimit = 10;
-        Pageable pageable = PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "boardNo"));
-        Page<BoardDTO> boardPage = findAllByCategory(pageable, boardCtg);
+//    @Transactional
+//    public ResponseEntity<Page<BoardDTO>> list(int page, int boardCtg) {
+//        int pageLimit = 10;
+//        Pageable pageable = PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "boardNo"));
+//        Page<BoardDTO> boardPage = findAllByCategory(pageable, boardCtg);
+//
+//        return ResponseEntity.ok().body(boardPage);
+//    }
 
-        return ResponseEntity.ok().body(boardPage);
+    @Transactional
+    public ResponseEntity<List<BoardDTO>> getAllBoardList(int page) {
+        PageRequest pageRequest = PageRequest.of(page, 10, Sort.by("boardNo").descending());
+        Page<Board> boardPage = boardRepository.findAllCustom(pageRequest);
+        List<Board> boardList = boardPage.getContent();
+
+        List<BoardDTO> boardDTOList = new ArrayList<>();
+
+        for(Board board : boardList) {
+            BoardDTO boardDTO = BoardDTO.builder()
+                    .boardNo(board.getBoardNo())
+                    .boardTitle(board.getBoardTitle())
+                    .boardWriter(board.getBoardWriter())
+                    .boardContent(board.getBoardContent())
+                    .boardCtg(board.getBoardCtg()).build();
+
+            boardDTOList.add(boardDTO);
+        }
+
+        return ResponseEntity.ok(boardDTOList);
     }
+
+    @Transactional
+    public ResponseEntity<List<BoardDTO>> getCategoryList(int boardCtg, int page) {
+        PageRequest pageRequest = PageRequest.of(page, 10, Sort.by("boardNo").descending());
+        Page<Board> boardPage = boardRepository.findAllByBoardCtg(boardCtg, pageRequest);
+        List<Board> boardList = boardPage.getContent();
+        List<BoardDTO> boardDTOList = new ArrayList<>();
+        for(Board board : boardList) {
+            BoardDTO boardDTO = BoardDTO.builder()
+                    .boardNo(board.getBoardNo())
+                    .boardTitle(board.getBoardTitle())
+                    .boardWriter(board.getBoardWriter())
+                    .boardContent(board.getBoardContent())
+                    .boardCtg(board.getBoardCtg()).build();
+
+            boardDTOList.add(boardDTO);
+        }
+
+        return ResponseEntity.ok(boardDTOList);
+    }
+
 
     @Transactional
     public ResponseEntity<String> write(BoardDTO boardDTO) {
