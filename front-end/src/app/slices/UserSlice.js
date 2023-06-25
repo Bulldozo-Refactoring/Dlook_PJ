@@ -24,7 +24,6 @@ const UserSlice = createSlice({
   name: 'user',
   initialState: {},
   reducers: {},
-  extraReducers: (builder) => {},
 });
 
 export default UserSlice.reducer;

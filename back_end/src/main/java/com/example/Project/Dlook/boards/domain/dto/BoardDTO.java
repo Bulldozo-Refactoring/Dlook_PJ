@@ -15,6 +15,7 @@ public class BoardDTO {
     private String boardTitle;
     private String boardWriter;
     private String boardContent;
+    private LocalDateTime createdTime;
     private int boardCtg;
 
     public Board toBoard(Member member) {
@@ -24,6 +25,7 @@ public class BoardDTO {
                 .boardWriter(boardWriter)
                 .boardContent(boardContent)
                 .boardCtg(boardCtg)
+                .createdTime(createdTime)
                 .authority(Authority.ROLE_USER)
                 .build();
     }

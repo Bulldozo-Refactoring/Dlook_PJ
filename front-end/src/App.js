@@ -5,22 +5,22 @@ import PrivateRoute from 'app/components/common/PrivateRoute';
 import Layout from 'app/components/common/Layout';
 import Error from 'app/pages/Error';
 import MainPage from 'app/pages/Main';
-import Board from 'app/pages/Board';
 import Notice from 'app/pages/Notice';
 import Garbage from 'app/pages/Garbage';
 import GarbageWrite from 'app/pages/GarbageWrite';
-import Algorithms from 'app/pages/Algorithms';
-import Step from 'app/components/Algorithms/Step';
-import Child from 'app/components/Algorithms/Child';
-import Type from 'app/components/Algorithms/Type';
-import Wrong from 'app/components/Algorithms/Wrong';
-import Rank from 'app/components/Algorithms/Rank';
+import Algorithms from 'app/pages/Algorithms/Algorithms';
+import Step from 'app/pages/Algorithms/Step';
+import Child from 'app/pages/Algorithms/Child';
+import Type from 'app/pages/Algorithms/Type';
+import Wrong from 'app/pages/Algorithms/Wrong';
+import Rank from 'app/pages/Algorithms/Rank';
 import Login from 'app/pages/auth/Login';
 import Join from 'app/pages/auth/Join';
 import JoinResult from 'app/pages/auth/JoinResult';
 import ForgotPassword from 'app/pages/auth/ForgotPassword';
 import MyCertify from 'app/pages/auth/MyCertify';
 import MyBoard from 'app/pages/auth/MyBoard';
+import BoardList from 'app/pages/BoardList';
 import BoardWrite from 'app/pages/BoardWrite';
 import BoardDetail from 'app/pages/BoardDetail';
 import BoardModify from 'app/pages/BoardModify';
@@ -68,22 +68,22 @@ const App = () => {
         },
         {
           // board - 비회원
-          path: 'board',
+          path: 'boards',
           errorElement: <Error />,
           children: [
-            { path: '', element: <Board /> },
-            { path: 'detail/1', element: <BoardDetail /> },
-            // { path: 'detail/:id', element: <BoardDetail /> },
+            { path: 'list?page=:page', element: <BoardList /> },
+            { path: ':boardCtg', element: <BoardList /> },
+            { path: 'detail/:boardNo', element: <BoardDetail /> },
           ],
         },
         {
           // board - 회원
-          path: 'board',
+          path: 'boards',
           element: <PrivateRoute />,
           errorElement: <Error />,
           children: [
             { path: 'write', element: <BoardWrite /> },
-            { path: ':1', element: <BoardModify /> },
+            { path: 'update/:boardNo', element: <BoardModify /> },
           ],
         },
         {

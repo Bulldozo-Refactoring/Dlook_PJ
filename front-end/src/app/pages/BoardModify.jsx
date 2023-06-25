@@ -1,170 +1,94 @@
-import React, { useState } from "react";
-import DropDown from "app/components/Board/DropDown";
-import { styled } from "styled-components";
-import { NavLink } from "react-router-dom";
+import instance from 'app/slices/Instance';
+import { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { styled } from 'styled-components';
+
+//  TODO 추가필요 - 흠 response.data가 없으면 대충 로딩
+// if (!boardData) return <div>Loading...</div>;
 
 const BoardModify = () => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const navigate = useNavigate();
+  const { boardNo } = useSelector((state) => state.board);
+  const [data, setdata] = useState([]);
+  const [board, setBoard] = useState({
+    idx: 0,
+    title: '',
+    createdBy: '',
+    contents: '',
+  });
 
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value);
-  };
+  const getBoardDetail = useCallback(async () => {
+    try {
+      const { data } = await instance.get(`/boards/${boardNo}`);
 
-  const handleContentChange = (e) => {
-    setContent(e.target.value);
-  };
+      console.log(data);
+      setdata(data);
+    } catch (err) {
+      console.error(err);
+    }
+  }, [boardNo]);
 
-  const doDelete = () => {
-     if (window.confirm("정말 삭제하시겠습니까?")) {
-       alert("삭제되었습니다.");
-     } else {
-       alert("취소되었습니다.");
-     }
-  };
+  const updateBoard = useCallback(async () => {
+    await instance.patch(`/boards/${boardNo}`, board).then((res) => {
+      alert('수정되었습니다.');
+      navigate(`/boards/detail${boardNo}`);
+    });
+  });
 
-  const doModify = () => {
-     if (window.confirm("정말 수정하시겠습니까?")) {
-       alert("수정되었습니다.");
-     } else {
-       alert("취소되었습니다.");
-     }
-  };
+  useEffect(() => {
+    getBoardDetail();
+  }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // 게시글 작성 로직 구현
-    console.log("게시글 수정:", title, content);
-    // 필요에 따라 서버로 데이터를 전송하거나 다른 동작 수행 가능
+  const getBoardCtgLabel = (boardCtg) => {
+    if (boardCtg === 0) return '전체게시판';
+    else if (boardCtg === 1) return '자유게시판';
+    else return 'Q&A게시판';
   };
 
   return (
-    <Section>
-      <H2>전체 게시판</H2>
-      <hr />
-      <DivFlex>
-        <div>
-          <Span>작성자</Span> 작성자명
-        </div>
-        <div>
-          <Span>카테고리</Span>
-          <DropDown />
-        </div>
-      </DivFlex>
-      <br />
-      <br />
-      <Form onSubmit={handleSubmit}>
-        <div>
-          <Label>
-            <Span>글제목</Span>
-          </Label>
-          <Input
-            type="text"
-            id="title"
-            defaultValue={title}
-            onChange={handleTitleChange}
-          />
-        </div>
-        <br />
-        <Label></Label>
-        <TextArea
-          id="content"
-          defaultValue={content}
-          onChange={handleContentChange}
-        ></TextArea>
-        <DivButton>
-          <Button type="submit" onClick={doDelete}>
-            <NavLink to="/board">삭제하기</NavLink>
-          </Button>
-          <Button type="submit" onClick={doModify}>
-            <NavLink to="../detail/1">수정하기</NavLink>
-          </Button>
-        </DivButton>
-      </Form>
-    </Section>
+    <>
+      <div>{boardNo}번 진입성공</div>
+      <section>
+        <H1>전체 게시판</H1>
+        <DivFlex>
+          <div>
+            <Span>작성자</Span>
+            {data.detailWriter}
+          </div>
+          <div>
+            <Span>카테고리</Span>
+            <span>{getBoardCtgLabel(data.detailboardCtg)}</span>
+          </div>
+        </DivFlex>
+        <BoardContent data={data} />
+      </section>
+    </>
   );
 };
 
-const Span = styled.span`
-  border-style: solid;
-  border: 1px solid #ccc;
-  padding: 5px 40px;
-`;
-
-const Section = styled.section`
-  max-width: 90%;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: white;
-  &::after {
-    content: "";
-    display: block;
-    clear: both;
-  }
-`;
-
-const H2 = styled.h2`
+const H1 = styled.h2`
   margin-top: 0;
   margin-bottom: 20px;
   color: #333;
   font-size: 24px;
   text-align: center;
 `;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
+const Span = styled.span`
+  border-style: solid;
+  border: 1px solid #ccc;
+  padding: 5px 40px;
+  margin-right: 5px;
 `;
-
-const Label = styled.label`
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #555;
-`;
-
-const Input = styled.input`
-  margin-bottom: 10px;
-  border: 1px solid #968d8d;
-  width: 500px;
-  height: 33px;
-  margin-left: 5px;
-`;
-
-const TextArea = styled.textarea`
+const BoardContent = styled.p`
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  height: 400px;
-`;
-
-const Button = styled.button`
-  padding: 10px 15px;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 16px;
-  transition: background-color 0.3s;
-  margin-right: 10px;
-  background: #555;
-  &:hover,
-  &:focus {
-    background: #373737;
-    border-color: #373737;
-    color: #fff;
-  }
 `;
 
 const DivFlex = styled.div`
   display: flex;
   justify-content: space-between;
-`;
-
-const DivButton = styled.div`
-  display: flex;
-  justify-content: flex-end;
+  margin-right: 25px;
 `;
 
 export default BoardModify;

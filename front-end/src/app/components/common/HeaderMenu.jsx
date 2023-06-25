@@ -19,7 +19,7 @@ function HeaderMenu() {
         <Title>전체 게시판</Title>
         <ul>
           <Li>
-            <NavStyle to="/board">전체 게시판</NavStyle>
+            <NavStyle to={`/boards/list?page=0`}>전체 게시판</NavStyle>
           </Li>
         </ul>
       </li>

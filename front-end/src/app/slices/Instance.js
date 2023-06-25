@@ -83,7 +83,7 @@ instance.interceptors.response.use(
     if (status === 401) {
       return handleTokenRefreshAndRetry(error);
     } else if (status === 404) {
-      window.alert('404 error');
+      return status;
     } else if (status === 409) {
       return console.error(error);
     } else {

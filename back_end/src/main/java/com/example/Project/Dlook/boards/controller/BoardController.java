@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -34,13 +35,22 @@ public class BoardController {
 //        return boardService.list(page, boardCtg);
 //    }
 
+//    @GetMapping("/list")
+//    public ResponseEntity<List<BoardDTO>> getAllBoardList(@RequestParam(required = false, value="page") int page){
+//            return boardService.getAllBoardList(page);
+//    }
     @GetMapping("/list")
-    public ResponseEntity<List<BoardDTO>> getAllBoardList(@RequestParam(required = false, value="page") int page){
-            return boardService.getAllBoardList(page);
+    public ResponseEntity<Map<String, Object>> getAllBoardList(@RequestParam(required = false, value="page") int page){
+        return boardService.getAllBoardList(page);
     }
 
+//    @GetMapping("/{boardCtg}")
+//    public ResponseEntity<List<BoardDTO>> getCategoryList(@PathVariable int boardCtg, @RequestParam(required = false, defaultValue = "0",  value = "page") int page) {
+//        return boardService.getCategoryList(boardCtg, page);
+//    }
+
     @GetMapping("/{boardCtg}")
-    public ResponseEntity<List<BoardDTO>> getCategoryList(@PathVariable int boardCtg, @RequestParam(required = false, defaultValue = "0",  value = "page") int page) {
+    public ResponseEntity<Map<String, Object>> getCategoryList(@PathVariable int boardCtg, @RequestParam(required = false, defaultValue = "0",  value = "page") int page) {
         return boardService.getCategoryList(boardCtg, page);
     }
 
