@@ -9,7 +9,7 @@ function Mymenu() {
         <NavStyle to="/mypages/certify">백준 연동</NavStyle>
       </MenuLi>
       <MenuLi>
-        <NavStyle to="/mypages/board">글/댓글 관리</NavStyle>
+        <NavStyle to="/mypages/boards">글/댓글 관리</NavStyle>
       </MenuLi>
     </MenuUl>
   );

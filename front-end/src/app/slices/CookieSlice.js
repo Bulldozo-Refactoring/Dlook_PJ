@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import instance from 'app/slices/Instance';
 import Cookies from 'js-cookie';
 import jwt_decode from 'jwt-decode';
-import instance from 'app/slices/Instance';
 
 /**
  * @brief 로그인 처리 함수(post)
@@ -12,6 +12,7 @@ import instance from 'app/slices/Instance';
 export const postLogin = createAsyncThunk('members/login', async (payload) => {
   const response = await instance.post('/members/login', payload, { withCredentials: true });
   const { authorization, refreshtoken } = response.headers;
+  console.log(jwt_decode(authorization.split('Bearer ')[1]));
   const memberName = jwt_decode(authorization.split('Bearer ')[1]).sub;
 
   if (authorization != null && refreshtoken != null && memberName != null) {
@@ -59,12 +60,11 @@ const CookieSlice = createSlice({
   initialState: {
     memberName: null,
   },
-  reducers: {},
-  extraReducers: {
-    [postLogin.fulfilled]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(postLogin.fulfilled, (state, action) => {
       const token = action.payload.accessToken.split('Bearer ')[1];
       state.memberName = jwt_decode(token).sub;
-    },
+    });
   },
 });
 

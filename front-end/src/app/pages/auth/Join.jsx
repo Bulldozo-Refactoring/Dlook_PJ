@@ -18,7 +18,7 @@ function Join() {
   const [isEmailSent, setIsEmailSent] = useState(false); // Send an email
   const [verificationCode, setVerificationCode] = useState(''); // Error message
   const [isVerified, setIsVerified] = useState(false); // Authentication code
-  const [remainingTime, setRemainingTime] = useState(60); // Authentication time
+  const [remainingTime, setRemainingTime] = useState(300); // Authentication time
 
   /**
    * @brief Email transmission successful

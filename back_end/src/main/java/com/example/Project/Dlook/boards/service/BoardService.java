@@ -17,7 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,46 +40,102 @@ public class BoardService {
 //        return ResponseEntity.ok().body(boardPage);
 //    }
 
+//    @Transactional
+//    public ResponseEntity<List<BoardDTO>> getAllBoardList(int page) {
+//        PageRequest pageRequest = PageRequest.of(page, 10, Sort.by("boardNo").descending());
+//        Page<Board> boardPage = boardRepository.findAllCustom(pageRequest);
+//        List<Board> boardList = boardPage.getContent();
+//
+//        List<BoardDTO> boardDTOList = new ArrayList<>();
+//
+//        for(Board board : boardList) {
+//            BoardDTO boardDTO = BoardDTO.builder()
+//                    .boardNo(board.getBoardNo())
+//                    .boardTitle(board.getBoardTitle())
+//                    .boardWriter(board.getBoardWriter())
+//                    .boardContent(board.getBoardContent())
+//                    .boardCtg(board.getBoardCtg()).build();
+//
+//            boardDTOList.add(boardDTO);
+//        }
+//
+//        return ResponseEntity.ok(boardDTOList);
+//    }
+
     @Transactional
-    public ResponseEntity<List<BoardDTO>> getAllBoardList(int page) {
+    public ResponseEntity<Map<String, Object>> getAllBoardList(int page) {
         PageRequest pageRequest = PageRequest.of(page, 10, Sort.by("boardNo").descending());
         Page<Board> boardPage = boardRepository.findAllCustom(pageRequest);
         List<Board> boardList = boardPage.getContent();
 
         List<BoardDTO> boardDTOList = new ArrayList<>();
 
-        for(Board board : boardList) {
+        for (Board board : boardList) {
             BoardDTO boardDTO = BoardDTO.builder()
                     .boardNo(board.getBoardNo())
                     .boardTitle(board.getBoardTitle())
                     .boardWriter(board.getBoardWriter())
                     .boardContent(board.getBoardContent())
-                    .boardCtg(board.getBoardCtg()).build();
+                    .createdTime(board.getCreatedTime())
+                    .boardCtg(board.getBoardCtg())
+                    .build();
 
             boardDTOList.add(boardDTO);
         }
 
-        return ResponseEntity.ok(boardDTOList);
+        Map<String, Object> response = new HashMap<>();
+        response.put("boardList", boardDTOList);
+        response.put("totalPages", boardPage.getTotalPages());
+        response.put("totalElements", boardPage.getTotalElements());
+
+        return ResponseEntity.ok(response);
     }
 
+
+//    @Transactional
+//    public ResponseEntity<List<BoardDTO>> getCategoryList(int boardCtg, int page) {
+//        PageRequest pageRequest = PageRequest.of(page, 10, Sort.by("boardNo").descending());
+//        Page<Board> boardPage = boardRepository.findAllByBoardCtg(boardCtg, pageRequest);
+//        List<Board> boardList = boardPage.getContent();
+//        List<BoardDTO> boardDTOList = new ArrayList<>();
+//        for(Board board : boardList) {
+//            BoardDTO boardDTO = BoardDTO.builder()
+//                    .boardNo(board.getBoardNo())
+//                    .boardTitle(board.getBoardTitle())
+//                    .boardWriter(board.getBoardWriter())
+//                    .boardContent(board.getBoardContent())
+//                    .boardCtg(board.getBoardCtg()).build();
+//
+//            boardDTOList.add(boardDTO);
+//        }
+//
+//        return ResponseEntity.ok(boardDTOList);
+//    }
+
     @Transactional
-    public ResponseEntity<List<BoardDTO>> getCategoryList(int boardCtg, int page) {
+    public ResponseEntity<Map<String, Object>> getCategoryList(int boardCtg, int page) {
         PageRequest pageRequest = PageRequest.of(page, 10, Sort.by("boardNo").descending());
         Page<Board> boardPage = boardRepository.findAllByBoardCtg(boardCtg, pageRequest);
         List<Board> boardList = boardPage.getContent();
-        List<BoardDTO> boardDTOList = new ArrayList<>();
-        for(Board board : boardList) {
-            BoardDTO boardDTO = BoardDTO.builder()
-                    .boardNo(board.getBoardNo())
-                    .boardTitle(board.getBoardTitle())
-                    .boardWriter(board.getBoardWriter())
-                    .boardContent(board.getBoardContent())
-                    .boardCtg(board.getBoardCtg()).build();
 
-            boardDTOList.add(boardDTO);
+        List<Map<String, Object>> boardInfoList = new ArrayList<>();
+        for (Board board : boardList) {
+            Map<String, Object> boardInfo = new HashMap<>();
+            boardInfo.put("boardNo", board.getBoardNo());
+            boardInfo.put("boardTitle", board.getBoardTitle());
+            boardInfo.put("boardWriter", board.getBoardWriter());
+            boardInfo.put("boardContent", board.getBoardContent());
+            boardInfo.put("createdTime", board.getCreatedTime());
+            boardInfo.put("boardCtg", board.getBoardCtg());
+            boardInfoList.add(boardInfo);
         }
 
-        return ResponseEntity.ok(boardDTOList);
+        Map<String, Object> response = new HashMap<>();
+        response.put("boardList", boardInfoList);
+        response.put("totalPages", boardPage.getTotalPages());
+        response.put("totalElements", boardPage.getTotalElements());
+
+        return ResponseEntity.ok(response);
     }
 
 

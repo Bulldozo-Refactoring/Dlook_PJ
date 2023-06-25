@@ -1,13 +1,11 @@
-import React, { useState } from "react";
-import DropDown from "app/components/Board/DropDown";
-import { styled } from "styled-components";
-import { NavLink } from "react-router-dom";
-
+import React, { useState } from 'react';
+import DropDown from 'app/components/Board01/DropDown';
+import { styled } from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 const BoardWrite = () => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -20,53 +18,44 @@ const BoardWrite = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // 게시글 작성 로직 구현
-    console.log("게시글 작성:", title, content);
+    console.log('게시글 작성:', title, content);
     // 필요에 따라 서버로 데이터를 전송하거나 다른 동작 수행 가능
   };
 
   return (
     <Section>
-        <H2>전체 게시판</H2>
-        <hr />
-        <DivFlex>
-          <div>
-            <Span>작성자</Span> 작성자명
-          </div>
-          <div>
-            <Span>카테고리</Span>
-            <DropDown />
-          </div>
-        </DivFlex>
+      <H2>전체 게시판</H2>
+      <hr />
+      <DivFlex>
+        <div>
+          <Span>작성자</Span> 글작성작성자명
+        </div>
+        <div>
+          <Span>카테고리</Span>
+          <DropDown />
+        </div>
+      </DivFlex>
+      <br />
+      <br />
+      <Form onSubmit={handleSubmit}>
+        <div>
+          <Label>
+            <Span>글제목</Span>
+          </Label>
+          <Input type="text" id="title" defaultValue={title} onChange={handleTitleChange} />
+        </div>
         <br />
-        <br />
-        <Form onSubmit={handleSubmit}>
-          <div>
-            <Label>
-              <Span>글제목</Span>
-            </Label>
-            <Input
-              type="text"
-              id="title"
-              defaultValue={title}
-              onChange={handleTitleChange}
-            />
-          </div>
-          <br />
-          <Label></Label>
-          <TextArea
-            id="content"
-            defaultValue={content}
-            onChange={handleContentChange}
-          ></TextArea>
-          <DivButton>
-            <Button type="submit">
-              <NavLink to="">작성하기</NavLink>
-            </Button>
-            <Button type="submit">
-              <NavLink to="/board">돌아가기</NavLink>
-            </Button>
-          </DivButton>
-        </Form>
+        <Label></Label>
+        <TextArea id="content" defaultValue={content} onChange={handleContentChange}></TextArea>
+        <DivButton>
+          <Button type="submit">
+            <NavLink to="">작성하기</NavLink>
+          </Button>
+          <Button type="submit">
+            <NavLink to="/board">돌아가기</NavLink>
+          </Button>
+        </DivButton>
+      </Form>
     </Section>
   );
 };
@@ -141,7 +130,6 @@ const Button = styled.button`
 const DivFlex = styled.div`
   display: flex;
   justify-content: space-between;
-
 `;
 
 const DivButton = styled.div`

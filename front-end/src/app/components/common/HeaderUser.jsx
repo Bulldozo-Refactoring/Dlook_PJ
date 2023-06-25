@@ -12,41 +12,45 @@ const HeaderUser = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const checkUser = checkAuthentication();
-  const memberName = useSelector((state) => state.cookie.memberName);
   const [openMenu, setOpenMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const memberName = useSelector((state) => state.cookie.memberName);
 
-  const handleLogout = () => dispatch(getLogout());
+  const handleLogout = async () =>
+    dispatch(getLogout())
+      .unwrap()
+      .then((response) => window.location.reload())
+      .catch((error) => console.log('로그아웃 실패!'));
+
   const handleClick = () => {
     if (checkUser) navigate('/mypages/certify');
     else navigate('/members/login');
   };
   const handleOpenMenu = (e) => {
-    setAnchorEl(e.currentTarget);
-    if (checkUser) setOpenMenu(true);
-    else navigate('/members/login');
+    if (checkUser) {
+      setAnchorEl(e.currentTarget);
+      setOpenMenu(true);
+    } else navigate('/members/login');
   };
   const handleCloseMenu = () => setOpenMenu(false);
 
   return (
     <>
-      {!checkUser ? (
-        <React.Fragment>
+      <React.Fragment>
+        <PStyled>{memberName ? `${memberName} 님` : ''}</PStyled>
+        {!checkUser ? (
           <BoxStyle>
             <Tooltip title="로그인">
               <LoginIcon onClick={handleClick} sx={{ fontSize: 35, color: 'var(--primary-200)' }}></LoginIcon>
             </Tooltip>
           </BoxStyle>
-        </React.Fragment>
-      ) : (
-        <>
-          <PStyled>{memberName} 님</PStyled>
-          <React.Fragment>
+        ) : (
+          <>
             <BoxStyle>
               <Tooltip title="내정보">
                 <IconButton
                   onClick={handleClick}
-                  onMouseEnter={handleOpenMenu}
+                  onMouseOver={handleOpenMenu}
                   sx={{ ml: 2 }}
                   aria-controls={openMenu ? 'account-menu' : undefined}
                   aria-haspopup="true"
@@ -105,9 +109,9 @@ const HeaderUser = () => {
                 </MenuItem>
               </Link>
             </Menu>
-          </React.Fragment>
-        </>
-      )}
+          </>
+        )}
+      </React.Fragment>
     </>
   );
 };
