@@ -34,7 +34,6 @@ const App = () => {
       children: [
         { path: '', element: <MainPage /> },
         {
-          // members - 비회원
           path: 'members',
           errorElement: <Error />,
           children: [
@@ -50,7 +49,6 @@ const App = () => {
           ],
         },
         {
-          // members - 회원
           path: 'members',
           errorElement: <Error />,
           element: <PrivateRoute />,
@@ -59,7 +57,6 @@ const App = () => {
             { path: 'logout' },
             { path: ':memberSeq' },
             {
-              // 관리자는 로그인 상태에서 url 접근 가능하게..?
               path: 'auth',
               element: 'auth 확인',
               children: [{ path: 'login', element: 'auth 로그인' }],
@@ -67,7 +64,6 @@ const App = () => {
           ],
         },
         {
-          // board - 비회원
           path: 'boards',
           errorElement: <Error />,
           children: [
@@ -77,7 +73,6 @@ const App = () => {
           ],
         },
         {
-          // board - 회원
           path: 'boards',
           element: <PrivateRoute />,
           errorElement: <Error />,
@@ -87,20 +82,17 @@ const App = () => {
           ],
         },
         {
-          // garbage - 비회원
           path: 'garbage',
           errorElement: <Error />,
           children: [{ path: '', element: <Garbage /> }],
         },
         {
-          // garbage - 회원
           path: 'garbage',
           element: <PrivateRoute />,
           errorElement: <Error />,
           children: [{ path: 'write', element: <GarbageWrite /> }],
         },
         {
-          // notice - 관리자 x
           path: 'notice',
           errorElement: <Error />,
           children: [
@@ -111,7 +103,6 @@ const App = () => {
         { path: 'manual', element: '이용방법' },
         { path: 'rule', element: '서비스 정책' },
         {
-          // 알고리즘 - 회원
           path: 'algorithms',
           element: <PrivateRoute />,
           errorElement: <Error />,
@@ -130,7 +121,6 @@ const App = () => {
           ],
         },
         {
-          // mypage -- 회원
           path: 'mypages',
           element: <PrivateRoute />,
           errorElement: <Error />,

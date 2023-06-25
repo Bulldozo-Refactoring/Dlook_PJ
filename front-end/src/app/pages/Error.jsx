@@ -4,8 +4,6 @@ function Error() {
   return (
     <Container>
       어라라
-      <br />
-      알아서 해결하삼!
       <br /> 난 몰라...!
     </Container>
   );

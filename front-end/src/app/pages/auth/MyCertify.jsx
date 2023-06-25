@@ -7,23 +7,12 @@ import SubmitButton from 'app/components/SubmitButton';
 import logo from 'app/assets/images/logo.svg';
 
 const MyCertify = () => {
-  // 작업 예정 코드 다 삭제할거임
+  // [ ] 작업 예정 코드 다 삭제할거임
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
 
   const user = useSelector((state) => state.user);
   console.log('User:{}', user);
-  // 테스트용 코드
-  // const user = useSelector((state) => {
-  //   const userData = state.user.user;
-  //   if (userData) {
-  //     return { ...userData };
-  //   }
-  //   return null;
-  // });
-  // user.certify = true;
-  // user.certify = false;
 
-  // if (isLoggedIn && user.certify) {
   if (isLoggedIn) {
     // 연동 후
     return (
