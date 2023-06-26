@@ -1,7 +1,7 @@
 package com.example.Project.Dlook.members.controller;
 
-import com.example.Project.Dlook.members.domain.dto.JoinRequestDTO;
-import com.example.Project.Dlook.members.domain.dto.LoginRequestDTO;
+import com.example.Project.Dlook.members.domain.dto.JoinRequestDto;
+import com.example.Project.Dlook.members.domain.dto.LoginRequestDto;
 import com.example.Project.Dlook.members.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,12 +19,12 @@ public class MemberController {
     private final MemberService memberService;
 
     @PostMapping("/join")
-    public ResponseEntity<String> join(@RequestBody JoinRequestDTO dto) {
+    public ResponseEntity<String> join(@RequestBody JoinRequestDto dto) {
         return memberService.join(dto);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequestDTO dto, HttpServletResponse response) {
+    public ResponseEntity<String> login(@RequestBody LoginRequestDto dto, HttpServletResponse response) {
         return memberService.login(dto, response);
     }
 

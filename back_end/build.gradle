@@ -31,6 +31,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
 	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
+	implementation 'com.google.code.gson:gson:2.8.9'
 
 	// security 종속성
 	compileOnly group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
