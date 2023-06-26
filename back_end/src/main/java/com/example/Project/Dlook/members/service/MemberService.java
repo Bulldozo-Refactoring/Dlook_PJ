@@ -3,8 +3,8 @@ package com.example.Project.Dlook.members.service;
 import com.example.Project.Dlook.members.domain.BlackList;
 import com.example.Project.Dlook.members.domain.Member;
 import com.example.Project.Dlook.members.domain.RefreshToken;
-import com.example.Project.Dlook.members.domain.dto.JoinRequestDTO;
-import com.example.Project.Dlook.members.domain.dto.LoginRequestDTO;
+import com.example.Project.Dlook.members.domain.dto.JoinRequestDto;
+import com.example.Project.Dlook.members.domain.dto.LoginRequestDto;
 import com.example.Project.Dlook.members.domain.dto.TokenDto;
 import com.example.Project.Dlook.exception.AppException;
 import com.example.Project.Dlook.exception.ErrorCode;
@@ -46,7 +46,7 @@ public class MemberService {
      * @return the response entity
      */
     @Transactional
-    public ResponseEntity<String> join(JoinRequestDTO dto) {
+    public ResponseEntity<String> join(JoinRequestDto dto) {
 
         // memberName 중복 체크
         memberRepository.findByMemberName(dto.getMemberName())
@@ -74,7 +74,7 @@ public class MemberService {
      * @return the response entity
      */
     @Transactional
-    public ResponseEntity<String> login(LoginRequestDTO dto, HttpServletResponse response) {
+    public ResponseEntity<String> login(LoginRequestDto dto, HttpServletResponse response) {
         // memberEmail 없음
         Member selectedMemberEmail = memberRepository.findByMemberEmail(dto.getMemberEmail())
                 .orElseThrow(() -> new AppException(ErrorCode.MEMBEREMAIL_NOT_FOUND));

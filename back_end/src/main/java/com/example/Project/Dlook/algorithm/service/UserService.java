@@ -2,18 +2,32 @@ package com.example.Project.Dlook.algorithm.service;
 
 import com.example.Project.Dlook.algorithm.SolvedApiManager;
 import com.example.Project.Dlook.algorithm.domain.User;
+import com.example.Project.Dlook.algorithm.domain.dto.ProblemDto;
+import com.example.Project.Dlook.algorithm.domain.dto.UserDto;
 import com.example.Project.Dlook.algorithm.repository.UserRepository;
 import com.example.Project.Dlook.exception.DataNotFoundException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.IOException;
-import java.util.Optional;
-import java.util.Set;
+import java.net.http.HttpResponse;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -23,11 +37,100 @@ public class UserService {
     private final UserRepository userRepository;
     private final SolvedApiManager solvedApiManager;
 
-    public User getUser(Long id) {
-        Optional<User> user = Optional.ofNullable(userRepository.findById(id)
-                .orElseThrow(() -> new DataNotFoundException("user not found")));
+    public ResponseEntity<UserDto> getUser(String memberName) throws JsonProcessingException {
+        String url = "https://solved.ac/api/v3/user/show?handle=" + memberName;
 
-        return user.get();
+        WebClient client = WebClient.builder()
+                .defaultHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+
+        String response = client.get()
+                .uri(url)
+                .retrieve()
+                .bodyToMono(String.class)
+                .block();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(response);
+
+        UserDto userDto = UserDto.builder()
+                .tier(jsonNode.get("tier").asInt())
+                .maxStreak(jsonNode.get("maxStreak").asInt())
+                .rating(jsonNode.get("rating").asInt())
+                .user(jsonNode.get("handle").asText())
+                .solvedCount(jsonNode.get("solvedCount").asInt())
+                .build();
+
+        return ResponseEntity.ok().body(userDto);
+    }
+
+    public List<ProblemDto> getProblemsByLevel(int level) throws JsonProcessingException {
+        String url = "https://solved.ac/api/v3/search/problem?query=tier%3A" + level;
+
+        WebClient client = WebClient.builder()
+                .defaultHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+
+        String response = client.get()
+                .uri(url)
+                .retrieve() // 본문으로 응답 검색
+                .bodyToMono(String.class)
+                .block();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(response);
+        log.info("jsonNode : {}", jsonNode);
+
+        List<ProblemDto> problemList = new ArrayList<>();
+        List<JsonNode> items = jsonNode.findValues("items");
+        log.info("items : {}", items);
+
+        if (items.size() > 0) {
+            for (JsonNode item : items) {
+                int problemId = item.get("problemId").asInt();
+                String titleKo = item.get("titleKo").asText();
+
+                ProblemDto problemDto = ProblemDto.builder()
+                        .problemId(problemId)
+                        .titleKo(titleKo)
+                        .build();
+
+                problemList.add(problemDto);
+            }
+        }
+        log.info("problemList : {}", problemList);
+
+        return problemList;
+
+//        if (response != null) {
+//            JsonObject levelProblem = JsonParser.parseString(response).getAsJsonObject();
+//            int count = levelProblem.get("count").getAsInt();
+//            int pages = (count - 1) / 7 + 1;
+//
+//            for (int page = 0; page < pages; page++) {
+//                String pageUrl = url + "&page=" + (page + 1);
+//
+//                String pageResponse = client.get()
+//                        .uri(pageUrl)
+//                        .retrieve()
+//                        .bodyToMono(String.class)
+//                        .block();
+//
+//                if (pageResponse != null) {
+//                    JsonObject pageLevelProblem = JsonParser.parseString(pageResponse).getAsJsonObject();
+//                    JsonArray items = pageLevelProblem.get("items").getAsJsonArray();
+//
+//                    for (JsonElement item : items) {
+//                        int problemId = item.getAsJsonObject().get("problemId").getAsInt();
+//                        problems.add(problemId);
+//                    }
+//                } else {
+//                    System.out.println("problem request fail");
+//                }
+//            }
+//        } else {
+//            System.out.println("problem request fail");
+//        }
     }
 
     public Long getTier(String tier) throws IOException, ParseException {
