@@ -1,139 +1,185 @@
-// [ ] 게시글 작성 작업 필요
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { getBoardCreate } from 'app/slices/BoardSlice';
+import { checkAuthentication, setMemberName } from 'app/store';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
-import { NavLink } from 'react-router-dom';
 
 const BoardWrite = () => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // const memberName = useSelector((state) => state.cookie.memberName);
+  const memberName = setMemberName();
+  const { register, handleSubmit } = useForm();
 
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value);
-  };
+  useEffect(() => {
+    if (!checkAuthentication) return navigate('/boards/list?page=0');
+  }, [checkAuthentication]);
 
-  const handleContentChange = (e) => {
-    setContent(e.target.value);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // 게시글 작성 로직 구현
-    console.log('게시글 작성:', title, content);
-    // 필요에 따라 서버로 데이터를 전송하거나 다른 동작 수행 가능
-  };
+  const onSubmit = handleSubmit((data) => {
+    dispatch(getBoardCreate(data))
+      .unwrap()
+      .then((response) => {
+        window.alert('등록 성공!');
+        navigate(`/boards/list?page=0`);
+      })
+      .catch((error) => console.log('회원가입 실패!'));
+  });
 
   return (
-    <Section>
-      <H2>전체 게시판</H2>
-      <hr />
-      <DivFlex>
-        <div>
-          <Span>작성자</Span> 글작성작성자명
-        </div>
-        <div>
-          <Span>카테고리</Span>
-        </div>
-      </DivFlex>
-      <br />
-      <br />
-      <Form onSubmit={handleSubmit}>
-        <div>
-          <Label>
-            <Span>글제목</Span>
-          </Label>
-          <Input type="text" id="title" defaultValue={title} onChange={handleTitleChange} />
-        </div>
-        <br />
-        <Label></Label>
-        <TextArea id="content" defaultValue={content} onChange={handleContentChange}></TextArea>
-        <DivButton>
-          <Button type="submit">
-            <NavLink to="">작성하기</NavLink>
-          </Button>
-          <Button type="submit">
-            <NavLink to="/board">돌아가기</NavLink>
-          </Button>
-        </DivButton>
-      </Form>
-    </Section>
+    <>
+      {checkAuthentication ? (
+        <>
+          <StyleSection>
+            <StyleH1>전체 게시판 작성</StyleH1>
+            <Form method="update" onSubmit={handleSubmit(onSubmit)}>
+              <StyleUl>
+                <li>
+                  <span>작성자</span>
+                  <span>
+                    <input
+                      id="boardWriter"
+                      name="boardWriter"
+                      type="text"
+                      defaultValue={memberName}
+                      {...register('boardWriter')}
+                      readOnly
+                    />
+                  </span>
+                </li>
+                <li>
+                  <span>카테고리</span>
+                  <StyledSelect id="boardCtg" name="boardCtg" {...register('boardCtg')}>
+                    <option value="0">자유게시판</option>
+                    <option value="1">Q&A게시판</option>
+                  </StyledSelect>
+                </li>
+                <li>
+                  <span>제목</span>
+                  <span>
+                    <input id="boardTitle" name="boardTitle" type="text" {...register('boardTitle')} />
+                  </span>
+                </li>
+              </StyleUl>
+              <BoardContent id="boardContent" name="boardContent" type="text" {...register('boardContent')}></BoardContent>
+              <Button color={['var(--primary-200)', 'var(--text-100)', '#64748B']} type="submit" title="등록하기"></Button>
+            </Form>
+            <Button
+              color={['var(--primary-100)', 'var(--bg-200)', 'var(--primary-100)']}
+              type="button"
+              onClick={() => navigate('/boards/list?page=1')}
+              title="목록가기"
+            ></Button>
+          </StyleSection>
+        </>
+      ) : (
+        <div>잘못된 접근</div>
+      )}
+    </>
   );
 };
 
-const Span = styled.span`
-  border-style: solid;
-  border: 1px solid #ccc;
-  padding: 5px 40px;
+const StyleSection = styled.section`
+  padding: 50px 80px 100px;
 `;
-
-const Section = styled.section`
-  max-width: 90%;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: white;
-`;
-
-const H2 = styled.h2`
-  margin-top: 0;
-  margin-bottom: 20px;
-  color: #333;
-  font-size: 24px;
+const StyleH1 = styled.h1`
+  margin-bottom: 2rem;
+  font-size: 2rem;
   text-align: center;
+  font-weight: 700;
 `;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Label = styled.label`
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #555;
-`;
-
-const Input = styled.input`
-  margin-bottom: 10px;
-  border: 1px solid #968d8d;
-  width: 500px;
-  height: 33px;
-  margin-left: 5px;
-`;
-
-const TextArea = styled.textarea`
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  height: 400px;
-`;
-
-const Button = styled.button`
-  padding: 10px 15px;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 16px;
-  transition: background-color 0.3s;
-  margin-right: 10px;
-  background: #555;
-  &:hover,
-  &:focus {
-    background: #373737;
-    border-color: #373737;
-    color: #fff;
+const StyleUl = styled.ul`
+  display: grid;
+  gap: 20px;
+  grid-auto-rows: minmax(40px, auto);
+  box-sizing: border-box;
+  margin-bottom: 2rem;
+  * {
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
+  li:nth-child(1) {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+  }
+  li:nth-child(2) {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+  }
+  li:nth-child(3) {
+    grid-column: 1 / 4;
+    grid-row: 2 / 3;
+  }
+  li {
+    line-height: 1.6rem;
+  }
+  span {
+    display: inline-block;
+    padding: 6px 2rem;
+    font-size: 1.3rem;
+  }
+  span:first-child {
+    padding: 10px 2rem;
+    border-left: 2px solid var(--primary-100);
+    background-color: var(--bg-200);
+  }
+  span:last-child {
+    width: calc(100% - 140px);
+    padding: 10px 2rem 9px;
+    border-bottom: 2px solid var(--bg-200);
+  }
+  li:nth-child(3) span:last-child {
+    width: calc(100% - 120px);
+  }
+  li:nth-child(3) span:first-child {
+    width: 120px;
   }
 `;
-
-const DivFlex = styled.div`
-  display: flex;
-  justify-content: space-between;
+const BoardContent = styled.textarea`
+  width: 100%;
+  min-height: 30rem;
+  padding: 1rem;
+  margin-bottom: 10px;
+  border: 2px solid var(--bg-200);
+  font-size: 1rem;
+  font-weight: 400;
 `;
-
-const DivButton = styled.div`
-  display: flex;
-  justify-content: flex-end;
+const Form = styled.form`
+  button {
+    float: right;
+  }
 `;
+const StyledSelect = styled.select`
+  display: inline-block;
+  width: calc(100% - 140px);
+  padding: 9px 2rem;
+  border: 2px solid var(--bg-200);
+  font-size: 1.3rem;
+`;
+const StyleButton = styled.button`
+  padding: 10px;
+  background-color: ${(props) => props.color[0]};
+  color: ${(props) => props.color[1]};
+  box-shadow: 0 0 0 1px ${(props) => props.color[2]};
+
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 400;
+  &:hover,
+  &:active,
+  &:focus {
+    box-shadow: 0 0 0 1px var(--accent-200);
+  }
+`;
+// [ ] styled.component 전역으로 옮겨야함
+const Button = ({ color, onClick, title }) => {
+  return (
+    <StyleButton color={color} onClick={onClick}>
+      {title}
+    </StyleButton>
+  );
+};
 
 export default BoardWrite;

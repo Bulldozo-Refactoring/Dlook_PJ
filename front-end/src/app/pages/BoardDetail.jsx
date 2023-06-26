@@ -1,33 +1,44 @@
 import CommentRun from 'app/components/Board/CommentRun';
-import { getBoardDetail, setBoardCtgLabel, setBoardWriter } from 'app/slices/BoardSlice';
-import { checkAuthentication } from 'app/store';
+import { getBoardDelete, getBoardDetail, setBoardCtgLabel, setBoardWriter } from 'app/slices/BoardSlice';
+import instance from 'app/slices/Instance';
+import { checkAuthentication, setMemberName } from 'app/store';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
-import store from 'app/store';
 
 //  TODO 추가필요 - 흠 response.data가 없으면 대충 로딩
 // if (!boardData) return <div>Loading...</div>;
 
 const BoardDetail = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   let { boardNo } = useParams();
-  const { memberName } = useSelector((state) => state.cookie);
+  // const memberName = useSelector((state) => state.cookie.memberName);
+  const memberName = setMemberName();
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    dispatch(setBoardWriter(data.boardWriter));
     getBoardDetail('detail', boardNo, navigate, setData);
-    store.dispatch(setBoardWriter(data.boardWriter));
-  }, [boardNo, data.boardWriter, navigate]);
+  }, [boardNo, data.boardWriter, navigate, memberName, dispatch]);
 
   const setBoardCtg = setBoardCtgLabel(data.boardCtg);
-  const handleUpdate = () => navigate(`/boards/update/${boardNo}`);
-  const handleDelete = () => {
-    if (window.confirm('정말 삭제하시겠습니까?')) {
-      console.log('삭제되었습니다.');
-    } else {
-      console.log('취소되었습니다.');
+
+  const handleDelete = async () => {
+    if (window.confirm('게시글을 삭제하시겠습니까?')) {
+      const accessToken = localStorage.getItem('accessToken');
+      await instance
+        .delete(`/boards/${boardNo}`, {
+          headers: {
+            memberName: memberName,
+            Authorization: `Bearer ${accessToken}`,
+          },
+        })
+        .then(() => {
+          alert('삭제되었습니다.');
+          navigate('/boards/list?page=0');
+        });
     }
   };
 
@@ -56,7 +67,11 @@ const BoardDetail = () => {
           {checkAuthentication && memberName === data.boardWriter ? (
             <>
               <Button color={['#F5F5FF', '#64748B', '#64748B']} onClick={handleDelete} title="삭제하기"></Button>
-              <Button color={['var(--primary-200)', 'var(--text-100)', '#64748B']} onClick={handleUpdate} title="수정하기"></Button>
+              <Button
+                color={['var(--primary-200)', 'var(--text-100)', '#64748B']}
+                onClick={() => navigate(`/boards/update/${boardNo}`)}
+                title="수정하기"
+              ></Button>
             </>
           ) : (
             ''
@@ -120,7 +135,7 @@ const StyleUl = styled.ul`
   }
   span:last-child {
     width: calc(100% - 140px);
-    padding: 10px 2rem 8px;
+    padding: 10px 2rem 9px;
     border-bottom: 2px solid var(--bg-200);
   }
   li:nth-child(3) span:last-child {
