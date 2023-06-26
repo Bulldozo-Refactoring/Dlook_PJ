@@ -1,7 +1,7 @@
 import { getLogout } from 'app/slices/CookieSlice';
-import { checkAuthentication } from 'app/store';
+import { checkAuthentication, setMemberName } from 'app/store';
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
@@ -14,7 +14,8 @@ const HeaderUser = () => {
   const checkUser = checkAuthentication();
   const [openMenu, setOpenMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const memberName = useSelector((state) => state.cookie.memberName);
+  // const memberName = useSelector((state) => state.cookie.memberName);
+  const memberName = setMemberName();
 
   const handleLogout = async () =>
     dispatch(getLogout())

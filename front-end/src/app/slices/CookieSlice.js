@@ -60,12 +60,13 @@ const CookieSlice = createSlice({
   initialState: {
     memberName: null,
   },
-  extraReducers: (builder) => {
-    builder.addCase(postLogin.fulfilled, (state, action) => {
-      const token = action.payload.accessToken.split('Bearer ')[1];
-      state.memberName = jwt_decode(token).sub;
-    });
-  },
+
+  // extraReducers: (builder) => {
+  //   builder.addCase(postLogin.fulfilled, (state, action) => {
+  //     const token = action.payload.accessToken.split('Bearer ')[1];
+  //     state.memberName = jwt_decode(token).sub;
+  //   });
+  // },
 });
 
 export const { setCookieTime, setLogin, setLogout } = CookieSlice.actions;

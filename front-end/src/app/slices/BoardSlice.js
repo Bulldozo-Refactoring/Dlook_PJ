@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import instance from 'app/slices/Instance';
 
 const initialState = {
@@ -23,6 +23,28 @@ export const getBoardDetail = (urlType, boardNo, navigate, setData) => {
     })
     .catch((error) => console.log(error));
 };
+
+export const getBoardCreate = createAsyncThunk('boards/create', async (payload) => {
+  try {
+    await instance.post(`/boards/write`, payload);
+    console.log('성공!');
+  } catch (error) {
+    console.error('글 작성 실패: ', error);
+    throw error;
+  }
+});
+
+// export const getBoardDelete = createAsyncThunk('boards/delete', async (boardNo, data) => {
+//   try {
+//     console.log(boardNo);
+//     console.log(data);
+//     await instance.delete(`/boards/${boardNo}`, data);
+//     console.log('성공!');
+//   } catch (error) {
+//     console.error('글 삭제 실패: ', error);
+//     throw error;
+//   }
+// });
 
 export const setBoardCtgLabel = (boardCtg) => {
   if (boardCtg === 'list') return '전체게시판';

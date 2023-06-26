@@ -32,7 +32,6 @@ const BoardList = () => {
     getBoardList();
   }, [getBoardList]);
 
-  const postCreateHandler = () => navigate(`/boards/wirte`);
   const handleTitleClick = (boardNo) => dispatch(setBoardNo(boardNo));
   const handlePagenChange = (indexNumber) => setPageNumber(indexNumber);
   const handleCategoryClick = (category) => {
@@ -103,7 +102,7 @@ const BoardList = () => {
             <tbody>{renderTableRows()}</tbody>
           </StyleTable>
         </Wrap>
-        <StyledButton onClick={postCreateHandler}>글 작성</StyledButton>
+        <StyledButton onClick={() => navigate(`/boards/write`)}>글 작성</StyledButton>
         <Pagination>{renderPaginationButtons()}</Pagination>
       </Board>
     </>

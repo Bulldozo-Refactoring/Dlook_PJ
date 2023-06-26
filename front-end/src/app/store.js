@@ -3,6 +3,7 @@ import BoardReducer from 'app/slices/BoardSlice';
 import cookieReducer from 'app/slices/CookieSlice';
 import userReducer from 'app/slices/UserSlice';
 import Cookies from 'js-cookie';
+import jwt_decode from 'jwt-decode';
 
 const reducer = {
   user: userReducer,
@@ -14,6 +15,12 @@ export const store = configureStore({
   reducer: reducer,
   devTools: true,
 });
+
+export const setMemberName = () => {
+  const token = localStorage.getItem('accessToken');
+  const memberName = jwt_decode('Bearer ' + token).sub;
+  return memberName;
+};
 
 export const checkAuthentication = () => {
   const isLoggedIn = Cookies.get('isLoggedIn');

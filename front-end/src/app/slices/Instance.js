@@ -78,20 +78,25 @@ instance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    const status = error.response.status;
-
-    if (status === 401) {
-      return handleTokenRefreshAndRetry(error);
-    } else if (status === 404) {
-      return status;
-    } else if (status === 409) {
-      return console.error(error);
+    if (error.response && error.response.status !== undefined) {
+      const status = error.response.status;
+      if (status === 401) {
+        return handleTokenRefreshAndRetry(error);
+      } else if (status === 404) {
+        return status;
+      } else if (status === 409) {
+        return console.error(error);
+      } else if (status === undefined) {
+        console.log('글 수정할 때 오류뜨길래 우선..이렇게 해놓음');
+        return window.location.href('/boards/list?page=0');
+      } else {
+        getLogout();
+        return Promise.reject(error);
+      }
     } else {
-      getLogout();
-      return Promise.reject(error);
+      JSON.stringify(error);
+      return window.location.assign('/boards/list?page=0');
     }
-
-    return Promise.reject(error);
   }
 );
 
