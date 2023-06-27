@@ -3,15 +3,15 @@ import { getBoardCreate } from 'app/slices/BoardSlice';
 import { checkAuthentication, setMemberName } from 'app/store';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 const BoardWrite = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const memberName = useSelector((state) => state.cookie.memberName);
-  const memberName = setMemberName();
+  const memberName = useSelector((state) => state.cookie.memberName);
+  // const memberName = setMemberName();
   const { register, handleSubmit } = useForm();
 
   useEffect(() => {

@@ -44,7 +44,7 @@ const Container = styled.div`
 const Title = styled.h1`
   margin-bottom: 2rem;
   font-size: 35px;
-  color: var(--text-100);
+  color: ${({ theme }) => theme.lightTheme.t100};
   text-align: center;
 `;
 const Form = styled.form`
@@ -59,9 +59,9 @@ const Input = styled.input`
   margin-bottom: 1rem;
   border-radius: 6px;
   box-sizing: border-box;
-  background-color: var(--bg-200);
+  background-color: ${({ theme }) => theme.lightTheme.t200};
   ::placeholder {
-    color: var(--bg-300);
+    color: ${({ theme }) => theme.lightTheme.bg400};
   }
 `;
 const PStyle = styled.p`

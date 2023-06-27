@@ -51,7 +51,7 @@ const TopUi = styled.ul`
     content: '';
     position: absolute;
     top: 57px;
-    border-bottom: 3px solid var(--bg-200);
+    border-bottom: 3px solid ${({ theme }) => theme.lightTheme.bg300};
     width: 100%;
   }
 `;
@@ -59,13 +59,13 @@ const BottomLi = styled.li`
   display: none;
   border: none;
   flex-direction: column;
-  background-color: var(--bg-100);
+  background-color: ${({ theme }) => theme.lightTheme.bg100};
 `;
 const TopLi = styled.li`
   position: relative;
   &:hover {
-    background-color: var(--primary-100);
-    color: var(--bg-100);
+    background-color: ${({ theme }) => theme.lightTheme.t300};
+    color: ${({ theme }) => theme.lightTheme.bg100};
     ${BottomLi} {
       display: flex;
     }
@@ -82,7 +82,7 @@ const BottomUi = styled.ul`
   min-width: 90px;
   min-height: 39px;
   border: none;
-  background-color: var(--bg-100);
+  background-color: ${({ theme }) => theme.lightTheme.bg100};
 `;
 
 const NavStyle = styled(BaseNavLink)`
@@ -91,11 +91,11 @@ const NavStyle = styled(BaseNavLink)`
   font-weight: 500;
   font-size: 18px;
   padding: 15px 40px;
-  border-bottom: 3px solid var(--bg-200);
+  border-bottom: 3px solid ${({ theme }) => theme.lightTheme.bg300};
   &.active {
     font-weight: 700;
     padding: 15px 40px;
-    border-bottom: 3px solid var(--primary-100);
+    border-bottom: 3px solid ${({ theme }) => theme.lightTheme.t300};
   }
 `;
 const NavSubStyle = styled(BaseNavLink)`
@@ -104,14 +104,14 @@ const NavSubStyle = styled(BaseNavLink)`
   font-weight: 500;
   font-size: 18px;
   padding: 16px 0;
-  background-color: var(--bg-200);
+  background-color: ${({ theme }) => theme.lightTheme.bg300};
   box-sixing: border-box;
   &:hover {
-    color: var(--primary-200);
+    color: ${({ theme }) => theme.lightTheme.p300};
   }
   &.active {
     padding: 16px 0;
-    background-color: var(--primary-200);
+    background-color: ${({ theme }) => theme.lightTheme.t500};
   }
 `;
 

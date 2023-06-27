@@ -46,7 +46,7 @@ const H1 = styled.h1`
 const Input = styled.input`
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid ${({ theme }) => theme.lightTheme.bg300};
   border-radius: 4px;
   width: 94%;
 `;

@@ -67,7 +67,7 @@ const Rating = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  box-shadow: 0 0 0 2px var(--bg-300);
+  box-shadow: 0 0 0 2px ${({ theme }) => theme.lightTheme.bg400};
   border-radius: 10px;
   height: 200px;
 `;
@@ -79,9 +79,9 @@ const RatingBefore = styled.div`
   height: 60px;
   padding: 19px 0;
   border-radius: 50%;
-  background-color: var(--primary-200);
+  background-color: ${({ theme }) => theme.lightTheme.p100};
   font-weight: 500;
-  color: var(--bg-200);
+  color: ${({ theme }) => theme.lightTheme.bg300};
 `;
 const RatingContent = styled.ul`
   height: 50%;
@@ -101,6 +101,6 @@ const Value = styled.span`
   font-size: 25px;
   line-height: 25px;
   font-weight: 500;
-  color: rgb(255, 115, 165);
+  color: ${({ theme }) => theme.lightTheme.p400};
 `;
 export default Child;

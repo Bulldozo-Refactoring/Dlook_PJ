@@ -3,7 +3,7 @@ import { getBoardDelete, getBoardDetail, setBoardCtgLabel, setBoardWriter } from
 import instance from 'app/slices/Instance';
 import { checkAuthentication, setMemberName } from 'app/store';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 
@@ -14,8 +14,8 @@ const BoardDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let { boardNo } = useParams();
-  // const memberName = useSelector((state) => state.cookie.memberName);
-  const memberName = setMemberName();
+  const memberName = useSelector((state) => state.cookie.memberName);
+  // const memberName = setMemberName();
   const [data, setData] = useState([]);
 
   useEffect(() => {
