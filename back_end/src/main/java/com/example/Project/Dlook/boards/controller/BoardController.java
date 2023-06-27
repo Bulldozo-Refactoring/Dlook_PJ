@@ -28,35 +28,14 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    // list
-//    @GetMapping("/{boardCtg}")
-//    public ResponseEntity<Page<BoardDTO>> boardList(@RequestParam(required = false, defaultValue = "0", value = "page") int page, @PathVariable int boardCtg) {
-//        log.info("boardCtg : {}", boardCtg);
-//        return boardService.list(page, boardCtg);
-//    }
-
-//    @GetMapping("/list")
-//    public ResponseEntity<List<BoardDTO>> getAllBoardList(@RequestParam(required = false, value="page") int page){
-//            return boardService.getAllBoardList(page);
-//    }
     @GetMapping("/list")
     public ResponseEntity<Map<String, Object>> getAllBoardList(@RequestParam(required = false, value="page") int page){
         return boardService.getAllBoardList(page);
     }
 
-//    @GetMapping("/{boardCtg}")
-//    public ResponseEntity<List<BoardDTO>> getCategoryList(@PathVariable int boardCtg, @RequestParam(required = false, defaultValue = "0",  value = "page") int page) {
-//        return boardService.getCategoryList(boardCtg, page);
-//    }
-
     @GetMapping("/{boardCtg}")
-<<<<<<< Updated upstream
     public ResponseEntity<Map<String, Object>> getCategoryList(@PathVariable int boardCtg, @RequestParam(required = false, defaultValue = "0",  value = "page") int page) {
         return boardService.getCategoryList(boardCtg, page);
-=======
-    public ResponseEntity<Page<BoardDTO>> boardList(@RequestParam(required = false, defaultValue = "0", value = "page") int page, @PathVariable int boardCtg) {
-        return boardService.list(page, boardCtg);
->>>>>>> Stashed changes
     }
 
     // create
@@ -82,4 +61,14 @@ public class BoardController {
     public ResponseEntity<String> delete(@PathVariable Long boardNo, HttpServletRequest request) {
         return boardService.delete(boardNo, request);
     }
+
+//    @GetMapping("/list")
+//    public ResponseEntity<List<BoardDTO>> getAllBoardList(@RequestParam(required = false, value="page") int page){
+//            return boardService.getAllBoardList(page);
+//    }
+
+//    @GetMapping("/{boardCtg}")
+//    public ResponseEntity<List<BoardDTO>> getCategoryList(@PathVariable int boardCtg, @RequestParam(required = false, defaultValue = "0",  value = "page") int page) {
+//        return boardService.getCategoryList(boardCtg, page);
+//    }
 }
