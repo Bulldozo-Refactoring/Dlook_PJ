@@ -74,9 +74,9 @@ public class SolvedApiManager {
                 .build();
     }
 
-    private ProblemDto makeProblemDto(JSONObject obj) {
-        return ProblemDto.builder()
-                .solved((Integer) obj.get("solved"))
-                .build();
-    }
+//    private ProblemDto makeProblemDto(JSONObject obj) {
+//        return ProblemDto.builder()
+//                .solved((Integer) obj.get("solved"))
+//                .build();
+//    }
 }
