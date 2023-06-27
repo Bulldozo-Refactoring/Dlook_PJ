@@ -46,11 +46,7 @@ public class SecurityConfig {
                 // 로그인, 회원가입 API, 재발급은 토큰이 없는 상태에서 요청이 들어오기 때문에 permitAll 설정
                 .and()
                 .authorizeRequests()
-<<<<<<< Updated upstream
                 .antMatchers("/members/join", "/members/login", "/members/reissue", "/boards/list", "/boards/{boardCtg}", "/boards/detail/{boardNo}").permitAll()
-=======
-                .antMatchers("/members/join", "/members/login", "/members/reissue", "/boards/{boardCtg}").permitAll()
->>>>>>> Stashed changes
                 .anyRequest().authenticated()   // 나머지 API 는 m전부 인증 필요
 
                 // JwtFilter 를 addFilterBefore 로 등록했던 JwtSecurityConfig 클래스를 적용

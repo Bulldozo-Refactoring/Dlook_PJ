@@ -30,38 +30,6 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
 
-    // 어느 토큰이든 값이 나온다.
-//    @Transactional
-//    public ResponseEntity<Page<BoardDTO>> list(int page, int boardCtg) {
-//        int pageLimit = 10;
-//        Pageable pageable = PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "boardNo"));
-//        Page<BoardDTO> boardPage = findAllByCategory(pageable, boardCtg);
-//
-//        return ResponseEntity.ok().body(boardPage);
-//    }
-
-//    @Transactional
-//    public ResponseEntity<List<BoardDTO>> getAllBoardList(int page) {
-//        PageRequest pageRequest = PageRequest.of(page, 10, Sort.by("boardNo").descending());
-//        Page<Board> boardPage = boardRepository.findAllCustom(pageRequest);
-//        List<Board> boardList = boardPage.getContent();
-//
-//        List<BoardDTO> boardDTOList = new ArrayList<>();
-//
-//        for(Board board : boardList) {
-//            BoardDTO boardDTO = BoardDTO.builder()
-//                    .boardNo(board.getBoardNo())
-//                    .boardTitle(board.getBoardTitle())
-//                    .boardWriter(board.getBoardWriter())
-//                    .boardContent(board.getBoardContent())
-//                    .boardCtg(board.getBoardCtg()).build();
-//
-//            boardDTOList.add(boardDTO);
-//        }
-//
-//        return ResponseEntity.ok(boardDTOList);
-//    }
-
     @Transactional
     public ResponseEntity<Map<String, Object>> getAllBoardList(int page) {
         PageRequest pageRequest = PageRequest.of(page, 10, Sort.by("boardNo").descending());
@@ -90,27 +58,6 @@ public class BoardService {
 
         return ResponseEntity.ok(response);
     }
-
-
-//    @Transactional
-//    public ResponseEntity<List<BoardDTO>> getCategoryList(int boardCtg, int page) {
-//        PageRequest pageRequest = PageRequest.of(page, 10, Sort.by("boardNo").descending());
-//        Page<Board> boardPage = boardRepository.findAllByBoardCtg(boardCtg, pageRequest);
-//        List<Board> boardList = boardPage.getContent();
-//        List<BoardDTO> boardDTOList = new ArrayList<>();
-//        for(Board board : boardList) {
-//            BoardDTO boardDTO = BoardDTO.builder()
-//                    .boardNo(board.getBoardNo())
-//                    .boardTitle(board.getBoardTitle())
-//                    .boardWriter(board.getBoardWriter())
-//                    .boardContent(board.getBoardContent())
-//                    .boardCtg(board.getBoardCtg()).build();
-//
-//            boardDTOList.add(boardDTO);
-//        }
-//
-//        return ResponseEntity.ok(boardDTOList);
-//    }
 
     @Transactional
     public ResponseEntity<Map<String, Object>> getCategoryList(int boardCtg, int page) {
@@ -206,42 +153,94 @@ public class BoardService {
         return ResponseEntity.ok().body("delete success");
     }
 
-    public Page<BoardDTO> findAllByCategory(Pageable pageable, int boardCtg) {
-        Sort sort = Sort.by(Sort.Direction.DESC, "boardNo");
-        List<Board> boardList = boardRepository.findAll(sort);
+//    @Transactional
+//    public ResponseEntity<Page<BoardDTO>> list(int page, int boardCtg) {
+//        int pageLimit = 10;
+//        Pageable pageable = PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "boardNo"));
+//        Page<BoardDTO> boardPage = findAllByCategory(pageable, boardCtg);
+//
+//        return ResponseEntity.ok().body(boardPage);
+//    }
 
-        List<Board> filteredList = boardList.stream()
-                .filter(board -> board.getBoardCtg() == boardCtg)
-                .collect(Collectors.toList());
+//    @Transactional
+//    public ResponseEntity<List<BoardDTO>> getAllBoardList(int page) {
+//        PageRequest pageRequest = PageRequest.of(page, 10, Sort.by("boardNo").descending());
+//        Page<Board> boardPage = boardRepository.findAllCustom(pageRequest);
+//        List<Board> boardList = boardPage.getContent();
+//
+//        List<BoardDTO> boardDTOList = new ArrayList<>();
+//
+//        for(Board board : boardList) {
+//            BoardDTO boardDTO = BoardDTO.builder()
+//                    .boardNo(board.getBoardNo())
+//                    .boardTitle(board.getBoardTitle())
+//                    .boardWriter(board.getBoardWriter())
+//                    .boardContent(board.getBoardContent())
+//                    .boardCtg(board.getBoardCtg()).build();
+//
+//            boardDTOList.add(boardDTO);
+//        }
+//
+//        return ResponseEntity.ok(boardDTOList);
+//    }
 
-        int startIndex = (int) pageable.getOffset();
-        int endIndex = Math.min((startIndex + pageable.getPageSize()), filteredList.size());
-        List<Board> sublist = filteredList.subList(startIndex, endIndex);
 
-        List<BoardDTO> boardDTOList = sublist.stream()
-                .map(board -> BoardDTO.builder()
-                        .boardNo(board.getBoardNo())
-                        .boardTitle(board.getBoardTitle())
-                        .boardWriter(board.getBoardWriter())
-                        .boardContent(board.getBoardContent())
-                        .boardCtg(board.getBoardCtg())
-                        .build())
-                .collect(Collectors.toList());
+//    @Transactional
+//    public ResponseEntity<List<BoardDTO>> getCategoryList(int boardCtg, int page) {
+//        PageRequest pageRequest = PageRequest.of(page, 10, Sort.by("boardNo").descending());
+//        Page<Board> boardPage = boardRepository.findAllByBoardCtg(boardCtg, pageRequest);
+//        List<Board> boardList = boardPage.getContent();
+//        List<BoardDTO> boardDTOList = new ArrayList<>();
+//        for(Board board : boardList) {
+//            BoardDTO boardDTO = BoardDTO.builder()
+//                    .boardNo(board.getBoardNo())
+//                    .boardTitle(board.getBoardTitle())
+//                    .boardWriter(board.getBoardWriter())
+//                    .boardContent(board.getBoardContent())
+//                    .boardCtg(board.getBoardCtg()).build();
+//
+//            boardDTOList.add(boardDTO);
+//        }
+//
+//        return ResponseEntity.ok(boardDTOList);
+//    }
 
-        return new PageImpl<>(boardDTOList, pageable, filteredList.size());
-    }
-
-    // Board 엔티티 객체를 BoardDTO 객체로 변환
-    public Page<BoardDTO> findAll(Pageable pageable) {
-        Page<Board> boardPage = boardRepository.findAll(pageable);
-        return boardPage.map(board -> BoardDTO.builder()
-                .boardNo(board.getBoardNo())
-                .boardTitle(board.getBoardTitle())
-                .boardWriter(board.getBoardWriter())
-                .boardContent(board.getBoardContent())
-                .boardCtg(board.getBoardCtg())
-                .build());
-    }
+//    public Page<BoardDTO> findAllByCategory(Pageable pageable, int boardCtg) {
+//        Sort sort = Sort.by(Sort.Direction.DESC, "boardNo");
+//        List<Board> boardList = boardRepository.findAll(sort);
+//
+//        List<Board> filteredList = boardList.stream()
+//                .filter(board -> board.getBoardCtg() == boardCtg)
+//                .collect(Collectors.toList());
+//
+//        int startIndex = (int) pageable.getOffset();
+//        int endIndex = Math.min((startIndex + pageable.getPageSize()), filteredList.size());
+//        List<Board> sublist = filteredList.subList(startIndex, endIndex);
+//
+//        List<BoardDTO> boardDTOList = sublist.stream()
+//                .map(board -> BoardDTO.builder()
+//                        .boardNo(board.getBoardNo())
+//                        .boardTitle(board.getBoardTitle())
+//                        .boardWriter(board.getBoardWriter())
+//                        .boardContent(board.getBoardContent())
+//                        .boardCtg(board.getBoardCtg())
+//                        .build())
+//                .collect(Collectors.toList());
+//
+//        return new PageImpl<>(boardDTOList, pageable, filteredList.size());
+//    }
+//
+//    // Board 엔티티 객체를 BoardDTO 객체로 변환
+//    public Page<BoardDTO> findAll(Pageable pageable) {
+//        Page<Board> boardPage = boardRepository.findAll(pageable);
+//        return boardPage.map(board -> BoardDTO.builder()
+//                .boardNo(board.getBoardNo())
+//                .boardTitle(board.getBoardTitle())
+//                .boardWriter(board.getBoardWriter())
+//                .boardContent(board.getBoardContent())
+//                .boardCtg(board.getBoardCtg())
+//                .build());
+//    }
 }
 
 
