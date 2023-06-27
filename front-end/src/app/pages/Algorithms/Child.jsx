@@ -80,7 +80,7 @@ const AutocompleteStyle = styled(Autocomplete)`
   width: 100%;
   max-width: 400px;
   margin-left: -10px;
-  border-color: var(--primary-100) !important;
+  border-color:  ${({ theme }) => theme.lightTheme.t300}; !important;
 `;
 const ResetButton = styled.button`
   padding: 6px 15px;
@@ -88,7 +88,7 @@ const ResetButton = styled.button`
   border: 1px solid var(--primary-100);
   border-radius: 8px;
   box-sizing: border-box;
-  background-color: #d0d3ff;
+  background-color: ${({ theme }) => theme.lightTheme.t500};
   font-size: 14px;
   color: var(--primary-100);
 `;
@@ -100,31 +100,31 @@ const TableList = styled.table`
   box-shadow: 0px 6px 3px 2px var(--bg-300);
 `;
 const TableListHead = styled.thead`
-  border-bottom: 1px solid var(--bg-300);
-  background-color: var(--bg-200);
+  border-bottom: 1px solid ${({ theme }) => theme.lightTheme.bg400};
+  background-color: ${({ theme }) => theme.lightTheme.bg300};
 `;
 const TableListBody = styled.tbody`
-  border-bottom: 1px solid var(--bg-300);
+  border-bottom: 1px solid ${({ theme }) => theme.lightTheme.bg400};
   text-align: center;
   font-weight: 400;
 `;
 const HeadTh = styled.th`
   padding: 10px;
-  border: 1px solid var(--bg-300);
+  border: 1px solid ${({ theme }) => theme.lightTheme.bg400};
   text-align: center;
   cursor: pointer;
 `;
 const BodyTd = styled.td`
   padding: 15px 10px;
-  border: 1px solid var(--bg-300);
+  border: 1px solid ${({ theme }) => theme.lightTheme.bg400};
   font-weight: 300;
 `;
 const BodyTr = styled.tr`
   &:hover {
     ${BodyTd} {
       font-weight: 500;
-      background-color: var(--primary-200);
-      color: var(--bg-100);
+      background-color: ${({ theme }) => theme.lightTheme.p100};
+      color: ${({ theme }) => theme.lightTheme.bg100};
       opacity: 0.5;
     }
   }

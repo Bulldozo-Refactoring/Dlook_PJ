@@ -67,7 +67,7 @@ const MenuIconStyle = styled(Menu)`
   left: 40px;
   cursor: pointer;
   * {
-    color: var(--primary-200);
+    color: ${({ theme }) => theme.lightTheme.p100};
   }
 `;
 const MenuUl = styled.ul`

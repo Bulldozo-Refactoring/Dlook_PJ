@@ -18,6 +18,6 @@ const Layout = () => {
 const Container = styled.div`
   padding: 80px 0 0;
   min-height: 800px;
-  background-color: var(--bg-100);
+  background-color: ${({ theme }) => theme.lightTheme.bg100};
 `;
 export default Layout;

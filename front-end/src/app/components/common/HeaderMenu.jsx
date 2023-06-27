@@ -64,17 +64,17 @@ const NavStyle = styled(BaseNavLink)`
   padding: 6px 15px;
   border-left: 3px solid;
   font-size: 0.9em;
-  color: var(--primary-100);
+  color: ${({ theme }) => theme.lightTheme.t300};
   font-weight: 500;
   &:hover,
   &:focus {
-    color: var(--accent-200);
+    color: ${({ theme }) => theme.lightTheme.p300};
   }
   &:hover::before {
-    background-color: var(--accent-200);
+    background-color: ${({ theme }) => theme.lightTheme.t300};
   }
   &.active {
-    color: var(--accent-200);
+    color: ${({ theme }) => theme.lightTheme.p300};
     font-weight: 700;
   }
 `;

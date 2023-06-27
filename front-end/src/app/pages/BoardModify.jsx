@@ -11,8 +11,8 @@ import { styled } from 'styled-components';
 const BoardModify = () => {
   const navigate = useNavigate();
   const { boardNo } = useParams();
-  const memberName = setMemberName();
-  // const memberName = useSelector((state) => state.cookie.memberName);
+  // const memberName = setMemberName();
+  const memberName = useSelector((state) => state.cookie.memberName);
   const boardWriter = useSelector((state) => state.board.boardWriter);
   const [data, setData] = useState([]);
   const { register, handleSubmit, setValue } = useForm();

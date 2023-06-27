@@ -28,17 +28,17 @@ const NavStyle = styled(BaseNavLink)`
   padding: 6px 15px;
   border-left: 3px solid;
   font-size: 1.3em;
-  color: var(--primary-100);
+  color: ${({ theme }) => theme.lightTheme.t100};
   font-weight: 500;
   &:hover,
   &:focus {
-    color: FF73A5;
+    color: ${({ theme }) => theme.lightTheme.p400};
   }
   &:hover::before {
-    background-color: FF73A5;
+    background-color: ${({ theme }) => theme.lightTheme.p400};
   }
   &.active {
-    color: #ff73a5;
+    color: ${({ theme }) => theme.lightTheme.p400};
     font-weight: 700;
   }
 `;

@@ -1,15 +1,19 @@
-import React from 'react';
+import App from 'App';
+import { store } from 'app/store';
+import GlobalStyle from 'app/style/GlobalStyle';
+import theme from 'app/style/theme';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { store } from 'app/store';
-import App from 'App';
-import 'app/style/common.scss';
+import { ThemeProvider } from 'styled-components';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
 
 root.render(
-  <Provider store={store}>
-    <App />
-  </Provider>
+  <ThemeProvider theme={theme}>
+    <Provider store={store}>
+      <GlobalStyle />
+      <App />
+    </Provider>
+  </ThemeProvider>
 );
