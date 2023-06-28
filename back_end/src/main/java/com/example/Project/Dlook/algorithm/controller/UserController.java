@@ -1,6 +1,7 @@
 package com.example.Project.Dlook.algorithm.controller;
 
-import com.example.Project.Dlook.algorithm.domain.dto.ProblemDto;
+import com.example.Project.Dlook.algorithm.domain.dto.ProblemAlgorithmDto;
+import com.example.Project.Dlook.algorithm.domain.dto.ProblemLevelDto;
 import com.example.Project.Dlook.algorithm.domain.dto.UserDto;
 import com.example.Project.Dlook.algorithm.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -26,8 +27,13 @@ public class UserController {
         return userService.getUser(memberName);
     }
 
-    @GetMapping("/problem/{level}")
-    public List<ProblemDto> ProblemsByLevel(@PathVariable int level) throws JsonProcessingException {
+    @GetMapping("/problem/level/{level}")
+    public List<ProblemLevelDto> ProblemsByLevel(@PathVariable int level) throws JsonProcessingException {
         return userService.getProblemsByLevel(level);
+    }
+
+    @GetMapping("/problem/algorithm/{algorithm}")
+    public List<ProblemAlgorithmDto> ProblemsByLevel(@PathVariable String algorithm) throws JsonProcessingException {
+        return userService.getProblemsByAlgorithm(algorithm);
     }
 }
