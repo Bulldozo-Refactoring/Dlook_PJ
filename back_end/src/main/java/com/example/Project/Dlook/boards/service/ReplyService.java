@@ -5,9 +5,15 @@ import com.example.Project.Dlook.boards.domain.Reply;
 import com.example.Project.Dlook.boards.domain.dto.ReplyDTO;
 
 import com.example.Project.Dlook.boards.repository.ReplyRepository;
+import com.example.Project.Dlook.exception.AppException;
+import com.example.Project.Dlook.exception.ErrorCode;
+import com.example.Project.Dlook.members.domain.Member;
+import com.example.Project.Dlook.members.repository.MemberRepository;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +24,15 @@ import java.util.List;
 public class ReplyService {
 
     private final ReplyRepository replyRepository;
+    private final MemberRepository memberRepository;
 
 
-    public void save(Long boardNo, ReplyDTO replyDTO) {
+    @Transactional
+    public ResponseEntity<String> save(Long boardNo, ReplyDTO replyDTO) {
+
+        Member member = memberRepository.findByMemberName(replyDTO.getReplyWriter())
+                .orElseThrow(() -> new AppException(ErrorCode.MEMBERNAME_NOT_FOUND));
+
         Board board = Board.builder()
                 .boardNo(boardNo)
                 .build();
@@ -29,14 +41,17 @@ public class ReplyService {
                 .replyNo(replyDTO.getReplyNo())
                 .replyWriter(replyDTO.getReplyWriter())
                 .replyContent(replyDTO.getReplyContent())
-                .boardNo(board)
+                .member(member)
+                .board(board)
                 .build();
 
         replyRepository.save(reply);
+        return ResponseEntity.ok().body("Success");
     }
 
-    public List<ReplyDTO> findAll(Long boardNo) {
-        List<Reply> replyList = replyRepository.findByBoardNo(boardNo);
+    @Transactional
+    public ResponseEntity<List<ReplyDTO>> replyList(Long boardNo) {
+        List<Reply> replyList = replyRepository.findByBoardBoardNo(boardNo);
         List<ReplyDTO> replyDTOList = new ArrayList<>();
 
         for (Reply reply : replyList) {
@@ -49,13 +64,12 @@ public class ReplyService {
             replyDTOList.add(replyDTO);
         }
 
-        return replyDTOList;
+        return  ResponseEntity.ok().body(replyDTOList);
     }
 
-
-
-    public void delete(Long replyNo) {replyRepository.deleteById(replyNo);
+    @Transactional
+    public ResponseEntity<String> delete(Long replyNo) {
+        replyRepository.deleteById(replyNo);
+        return ResponseEntity.ok().body("delete success");
     }
-
-
 }

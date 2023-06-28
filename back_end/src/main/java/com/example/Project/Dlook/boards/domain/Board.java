@@ -2,13 +2,13 @@ package com.example.Project.Dlook.boards.domain;
 import com.example.Project.Dlook.boards.domain.dto.BoardDTO;
 import com.example.Project.Dlook.exception.Authority;
 import com.example.Project.Dlook.members.domain.Member;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.w3c.dom.Text;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -37,15 +37,15 @@ public class Board extends BaseTime {
     @Column(columnDefinition = "varchar(1500)", nullable = false)
     private String boardContent;
 
-    @Column(columnDefinition = "Integer", nullable = false)
-    private int boardCtg;
+    @Column(columnDefinition = "INTEGER", nullable = false)
+    private Integer boardCtg;
 
-    @Column(columnDefinition = "DATETIME", nullable = false)
-    private LocalDateTime createdTime;
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+    private List<Reply> replyList;
 
     @Enumerated(EnumType.STRING)
     private Authority authority;
-    
+
 //    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
 //    private List<Reply> replyList;
 }
