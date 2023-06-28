@@ -7,6 +7,7 @@ import { NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import google from 'app/assets/images/google.png';
+import { Title } from 'app/style/StyledComponent';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const Login = () => {
           <Navigate to="/" />
         ) : (
           <Wrap>
-            <Title>Login</Title>
+            <StyleTitle>Login</StyleTitle>
             <LoginFrom method="post" onSubmit={handleSubmit(onSubmit)}>
               <Box>
                 <Input
@@ -109,9 +110,7 @@ const LoginFrom = styled.form``;
 const Box = styled.div`
   position: relative;
 `;
-const Title = styled.h1`
-  margin-bottom: 20px;
-  font-size: 35px;
+const StyleTitle = styled(Title)`
   color: ${({ theme }) => theme.light.t01};
   text-align: center;
 `;

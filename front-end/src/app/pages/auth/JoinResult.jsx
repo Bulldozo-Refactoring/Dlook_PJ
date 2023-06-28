@@ -1,3 +1,4 @@
+import { Title } from 'app/style/StyledComponent';
 import { NavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
 
@@ -5,7 +6,7 @@ const JoinResult = () => {
   return (
     <>
       <Container>
-        <H1>회원가입이 정상적으로 완료되었습니다.</H1>
+        <StyleTitle>회원가입이 정상적으로 완료되었습니다.</StyleTitle>
         <NavStyle to="/members/login">로그인하러 가기</NavStyle>
       </Container>
     </>
@@ -18,11 +19,9 @@ const Container = styled.div`
   align-items: center;
   padding: 100px 20px;
 `;
-const H1 = styled.h1`
+const StyleTitle = styled(Title)`
   margin: 5rem 0;
   text-align: center;
-  font-size: 45px;
-  line-height: 51px;
 `;
 const NavStyle = styled(NavLink)`
   text-decoration: underline;

@@ -1,6 +1,15 @@
 import { styled } from 'styled-components';
-
-// Table
+// h 태그
+const Title = styled.h1`
+  margin-bottom: 1rem;
+  font-size: ${({ theme }) => theme.common.xl};
+  font-weight: 700;
+`;
+const SubTitle = styled.h2`
+  font-size: ${({ theme }) => theme.common.lg};
+  font-weight: 700;
+`;
+// Table - 합쳐도 될듯
 const StyleTable = styled.table`
   width: ${({ theme }) => theme.common.col12};
   thead tr th:nth-child(2)) {
@@ -40,6 +49,47 @@ const StyleTd = styled.td`
   }
 `;
 
+// [ ] 말풍선 - 변수 수정 필요
+const Tooltip = styled.div`
+  background-color: #eef3fd;
+  border: #7689fd solid 1px;
+  border-radius: 5px;
+  color: #505bf0;
+  font-size: 12px;
+  font-weight: 500;
+  height: auto;
+  letter-spacing: -0.25px;
+  margin-top: 6.8px;
+  padding: 5px 11px;
+  position: relative;
+  width: fit-content;
+  z-index: 100;
+  &::after {
+    border-color: #eef3fd transparent;
+    border-style: solid;
+    border-width: 0 6px 8px 6.5px;
+    content: '';
+    display: block;
+    left: 75px;
+    position: absolute;
+    top: -7px;
+    width: 0;
+    z-index: 1;
+  }
+  &::before {
+    border-color: #7689fd transparent;
+    border-style: solid;
+    border-width: 0 6px 8px 6.5px;
+    content: '';
+    display: block;
+    left: 75px;
+    position: absolute;
+    top: -8px;
+    width: 0;
+    z-index: 0;
+  }
+`;
+
 // [ ] 재사용 가능한 컴포넌트로 바꾸기
 const SubmitButton = styled.button`
   margin: 0 auto;
@@ -51,12 +101,10 @@ const SubmitButton = styled.button`
   line-height: ${({ theme }) => theme.common.lg};
   &:hover,
   &:active {
-    background-color: ${({ theme }) => theme.color.c04};
-    color: ${({ theme }) => theme.light.t03};
-  }
-  &:focus {
-    boxshadow: '0 0 0 0.2rem rgba(0,123,255,.5) !important';
+    background-color: ${({ theme }) => theme.color.c05};
+    color: ${({ theme }) => theme.light.b01};
   }
 `;
 
-export { StyleTable, StyleTd, StyleTh, StyledTr, SubmitButton };
+// [ ] 순서 정리 필요
+export { SubmitButton, StyleTable, StyleTd, StyleTh, StyledTr, Title, SubTitle, Tooltip };

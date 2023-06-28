@@ -1,4 +1,5 @@
 // [ ] 작업 필요
+import { Title } from 'app/style/StyledComponent';
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 
@@ -21,7 +22,7 @@ const CommentRun = () => {
 
   return (
     <Div>
-      <H1>댓글</H1>
+      <StyleTitle>댓글</StyleTitle>
       <hr />
       <form onSubmit={handleSubmit}>
         <Input type="text" value={newComment} onChange={(e) => setNewComment(e.target.value)} placeholder="댓글을 작성하세요" required />
@@ -39,7 +40,7 @@ const CommentRun = () => {
   );
 };
 
-const H1 = styled.h1`
+const StyleTitle = styled(Title)`
   text-align: left;
 `;
 

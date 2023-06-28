@@ -126,7 +126,7 @@ const App = () => {
           errorElement: <Error />,
           children: [
             { path: 'certify', element: <MyCertify /> },
-            { path: 'board', element: <MyBoard /> },
+            { path: 'boards', element: <MyBoard /> },
             { path: 'replys', element: '헝' },
           ],
         },

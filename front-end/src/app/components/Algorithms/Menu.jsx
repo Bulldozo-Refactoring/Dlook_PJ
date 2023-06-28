@@ -1,4 +1,5 @@
 // 알고리즘 메뉴
+import { Title } from 'app/style/StyledComponent';
 import { NavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
 
@@ -13,11 +14,8 @@ const Menu = styled.div`
   flex-direction: column;
   width: ${({ theme }) => theme.common.col2};
 `;
-const Title = styled.h1`
-  margin-bottom: 1rem;
+const StyleTitle = styled(Title)`
   text-align: center;
-  font-size: ${({ theme }) => theme.common.xl};
-  font-weight: 700;
 `;
 const Nav = styled.nav`
   width: ${({ theme }) => theme.common.col12};
@@ -66,7 +64,7 @@ const AlgorithmsMenu = () => {
   return (
     <>
       <Menu>
-        <Title>실력별 추천</Title>
+        <StyleTitle>실력별 추천</StyleTitle>
         <Nav>
           <NavList>
             <NavItem>

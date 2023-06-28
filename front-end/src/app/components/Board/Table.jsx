@@ -8,7 +8,8 @@ const renderTh = (thTitle) => {
 const renderTr = (modifiedDataList, titleUrl, pageNumber) => {
   return modifiedDataList.map((list, index) => (
     <StyledTr key={list.no}>
-      <StyleTd key={`number-${index}`}>{pageNumber * 10 + index + 1}</StyleTd>
+      {/* <StyleTd key={`number-${index}`}>{pageNumber * 10 + index + 1}</StyleTd> */}
+      <StyleTd key={`number-${index}`}>{list.no}</StyleTd>
       <StyleTd key={`title-${index}`}>
         <NavLink to={`${titleUrl}/${list.no}`} onClick={(state) => state}>
           {list.title}

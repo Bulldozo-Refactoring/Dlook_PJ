@@ -1,3 +1,4 @@
+import { Title } from 'app/style/StyledComponent';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
@@ -68,11 +69,6 @@ const Container = styled.div`
   padding: 100px 20px;
   max-width: 900px;
   margin: 0 auto;
-`;
-
-const Title = styled.h1`
-  font-size: 24px;
-  margin-bottom: 20px;
 `;
 
 const Form = styled.form`

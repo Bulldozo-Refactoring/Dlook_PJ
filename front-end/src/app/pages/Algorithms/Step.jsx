@@ -1,30 +1,27 @@
 // 알고리즘 - 문제추천 - 실력별
-import { styled } from 'styled-components';
+import RankLevel from 'app/components/Algorithms/RankLevel';
 import { Table } from 'app/components/Board/Table';
+import { SubmitButton } from 'app/style/StyledComponent';
+import Cookies from 'js-cookie';
+import { styled } from 'styled-components';
 
-const AlgorithmsStep = styled.div``;
 const StepTop = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   margin-bottom: 0.4rem;
+  height: 85px;
 `;
-const H2 = styled.h2`
-  font-size: 40px;
-  line-height: 18px;
-`;
-const ResetButton = styled.button`
+const ResetButton = styled(SubmitButton)`
   padding: 6px 15px;
-  max-height: 40px;
-  border: 1px solid ${({ theme }) => theme.light.t03};
+  margin: 0;
   border-radius: 8px;
-  box-sizing: border-box;
-  background-color: ${({ theme }) => theme.color.c04};
-  font-size: 14px;
-  color: ${({ theme }) => theme.light.t03};
+  font-size: ${({ theme }) => theme.common.base};
 `;
 
 const Step = () => {
+  // [ ] 지금은 값이 안 들어감
+  const level = Cookies.get('memberName');
   // [ ] 실력별 추천 페이지 데이터 작업 필요
   const pageNumber = 10;
   const modifiedDataList = dummyList.map((list) => {
@@ -37,13 +34,13 @@ const Step = () => {
   });
 
   return (
-    <AlgorithmsStep>
+    <div>
       <StepTop>
-        <H2>Level</H2>
+        <RankLevel level={level}></RankLevel>
         <ResetButton>새로고침</ResetButton>
       </StepTop>
       {Table(['문제 번호', '제목', '해결 여부'], modifiedDataList, 'https://www.acmicpc.net/board/view', pageNumber)}
-    </AlgorithmsStep>
+    </div>
   );
 };
 

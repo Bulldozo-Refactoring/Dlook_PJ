@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { getBoardCreate } from 'app/slices/BoardSlice';
 import { checkAuthentication, setMemberName } from 'app/store';
+import { Title } from 'app/style/StyledComponent';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
@@ -33,7 +34,7 @@ const BoardWrite = () => {
       {checkAuthentication ? (
         <>
           <StyleSection>
-            <StyleH1>전체 게시판 작성</StyleH1>
+            <StyleTitle>전체 게시판 작성</StyleTitle>
             <Form method="update" onSubmit={handleSubmit(onSubmit)}>
               <StyleUl>
                 <li>
@@ -88,7 +89,7 @@ const BoardWrite = () => {
 const StyleSection = styled.section`
   padding: 50px 80px 100px;
 `;
-const StyleH1 = styled.h1`
+const StyleTitle = styled(Title)`
   margin-bottom: 2rem;
   font-size: 2rem;
   text-align: center;

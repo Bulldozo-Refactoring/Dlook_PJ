@@ -1,12 +1,14 @@
 // 글/댓글 관리
+// [ ]  구조 바꿔야함
 import React from 'react';
 import { styled } from 'styled-components';
 import Mymenu from 'app/components/Mymenu';
+import { Title } from '@mui/icons-material';
 
 const MyBoard = () => {
   return (
     <Container>
-      <H1>내정보</H1>
+      <StyleTitle>내정보</StyleTitle>
       <Content>
         <Mymenu />
         <Right>글/댓글 관리</Right>
@@ -14,16 +16,10 @@ const MyBoard = () => {
     </Container>
   );
 };
-const Container = styled.div`
-  padding: 80px 0 0;
-`;
-const H1 = styled.h1`
+const Container = styled.div``;
+const StyleTitle = styled(Title)`
   width: calc(100% - 400px);
-  margin: 0 auto 1rem;
   text-align: left;
-  font-size: 45px;
-  font-weight: 500;
-  line-height: 55px;
 `;
 const Content = styled.div`
   display: flex;

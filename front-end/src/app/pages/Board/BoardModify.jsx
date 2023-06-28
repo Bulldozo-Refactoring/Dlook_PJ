@@ -2,6 +2,7 @@
 import { getBoardDetail, setBoardCtgLabel } from 'app/slices/BoardSlice';
 import instance from 'app/slices/Instance';
 import { checkAuthentication, setMemberName } from 'app/store';
+import { Title } from 'app/style/StyledComponent';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
@@ -42,7 +43,7 @@ const BoardModify = () => {
       {checkAuthentication ? (
         <>
           <StyleSection>
-            <StyleH1>전체 게시판 {boardNo}번 진입성공</StyleH1>
+            <StyleTitle>전체 게시판 {boardNo}번 진입성공</StyleTitle>
             <Form method="update" onSubmit={handleSubmit(handleUpdate)}>
               <StyleUl>
                 <li>
@@ -94,11 +95,9 @@ const BoardModify = () => {
 const StyleSection = styled.section`
   padding: 50px 80px 100px;
 `;
-const StyleH1 = styled.h1`
+const StyleTitle = styled(Title)`
   margin-bottom: 2rem;
-  font-size: 2rem;
   text-align: center;
-  font-weight: 700;
 `;
 const StyleUl = styled.ul`
   display: grid;

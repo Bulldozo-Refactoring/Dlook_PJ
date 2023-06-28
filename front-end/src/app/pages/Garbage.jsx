@@ -1,10 +1,11 @@
+import { Title } from 'app/style/StyledComponent';
 import { NavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 const Garbage = () => {
   return (
     <Conainter>
-      <H1>Garbage Collection</H1>
+      <Title>Garbage Collection</Title>
       <Phone>
         <UlList>
           {dummyList.map((it, index) => {
@@ -21,11 +22,6 @@ const Conainter = styled.div`
   padding: 80px 120px;
   min-height: 1000px;
   text-align: center;
-`;
-const H1 = styled.h1`
-  margin-bottom: 1rem;
-  font-size: 50px;
-  font-weight: 700;
 `;
 const Phone = styled.div`
   position: relative;

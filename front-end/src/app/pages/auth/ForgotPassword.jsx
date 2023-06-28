@@ -1,4 +1,4 @@
-import { SubmitButton } from 'app/style/StyledComponent';
+import { SubmitButton, Title } from 'app/style/StyledComponent';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
@@ -20,7 +20,7 @@ const ForgotPassword = () => {
         <PStyle>비밀번호 재설정 링크가 이메일로 전송되었습니다.</PStyle>
       ) : (
         <Form onSubmit={handleSubmit}>
-          <Title>비밀번호 찾기</Title>
+          <StyleTitle>비밀번호 찾기</StyleTitle>
           <PStyle>
             이메일 주소를 입력하면
             <br />
@@ -41,9 +41,8 @@ const Container = styled.div`
     font-weight: 500;
   }
 `;
-const Title = styled.h1`
+const StyleTitle = styled(Title)`
   margin-bottom: 2rem;
-  font-size: 35px;
   color: ${({ theme }) => theme.light.t01};
   text-align: center;
 `;

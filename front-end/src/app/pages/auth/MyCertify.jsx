@@ -1,8 +1,9 @@
 // 백준 연동
+// [ ]  구조 바꿔야함
 // import { useSelector } from 'react-redux';
 import logo from 'app/assets/images/logo.svg';
 import Mymenu from 'app/components/Mymenu';
-import { SubmitButton } from 'app/style/StyledComponent';
+import { SubmitButton, Title } from 'app/style/StyledComponent';
 import { styled } from 'styled-components';
 
 const MyCertify = () => {
@@ -16,7 +17,7 @@ const MyCertify = () => {
     // 연동 후
     return (
       <Container>
-        <H1>내정보</H1>
+        <StyleTitle>내정보</StyleTitle>
         <Content>
           <Mymenu />
           <Right>
@@ -52,7 +53,7 @@ const MyCertify = () => {
     // 연동 전
     return (
       <Container>
-        <H1>내정보</H1>
+        <StyleTitle>내정보</StyleTitle>
         <Content>
           <Mymenu />
           <Right>
@@ -79,7 +80,7 @@ const MyCertify = () => {
 const Container = styled.div`
   padding: 80px 0 0;
 `;
-const H1 = styled.h1`
+const StyleTitle = styled(Title)`
   width: calc(100% - 400px);
   margin: 0 auto 1rem;
   text-align: left;
