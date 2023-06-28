@@ -208,7 +208,7 @@ public class BoardService {
 
     public Page<BoardDTO> findAllByCategory(Pageable pageable, int boardCtg) {
         Sort sort = Sort.by(Sort.Direction.DESC, "boardNo");
-        List<Board> boardList = boardRepository.findAll(sort); // Fetch all boards with descending order
+        List<Board> boardList = boardRepository.findAll(sort);
 
         List<Board> filteredList = boardList.stream()
                 .filter(board -> board.getBoardCtg() == boardCtg)

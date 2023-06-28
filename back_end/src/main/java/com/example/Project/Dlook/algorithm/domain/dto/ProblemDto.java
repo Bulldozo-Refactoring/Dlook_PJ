@@ -1,9 +1,15 @@
 package com.example.Project.Dlook.algorithm.domain.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Builder(toBuilder = true)
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Builder
 public class ProblemDto {
-    private String level;
-    private Integer solved;
+    private Integer problemId;
+    private String titleKo;
 }

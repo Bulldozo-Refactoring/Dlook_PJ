@@ -50,8 +50,13 @@ public class BoardController {
 //    }
 
     @GetMapping("/{boardCtg}")
+<<<<<<< Updated upstream
     public ResponseEntity<Map<String, Object>> getCategoryList(@PathVariable int boardCtg, @RequestParam(required = false, defaultValue = "0",  value = "page") int page) {
         return boardService.getCategoryList(boardCtg, page);
+=======
+    public ResponseEntity<Page<BoardDTO>> boardList(@RequestParam(required = false, defaultValue = "0", value = "page") int page, @PathVariable int boardCtg) {
+        return boardService.list(page, boardCtg);
+>>>>>>> Stashed changes
     }
 
     // create
