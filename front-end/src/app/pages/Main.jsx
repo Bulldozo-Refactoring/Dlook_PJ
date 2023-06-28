@@ -19,8 +19,6 @@ const MainPage = () => {
     sectionPaddingTop: '80px',
     arrowNavigation: true,
   };
-  const handleClick = () => navigate('/members/login');
-  // 공지사항
 
   return (
     <SectionsContainer controls {...options}>
@@ -42,9 +40,7 @@ const MainPage = () => {
             그것은 얼마나 보는 새가 방황하여도,
             <br />
           </p>
-          <SubmitButton disableRipple onClick={handleClick}>
-            알고리즘 문제 보러가기
-          </SubmitButton>
+          <SubmitButton onClick={() => navigate('/algorithms/step')}>알고리즘 문제 보러가기</SubmitButton>
         </MainBox01>
       </Section>
       <Section id="main_box02">

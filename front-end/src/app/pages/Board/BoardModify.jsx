@@ -133,12 +133,12 @@ const StyleUl = styled.ul`
   span:first-child {
     padding: 10px 2rem;
     border-left: 2px solid ${({ theme }) => theme.light.t03};
-    background-color: ${({ theme }) => theme.light.b02};
+    background-color: ${({ theme }) => theme.light.b03};
   }
   span:last-child {
     width: calc(100% - 140px);
     padding: 10px 2rem 9px;
-    border-bottom: 2px solid ${({ theme }) => theme.light.b02};
+    border-bottom: 2px solid ${({ theme }) => theme.light.b03};
   }
   li:nth-child(3) span:last-child {
     width: calc(100% - 120px);
@@ -152,7 +152,7 @@ const BoardContent = styled.textarea`
   min-height: 30rem;
   padding: 1rem;
   margin-bottom: 10px;
-  border: 2px solid ${({ theme }) => theme.light.b02};
+  border: 2px solid ${({ theme }) => theme.light.b03};
   font-size: 1rem;
   font-weight: 400;
 `;
@@ -161,23 +161,6 @@ const Form = styled.form`
     float: right;
   }
 `;
-// const BtnDiv = styled.div`
-//   display: grid;
-//   grid-auto-column: minmax(40px, 40px);
-//   margin-bottom: 3rem;
-//   button:nth-child(1) {
-//     grid-column: 1 / 2;
-//     grid-row: 1 / 2;
-//   }
-//   button:nth-child(2) {
-//     grid-column: 29/30;
-//     grid-row: 1 / 2;
-//   }
-//   button:nth-child(3) {
-//     grid-column: 15 / 16;
-//     grid-row: 1 / 2;
-//   }
-// `;
 const StyleButton = styled.button`
   padding: 10px;
   background-color: ${(props) => props.color[0]};

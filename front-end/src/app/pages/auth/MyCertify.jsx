@@ -1,17 +1,14 @@
 // 백준 연동
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { styled } from 'styled-components';
+// import { useSelector } from 'react-redux';
+import logo from 'app/assets/images/logo.svg';
 import Mymenu from 'app/components/Mymenu';
 import { SubmitButton } from 'app/style/StyledComponent';
-import logo from 'app/assets/images/logo.svg';
+import { styled } from 'styled-components';
 
 const MyCertify = () => {
   // [ ] 작업 예정 코드 다 삭제할거임
-  const isLoggedIn = useSelector((state) => state.user.isLoggedIn);
-
-  const user = useSelector((state) => state.user);
-  console.log('User:{}', user);
+  // const user = useSelector((state) => state.user);
+  // console.log('User:{}', user);
 
   const test = true;
 

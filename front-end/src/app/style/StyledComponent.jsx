@@ -1,4 +1,3 @@
-import Button from '@mui/material/Button';
 import { styled } from 'styled-components';
 
 // Table
@@ -42,28 +41,22 @@ const StyleTd = styled.td`
 `;
 
 // [ ] 재사용 가능한 컴포넌트로 바꾸기
-const SubmitButton = styled(Button)({
-  margin: '0 auto',
-  padding: '10px 20px',
-  fontSize: 18,
-  lineHeight: 1.8,
-  backgroundColor: '#D0D3FF',
-  borderColor: '#424874',
-  borderRadius: 15,
-  fontFamily: ['-apple-system', 'BlinkMacSystemFont'].join(','),
-  '&:hover': {
-    backgroundColor: '#D0D3FF',
-    borderColor: '#424874',
-    boxShadow: 'none',
-  },
-  '&:active': {
-    boxShadow: 'none',
-    backgroundColor: '#D0D3FF',
-    borderColor: '#424874',
-  },
-  '&:focus': {
-    boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
-  },
-});
+const SubmitButton = styled.button`
+  margin: 0 auto;
+  padding: 20px 40px;
+  border-radius: 15px;
+  background-color: ${({ theme }) => theme.color.c04};
+  font-weight: 500;
+  font-size: ${({ theme }) => theme.common.md};
+  line-height: ${({ theme }) => theme.common.lg};
+  &:hover,
+  &:active {
+    background-color: ${({ theme }) => theme.color.c04};
+    color: ${({ theme }) => theme.light.t03};
+  }
+  &:focus {
+    boxshadow: '0 0 0 0.2rem rgba(0,123,255,.5) !important';
+  }
+`;
 
 export { StyleTable, StyleTd, StyleTh, StyledTr, SubmitButton };
