@@ -1,6 +1,7 @@
 package com.example.Project.Dlook.algorithm.service;
 
-import com.example.Project.Dlook.algorithm.domain.dto.ProblemDto;
+import com.example.Project.Dlook.algorithm.domain.dto.ProblemAlgorithmDto;
+import com.example.Project.Dlook.algorithm.domain.dto.ProblemLevelDto;
 import com.example.Project.Dlook.algorithm.domain.dto.UserDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -48,7 +49,7 @@ public class UserService {
         return ResponseEntity.ok().body(userDto);
     }
 
-    public List<ProblemDto> getProblemsByLevel(int level) throws JsonProcessingException {
+    public List<ProblemLevelDto> getProblemsByLevel(int level) throws JsonProcessingException {
         String url = "https://solved.ac/api/v3/search/problem?query=tier:" + level + "&sort=random";
 
         WebClient client = WebClient.builder()
@@ -64,7 +65,7 @@ public class UserService {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(response);
 
-        List<ProblemDto> problemList = new ArrayList<>();
+        List<ProblemLevelDto> problemList = new ArrayList<>();
         JsonNode itemsNode = jsonNode.get("items");
         int count = Math.min(10, itemsNode.size());
 
@@ -74,13 +75,65 @@ public class UserService {
                 int problemId = item.get("problemId").asInt();
                 String titleKo = item.get("titleKo").asText();
 
-                ProblemDto problemDto = ProblemDto.builder()
+                ProblemLevelDto problemLevelDto = ProblemLevelDto.builder()
                         .problemId(problemId)
                         .titleKo(titleKo)
                         .build();
 
-                problemList.add(problemDto);
+                problemList.add(problemLevelDto);
             }
+        }
+        return problemList;
+    }
+
+    public List<ProblemAlgorithmDto> getProblemsByAlgorithm(String algorithm) throws JsonProcessingException {
+        String url = "https://solved.ac/api/v3/search/problem?query=&sort=random";
+
+        WebClient client = WebClient.builder()
+                .defaultHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+
+        List<ProblemAlgorithmDto> problemList = new ArrayList<>();
+        int count = 0;
+        int page = 1; // Start with the first page
+
+        while (count < 10) {
+            String response = client.get()
+                    .uri(url + "&page=" + page)
+                    .retrieve()
+                    .bodyToMono(String.class)
+                    .block();
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(response);
+
+            JsonNode itemsNode = jsonNode.get("items");
+
+            for (JsonNode item : itemsNode) {
+                int problemId = item.get("problemId").asInt();
+                String titleKo = item.get("titleKo").asText();
+                JsonNode tags_list = item.get("tags");
+                List<String> tag_keys = new ArrayList<>();
+                for (JsonNode tag : tags_list) {
+                    String key = tag.get("key").asText();
+                    tag_keys.add(key);
+                }
+
+                if (tag_keys.contains(algorithm)) {
+                    ProblemAlgorithmDto problemAlgorithmDto = ProblemAlgorithmDto.builder()
+                            .problemId(problemId)
+                            .titleKo(titleKo)
+                            .key(algorithm)
+                            .build();
+
+                    problemList.add(problemAlgorithmDto);
+                    count += 1;
+                    if (count >= 10) {
+                        break;
+                    }
+                }
+            }
+            page++;
         }
         return problemList;
     }
