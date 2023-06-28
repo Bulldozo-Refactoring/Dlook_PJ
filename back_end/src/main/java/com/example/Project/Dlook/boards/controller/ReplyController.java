@@ -11,30 +11,28 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @AllArgsConstructor
 @RequestMapping("/boards/{boardNo}/reply")
 public class ReplyController {
 
     private final ReplyService replyService;
 
-    @GetMapping("/")
-    public ResponseEntity<List<ReplyDTO>> replyList(@PathVariable ("boardNo") Long boardNo) {
-        List<ReplyDTO> replyDTOList = replyService.findAll(boardNo);
-        return ResponseEntity.ok(replyDTOList);
+    @GetMapping
+    public ResponseEntity<List<ReplyDTO>> replyList(@PathVariable("boardNo") Long boardNo) {
+        return replyService.replyList(boardNo);
     }
 
+
     //댓글쓰기
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<String> replyWrite(@PathVariable("boardNo") Long boardNo, @RequestBody ReplyDTO replyDTO) {
-        replyService.save(boardNo, replyDTO);
-        return ResponseEntity.ok("Success");
+        return replyService.save(boardNo, replyDTO);
     }
 
     //댓글삭제
     @DeleteMapping("/{replyNo}")
     public ResponseEntity<String> replyDelete(@PathVariable("replyNo") Long replyNo) {
-        replyService.delete(replyNo);
-        return ResponseEntity.ok("Success");
+        return replyService.delete(replyNo);
     }
 }

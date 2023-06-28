@@ -66,9 +66,11 @@ public class UserService {
 
         List<ProblemDto> problemList = new ArrayList<>();
         JsonNode itemsNode = jsonNode.get("items");
+        int count = Math.min(10, itemsNode.size());
 
-        if (itemsNode.size() > 0) {
-            for (JsonNode item : itemsNode) {
+        if (count > 0) {
+            for (int i = 0; i < count; i++) {
+                JsonNode item = itemsNode.get(i);
                 int problemId = item.get("problemId").asInt();
                 String titleKo = item.get("titleKo").asText();
 

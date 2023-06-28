@@ -1,5 +1,6 @@
 package com.example.Project.Dlook.boards.domain;
 
+import com.example.Project.Dlook.members.domain.Member;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,7 +11,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="reply")
-
 public class Reply extends BaseTime {
 
     @Id
@@ -26,7 +26,10 @@ public class Reply extends BaseTime {
 
     @ManyToOne
     @JoinColumn(name = "boardNo")
-    private Board boardNo;
+    private Board board;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="memberSeq")
+    private Member member;
 
 }
