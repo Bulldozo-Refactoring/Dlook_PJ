@@ -120,7 +120,7 @@ const StyleUl = styled.ul`
     grid-column: 3 / 4;
     grid-row: 1 / 2;
   }
-  li:nth-child(3) {var
+  li:nth-child(3) {
     grid-column: 1 / 4;
     grid-row: 2 / 3;
   }
@@ -134,13 +134,13 @@ const StyleUl = styled.ul`
   }
   span:first-child {
     padding: 10px 2rem;
-    border-left: 2px solid ${({ theme }) => theme.light.t03}; 
-    background-color: ${({ theme }) => theme.light.b02}; 
+    border-left: 2px solid ${({ theme }) => theme.light.t03};
+    background-color: ${({ theme }) => theme.light.b03};
   }
   span:last-child {
     width: calc(100% - 140px);
     padding: 10px 2rem 9px;
-    border-bottom: 2px solid ${({ theme }) => theme.light.b02}; 
+    border-bottom: 2px solid ${({ theme }) => theme.light.b03};
   }
   li:nth-child(3) span:last-child {
     width: calc(100% - 120px);
@@ -153,7 +153,7 @@ const BoardContent = styled.div`
   min-height: 30rem;
   padding: 1rem;
   margin-bottom: 10px;
-  border: 2px solid ${({ theme }) => theme.light.b02};
+  border: 2px solid ${({ theme }) => theme.light.b03};
   font-size: 1rem;
   font-weight: 400;
 `;

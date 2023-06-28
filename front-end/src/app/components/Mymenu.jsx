@@ -28,7 +28,7 @@ const NavStyle = styled(BaseNavLink)`
   padding: 6px 15px;
   border-left: 3px solid;
   font-size: 1.3em;
-  color: ${({ theme }) => theme.ligth.t01};
+  color: ${({ theme }) => theme.light.t01};
   font-weight: 500;
   &:hover,
   &:focus {
