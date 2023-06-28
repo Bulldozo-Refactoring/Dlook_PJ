@@ -1,4 +1,5 @@
 import { PostJoin } from 'app/slices/UserSlice';
+import { Title } from 'app/style/StyledComponent';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
@@ -84,7 +85,7 @@ const Join = () => {
 
   return (
     <SignUpTemplate>
-      <Title>Sign Up</Title>
+      <TitleStyle>Sign Up</TitleStyle>
       <form onSubmit={handleSubmit(onSubmit)} style={{ marginBottom: '20px' }}>
         <FormStyle>
           <Label>이메일</Label>
@@ -173,10 +174,8 @@ const SignUpTemplate = styled.div`
     text-align: center;
   }
 `;
-const Title = styled.h1`
-  font-size: 30px;
+const TitleStyle = styled(Title)`
   color: ${({ theme }) => theme.light.t01};
-  margin-bottom: 20px;
 `;
 const FormStyle = styled.div`
   display: flex;

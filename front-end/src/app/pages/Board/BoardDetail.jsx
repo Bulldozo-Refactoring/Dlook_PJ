@@ -2,6 +2,7 @@ import CommentRun from 'app/components/Board/CommentRun';
 import { getBoardDetail, setBoardCtgLabel, setBoardWriter } from 'app/slices/BoardSlice';
 import instance from 'app/slices/Instance';
 import { checkAuthentication, setMemberName } from 'app/store';
+import { Title } from 'app/style/StyledComponent';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -45,7 +46,7 @@ const BoardDetail = () => {
   return (
     <>
       <StyleSection>
-        <StyleH1>전체 게시판 {boardNo}번 진입성공</StyleH1>
+        <StyleTitle>전체 게시판 {boardNo}번 진입성공</StyleTitle>
         <StyleUl>
           <li>
             <span>작성자</span>
@@ -96,11 +97,9 @@ const BoardDetail = () => {
 const StyleSection = styled.section`
   padding: 50px 80px 100px;
 `;
-const StyleH1 = styled.h1`
+const StyleTitle = styled(Title)`
   margin-bottom: 2rem;
-  font-size: 2rem;
   text-align: center;
-  font-weight: 700;
 `;
 const StyleUl = styled.ul`
   display: grid;

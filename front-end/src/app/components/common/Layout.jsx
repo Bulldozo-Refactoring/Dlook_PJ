@@ -1,45 +1,7 @@
 import Footer from 'app/components/common/Footer';
 import Header from 'app/components/common/Header';
-// import { getLogout } from 'app/slices/CookieSlice';
-// import Cookies from 'js-cookie';
-// import { useEffect, useRef } from 'react';
-// import { useDispatch } from 'react-redux';
 import { Outlet, useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
-
-// const LogoutOnWindowClose = () => {
-//   const dispatch = useDispatch();
-//   const logoutHandledRef = useRef(false);
-
-//   useEffect(() => {
-//     const handleWindowClose = async () => {
-//       if (!logoutHandledRef.current) {
-//         logoutHandledRef.current = true;
-
-//         try {
-//           await dispatch(getLogout()).unwrap();
-//           alert('창이 닫혔습니다. 로그아웃되었습니다.');
-//         } catch (error) {
-//           console.log('로그아웃 실패!');
-//         }
-//       }
-//     };
-
-//     const handleBeforeUnload = (event) => {
-//       event.preventDefault();
-//       event.returnValue = '';
-//       handleWindowClose();
-//     };
-
-//     window.addEventListener('beforeunload', handleBeforeUnload);
-
-//     return () => {
-//       window.removeEventListener('beforeunload', handleBeforeUnload);
-//     };
-//   }, [dispatch]);
-
-//   return null;
-// };
 
 const Layout = () => {
   const location = useLocation();
@@ -54,7 +16,6 @@ const Layout = () => {
         </Container>
       )}
       <Footer />
-      {/* <LogoutOnWindowClose /> */}
     </>
   );
 };
