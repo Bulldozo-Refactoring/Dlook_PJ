@@ -1,7 +1,7 @@
 import { getLogout } from 'app/slices/CookieSlice';
 import { checkAuthentication, setMemberName } from 'app/store';
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
@@ -14,8 +14,8 @@ const HeaderUser = () => {
   const checkUser = checkAuthentication();
   const [openMenu, setOpenMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const memberName = useSelector((state) => state.cookie.memberName);
-  // const memberName = setMemberName();
+  // const memberName = useSelector((state) => state.cookie.memberName);
+  const memberName = setMemberName();
 
   const handleLogout = async () =>
     dispatch(getLogout())
@@ -42,7 +42,7 @@ const HeaderUser = () => {
         {!checkUser ? (
           <BoxStyle>
             <Tooltip title="로그인">
-              <LoginIcon onClick={handleClick} sx={{ fontSize: 35, color: 'var(--primary-200)' }}></LoginIcon>
+              <LoginIcon onClick={handleClick} sx={{ fontSize: 35, color: '#424874' }}></LoginIcon>
             </Tooltip>
           </BoxStyle>
         ) : (
@@ -57,7 +57,7 @@ const HeaderUser = () => {
                   aria-haspopup="true"
                   aria-expanded={openMenu ? 'true' : undefined}
                 >
-                  <Avatar sx={{ background: 'var(--primary-200)' }}></Avatar>
+                  <AvatarStyle></AvatarStyle>
                 </IconButton>
               </Tooltip>
             </BoxStyle>
@@ -98,7 +98,7 @@ const HeaderUser = () => {
             >
               <Link to="/mypages/certify">
                 <MenuItem onClick={handleCloseMenu}>
-                  <Avatar sx={{ background: 'primary' }} />내 정보
+                  <AvatarStyle />내 정보
                 </MenuItem>
               </Link>
               <Link to="/">
@@ -119,7 +119,7 @@ const HeaderUser = () => {
 const PStyled = styled.p`
   font-size: 18px;
   font-weight: 400;
-  color: ${({ theme }) => theme.lightTheme.bg100};
+  color: ${({ theme }) => theme.light.b01};
 `;
 const BoxStyle = styled(Box)`
   display: flex;
@@ -128,8 +128,11 @@ const BoxStyle = styled(Box)`
 `;
 const LoginIcon = styled(Login)`
   path {
-    color: ${({ theme }) => theme.lightTheme.p100};
+    color: ${({ theme }) => theme.color.c05};
   }
+`;
+const AvatarStyle = styled(Avatar)`
+  background-color: ${({ theme }) => theme.color.c05} !important;
 `;
 
 export default HeaderUser;

@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-function JoinResult() {
+const JoinResult = () => {
   return (
     <>
       <Container>
@@ -10,7 +10,7 @@ function JoinResult() {
       </Container>
     </>
   );
-}
+};
 
 const Container = styled.div`
   display: flex;
@@ -26,6 +26,6 @@ const H1 = styled.h1`
 `;
 const NavStyle = styled(NavLink)`
   text-decoration: underline;
-  color: var(--primary-200);
+  color: ${({ theme }) => theme.color.c05};
 `;
 export default JoinResult;

@@ -1,9 +1,9 @@
 import CommentRun from 'app/components/Board/CommentRun';
-import { getBoardDelete, getBoardDetail, setBoardCtgLabel, setBoardWriter } from 'app/slices/BoardSlice';
+import { getBoardDetail, setBoardCtgLabel, setBoardWriter } from 'app/slices/BoardSlice';
 import instance from 'app/slices/Instance';
 import { checkAuthentication, setMemberName } from 'app/store';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { styled } from 'styled-components';
 
@@ -14,8 +14,8 @@ const BoardDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let { boardNo } = useParams();
-  const memberName = useSelector((state) => state.cookie.memberName);
-  // const memberName = setMemberName();
+  // const memberName = useSelector((state) => state.cookie.memberName);
+  const memberName = setMemberName();
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -66,9 +66,13 @@ const BoardDetail = () => {
           {/* [ ]  해당하는 유저인지 확인 필요 */}
           {checkAuthentication && memberName === data.boardWriter ? (
             <>
-              <Button color={['#F5F5FF', '#64748B', '#64748B']} onClick={handleDelete} title="삭제하기"></Button>
               <Button
-                color={['var(--primary-200)', 'var(--text-100)', '#64748B']}
+                color={[({ theme }) => theme.light.b03, ({ theme }) => theme.light.t02, ({ theme }) => theme.light.t02]}
+                onClick={handleDelete}
+                title="삭제하기"
+              ></Button>
+              <Button
+                color={[({ theme }) => theme.color.c05, ({ theme }) => theme.light.t01, ({ theme }) => theme.light.t02]}
                 onClick={() => navigate(`/boards/update/${boardNo}`)}
                 title="수정하기"
               ></Button>
@@ -77,7 +81,7 @@ const BoardDetail = () => {
             ''
           )}
           <Button
-            color={['var(--primary-100)', 'var(--bg-200)', 'var(--primary-100)']}
+            color={[({ theme }) => theme.light.t03, ({ theme }) => theme.light.b02, ({ theme }) => theme.light.t03]}
             onClick={() => navigate('/boards/list?page=1')}
             title="목록가기"
           ></Button>
@@ -116,7 +120,7 @@ const StyleUl = styled.ul`
     grid-column: 3 / 4;
     grid-row: 1 / 2;
   }
-  li:nth-child(3) {
+  li:nth-child(3) {var
     grid-column: 1 / 4;
     grid-row: 2 / 3;
   }
@@ -130,13 +134,13 @@ const StyleUl = styled.ul`
   }
   span:first-child {
     padding: 10px 2rem;
-    border-left: 2px solid var(--primary-100);
-    background-color: var(--bg-200);
+    border-left: 2px solid ${({ theme }) => theme.light.t03}; 
+    background-color: ${({ theme }) => theme.light.b02}; 
   }
   span:last-child {
     width: calc(100% - 140px);
     padding: 10px 2rem 9px;
-    border-bottom: 2px solid var(--bg-200);
+    border-bottom: 2px solid ${({ theme }) => theme.light.b02}; 
   }
   li:nth-child(3) span:last-child {
     width: calc(100% - 120px);
@@ -149,7 +153,7 @@ const BoardContent = styled.div`
   min-height: 30rem;
   padding: 1rem;
   margin-bottom: 10px;
-  border: 2px solid var(--bg-200);
+  border: 2px solid ${({ theme }) => theme.light.b02};
   font-size: 1rem;
   font-weight: 400;
 `;
@@ -182,7 +186,7 @@ const StyleButton = styled.button`
   &:hover,
   &:active,
   &:focus {
-    box-shadow: 0 0 0 1px var(--accent-200);
+    box-shadow: 0 0 0 1px ${({ theme }) => theme.color.c07};
   }
 `;
 // [ ] styled.component 전역으로 옮겨야함

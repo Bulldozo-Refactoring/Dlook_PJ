@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { styled } from 'styled-components';
 import Mymenu from 'app/components/Mymenu';
-import SubmitButton from 'app/components/SubmitButton';
+import { SubmitButton } from 'app/style/StyledComponent';
 import logo from 'app/assets/images/logo.svg';
 
 const MyCertify = () => {
@@ -13,7 +13,9 @@ const MyCertify = () => {
   const user = useSelector((state) => state.user);
   console.log('User:{}', user);
 
-  if (isLoggedIn) {
+  const test = true;
+
+  if (test) {
     // 연동 후
     return (
       <Container>
@@ -98,10 +100,10 @@ const Right = styled.div`
   min-height: 600px;
 `;
 const Before = styled.div`
-  // display: none;
+  display: none;
   height: 100%;
   padding: 100px 10px;
-  border: 1px solid var(--bg-300);
+  border: 1px solid ${({ theme }) => theme.color.c01};
   border-radius: 10px;
   text-align: center;
 `;
@@ -111,14 +113,19 @@ const After = styled(Before)`
   height: 70%;
   margin: 0 auto;
   padding: 40px;
-  background-image: linear-gradient(130deg, #424874, #6f73a3, #d0d3ff);
+  background-image: linear-gradient(
+    130deg,
+    ${({ theme }) => theme.light.t03},
+    ${({ theme }) => theme.color.c03},
+    ${({ theme }) => theme.light.t03}
+  );
 `;
 const Img = styled.img`
   width: 150px;
   padding: 10px;
   vertical-align: middle;
   border-radius: 10px;
-  background-color: var(--primary-100);
+  background-color: ${({ theme }) => theme.light.t03};
 `;
 const PStyle = styled.p`
   margin: 4rem 0 1rem;
@@ -138,7 +145,8 @@ const LiStyle = styled.li`
     transform: translateY(-50%);
     counter-increment: number 1;
     content: counter(number) '.';
-    color: var(--text-100);
+    color: 
+    ${({ theme }) => theme.light.t01}
     font-size: 0.8em;
     z-index: 1;
   }
@@ -148,7 +156,7 @@ const Circle = styled.p`
   height: 200px;
   margin: 0 auto 2rem;
   border-radius: 50%;
-  background-color: var(--bg-100);
+  background-color: ${({ theme }) => theme.light.b01};
 `;
 const PinkText01 = styled.p`
   width: 100%;
@@ -157,7 +165,7 @@ const PinkText01 = styled.p`
   overflow: hidden;
   font-weight: 500;
   font-size: 25px;
-  color: #ffcefe;
+  color: ${({ theme }) => theme.color.c07};
 `;
 const PinkText02 = styled(PinkText01)`
   margin-bottom: 11.5rem;
@@ -171,13 +179,13 @@ const BlueText = styled.span`
   margin-bottom: 11.5rem;
   font-size: 2rem;
   font-weight: 700;
-  color: #d0d3ff;
+  color: ${({ theme }) => theme.color.c04};
 `;
 const WhiteText = styled.p`
   display: inline-block;
   width: 40%;
   font-weight: 500;
   font-size: 20px;
-  color: var(--bg-100);
+  color: ${({ theme }) => theme.light.b01};
 `;
 export default MyCertify;

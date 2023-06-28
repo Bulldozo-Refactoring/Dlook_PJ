@@ -11,8 +11,8 @@ import { styled } from 'styled-components';
 const BoardModify = () => {
   const navigate = useNavigate();
   const { boardNo } = useParams();
-  // const memberName = setMemberName();
-  const memberName = useSelector((state) => state.cookie.memberName);
+  const memberName = setMemberName();
+  // const memberName = useSelector((state) => state.cookie.memberName);
   const boardWriter = useSelector((state) => state.board.boardWriter);
   const [data, setData] = useState([]);
   const { register, handleSubmit, setValue } = useForm();
@@ -70,16 +70,15 @@ const BoardModify = () => {
                 {...register('boardContent')}
               ></BoardContent>
               {/* <Button color={['#F5F5FF', '#64748B', '#64748B']} onClick={() => handleDelete()} title="삭제하기"></Button> */}
-
               <Button
-                color={['var(--primary-200)', 'var(--text-100)', '#64748B']}
+                color={[({ theme }) => theme.color.c05, ({ theme }) => theme.light.t01, ({ theme }) => theme.light.t02]}
                 onClick={handleUpdate}
                 type="submit"
                 title="수정하기"
               ></Button>
             </Form>
             <Button
-              color={['var(--primary-100)', 'var(--bg-200)', 'var(--primary-100)']}
+              color={[({ theme }) => theme.light.t03, ({ theme }) => theme.light.b02, ({ theme }) => theme.light.t03]}
               onClick={() => navigate('/boards/list?page=1')}
               title="목록가기"
             ></Button>
@@ -133,13 +132,13 @@ const StyleUl = styled.ul`
   }
   span:first-child {
     padding: 10px 2rem;
-    border-left: 2px solid var(--primary-100);
-    background-color: var(--bg-200);
+    border-left: 2px solid ${({ theme }) => theme.light.t03};
+    background-color: ${({ theme }) => theme.light.b02};
   }
   span:last-child {
     width: calc(100% - 140px);
     padding: 10px 2rem 9px;
-    border-bottom: 2px solid var(--bg-200);
+    border-bottom: 2px solid ${({ theme }) => theme.light.b02};
   }
   li:nth-child(3) span:last-child {
     width: calc(100% - 120px);
@@ -153,7 +152,7 @@ const BoardContent = styled.textarea`
   min-height: 30rem;
   padding: 1rem;
   margin-bottom: 10px;
-  border: 2px solid var(--bg-200);
+  border: 2px solid ${({ theme }) => theme.light.b02};
   font-size: 1rem;
   font-weight: 400;
 `;
@@ -191,7 +190,7 @@ const StyleButton = styled.button`
   &:hover,
   &:active,
   &:focus {
-    box-shadow: 0 0 0 1px var(--accent-200);
+    box-shadow: 0 0 0 1px ${({ theme }) => theme.color.c07};
   }
 `;
 // [ ] styled.component 전역으로 옮겨야함

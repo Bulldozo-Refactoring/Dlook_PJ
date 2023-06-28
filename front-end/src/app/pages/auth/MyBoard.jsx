@@ -3,7 +3,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 import Mymenu from 'app/components/Mymenu';
 
-function MyBoard() {
+const MyBoard = () => {
   return (
     <Container>
       <H1>내정보</H1>
@@ -13,7 +13,7 @@ function MyBoard() {
       </Content>
     </Container>
   );
-}
+};
 const Container = styled.div`
   padding: 80px 0 0;
 `;

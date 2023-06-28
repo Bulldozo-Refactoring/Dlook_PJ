@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 
-function CommentRun() {
+const CommentRun = () => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
 
@@ -37,7 +37,7 @@ function CommentRun() {
       </ul>
     </Div>
   );
-}
+};
 
 const H1 = styled.h1`
   text-align: left;
@@ -46,7 +46,7 @@ const H1 = styled.h1`
 const Input = styled.input`
   padding: 10px;
   margin-bottom: 10px;
-  border: 1px solid ${({ theme }) => theme.lightTheme.bg300};
+  border: 1px solid ${({ theme }) => theme.color.c01};
   border-radius: 4px;
   width: 94%;
 `;

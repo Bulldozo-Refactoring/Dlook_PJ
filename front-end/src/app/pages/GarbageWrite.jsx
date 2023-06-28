@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
-function Garbage() {
+const Garbage = () => {
   const {
     register,
     handleSubmit,
@@ -62,7 +62,7 @@ function Garbage() {
       </Form>
     </Container>
   );
-}
+};
 
 const Container = styled.div`
   padding: 100px 20px;
@@ -90,7 +90,7 @@ const RadioInput = styled.input`
   width: 20px;
   height: 20px;
   margin-right: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid ${({ theme }) => theme.color.c01};
 `;
 
 const RadioLabel = styled.label`
@@ -105,7 +105,7 @@ const ErrorMessage = styled.span`
 const Button = styled.button`
   padding: 10px 20px;
   background-color: #007bff;
-  color: #fff;
+  color: ${({ theme }) => theme.light.b01};
   border: none;
   border-radius: 4px;
   cursor: pointer;

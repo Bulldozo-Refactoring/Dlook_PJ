@@ -3,15 +3,15 @@ import { getBoardCreate } from 'app/slices/BoardSlice';
 import { checkAuthentication, setMemberName } from 'app/store';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 const BoardWrite = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const memberName = useSelector((state) => state.cookie.memberName);
-  // const memberName = setMemberName();
+  // const memberName = useSelector((state) => state.cookie.memberName);
+  const memberName = setMemberName();
   const { register, handleSubmit } = useForm();
 
   useEffect(() => {
@@ -64,10 +64,14 @@ const BoardWrite = () => {
                 </li>
               </StyleUl>
               <BoardContent id="boardContent" name="boardContent" type="text" {...register('boardContent')}></BoardContent>
-              <Button color={['var(--primary-200)', 'var(--text-100)', '#64748B']} type="submit" title="등록하기"></Button>
+              <Button
+                color={[({ theme }) => theme.color.c05, ({ theme }) => theme.light.t01, ({ theme }) => theme.light.t02]}
+                type="submit"
+                title="등록하기"
+              ></Button>
             </Form>
             <Button
-              color={['var(--primary-100)', 'var(--bg-200)', 'var(--primary-100)']}
+              color={[({ theme }) => theme.light.t03, ({ theme }) => theme.light.b02, ({ theme }) => theme.light.t03]}
               type="button"
               onClick={() => navigate('/boards/list?page=1')}
               title="목록가기"
@@ -122,13 +126,13 @@ const StyleUl = styled.ul`
   }
   span:first-child {
     padding: 10px 2rem;
-    border-left: 2px solid var(--primary-100);
-    background-color: var(--bg-200);
+    border-left: 2px solid ${({ theme }) => theme.light.t03};
+    background-color: ${({ theme }) => theme.light.b02};
   }
   span:last-child {
     width: calc(100% - 140px);
     padding: 10px 2rem 9px;
-    border-bottom: 2px solid var(--bg-200);
+    border-bottom: 2px solid ${({ theme }) => theme.light.b02};
   }
   li:nth-child(3) span:last-child {
     width: calc(100% - 120px);
@@ -142,7 +146,7 @@ const BoardContent = styled.textarea`
   min-height: 30rem;
   padding: 1rem;
   margin-bottom: 10px;
-  border: 2px solid var(--bg-200);
+  border: 2px solid ${({ theme }) => theme.light.b02};
   font-size: 1rem;
   font-weight: 400;
 `;
@@ -155,7 +159,7 @@ const StyledSelect = styled.select`
   display: inline-block;
   width: calc(100% - 140px);
   padding: 9px 2rem;
-  border: 2px solid var(--bg-200);
+  border: 2px solid ${({ theme }) => theme.light.b02};
   font-size: 1.3rem;
 `;
 const StyleButton = styled.button`
@@ -170,7 +174,7 @@ const StyleButton = styled.button`
   &:hover,
   &:active,
   &:focus {
-    box-shadow: 0 0 0 1px var(--accent-200);
+    box-shadow: 0 0 0 1px ${({ theme }) => theme.color.c07};
   }
 `;
 // [ ] styled.component 전역으로 옮겨야함

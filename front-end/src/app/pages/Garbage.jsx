@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-function Garbage() {
+const Garbage = () => {
   return (
     <Conainter>
       <H1>Garbage Collection</H1>
@@ -15,7 +15,7 @@ function Garbage() {
       </Phone>
     </Conainter>
   );
-}
+};
 
 const Conainter = styled.div`
   padding: 80px 120px;
@@ -32,8 +32,8 @@ const Phone = styled.div`
   width: 70%;
   height: 800px;
   margin: 0 auto;
-  border: 50px solid var(--bg-300);
-  border-bottom: 100px solid var(--bg-300);
+  border: 50px solid ${({ theme }) => theme.color.c01};
+  border-bottom: 100px solid ${({ theme }) => theme.color.c01};
   border-radius: 40px;
 `;
 const UlList = styled.ul`
@@ -45,7 +45,7 @@ const UlList = styled.ul`
 `;
 const Lilist = styled.li`
   padding: 15px 10px;
-  border: 1px solid var(--bg-300);
+  border: 1px solid ${({ theme }) => theme.color.c01};
   font-weight: 300;
 `;
 const PhoneBtn = styled(NavLink)`
@@ -56,12 +56,12 @@ const PhoneBtn = styled(NavLink)`
   height: 70px;
   padding: 25px 10px;
   border-radius: 50%;
-  background-color: var(--bg-100);
+  background-color: ${({ theme }) => theme.light.b01};
   font-weight: 500;
   &:active,
   &:focus {
-    background-color: var(--primary-200);
-    color: var(--bg-100);
+    background-color: ${({ theme }) => theme.light.t03};
+    color: ${({ theme }) => theme.light.b01};
   }
 `;
 const dummyList = [{ id: 1 }, { id: 2 }, { id: 3 }, { id: 4 }, { id: 5 }];

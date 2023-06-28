@@ -2,7 +2,7 @@
 import { styled } from 'styled-components';
 import RadarCharts from 'app/components/Algorithms/RadarCharts';
 
-function Type() {
+const Type = () => {
   return (
     <AlgorithmsType>
       <H1>유형별 분석</H1>
@@ -11,14 +11,9 @@ function Type() {
       </Wrap>
     </AlgorithmsType>
   );
-}
+};
 
-const AlgorithmsType = styled.div`
-  width: auto;
-  min-height: 600px;
-  margin: 0 auto;
-  padding: 120px 0 0;
-`;
+const AlgorithmsType = styled.div``;
 const H1 = styled.h1`
   margin-bottom: 3rem;
   text-align: center;

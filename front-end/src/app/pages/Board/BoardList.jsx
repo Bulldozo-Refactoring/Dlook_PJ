@@ -1,13 +1,11 @@
-import { setBoardNo } from 'app/slices/BoardSlice';
+import { Table } from 'app/components/Board/Table';
 import instance from 'app/slices/Instance';
 import { useCallback, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 const BoardList = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [categoryTab, setcategoryTab] = useState(2);
   const [dataList, setDataList] = useState([]);
   const [totalElements, setTotalElements] = useState(1);
@@ -32,31 +30,24 @@ const BoardList = () => {
     getBoardList();
   }, [getBoardList]);
 
-  const handleTitleClick = (boardNo) => dispatch(setBoardNo(boardNo));
   const handlePagenChange = (indexNumber) => setPageNumber(indexNumber);
   const handleCategoryClick = (category) => {
     setcategoryTab(category);
     setPageNumber(0);
     setDataList([]);
-
     let url = category === 2 ? 'list' : category;
     navigate(`/boards/${url}?page=0`);
   };
 
-  const renderTableRows = () => {
-    return dataList.map((list, index) => (
-      <StyledTr key={list.boardNo}>
-        <StyleTd>{pageNumber * 10 + index + 1}</StyleTd>
-        <StyleTd>
-          <NavLink to={`/boards/detail/${list.boardNo}`} onClick={() => handleTitleClick(list.boardNo)}>
-            {list.boardTitle}
-          </NavLink>
-        </StyleTd>
-        <StyleTd>{list.boardWriter}</StyleTd>
-        <StyleTd>{list.createdTime}</StyleTd>
-      </StyledTr>
-    ));
-  };
+  const modifiedDataList = dataList.map((list) => {
+    const { boardNo, boardTitle, boardWriter, createdTime } = list;
+    return {
+      no: boardNo,
+      title: boardTitle,
+      boardWriter,
+      createdTime,
+    };
+  });
 
   const renderPaginationButtons = () => {
     return Array.from({ length: totalPages }).map((boardCtg, index) => (
@@ -90,17 +81,7 @@ const BoardList = () => {
               </Tab>
             </StyleLi>
           </StyledUl>
-          <StyleTable>
-            <thead>
-              <tr>
-                <StyleTh>번호</StyleTh>
-                <StyleThTitle>제목</StyleThTitle>
-                <StyleTh>작성자</StyleTh>
-                <StyleTh>등록일</StyleTh>
-              </tr>
-            </thead>
-            <tbody>{renderTableRows()}</tbody>
-          </StyleTable>
+          {Table(['번호', '제목', '작성자', '등록일'], modifiedDataList, '/boards/detail', pageNumber)}
         </Wrap>
         <StyledButton onClick={() => navigate(`/boards/write`)}>글 작성</StyledButton>
         <Pagination>{renderPaginationButtons()}</Pagination>
@@ -110,11 +91,12 @@ const BoardList = () => {
 };
 
 const Board = styled.div`
-  padding: 5rem 7rem 8rem;
+  max-width: ${({ theme }) => theme.common.col9};
+  margin: 0 auto;
 `;
 const Wrap = styled.div`
   margin-bottom: 3rem;
-  box-shadow: 0px 10px 2px 5px var(--bg-300);
+  box-shadow: 0px 10px 2px 5px ${({ theme }) => theme.color.c01};
 `;
 const StyleP = styled.p`
   padding: 10px 5px;
@@ -133,77 +115,37 @@ const Tab = styled.button`
   font-weight: 700;
   width: 100%;
   &:hover {
-    color: var(--accent-200);
+    color: ${({ theme }) => theme.color.c08};
   }
   &:focus {
-    color: var(--accent-200);
-    background-color: var(--primary-100);
+    color: ${({ theme }) => theme.color.c07};
+    background-color: ${({ theme }) => theme.light.t03};
   }
   &.active {
-    color: var(--accent-200);
-    background-color: var(--primary-100);
+    color: ${({ theme }) => theme.color.c07};
+    background-color: ${({ theme }) => theme.light.t03};
   }
 `;
 const StyledUl = styled.ul`
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid var(--bg-300);
+  border-bottom: 1px solid ${({ theme }) => theme.color.c01};
 `;
 const StyleLi = styled.li`
   width: 33.33%;
-  background-color: var(--bg-200);
-`;
-
-const StyleTable = styled.table`
-  width: 100%;
-`;
-const StyleTh = styled.th`
-  padding: 10px;
-  border-right: 1px solid var(--bg-100);
-  background-color: var(--primary-200);
-  font-weight: 600;
-  color: var(--bg-100);
-  &:last-child {
-    border: none;
-  }
-}
-`;
-const StyleThTitle = styled(StyleTh)`
-  width: 60%;
-`;
-const StyledTr = styled.tr`
-  * {
-    font-weight: 500;
-  }
-  &:hover *,
-  &:focus *,
-  &.active * {
-    color: var(--primary-200);
-    background-color: var(--text-200);
-    cursor: pointer;
-  }
-`;
-const StyleTd = styled.td`
-  padding: 8px;
-  text-align: center;
-  border-right: 1px solid var(--bg-300);
-  border-bottom: 1px solid var(--bg-300);
-
-  &:last-child {
-    border-right: none;
-  }
+  background-color: ${({ theme }) => theme.light.b03};
 `;
 const StyledButton = styled.button`
   display: block;
   margin-left: auto;
   padding: 0.7rem 1.5rem;
   border-radius: 10px;
-  background-color: var(--primary-200);
+  background-color: ${({ theme }) => theme.color.c05};
   font-size: 1rem;
   font-weight: 500;
   &:hover {
-    color: var(--bg-100);
-    background-color: var(--text-200);
+    color: ${({ theme }) => theme.light.b01};
+    background-color: ${({ theme }) => theme.light.t02};
   }
 `;
 const Pagination = styled.div`
@@ -215,13 +157,13 @@ const PaginButton = styled.button`
   padding: 0.7rem;
   margin: 0 5px;
   border-radius: 5px;
-  background-color: var(--bg-200);
+  background-color: ${({ theme }) => theme.light.b02};
   font-size: 1rem;
   font-weight: 500;
   &:hover,
   &.active {
-    color: var(--bg-100);
-    background-color: var(--text-200);
+    color: ${({ theme }) => theme.light.b01};
+    background-color: ${({ theme }) => theme.light.t02};
   }
 `;
 export default BoardList;

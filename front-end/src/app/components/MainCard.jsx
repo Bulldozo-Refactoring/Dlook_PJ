@@ -1,11 +1,11 @@
 // main페이지에 사용하는 카드 - 스타일 컴포넌트로 바꿀지 고민중
-import SubmitButton from 'app/components/SubmitButton';
+import { SubmitButton } from 'app/style/StyledComponent';
 
 import { Card, CardActions, CardContent, Typography } from '@mui/material';
 
 const MainCard = () => {
   return (
-    <Card sx={{ maxWidth: 350, margin: '0 auto' }}>
+    <Card sx={{ maxWidth: 350 }}>
       <CardContent sx={{ paddingBottom: 0 }}>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           Kakao

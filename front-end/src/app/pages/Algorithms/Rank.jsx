@@ -1,7 +1,7 @@
 // 알고리즘 - 랭킹분석
 import { styled } from 'styled-components';
 
-function Child() {
+const Rank = () => {
   return (
     <AlgorithmsType>
       <div style={{ marginBottom: '6rem' }}>
@@ -13,8 +13,8 @@ function Child() {
         <H2>Rating</H2>
         <Rating>
           <RatingBefore>Rank</RatingBefore>
-          <RatingContent style={{ borderBottom: '1px solid var(--bg-300)' }}>
-            <RatingLi style={{ borderRight: '1px solid var(--bg-300)' }}>
+          <RatingContent style={{ borderBottom: '1px solid #ccc' }}>
+            <RatingLi style={{ borderRight: '1px solid #ccc' }}>
               EXP<Value>2500</Value>
             </RatingLi>
             <RatingLi>
@@ -22,7 +22,7 @@ function Child() {
             </RatingLi>
           </RatingContent>
           <RatingContent>
-            <RatingLi style={{ borderRight: '1px solid var(--bg-300)' }}>
+            <RatingLi style={{ borderRight: '1px solid #ccc' }}>
               Class<Value>2500</Value>
             </RatingLi>
             <RatingLi>
@@ -33,7 +33,7 @@ function Child() {
       </div>
     </AlgorithmsType>
   );
-}
+};
 const AlgorithmsType = styled.div`
   width: auto;
   min-height: 600px;
@@ -67,7 +67,7 @@ const Rating = styled.div`
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  box-shadow: 0 0 0 2px ${({ theme }) => theme.lightTheme.bg400};
+  box-shadow: 0 0 0 2px ${({ theme }) => theme.color.c01};
   border-radius: 10px;
   height: 200px;
 `;
@@ -79,9 +79,9 @@ const RatingBefore = styled.div`
   height: 60px;
   padding: 19px 0;
   border-radius: 50%;
-  background-color: ${({ theme }) => theme.lightTheme.p100};
+  background-color: ${({ theme }) => theme.color.c05};
   font-weight: 500;
-  color: ${({ theme }) => theme.lightTheme.bg300};
+  color: ${({ theme }) => theme.light.b03};
 `;
 const RatingContent = styled.ul`
   height: 50%;
@@ -101,6 +101,6 @@ const Value = styled.span`
   font-size: 25px;
   line-height: 25px;
   font-weight: 500;
-  color: ${({ theme }) => theme.lightTheme.p400};
+  color: ${({ theme }) => theme.color.c08};
 `;
-export default Child;
+export default Rank;
