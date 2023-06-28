@@ -4,50 +4,53 @@ import { styled } from 'styled-components';
 function HeaderMenu() {
   return (
     <>
-      <li>
+      <Li>
         <Title>알고리즘 문제 풀이</Title>
         <ul>
-          <Li>
+          <StyleLi>
             <NavStyle to="/algorithms/step">문제 추천</NavStyle>
-          </Li>
-          <Li>
+          </StyleLi>
+          <StyleLi>
             <NavStyle to="/algorithms/type">알고리즘 문제 분석</NavStyle>
-          </Li>
+          </StyleLi>
+          <StyleLi>
+            <NavStyle to="/algorithms/rank">랭킹 분석</NavStyle>
+          </StyleLi>
         </ul>
-      </li>
-      <li>
+      </Li>
+      <Li>
         <Title>전체 게시판</Title>
         <ul>
-          <Li>
+          <StyleLi>
             <NavStyle to={`/boards/list?page=0`}>전체 게시판</NavStyle>
-          </Li>
+          </StyleLi>
         </ul>
-      </li>
-      <li>
+      </Li>
+      <Li>
         <Title>쓰레기통</Title>
         <ul>
-          <Li>
+          <StyleLi>
             <NavStyle to="/garbage">쓰레기통</NavStyle>
-          </Li>
+          </StyleLi>
         </ul>
-      </li>
-      <li>
+      </Li>
+      <Li>
         <Title>더보기</Title>
         <ul>
-          <Li>
+          <StyleLi>
             <NavStyle to="/mypages/certify">내 정보</NavStyle>
-          </Li>
-          <Li>
+          </StyleLi>
+          <StyleLi>
             <NavStyle to="/notice">공지사항/이벤트</NavStyle>
-          </Li>
-          <Li>
+          </StyleLi>
+          <StyleLi>
             <NavStyle to="/">이용방법</NavStyle>
-          </Li>
-          <Li>
+          </StyleLi>
+          <StyleLi>
             <NavStyle to="/">서비스 정책</NavStyle>
-          </Li>
+          </StyleLi>
         </ul>
-      </li>
+      </Li>
     </>
   );
 }
@@ -57,6 +60,9 @@ const Title = styled.p`
   font-weight: bold;
 `;
 const Li = styled.li`
+  margin: 0 3rem;
+`;
+const StyleLi = styled.li`
   position: relative;
 `;
 const NavStyle = styled(BaseNavLink)`
@@ -64,17 +70,17 @@ const NavStyle = styled(BaseNavLink)`
   padding: 6px 15px;
   border-left: 3px solid;
   font-size: 0.9em;
-  color: ${({ theme }) => theme.lightTheme.t300};
+  color: ${({ theme }) => theme.light.t03};
   font-weight: 500;
   &:hover,
   &:focus {
-    color: ${({ theme }) => theme.lightTheme.p300};
+    color: ${({ theme }) => theme.light.c07};
   }
   &:hover::before {
-    background-color: ${({ theme }) => theme.lightTheme.t300};
+    background-color: ${({ theme }) => theme.light.t03};
   }
   &.active {
-    color: ${({ theme }) => theme.lightTheme.p300};
+    color: ${({ theme }) => theme.color.c07};
     font-weight: 700;
   }
 `;

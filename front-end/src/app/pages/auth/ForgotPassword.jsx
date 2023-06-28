@@ -1,4 +1,4 @@
-import SubmitButton from 'app/components/SubmitButton';
+import { SubmitButton } from 'app/style/StyledComponent';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
@@ -44,7 +44,7 @@ const Container = styled.div`
 const Title = styled.h1`
   margin-bottom: 2rem;
   font-size: 35px;
-  color: ${({ theme }) => theme.lightTheme.t100};
+  color: ${({ theme }) => theme.light.t01};
   text-align: center;
 `;
 const Form = styled.form`
@@ -59,9 +59,9 @@ const Input = styled.input`
   margin-bottom: 1rem;
   border-radius: 6px;
   box-sizing: border-box;
-  background-color: ${({ theme }) => theme.lightTheme.t200};
+  background-color: ${({ theme }) => theme.light.t02};
   ::placeholder {
-    color: ${({ theme }) => theme.lightTheme.bg400};
+    color: ${({ theme }) => theme.color.c01};
   }
 `;
 const PStyle = styled.p`
@@ -73,10 +73,10 @@ const Button = styled(SubmitButton)`
   width: calc(50% - 200px);
   margin-bottom: 1rem !important;
   border-radius: 6px !important;
-  color: var(--primary-100) !important;
+  color: ${({ theme }) => theme.light.t03} !important;
 `;
 const NavStyle = styled(NavLink)`
   text-decoration: underline;
-  color: var(--primary-200);
+  color: ${({ theme }) => theme.color.c05};
 `;
 export default ForgotPassword;

@@ -1,9 +1,9 @@
-function notice() {
+const Notice = () => {
   return (
     <div className="container">
       <h1>공지사항</h1>
     </div>
   );
-}
+};
 
-export default notice;
+export default Notice;

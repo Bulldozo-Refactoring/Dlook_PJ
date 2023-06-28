@@ -2,30 +2,17 @@
 import { styled } from 'styled-components';
 import PieChart from 'app/components/Algorithms/PieCharts';
 
-function Wrong() {
+const Wrong = () => {
   return (
     <AlgorithmsWrong>
-      <H1>오답 유형</H1>
       <Wrap>
         <PieChart data={exData} />
       </Wrap>
     </AlgorithmsWrong>
   );
-}
+};
 
-const AlgorithmsWrong = styled.div`
-  width: auto;
-  min-height: 600px;
-  margin: 0 auto;
-  padding: 120px 0 0;
-`;
-const H1 = styled.h1`
-  margin-bottom: 3rem;
-  text-align: center;
-  font-size: 45px;
-  font-weight: 500;
-  line-height: 51px;
-`;
+const AlgorithmsWrong = styled.div``;
 const Wrap = styled.div`
   width: 100%;
   height: 500px;

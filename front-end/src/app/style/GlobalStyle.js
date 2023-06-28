@@ -6,39 +6,27 @@ const GlobalStyle = createGlobalStyle`
 ${reset}
 @font-face {
   font-family: "GmarketSans";
-  src: url("../assets/fonts/GmarketSansTTFLight.ttf") format("woff");
+  src: url("../assets/fonts/GmarketSansTTFLight.ttf") format("tff");
   font-weight: 300;
   font-style: Light;
   font-display: swap;
 }
 @font-face {
   font-family: "GmarketSans";
-  src: url("../assets/fonts/GmarketSansTTFMedium.ttf") format("woff");
+  src: url("../assets/fonts/GmarketSansTTFMedium.ttf") format("tff");
   font-weight: 500;
   font-style: medium;
   font-display: swap;
 }
 @font-face {
   font-family: "GmarketSans";
-  src: url("../assets/fonts/GmarketSansTTFBold.ttf") format("woff");
+  src: url("../assets/fonts/GmarketSansTTFBold.ttf") format("tff");
   font-weight: 700;
   font-style: bold;
   font-display: swap;
 }
-:root {
-    --primary-100: #424874;
-    --primary-200: #a6b1e1;
-    --primary-300: #fdf6fd;
-    --accent-100: #d9acf5;
-    --accent-200: #ffcefe;
-    --text-100: #292524;
-    --text-200: #64748b;
-    --bg-100: #ffffff;
-    --bg-200: #f5f5f5;
-    --bg-300: #cccccc;
-  }
   * {
-    color:  ${({ theme }) => theme.lightTheme.t100};
+    color:  ${({ theme }) => theme.light.t01};
     font-family: "GmarketSans";
     font-weight: 300;
   }
@@ -48,8 +36,8 @@ ${reset}
     font-size: 1rem;
     font-weight: normal;
     line-height: 1.5;
-    color: ${({ theme }) => theme.lightTheme.t100};
-    background: ${({ theme }) => theme.lightTheme.bg100};
+    color: ${({ theme }) => theme.light.t01};
+    background: ${({ theme }) => theme.light.b01};
   }
   ::-webkit-scrollbar {
     display: none;
@@ -139,7 +127,7 @@ ${reset}
     position: fixed;
     width: 100%;
     height: 80px;
-    background-color: ${({ theme }) => theme.lightTheme.t300};
+    background-color: ${({ theme }) => theme.light.t03};
     z-index: 100;
   }
   .container_inner {
@@ -149,16 +137,11 @@ ${reset}
   }
   #footer {
     height: 200px;
-    background-color:${({ theme }) => theme.lightTheme.t300};
+    background-color:${({ theme }) => theme.light.t03};
   }
   button {
-    color: var(--text-100);
-  }
-  /* 알고리즘 */
-  #Algorithms.container_inner {
-    padding: 80px 40px;
-  }
-  
+    color: ${({ theme }) => theme.light.t01};
+  }  
 `;
 
 export default GlobalStyle;

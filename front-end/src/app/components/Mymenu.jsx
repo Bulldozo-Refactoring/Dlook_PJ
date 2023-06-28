@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink as BaseNavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-function Mymenu() {
+const Mymenu = () => {
   return (
     <MenuUl>
       <MenuLi>
@@ -13,7 +13,7 @@ function Mymenu() {
       </MenuLi>
     </MenuUl>
   );
-}
+};
 
 const MenuUl = styled.ul`
   min-width: 220px;
@@ -28,17 +28,17 @@ const NavStyle = styled(BaseNavLink)`
   padding: 6px 15px;
   border-left: 3px solid;
   font-size: 1.3em;
-  color: ${({ theme }) => theme.lightTheme.t100};
+  color: ${({ theme }) => theme.ligth.t01};
   font-weight: 500;
   &:hover,
   &:focus {
-    color: ${({ theme }) => theme.lightTheme.p400};
+    color: ${({ theme }) => theme.color.c01};
   }
   &:hover::before {
-    background-color: ${({ theme }) => theme.lightTheme.p400};
+    background-color: ${({ theme }) => theme.color.c07};
   }
   &.active {
-    color: ${({ theme }) => theme.lightTheme.p400};
+    color: ${({ theme }) => theme.color.c07};
     font-weight: 700;
   }
 `;

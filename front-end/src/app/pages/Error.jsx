@@ -1,13 +1,8 @@
 import { styled } from 'styled-components';
 
-function Error() {
-  return (
-    <Container>
-      어라라
-      <br /> 난 몰라...!
-    </Container>
-  );
-}
+const Error = () => {
+  return <Container>미래의 나야 미안하다..</Container>;
+};
 const Container = styled.div`
   padding: 100px;
   font-size: 50px;

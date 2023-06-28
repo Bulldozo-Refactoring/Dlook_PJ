@@ -8,7 +8,7 @@ import { styled } from 'styled-components';
 
 import google from 'app/assets/images/google.png';
 
-function Login() {
+const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const checkUser = checkAuthentication();
@@ -91,7 +91,7 @@ function Login() {
       </Container>
     </>
   );
-}
+};
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -112,7 +112,7 @@ const Box = styled.div`
 const Title = styled.h1`
   margin-bottom: 20px;
   font-size: 35px;
-  color: var(--text-100);
+  color: ${({ theme }) => theme.light.t01};
   text-align: center;
 `;
 const Input = styled.input`
@@ -122,15 +122,15 @@ const Input = styled.input`
   margin-bottom: 2rem;
   border-radius: 6px;
   box-sizing: border-box;
-  background-color: var(--bg-200);
+  background-color: ${({ theme }) => theme.light.b03};
   ::placeholder {
-    color: var(--bg-300);
+    color: ${({ theme }) => theme.color.c01};
   }
 `;
 const Input01 = styled(Input)`
-  color: var(--bg-100);
+  color: ${({ theme }) => theme.light.b01};
   font-size: 16px;
-  background-color: var(--primary-200) !important;
+  background-color: ${({ theme }) => theme.color.c05} !important;
 `;
 const Small = styled.small`
   position: absolute;

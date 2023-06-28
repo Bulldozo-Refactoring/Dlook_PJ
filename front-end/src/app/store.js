@@ -16,11 +16,12 @@ export const store = configureStore({
   devTools: true,
 });
 
-// export const setMemberName = () => {
-//   const token = localStorage.getItem('accessToken');
-//   const memberName = jwt_decode('Bearer ' + token).sub;
-//   return memberName;
-// };
+export const setMemberName = () => {
+  const token = localStorage.getItem('accessToken');
+  let memberName = null;
+  if (token !== null && token !== undefined) memberName = jwt_decode('Bearer ' + token).sub;
+  return memberName;
+};
 
 export const checkAuthentication = () => {
   const isLoggedIn = Cookies.get('isLoggedIn');

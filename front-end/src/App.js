@@ -20,10 +20,10 @@ import JoinResult from 'app/pages/auth/JoinResult';
 import ForgotPassword from 'app/pages/auth/ForgotPassword';
 import MyCertify from 'app/pages/auth/MyCertify';
 import MyBoard from 'app/pages/auth/MyBoard';
-import BoardList from 'app/pages/BoardList';
-import BoardWrite from 'app/pages/BoardWrite';
-import BoardDetail from 'app/pages/BoardDetail';
-import BoardModify from 'app/pages/BoardModify';
+import BoardList from 'app/pages/Board/BoardList';
+import BoardWrite from 'app/pages/Board/BoardWrite';
+import BoardDetail from 'app/pages/Board/BoardDetail';
+import BoardModify from 'app/pages/Board/BoardModify';
 
 const App = () => {
   const router = createBrowserRouter([

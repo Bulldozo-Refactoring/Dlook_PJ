@@ -34,18 +34,6 @@ export const getBoardCreate = createAsyncThunk('boards/create', async (payload) 
   }
 });
 
-// export const getBoardDelete = createAsyncThunk('boards/delete', async (boardNo, data) => {
-//   try {
-//     console.log(boardNo);
-//     console.log(data);
-//     await instance.delete(`/boards/${boardNo}`, data);
-//     console.log('성공!');
-//   } catch (error) {
-//     console.error('글 삭제 실패: ', error);
-//     throw error;
-//   }
-// });
-
 export const setBoardCtgLabel = (boardCtg) => {
   if (boardCtg === 'list') return '전체게시판';
   else if (boardCtg === 0) return '자유게시판';

@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
-function Join() {
+const Join = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
@@ -162,7 +162,7 @@ function Join() {
       </div>
     </SignUpTemplate>
   );
-}
+};
 
 const SignUpTemplate = styled.div`
   padding: 90px 40px 0px;
@@ -175,7 +175,7 @@ const SignUpTemplate = styled.div`
 `;
 const Title = styled.h1`
   font-size: 30px;
-  color: var(--text-100);
+  color: ${({ theme }) => theme.light.t01};
   margin-bottom: 20px;
 `;
 const FormStyle = styled.div`
@@ -197,9 +197,9 @@ const Input = styled.input`
   padding: 0 10px;
   box-sizing: border-box;
   border-radius: 6px;
-  background-color: var(--bg-200);
+  background-color: ${({ theme }) => theme.light.b03};
   ::placeholder {
-    color: var(--bg-300);
+    color: ${({ theme }) => theme.light.c01};
   }
 `;
 const Input01 = styled(Input)`
@@ -211,14 +211,14 @@ const Button = styled.button`
   margin: 20px auto 0;
   box-sizing: border-box;
   border-radius: 6px;
-  background-color: var(--primary-200);
-  color: var(--bg-100);
+  background-color: ${({ theme }) => theme.color.c04};
+  color: ${({ theme }) => theme.light.b01};
   font-size: 16px;
 `;
 const SendButton = styled(Button)`
   margin-top: 0;
-  background-color: var(--primary-100);
-  color: var(--bg-100);
+  background-color: ${({ theme }) => theme.light.t03};
+  color: ${({ theme }) => theme.light.b01};
 `;
 const RemainingTime = styled.span`
   width: 50px;
@@ -229,8 +229,8 @@ const RemainingTime = styled.span`
 const VerifyButton = styled(Button)`
   width: 80px;
   margin: 0 0 0 10px;
-  background-color: var(--primary-100);
-  color: var(--bg-100);
+  background-color: ${({ theme }) => theme.light.t03};
+  color: ${({ theme }) => theme.light.b01};
 `;
 const VerificationMessage = styled.p`
   width: 11%;
