@@ -84,18 +84,6 @@ public class BoardService {
         return ResponseEntity.ok(response);
     }
 
-
-    @Transactional
-    public ResponseEntity<String> write(BoardDTO boardDTO) {
-        Member member = memberRepository.findByMemberName(boardDTO.getBoardWriter())
-                .orElseThrow(() -> new AppException(ErrorCode.MEMBERNAME_NOT_FOUND));
-
-        Board board = boardDTO.toBoard(member);
-        boardRepository.save(board);
-
-        return ResponseEntity.ok().body("Success");
-    }
-
     @Transactional
     public ResponseEntity<BoardDTO> detail(Long boardNo) {
         Board board = boardRepository.findByBoardNo(boardNo)
@@ -111,6 +99,18 @@ public class BoardService {
 
         return ResponseEntity.ok().body(boardDTO);
     }
+
+    @Transactional
+    public ResponseEntity<String> write(BoardDTO boardDTO) {
+        Member member = memberRepository.findByMemberName(boardDTO.getBoardWriter())
+                .orElseThrow(() -> new AppException(ErrorCode.MEMBERNAME_NOT_FOUND));
+
+        Board board = boardDTO.toBoard(member);
+        boardRepository.save(board);
+
+        return ResponseEntity.ok().body("Success");
+    }
+
 
     public ResponseEntity<Board> update(Long boardNo, BoardDTO boardDTO) {
         Board board = boardRepository.findByBoardNo(boardNo)
