@@ -6,7 +6,7 @@ import instance from 'app/slices/Instance';
  * @param async (payload)
  * @return  response.data
  */
-export const PostJoin = createAsyncThunk('members/join', async (payload) => {
+export const postJoin = createAsyncThunk('members/join', async (payload) => {
   try {
     const response = await instance.post('members/join', payload);
     return response.data;

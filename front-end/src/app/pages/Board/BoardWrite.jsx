@@ -1,12 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { getBoardCreate } from 'app/slices/BoardSlice';
 import { checkAuthentication, setMemberName } from 'app/store';
-import { Title } from 'app/style/StyledComponent';
+import Button, { BoardText, Form, StyleSection, StyleTitle, StyleUl, StyledSelect } from 'app/style/StyleBoard';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { styled } from 'styled-components';
 
 const BoardWrite = () => {
   const navigate = useNavigate();
@@ -64,7 +63,7 @@ const BoardWrite = () => {
                   </span>
                 </li>
               </StyleUl>
-              <BoardContent id="boardContent" name="boardContent" type="text" {...register('boardContent')}></BoardContent>
+              <BoardText id="boardContent" name="boardContent" type="text" {...register('boardContent')}></BoardText>
               <Button
                 color={[({ theme }) => theme.color.c05, ({ theme }) => theme.light.t01, ({ theme }) => theme.light.t02]}
                 type="submit"
@@ -83,107 +82,6 @@ const BoardWrite = () => {
         <div>잘못된 접근</div>
       )}
     </>
-  );
-};
-
-const StyleSection = styled.section`
-  padding: 50px 80px 100px;
-`;
-const StyleTitle = styled(Title)`
-  margin-bottom: 2rem;
-  font-size: 2rem;
-  text-align: center;
-  font-weight: 700;
-`;
-const StyleUl = styled.ul`
-  display: grid;
-  gap: 20px;
-  grid-auto-rows: minmax(40px, auto);
-  box-sizing: border-box;
-  margin-bottom: 2rem;
-  * {
-    font-size: 1.1rem;
-    font-weight: 400;
-  }
-  li:nth-child(1) {
-    grid-column: 1 / 3;
-    grid-row: 1 / 2;
-  }
-  li:nth-child(2) {
-    grid-column: 3 / 4;
-    grid-row: 1 / 2;
-  }
-  li:nth-child(3) {
-    grid-column: 1 / 4;
-    grid-row: 2 / 3;
-  }
-  li {
-    line-height: 1.6rem;
-  }
-  span {
-    display: inline-block;
-    padding: 6px 2rem;
-    font-size: 1.3rem;
-  }
-  span:first-child {
-    padding: 10px 2rem;
-    border-left: 2px solid ${({ theme }) => theme.light.t03};
-    background-color: ${({ theme }) => theme.light.b02};
-  }
-  span:last-child {
-    width: calc(100% - 140px);
-    padding: 10px 2rem 9px;
-    border-bottom: 2px solid ${({ theme }) => theme.light.b02};
-  }
-  li:nth-child(3) span:last-child {
-    width: calc(100% - 120px);
-  }
-  li:nth-child(3) span:first-child {
-    width: 120px;
-  }
-`;
-const BoardContent = styled.textarea`
-  width: 100%;
-  min-height: 30rem;
-  padding: 1rem;
-  margin-bottom: 10px;
-  border: 2px solid ${({ theme }) => theme.light.b02};
-  font-size: 1rem;
-  font-weight: 400;
-`;
-const Form = styled.form`
-  button {
-    float: right;
-  }
-`;
-const StyledSelect = styled.select`
-  display: inline-block;
-  width: calc(100% - 140px);
-  padding: 9px 2rem;
-  border: 2px solid ${({ theme }) => theme.light.b02};
-  font-size: 1.3rem;
-`;
-const StyleButton = styled.button`
-  padding: 10px;
-  background-color: ${(props) => props.color[0]};
-  color: ${(props) => props.color[1]};
-  box-shadow: 0 0 0 1px ${(props) => props.color[2]};
-
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: 400;
-  &:hover,
-  &:active,
-  &:focus {
-    box-shadow: 0 0 0 1px ${({ theme }) => theme.color.c07};
-  }
-`;
-// [ ] styled.component 전역으로 옮겨야함
-const Button = ({ color, onClick, title }) => {
-  return (
-    <StyleButton color={color} onClick={onClick}>
-      {title}
-    </StyleButton>
   );
 };
 

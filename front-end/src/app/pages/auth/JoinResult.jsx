@@ -1,4 +1,4 @@
-import { Title } from 'app/style/StyledComponent';
+import { StyleTitle } from 'app/style/StyleAuth';
 import { NavLink } from 'react-router-dom';
 import { styled } from 'styled-components';
 
@@ -18,10 +18,6 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 100px 20px;
-`;
-const StyleTitle = styled(Title)`
-  margin: 5rem 0;
-  text-align: center;
 `;
 const NavStyle = styled(NavLink)`
   text-decoration: underline;

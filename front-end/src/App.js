@@ -121,6 +121,11 @@ const App = () => {
           ],
         },
         {
+          path: 'users',
+          errorElement: <Error />,
+          children: [{ path: ':memberName' }, { path: 'problem/level/:level' }, { path: 'problem/algorithm/:algorithm' }],
+        },
+        {
           path: 'mypages',
           element: <PrivateRoute />,
           errorElement: <Error />,

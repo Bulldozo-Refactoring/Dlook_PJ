@@ -3,10 +3,11 @@ import { checkAuthentication, setMemberName } from 'app/store';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { styled } from 'styled-components';
 
-import { Login, Logout } from '@mui/icons-material';
-import { Avatar, Box, IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
+import { Logout } from '@mui/icons-material';
+import { IconButton, ListItemIcon, Menu, MenuItem, Tooltip } from '@mui/material';
+
+import { AvatarStyle, BoxStyle, LoginIcon, PStyled } from 'app/style/StyleHeader';
 
 const HeaderUser = () => {
   const navigate = useNavigate();
@@ -116,23 +117,5 @@ const HeaderUser = () => {
     </>
   );
 };
-const PStyled = styled.p`
-  font-size: 18px;
-  font-weight: 400;
-  color: ${({ theme }) => theme.light.b01};
-`;
-const BoxStyle = styled(Box)`
-  display: flex;
-  align-items: center;
-  text-align: center;
-`;
-const LoginIcon = styled(Login)`
-  path {
-    color: ${({ theme }) => theme.color.c05};
-  }
-`;
-const AvatarStyle = styled(Avatar)`
-  background-color: ${({ theme }) => theme.color.c05} !important;
-`;
 
 export default HeaderUser;
