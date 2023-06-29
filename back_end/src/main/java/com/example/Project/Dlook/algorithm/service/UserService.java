@@ -17,11 +17,21 @@ import org.springframework.web.reactive.function.client.WebClient;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type User service.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class UserService {
 
+    /**
+     * Gets user.
+     *
+     * @param memberName the member name
+     * @return the user
+     * @throws JsonProcessingException the json processing exception
+     */
     public ResponseEntity<UserDto> getUser(String memberName) throws JsonProcessingException {
         String url = "https://solved.ac/api/v3/user/show?handle=" + memberName;
 
@@ -49,6 +59,13 @@ public class UserService {
         return ResponseEntity.ok().body(userDto);
     }
 
+    /**
+     * Gets problems by level.
+     *
+     * @param level the level
+     * @return the problems by level
+     * @throws JsonProcessingException the json processing exception
+     */
     public List<ProblemLevelDto> getProblemsByLevel(int level) throws JsonProcessingException {
         String url = "https://solved.ac/api/v3/search/problem?query=tier:" + level + "&sort=random";
 
@@ -86,6 +103,13 @@ public class UserService {
         return problemList;
     }
 
+    /**
+     * Gets problems by algorithm.
+     *
+     * @param algorithm the algorithm
+     * @return the problems by algorithm
+     * @throws JsonProcessingException the json processing exception
+     */
     public List<ProblemAlgorithmDto> getProblemsByAlgorithm(String algorithm) throws JsonProcessingException {
         String url = "https://solved.ac/api/v3/search/problem?query=&sort=random";
 
