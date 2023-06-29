@@ -1,13 +1,13 @@
 import { postLogin } from 'app/slices/CookieSlice';
 import { checkAuthentication } from 'app/store';
+import { Box, Button, Input, NavStyle, Small, StyleTitle, Wrap } from 'app/style/StyleAuth';
 import jwt_decode from 'jwt-decode';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { NavLink, Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 import google from 'app/assets/images/google.png';
-import { Title } from 'app/style/StyledComponent';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -38,9 +38,9 @@ const Login = () => {
         ) : (
           <Wrap>
             <StyleTitle>Login</StyleTitle>
-            <LoginFrom method="post" onSubmit={handleSubmit(onSubmit)}>
+            <form method="post" onSubmit={handleSubmit(onSubmit)}>
               <Box>
-                <Input
+                <StyleInput
                   id="memberEmail"
                   name="memberEmail"
                   type="text"
@@ -61,7 +61,7 @@ const Login = () => {
                 {errors.memberEmail && <Small role="alert">{errors.memberEmail.message}</Small>}
               </Box>
               <Box>
-                <Input
+                <StyleInput
                   id="memberPw"
                   name="memberPw"
                   type="password"
@@ -77,8 +77,10 @@ const Login = () => {
                 />
                 {errors.memberPw && <Small role="alert">{errors.memberPw.message}</Small>}
               </Box>
-              <Input01 type="submit" value="Login" disabled={isSubmitting} />
-            </LoginFrom>
+              <StyleButton type="submit" value="Login" disabled={isSubmitting}>
+                로그인
+              </StyleButton>
+            </form>
             <p style={{ marginBottom: '30px' }}>
               <img src={google} alt="구글 로그인" onClick={() => {}} />
               <NavStyleR to="/members/password">비밀번호 찾기</NavStyleR>
@@ -100,47 +102,13 @@ const Container = styled.div`
     font-weight: 500;
   }
 `;
-const Wrap = styled.div`
-  display: inline-block;
-  padding: 90px 40px 0;
-  width: 400px;
-  box-sizing: border-box;
-`;
-const LoginFrom = styled.form``;
-const Box = styled.div`
-  position: relative;
-`;
-const StyleTitle = styled(Title)`
-  color: ${({ theme }) => theme.light.t01};
-  text-align: center;
-`;
-const Input = styled.input`
-  width: 100%;
-  height: 48px;
-  padding: 0 10px;
+const StyleInput = styled(Input)`
   margin-bottom: 2rem;
-  border-radius: 6px;
-  box-sizing: border-box;
-  background-color: ${({ theme }) => theme.light.b03};
-  ::placeholder {
-    color: ${({ theme }) => theme.color.c01};
-  }
 `;
-const Input01 = styled(Input)`
-  color: ${({ theme }) => theme.light.b01};
-  font-size: 16px;
-  background-color: ${({ theme }) => theme.color.c05} !important;
-`;
-const Small = styled.small`
-  position: absolute;
-  left: 5px;
-  bottom: 5px;
-  color: red;
-`;
-const NavStyle = styled(NavLink)`
-  margin-left: 10px;
-  color: #6a24fe;
-  font-size: 16px;
+
+const StyleButton = styled(Button)`
+  margin-top: 0;
+  margin-bottom: 1rem;
 `;
 const NavStyleR = styled(NavStyle)`
   float: right;

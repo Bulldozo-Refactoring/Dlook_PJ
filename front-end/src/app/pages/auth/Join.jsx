@@ -1,10 +1,21 @@
-import { PostJoin } from 'app/slices/UserSlice';
-import { Title } from 'app/style/StyledComponent';
+import { postJoin } from 'app/slices/UserSlice';
+import {
+  Button,
+  ErrorMessage,
+  FormStyle,
+  Input,
+  NavStyle,
+  RemainingTime,
+  SendButton,
+  SignUpTemplate,
+  StyleTitle,
+  VerificationMessage,
+  VerifyButton,
+} from 'app/style/StyleAuth';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { styled } from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const Join = () => {
   const dispatch = useDispatch();
@@ -67,7 +78,7 @@ const Join = () => {
    * @return
    */
   const onSubmit = handleSubmit((data) => {
-    dispatch(PostJoin(data))
+    dispatch(postJoin(data))
       .unwrap()
       .then((response) => navigate('/members/joinresult'))
       .catch((error) => console.log('회원가입 실패!'));
@@ -85,10 +96,11 @@ const Join = () => {
 
   return (
     <SignUpTemplate>
-      <TitleStyle>Sign Up</TitleStyle>
+      <StyleTitle>Sign Up</StyleTitle>
+      <p>닉네임은 백준 이름으로 적으세요.</p>
       <form onSubmit={handleSubmit(onSubmit)} style={{ marginBottom: '20px' }}>
         <FormStyle>
-          <Label>이메일</Label>
+          <label>이메일</label>
           <Input
             type="email"
             {...register('memberEmail', {
@@ -103,14 +115,15 @@ const Join = () => {
         </FormStyle>
         {isEmailSent ? (
           <FormStyle>
-            <Label01>인증번호</Label01>
-            <Input01
+            <label style={{ width: '66px' }}>인증번호</label>
+            <Input
               type="text"
               value={verificationCode}
               onChange={(e) => setVerificationCode(e.target.value)}
               {...register('verificationCode', {
                 required: '인증 번호를 적어주세요.',
               })}
+              style={{ width: '65%' }}
             />
             {errors.verificationCode && <ErrorMessage role="alert">{errors.verificationCode.message}</ErrorMessage>}
             <RemainingTime>{remainingTime}초</RemainingTime>
@@ -130,7 +143,7 @@ const Join = () => {
           </FormStyle>
         )}
         <FormStyle>
-          <Label>이름</Label>
+          <label>이름</label>
           <Input
             type="text"
             {...register('memberName', {
@@ -140,7 +153,7 @@ const Join = () => {
           {errors.memberName && <ErrorMessage role="alert">{errors.memberName.message}</ErrorMessage>}
         </FormStyle>
         <FormStyle>
-          <Label>비밀번호</Label>
+          <label>비밀번호</label>
           <Input
             type="password"
             {...register('memberPw', {
@@ -165,86 +178,4 @@ const Join = () => {
   );
 };
 
-const SignUpTemplate = styled.div`
-  padding: 90px 40px 0px;
-  max-width: 500px;
-  margin: 0 auto;
-  * {
-    font-weight: 500;
-    text-align: center;
-  }
-`;
-const TitleStyle = styled(Title)`
-  color: ${({ theme }) => theme.light.t01};
-`;
-const FormStyle = styled.div`
-  display: flex;
-  position: relative;
-  align-items: center;
-  margin-bottom: 1.8rem;
-`;
-const Label = styled.label`
-  text-align: left;
-  width: 80px;
-`;
-const Label01 = styled(Label)`
-  width: 66px;
-`;
-const Input = styled.input`
-  width: 100%;
-  height: 48px;
-  padding: 0 10px;
-  box-sizing: border-box;
-  border-radius: 6px;
-  background-color: ${({ theme }) => theme.light.b03};
-  ::placeholder {
-    color: ${({ theme }) => theme.light.c01};
-  }
-`;
-const Input01 = styled(Input)`
-  max-width: 214px;
-`;
-const Button = styled.button`
-  width: 100%;
-  height: 48px;
-  margin: 20px auto 0;
-  box-sizing: border-box;
-  border-radius: 6px;
-  background-color: ${({ theme }) => theme.color.c04};
-  color: ${({ theme }) => theme.light.b01};
-  font-size: 16px;
-`;
-const SendButton = styled(Button)`
-  margin-top: 0;
-  background-color: ${({ theme }) => theme.light.t03};
-  color: ${({ theme }) => theme.light.b01};
-`;
-const RemainingTime = styled.span`
-  width: 50px;
-  font-size: 14px;
-  text-align: right;
-  display: ${(props) => (props.isVerified ? 'none' : 'inline')};
-`;
-const VerifyButton = styled(Button)`
-  width: 80px;
-  margin: 0 0 0 10px;
-  background-color: ${({ theme }) => theme.light.t03};
-  color: ${({ theme }) => theme.light.b01};
-`;
-const VerificationMessage = styled.p`
-  width: 11%;
-  margin-left: 10px;
-  font-size: 14px;
-  color: green;
-`;
-const ErrorMessage = styled.span`
-  position: absolute;
-  bottom: -59%;
-  left: 16%;
-  color: red;
-`;
-const NavStyle = styled(NavLink)`
-  margin-left: 10px;
-  color: #6a24fe;
-`;
 export default Join;

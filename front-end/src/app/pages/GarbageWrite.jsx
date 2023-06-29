@@ -1,7 +1,7 @@
-import { Title } from 'app/style/StyledComponent';
+import { Title } from 'app/style/GlobalStyle';
+import { Button, Container, ErrorMessage, Form, RadioContainer, RadioInput, RadioLabel } from 'app/style/StyleGarbage';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import styled from 'styled-components';
 
 const Garbage = () => {
   const {
@@ -64,47 +64,5 @@ const Garbage = () => {
     </Container>
   );
 };
-
-const Container = styled.div`
-  padding: 100px 20px;
-  max-width: 900px;
-  margin: 0 auto;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const RadioContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-`;
-
-const RadioInput = styled.input`
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-  border: 1px solid ${({ theme }) => theme.color.c01};
-`;
-
-const RadioLabel = styled.label`
-  cursor: pointer;
-`;
-
-const ErrorMessage = styled.span`
-  color: red;
-  margin-bottom: 10px;
-`;
-
-const Button = styled.button`
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: ${({ theme }) => theme.light.b01};
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-`;
 
 export default Garbage;

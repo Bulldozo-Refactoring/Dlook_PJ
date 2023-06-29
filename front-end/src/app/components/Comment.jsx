@@ -1,5 +1,5 @@
 // [ ] 작업 필요
-import { Title } from 'app/style/StyledComponent';
+import { Title } from 'app/style/GlobalStyle';
 import React, { useState } from 'react';
 import { styled } from 'styled-components';
 

@@ -58,8 +58,9 @@ const handleTokenRefreshAndRetry = async (error) => {
  */
 instance.interceptors.request.use(
   async (config) => {
-    const accessToken = localStorage.getItem('accessToken');
-    if (accessToken) config.headers.authorization = `Bearer ${accessToken}`;
+    // console.log(config);
+    // const accessToken = localStorage.getItem('accessToken');
+    // if (accessToken) config.headers.authorization = `Bearer ${accessToken}`;
     return config;
   },
   async (error) => Promise.reject(error)
@@ -73,8 +74,8 @@ instance.interceptors.request.use(
  */
 instance.interceptors.response.use(
   async (response) => {
-    // const accessToken = localStorage.getItem('accessToken');
-    // if (accessToken) response.headers.authorization = `Bearer ${accessToken}`;
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) response.headers.authorization = `Bearer ${accessToken}`;
     return response;
   },
   async (error) => {

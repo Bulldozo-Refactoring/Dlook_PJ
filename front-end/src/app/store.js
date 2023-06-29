@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import BoardReducer from 'app/slices/BoardSlice';
 import cookieReducer from 'app/slices/CookieSlice';
 import userReducer from 'app/slices/UserSlice';
+import backReducer from 'app/slices/BackUserSlice';
 import Cookies from 'js-cookie';
 import jwt_decode from 'jwt-decode';
 
@@ -9,6 +10,7 @@ const reducer = {
   user: userReducer,
   cookie: cookieReducer,
   board: BoardReducer,
+  backUser: backReducer,
 };
 
 export const store = configureStore({

@@ -1,23 +1,23 @@
-import { StyleTable, StyleTd, StyleTh, StyledTr } from 'app/style/StyledComponent';
+import { StyleTable, StyledTr } from 'app/style/GlobalStyle';
 import { NavLink } from 'react-router-dom';
 
 const renderTh = (thTitle) => {
-  return thTitle.map((title, index) => <StyleTh key={`th-${index}`}>{thTitle[index]}</StyleTh>);
+  return thTitle.map((title, index) => <th key={`th-${index}`}>{thTitle[index]}</th>);
 };
 
 const renderTr = (modifiedDataList, titleUrl, pageNumber) => {
   return modifiedDataList.map((list, index) => (
     <StyledTr key={list.no}>
       {/* <StyleTd key={`number-${index}`}>{pageNumber * 10 + index + 1}</StyleTd> */}
-      <StyleTd key={`number-${index}`}>{list.no}</StyleTd>
-      <StyleTd key={`title-${index}`}>
+      <td key={`number-${index}`}>{list.no}</td>
+      <td key={`title-${index}`}>
         <NavLink to={`${titleUrl}/${list.no}`} onClick={(state) => state}>
           {list.title}
         </NavLink>
-      </StyleTd>
+      </td>
       {Object.keys(list).map((key) => {
         if (key !== 'no' && key !== 'title') {
-          return <StyleTd key={`${key}-${index}`}>{list[key]}</StyleTd>;
+          return <td key={`${key}-${index}`}>{list[key]}</td>;
         }
         return null;
       })}
