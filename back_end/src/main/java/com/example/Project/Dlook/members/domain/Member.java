@@ -37,7 +37,7 @@ public class Member {
     @PrePersist
     private void preper() {
         if (certify == null) {
-            certify = 0;
+            certify = 1;
         }
     }
 

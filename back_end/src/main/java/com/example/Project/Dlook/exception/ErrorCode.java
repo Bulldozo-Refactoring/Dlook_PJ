@@ -21,7 +21,8 @@ public enum ErrorCode {
     INVALID_SIGNATURE(HttpStatus.UNAUTHORIZED), // 401
 
     // Board
-    Board_NOT_FOUND(HttpStatus.NOT_FOUND); // 404
+    BOARD_NOT_FOUND(HttpStatus.NOT_FOUND), // 404
+    REPLY_NOT_FOUND(HttpStatus.NOT_FOUND); // 404
 
     private HttpStatus httpStatus;
 }

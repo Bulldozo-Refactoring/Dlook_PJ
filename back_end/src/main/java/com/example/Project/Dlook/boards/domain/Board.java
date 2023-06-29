@@ -13,7 +13,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -40,12 +39,9 @@ public class Board extends BaseTime {
     @Column(columnDefinition = "INTEGER", nullable = false)
     private Integer boardCtg;
 
-    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Reply> replyList;
 
     @Enumerated(EnumType.STRING)
     private Authority authority;
-
-//    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
-//    private List<Reply> replyList;
 }

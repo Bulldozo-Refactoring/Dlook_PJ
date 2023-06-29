@@ -12,24 +12,21 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name="reply")
 public class Reply extends BaseTime {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long replyNo;
 
+    @Column(nullable = false)
+    private String replyWriter;
 
     @Column(nullable = false, length = 500)
     private String replyContent;
 
-    @Column(nullable = false)
-    private String replyWriter;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "boardNo")
     private Board board;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="memberSeq")
     private Member member;
-
 }

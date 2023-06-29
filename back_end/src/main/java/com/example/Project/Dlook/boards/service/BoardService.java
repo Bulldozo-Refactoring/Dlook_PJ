@@ -87,7 +87,7 @@ public class BoardService {
     @Transactional
     public ResponseEntity<BoardDTO> detail(Long boardNo) {
         Board board = boardRepository.findByBoardNo(boardNo)
-                .orElseThrow(() -> new AppException(ErrorCode.Board_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.BOARD_NOT_FOUND));
 
         BoardDTO boardDTO = BoardDTO.builder()
                 .boardNo(board.getBoardNo())
@@ -106,6 +106,7 @@ public class BoardService {
                 .orElseThrow(() -> new AppException(ErrorCode.MEMBERNAME_NOT_FOUND));
 
         Board board = boardDTO.toBoard(member);
+
         boardRepository.save(board);
 
         return ResponseEntity.ok().body("Success");
@@ -114,7 +115,7 @@ public class BoardService {
 
     public ResponseEntity<Board> update(Long boardNo, BoardDTO boardDTO) {
         Board board = boardRepository.findByBoardNo(boardNo)
-                .orElseThrow(() -> new AppException(ErrorCode.Board_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.BOARD_NOT_FOUND));
 
         if (!board.getBoardWriter().equals(boardDTO.getBoardWriter())) {
             throw new AppException(ErrorCode.MEMBERNAME_NOT_FOUND);
@@ -141,7 +142,7 @@ public class BoardService {
     @Transactional
     public ResponseEntity<String> delete(Long boardNo, HttpServletRequest request) {
         Board board = boardRepository.findByBoardNo(boardNo)
-                .orElseThrow(() -> new AppException(ErrorCode.Board_NOT_FOUND));
+                .orElseThrow(() -> new AppException(ErrorCode.BOARD_NOT_FOUND));
 
         String name = request.getHeader("memberName");
         if (!board.getBoardWriter().equals(name)) {
