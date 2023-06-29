@@ -1,10 +1,12 @@
 package com.example.Project.Dlook.boards.domain.dto;
 import com.example.Project.Dlook.boards.domain.Board;
+import com.example.Project.Dlook.boards.domain.Reply;
 import com.example.Project.Dlook.exception.Authority;
 import com.example.Project.Dlook.members.domain.Member;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
