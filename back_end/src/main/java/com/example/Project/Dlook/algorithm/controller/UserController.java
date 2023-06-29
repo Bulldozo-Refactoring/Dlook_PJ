@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @GetMapping("/problem/algorithm/{algorithm}")
-    public List<ProblemAlgorithmDto> ProblemsByLevel(@PathVariable String algorithm) throws JsonProcessingException {
+    public List<ProblemAlgorithmDto> ProblemsByAlgorithm(@PathVariable String algorithm) throws JsonProcessingException {
         return userService.getProblemsByAlgorithm(algorithm);
     }
 }

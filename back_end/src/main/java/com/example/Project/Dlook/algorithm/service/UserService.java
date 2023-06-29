@@ -95,11 +95,10 @@ public class UserService {
 
         List<ProblemAlgorithmDto> problemList = new ArrayList<>();
         int count = 0;
-        int page = 1; // Start with the first page
 
         while (count < 10) {
             String response = client.get()
-                    .uri(url + "&page=" + page)
+                    .uri(url)
                     .retrieve()
                     .bodyToMono(String.class)
                     .block();
@@ -133,7 +132,6 @@ public class UserService {
                     }
                 }
             }
-            page++;
         }
         return problemList;
     }
