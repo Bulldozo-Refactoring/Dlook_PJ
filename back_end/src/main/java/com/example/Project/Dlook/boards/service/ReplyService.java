@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Reply service.
+ */
 @Service
 @Builder
 @RequiredArgsConstructor
@@ -27,6 +30,12 @@ public class ReplyService {
     private final ReplyRepository replyRepository;
     private final MemberRepository memberRepository;
 
+    /**
+     * List response entity.
+     *
+     * @param boardNo the board no
+     * @return the response entity
+     */
     @Transactional
     public ResponseEntity<List<ReplyDTO>> list(Long boardNo) {
         List<Reply> replyList = replyRepository.findByBoardBoardNo(boardNo);
@@ -47,6 +56,13 @@ public class ReplyService {
         return  ResponseEntity.ok().body(replyDTOList);
     }
 
+    /**
+     * Write response entity.
+     *
+     * @param boardNo  the board no
+     * @param replyDTO the reply dto
+     * @return the response entity
+     */
     @Transactional
     public ResponseEntity<String> write(Long boardNo, ReplyDTO replyDTO) {
         Member member = memberRepository.findByMemberName(replyDTO.getReplyWriter())
@@ -69,6 +85,13 @@ public class ReplyService {
         return ResponseEntity.ok().body("Success");
     }
 
+    /**
+     * Delete response entity.
+     *
+     * @param replyNo the reply no
+     * @param request the request
+     * @return the response entity
+     */
     @Transactional
     public ResponseEntity<String> delete(Long replyNo, HttpServletRequest request) {
         Reply reply = replyRepository.findByReplyNo(replyNo)

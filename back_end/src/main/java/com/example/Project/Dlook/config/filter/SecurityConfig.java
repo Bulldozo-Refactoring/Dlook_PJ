@@ -45,6 +45,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/members/join", "/members/login", "/members/reissue", "/boards/list", "/boards/{boardCtg}", "/boards/detail/{boardNo}", "/boards/{boardNo}/reply").permitAll()
+                .antMatchers("/v3/api-docs", "/swagger*/**").permitAll()
                 .anyRequest().authenticated()   // 나머지 API 는 m전부 인증 필요
 
                 // JwtFilter 를 addFilterBefore 로 등록했던 JwtSecurityConfig 클래스를 적용

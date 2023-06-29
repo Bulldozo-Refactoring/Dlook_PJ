@@ -22,6 +22,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * The type Board service.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -30,6 +33,12 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
 
+    /**
+     * Gets all board list.
+     *
+     * @param page the page
+     * @return the all board list
+     */
     @Transactional
     public ResponseEntity<Map<String, Object>> getAllBoardList(int page) {
         PageRequest pageRequest = PageRequest.of(page, 10, Sort.by("boardNo").descending());
@@ -58,6 +67,13 @@ public class BoardService {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Gets category list.
+     *
+     * @param boardCtg the board ctg
+     * @param page     the page
+     * @return the category list
+     */
     @Transactional
     public ResponseEntity<Map<String, Object>> getCategoryList(int boardCtg, int page) {
         PageRequest pageRequest = PageRequest.of(page, 10, Sort.by("boardNo").descending());
@@ -84,6 +100,12 @@ public class BoardService {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Detail response entity.
+     *
+     * @param boardNo the board no
+     * @return the response entity
+     */
     @Transactional
     public ResponseEntity<BoardDTO> detail(Long boardNo) {
         Board board = boardRepository.findByBoardNo(boardNo)
@@ -100,6 +122,12 @@ public class BoardService {
         return ResponseEntity.ok().body(boardDTO);
     }
 
+    /**
+     * Write response entity.
+     *
+     * @param boardDTO the board dto
+     * @return the response entity
+     */
     @Transactional
     public ResponseEntity<String> write(BoardDTO boardDTO) {
         Member member = memberRepository.findByMemberName(boardDTO.getBoardWriter())
@@ -113,6 +141,13 @@ public class BoardService {
     }
 
 
+    /**
+     * Update response entity.
+     *
+     * @param boardNo  the board no
+     * @param boardDTO the board dto
+     * @return the response entity
+     */
     public ResponseEntity<Board> update(Long boardNo, BoardDTO boardDTO) {
         Board board = boardRepository.findByBoardNo(boardNo)
                 .orElseThrow(() -> new AppException(ErrorCode.BOARD_NOT_FOUND));
@@ -139,6 +174,13 @@ public class BoardService {
         return ResponseEntity.ok().body(updateBoard);
     }
 
+    /**
+     * Delete response entity.
+     *
+     * @param boardNo the board no
+     * @param request the request
+     * @return the response entity
+     */
     @Transactional
     public ResponseEntity<String> delete(Long boardNo, HttpServletRequest request) {
         Board board = boardRepository.findByBoardNo(boardNo)
