@@ -29,8 +29,6 @@ public class MypageService {
 
     @Transactional
     public Page<BoardDTO> findAllBoard(Long memberSeq, Pageable pageable) {
-
-
         Optional<Member> optionalMember = memberRepository.findById(memberSeq);
         Member member = optionalMember.orElseThrow(() -> new AppException(ErrorCode.MEMBERNAME_NOT_FOUND));
 
@@ -46,10 +44,8 @@ public class MypageService {
     }
     @Transactional
     public Page<ReplyDTO> findAllReply(Long memberSeq, Pageable pageable) {
-
         Optional<Member> optionalMember = memberRepository.findById(memberSeq);
         Member member = optionalMember.orElseThrow(() -> new AppException(ErrorCode.MEMBERNAME_NOT_FOUND));
-
 
         Page<Reply> replyPage = replyRepository.findByMemberMemberSeq(memberSeq, pageable);
         return replyPage.map(reply -> ReplyDTO.builder()

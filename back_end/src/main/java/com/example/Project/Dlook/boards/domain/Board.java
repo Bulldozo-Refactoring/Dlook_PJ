@@ -1,12 +1,12 @@
 package com.example.Project.Dlook.boards.domain;
-import com.example.Project.Dlook.boards.domain.dto.BoardDTO;
+
 import com.example.Project.Dlook.exception.Authority;
 import com.example.Project.Dlook.members.domain.Member;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.w3c.dom.Text;
 
 import javax.persistence.*;
 import java.util.List;
