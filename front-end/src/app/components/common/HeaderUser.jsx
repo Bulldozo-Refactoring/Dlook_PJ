@@ -15,7 +15,6 @@ const HeaderUser = () => {
   const checkUser = checkAuthentication();
   const [openMenu, setOpenMenu] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  // const memberName = useSelector((state) => state.cookie.memberName);
   const memberName = setMemberName();
 
   const handleLogout = async () =>
@@ -28,12 +27,14 @@ const HeaderUser = () => {
     if (checkUser) navigate('/mypages/certify');
     else navigate('/members/login');
   };
+
   const handleOpenMenu = (e) => {
     if (checkUser) {
       setAnchorEl(e.currentTarget);
       setOpenMenu(true);
     } else navigate('/members/login');
   };
+
   const handleCloseMenu = () => setOpenMenu(false);
 
   return (

@@ -22,9 +22,12 @@ const Button = styled(ResetButton)`
 const Child = () => {
   // [ ] 알고리즘 추천 페이지 데이터 작업 필요
   const List = [
-    { id: 1, title: '알고리즘 종류1' },
-    { id: 2, title: '알고리즘 종류2' },
-    { id: 3, title: '알고리즘 종류3' },
+    { id: 1, title: 'Math' },
+    { id: 2, title: 'Greedy' },
+    { id: 3, title: 'DP' },
+    { id: 3, title: 'DFS' },
+    { id: 3, title: 'BFS' },
+    { id: 3, title: 'Backtracking' },
   ];
   const pageNumber = 10;
   const modifiedDataList = dummyList.map((list) => {

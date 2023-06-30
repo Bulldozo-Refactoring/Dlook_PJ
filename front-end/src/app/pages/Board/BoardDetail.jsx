@@ -14,7 +14,6 @@ const BoardDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let { boardNo } = useParams();
-  // const memberName = useSelector((state) => state.cookie.memberName);
   const memberName = setMemberName();
   const [data, setData] = useState([]);
 

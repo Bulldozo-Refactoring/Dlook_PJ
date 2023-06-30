@@ -12,7 +12,6 @@ import jwt_decode from 'jwt-decode';
 export const postLogin = createAsyncThunk('members/login', async (payload) => {
   const response = await instance.post('/members/login', payload, { withCredentials: true });
   const { authorization, refreshtoken } = response.headers;
-  console.log(jwt_decode(authorization.split('Bearer ')[1]));
   const memberName = jwt_decode(authorization.split('Bearer ')[1]).sub;
 
   if (authorization != null && refreshtoken != null && memberName != null) {
@@ -42,6 +41,7 @@ export const getLogout = createAsyncThunk('members/logout', async () => {
     Cookies.remove('refreshToken', { path: '/' });
     Cookies.remove('memberName', { path: '/' });
     Cookies.remove('isLoggedIn', false, { path: '/' });
+    Cookies.remove('userInfo', { path: '/' });
 
     console.log('로그아웃 성공');
     return null;
@@ -60,14 +60,6 @@ const CookieSlice = createSlice({
   initialState: {
     memberName: null,
   },
-
-  // extraReducers: (builder) => {
-  //   builder.addCase(postLogin.fulfilled, (state, action) => {
-  //     const token = action.payload.accessToken.split('Bearer ')[1];
-  //     state.memberName = jwt_decode(token).sub;
-  //   });
-  // },
 });
 
-export const { setCookieTime, setLogin, setLogout } = CookieSlice.actions;
 export default CookieSlice.reducer;

@@ -1,4 +1,6 @@
+import { setUserInfo } from 'app/slices/BackUserSlice';
 import { postLogin } from 'app/slices/CookieSlice';
+import instance from 'app/slices/Instance';
 import { checkAuthentication } from 'app/store';
 import { Box, Button, Input, NavStyle, Small, StyleTitle, Wrap } from 'app/style/StyleAuth';
 import jwt_decode from 'jwt-decode';
@@ -13,6 +15,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const checkUser = checkAuthentication();
+
   const {
     register,
     handleSubmit,
@@ -24,6 +27,16 @@ const Login = () => {
       .unwrap()
       .then((response) => {
         const memberName = jwt_decode(response.accessToken.split('Bearer ')[1]).sub;
+        instance.get(`/users/${memberName}`).then((data) => {
+          const userInfoData = {
+            tier: data.data.tier,
+            maxStreak: data.data.maxStreak,
+            rating: data.data.rating,
+            user: data.data.user,
+            solvedCount: data.data.solvedCount,
+          };
+          dispatch(setUserInfo(userInfoData));
+        });
         window.alert(memberName + '님 로그인에 성공하셨습니다.!');
         navigate('/');
       })
@@ -95,6 +108,7 @@ const Login = () => {
     </>
   );
 };
+
 const Container = styled.div`
   display: flex;
   justify-content: center;
