@@ -1,7 +1,6 @@
 package com.example.Project.Dlook.boards.repository;
 
 import com.example.Project.Dlook.boards.domain.Reply;
-import com.example.Project.Dlook.members.domain.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -23,10 +23,6 @@ public class User {
 
     private Integer solvedCount; // 푼 문제 수
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private TeamRule teamRule;
-
     @Enumerated(EnumType.STRING)
     private SolvedStatus solvedStatus;  // 성공 , 실패 여부
-
 }

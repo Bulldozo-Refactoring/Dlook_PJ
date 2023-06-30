@@ -1,19 +1,18 @@
 package com.example.Project.Dlook.members.service;
 
+import com.example.Project.Dlook.exception.AppException;
+import com.example.Project.Dlook.exception.ErrorCode;
 import com.example.Project.Dlook.members.domain.BlackList;
 import com.example.Project.Dlook.members.domain.Member;
 import com.example.Project.Dlook.members.domain.RefreshToken;
 import com.example.Project.Dlook.members.domain.dto.JoinRequestDto;
 import com.example.Project.Dlook.members.domain.dto.LoginRequestDto;
 import com.example.Project.Dlook.members.domain.dto.TokenDto;
-import com.example.Project.Dlook.exception.AppException;
-import com.example.Project.Dlook.exception.ErrorCode;
 import com.example.Project.Dlook.members.repository.BlackListRepository;
 import com.example.Project.Dlook.members.repository.MemberRepository;
 import com.example.Project.Dlook.members.repository.RefreshTokenRepository;
 import com.example.Project.Dlook.utils.JwtProvider;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -30,7 +29,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class MemberService {
     private final MemberRepository memberRepository;
     private final RefreshTokenRepository refreshTokenRepository;

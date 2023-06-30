@@ -1,9 +1,8 @@
 package com.example.Project.Dlook.boards.service;
-import com.example.Project.Dlook.boards.domain.Board;
 
+import com.example.Project.Dlook.boards.domain.Board;
 import com.example.Project.Dlook.boards.domain.Reply;
 import com.example.Project.Dlook.boards.domain.dto.ReplyDTO;
-
 import com.example.Project.Dlook.boards.repository.ReplyRepository;
 import com.example.Project.Dlook.exception.AppException;
 import com.example.Project.Dlook.exception.ErrorCode;

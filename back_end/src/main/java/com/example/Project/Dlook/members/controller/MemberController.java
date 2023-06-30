@@ -4,7 +4,6 @@ import com.example.Project.Dlook.members.domain.dto.JoinRequestDto;
 import com.example.Project.Dlook.members.domain.dto.LoginRequestDto;
 import com.example.Project.Dlook.members.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("/members")
 @RequiredArgsConstructor
-@Slf4j
 public class MemberController {
     private final MemberService memberService;
 

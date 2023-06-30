@@ -1,7 +1,10 @@
 package com.example.Project.Dlook.boards.domain;
 
 import com.example.Project.Dlook.members.domain.Member;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
