@@ -1,6 +1,5 @@
 import logo from 'app/assets/images/logo.svg';
 import Mymenu from 'app/components/Mymenu';
-import { getBackUsers } from 'app/slices/BackUserSlice';
 import { setMemberName } from 'app/store';
 import { SubmitButton } from 'app/style/GlobalStyle';
 import {
@@ -21,20 +20,22 @@ import {
   StyleUl,
   WhiteText,
 } from 'app/style/StyleMypage';
+import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 const MyCertify = () => {
-  const dispatch = useDispatch();
+  // const userInfo = useSelector((state) => state.backUser.userInfo);
+  const userInfo = Cookies.get('userInfo');
+  const [info, setInfo] = useState([]);
   const [usersName, setUsersName] = useState(null);
-  // const [info, setInfo] = useState([]);
 
   useEffect(() => {
     setUsersName(setMemberName());
-    if (usersName !== null) {
-      dispatch(getBackUsers(usersName));
+    if (userInfo) {
+      const cookieUserInfo = JSON.parse(userInfo);
+      setInfo(cookieUserInfo);
     }
-  }, [dispatch, usersName]);
+  }, [userInfo, usersName]);
 
   // 연동 후
   return (
@@ -48,22 +49,22 @@ const MyCertify = () => {
               <div style={{ width: '30%' }}>
                 <Circle></Circle>
                 <PinkText01>Sliver</PinkText01>
-                <BlueText>딸기너구리</BlueText>
+                <BlueText>{info.user}</BlueText>
               </div>
               <div style={{ width: '70%', textAlign: 'left', padding: '0 30px' }}>
-                <PinkText02>User Bio - 힘들어요 제법 쓰러질듯해요</PinkText02>
+                <PinkText02>User Bio - 나는야 퉁퉁이</PinkText02>
                 <div>
                   <div>
                     <WhiteText>SolvedCount</WhiteText>
-                    <PinkText03>2658</PinkText03>
+                    <PinkText03>{info.solvedCount}</PinkText03>
                   </div>
                   <div>
-                    <WhiteText>exp</WhiteText>
-                    <PinkText03>48469349284</PinkText03>
+                    <WhiteText>Rating</WhiteText>
+                    <PinkText03>{info.rating}</PinkText03>
                   </div>
                   <div>
                     <WhiteText>Class</WhiteText>
-                    <PinkText03>8</PinkText03>
+                    <PinkText03>{info.tier}</PinkText03>
                   </div>
                 </div>
               </div>

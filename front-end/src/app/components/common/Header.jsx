@@ -8,8 +8,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { HeaderContainer, HeaderInner, HeaderWrapper, Img, LastLi, Li, MenuIconStyle, MenuUl } from 'app/style/StyleHeader';
 
 const Header = () => {
-  const [open, setMenu] = useState(false);
   const { pathname } = useLocation();
+  const [open, setMenu] = useState(false);
   const toggleMenu = () => setMenu((open) => !open);
   useEffect(() => setMenu(false), [pathname]);
 

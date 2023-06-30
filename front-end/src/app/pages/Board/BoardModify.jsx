@@ -2,7 +2,7 @@
 import { getBoardDetail, setBoardCtgLabel } from 'app/slices/BoardSlice';
 import instance from 'app/slices/Instance';
 import { checkAuthentication, setMemberName } from 'app/store';
-import Button, { BoardContent, Form, StyleSection, StyleTitle, StyleUl } from 'app/style/StyleBoard';
+import Button, { BoardContent, Form, StyleSection, StyleTitle, StyleUl, BoardText } from 'app/style/StyleBoard';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
@@ -12,7 +12,6 @@ const BoardModify = () => {
   const navigate = useNavigate();
   const { boardNo } = useParams();
   const memberName = setMemberName();
-  // const memberName = useSelector((state) => state.cookie.memberName);
   const boardWriter = useSelector((state) => state.board.boardWriter);
   const [data, setData] = useState([]);
   const { register, handleSubmit, setValue } = useForm();
@@ -62,13 +61,13 @@ const BoardModify = () => {
                   </span>
                 </li>
               </StyleUl>
-              <BoardContent
+              <BoardText
                 id="boardContent"
                 name="boardContent"
                 type="text"
                 defaultValue={data.boardContent}
                 {...register('boardContent')}
-              ></BoardContent>
+              ></BoardText>
               {/* <Button color={['#F5F5FF', '#64748B', '#64748B']} onClick={() => handleDelete()} title="삭제하기"></Button> */}
               <Button
                 color={[({ theme }) => theme.color.c05, ({ theme }) => theme.light.t01, ({ theme }) => theme.light.t02]}

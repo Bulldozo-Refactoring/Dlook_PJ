@@ -1,7 +1,7 @@
 import { Level, StyleDiv, StyleSpan } from 'app/style/StyleAlgorithms';
 
 const RankLevel = (level) => {
-  const userLevel = level.level;
+  const userLevel = level.tier;
   return (
     <>
       <StyleDiv>

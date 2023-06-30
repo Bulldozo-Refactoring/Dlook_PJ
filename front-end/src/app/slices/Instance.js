@@ -1,6 +1,6 @@
+import { getLogout } from 'app/slices/CookieSlice';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { getLogout } from 'app/slices/CookieSlice';
 
 /**
  * @brief intercepter setting
@@ -61,6 +61,7 @@ instance.interceptors.request.use(
     // console.log(config);
     // const accessToken = localStorage.getItem('accessToken');
     // if (accessToken) config.headers.authorization = `Bearer ${accessToken}`;
+    console.log('interceptor request = ', config);
     return config;
   },
   async (error) => Promise.reject(error)
@@ -72,13 +73,16 @@ instance.interceptors.request.use(
  * @param response
  * @return respnse, handleTokenRefreshAndRetry(error), window.alert, Promise.reject(error)
  */
+// [ ] 로그인/회원가입 메시지 처리 필요
 instance.interceptors.response.use(
   async (response) => {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) response.headers.authorization = `Bearer ${accessToken}`;
+    console.log('interceptor response 성공 = ', response);
     return response;
   },
   async (error) => {
+    console.log('interceptor response 실패 = ', error);
     if (error.response && error.response.status !== undefined) {
       const status = error.response.status;
       if (status === 401) {
