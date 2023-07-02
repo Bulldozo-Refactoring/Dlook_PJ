@@ -7,13 +7,14 @@ function HeaderMenu() {
         <Title>알고리즘 문제 풀이</Title>
         <ul>
           <StyleLi>
-            <NavStyle to="/algorithms/step">문제 추천</NavStyle>
+            {/* <NavStyle to="/algorithm/step">문제 추천</NavStyle> */}
+            <NavStyle to="/algorithm/level">문제 추천</NavStyle>
           </StyleLi>
           <StyleLi>
-            <NavStyle to="/algorithms/type">알고리즘 문제 분석</NavStyle>
+            <NavStyle to="/algorithm/type">알고리즘 문제 분석</NavStyle>
           </StyleLi>
           <StyleLi>
-            <NavStyle to="/algorithms/rank">랭킹 분석</NavStyle>
+            <NavStyle to="/algorithm/rank">랭킹 분석</NavStyle>
           </StyleLi>
         </ul>
       </MenuLi>

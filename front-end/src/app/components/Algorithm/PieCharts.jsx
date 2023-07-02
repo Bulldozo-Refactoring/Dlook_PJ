@@ -24,54 +24,13 @@ const PieChart = ({ data }) => (
       modifiers: [['darker', 2]],
     }}
     fill={[
-      {
-        match: {
-          id: 'ruby',
-        },
-        id: 'dots',
-      },
-      {
-        match: {
-          id: 'c',
-        },
-        id: 'dots',
-      },
-      {
-        match: {
-          id: 'go',
-        },
-        id: 'dots',
-      },
-      {
-        match: {
-          id: 'python',
-        },
-        id: 'dots',
-      },
-      {
-        match: {
-          id: 'scala',
-        },
-        id: 'lines',
-      },
-      {
-        match: {
-          id: 'lisp',
-        },
-        id: 'lines',
-      },
-      {
-        match: {
-          id: 'elixir',
-        },
-        id: 'lines',
-      },
-      {
-        match: {
-          id: 'javascript',
-        },
-        id: 'lines',
-      },
+      { match: { id: 'MATH' }, id: 'dots' },
+      { match: { id: 'GREEDY' }, id: 'dots' },
+      { match: { id: 'DP' }, id: 'dots' },
+      { match: { id: 'GRAPHS' }, id: 'dots' },
+      { match: { id: 'IMPLEMENTATION' }, id: 'lines' },
+      { match: { id: 'BACKTRACKING' }, id: 'lines' },
+      { match: { id: 'ELIXIR' }, id: 'lines' },
     ]}
     legends={[
       {
@@ -91,9 +50,7 @@ const PieChart = ({ data }) => (
         effects: [
           {
             on: 'hover',
-            style: {
-              itemTextColor: '#000',
-            },
+            style: { itemTextColor: '#000' },
           },
         ],
       },

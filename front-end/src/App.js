@@ -8,12 +8,13 @@ import MainPage from 'app/pages/Main';
 import Notice from 'app/pages/Notice';
 import Garbage from 'app/pages/Garbage';
 import GarbageWrite from 'app/pages/GarbageWrite';
-import Algorithms from 'app/pages/Algorithms/Algorithms';
-import Step from 'app/pages/Algorithms/Step';
-import Child from 'app/pages/Algorithms/Child';
-import Type from 'app/pages/Algorithms/Type';
-import Wrong from 'app/pages/Algorithms/Wrong';
-import Rank from 'app/pages/Algorithms/Rank';
+import Algorithm from 'app/pages/Algorithm/Algorithm';
+import StepLevel from 'app/pages/Algorithm/StepLevel';
+import Step from 'app/pages/Algorithm/Step';
+import Child from 'app/pages/Algorithm/Child';
+import Type from 'app/pages/Algorithm/Type';
+import Wrong from 'app/pages/Algorithm/Wrong';
+import Rank from 'app/pages/Algorithm/Rank';
 import Login from 'app/pages/auth/Login';
 import Join from 'app/pages/auth/Join';
 import JoinResult from 'app/pages/auth/JoinResult';
@@ -103,15 +104,16 @@ const App = () => {
         { path: 'manual', element: '이용방법' },
         { path: 'rule', element: '서비스 정책' },
         {
-          path: 'algorithms',
+          path: 'algorithm',
           element: <PrivateRoute />,
           errorElement: <Error />,
           children: [
             {
               path: '',
-              element: <Algorithms />,
+              element: <Algorithm />,
               children: [
-                { path: 'step', element: <Step />, ismembers: true },
+                { path: 'level', element: <StepLevel /> },
+                { path: 'step', element: <Step /> },
                 { path: 'child', element: <Child /> },
                 { path: 'type', element: <Type /> },
                 { path: 'wrong', element: <Wrong /> },

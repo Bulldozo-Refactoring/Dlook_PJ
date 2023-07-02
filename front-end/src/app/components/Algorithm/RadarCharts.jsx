@@ -32,9 +32,7 @@ const RadarCharts = ({ data }) => (
         effects: [
           {
             on: 'hover',
-            style: {
-              itemTextColor: '#000',
-            },
+            style: { itemTextColor: '#000' },
           },
         ],
       },

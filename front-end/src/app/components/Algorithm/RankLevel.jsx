@@ -1,16 +1,16 @@
-import { Level, StyleDiv, StyleSpan } from 'app/style/StyleAlgorithms';
+import { Level, RankLevelDiv, StyleSpan } from 'app/style/StyleAlgorithm';
 
 const RankLevel = (level) => {
   const userLevel = level.tier;
   return (
     <>
-      <StyleDiv>
+      <RankLevelDiv>
         <Level>
           <li></li>
           <li></li>
         </Level>
         <StyleSpan key={userLevel}>{userLevel}</StyleSpan>
-      </StyleDiv>
+      </RankLevelDiv>
     </>
   );
 };

@@ -103,24 +103,23 @@ const StyledSelect = styled.select`
   border: 2px solid ${({ theme }) => theme.light.b02};
   font-size: 1.3rem;
 `;
+const StyleButton = styled.button`
+  padding: 10px;
+  background-color: ${(props) => props.color[0]};
+  color: ${(props) => props.color[1]};
+  box-shadow: 0 0 0 1px ${(props) => props.color[2]};
 
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 400;
+  &:hover,
+  &:active,
+  &:focus {
+    box-shadow: 0 0 0 1px ${({ theme }) => theme.color.c07};
+  }
+`;
 // [ ] styled.component 전역으로 옮겨야함
 const Button = ({ color, onClick, title }) => {
-  const StyleButton = styled.button`
-    padding: 10px;
-    background-color: ${(props) => props.color[0]};
-    color: ${(props) => props.color[1]};
-    box-shadow: 0 0 0 1px ${(props) => props.color[2]};
-
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: 400;
-    &:hover,
-    &:active,
-    &:focus {
-      box-shadow: 0 0 0 1px ${({ theme }) => theme.color.c07};
-    }
-  `;
   return (
     <StyleButton color={color} onClick={onClick}>
       {title}

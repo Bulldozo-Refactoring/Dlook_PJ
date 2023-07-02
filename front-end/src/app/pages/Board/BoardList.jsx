@@ -1,8 +1,8 @@
 import { Table } from 'app/components/Table';
 import instance from 'app/slices/Instance';
+import { Board, PaginButton, Pagination, StyleLi, StyleP, StyledButton, StyledUl, Tab, Wrap } from 'app/style/StyleBoard';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Board, Wrap, StyleP, Tab, StyledUl, StyleLi, StyledButton, Pagination, PaginButton } from 'app/style/StyleBoard';
 
 const BoardList = () => {
   const navigate = useNavigate();
@@ -41,12 +41,7 @@ const BoardList = () => {
 
   const modifiedDataList = dataList.map((list) => {
     const { boardNo, boardTitle, boardWriter, createdTime } = list;
-    return {
-      no: boardNo,
-      title: boardTitle,
-      boardWriter,
-      createdTime,
-    };
+    return { no: boardNo, title: boardTitle, boardWriter, createdTime };
   });
 
   const renderPaginationButtons = () => {

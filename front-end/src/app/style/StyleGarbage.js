@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 
 const Container = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   max-width: calc(100% - 160px);
   min-height: 300px;
   margin: 0 auto;
@@ -34,10 +34,15 @@ const StyleUl = styled.ul`
   overflow: scroll;
 `;
 const StyleLi = styled.li`
-  padding: 15px 10px;
-  border: 1px solid ${({ theme }) => theme.color.c01};
-  font-weight: 300;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 10px 10px;
 `;
+const Img = styled.img`
+  width: 10%;
+`;
+
 const BtnDiv = styled.div`
   position: relative;
   width: 100%;
@@ -103,4 +108,5 @@ const Button = styled.button`
   border-radius: 4px;
   cursor: pointer;
 `;
-export { BtnDiv, Button, Container, ErrorMessage, Form, Phone, PhoneBtn, RadioContainer, RadioInput, RadioLabel, StyleLi, StyleUl };
+
+export { BtnDiv, Button, Container, ErrorMessage, Form, Img, Phone, PhoneBtn, RadioContainer, RadioInput, RadioLabel, StyleLi, StyleUl };
