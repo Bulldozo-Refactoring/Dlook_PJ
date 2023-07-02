@@ -1,59 +1,69 @@
+import icon01 from 'app/assets/images/icon01.png';
+import { default as icon02, default as icon03 } from 'app/assets/images/icon02.png';
 import instance from 'app/slices/Instance';
 import { Title } from 'app/style/GlobalStyle';
-import { BtnDiv, Container, Phone, PhoneBtn, StyleLi, StyleUl } from 'app/style/StyleGarbage';
+import { BtnDiv, Container, Img, Phone, PhoneBtn, StyleLi, StyleUl } from 'app/style/StyleGarbage';
 import { useCallback, useEffect, useRef, useState } from 'react';
+
+const setGarbageContent = (items) => {
+  switch (items) {
+    case 0:
+      return (
+        <>
+          <Img src={icon01} alt="https://www.flaticon.com/kr/free-icons/" />
+          <span>놀랐어요.</span>
+        </>
+      );
+    case 1:
+      return (
+        <>
+          <Img src={icon02} alt="https://www.flaticon.com/kr/free-icons/" />
+          <span>기뻐요.</span>
+        </>
+      );
+    default:
+      return (
+        <>
+          <Img src={icon03} alt="https://www.flaticon.com/kr/free-icons/" />
+          <span>죽었어요.</span>
+        </>
+      );
+  }
+};
 
 const Garbage = () => {
   const [items, setItems] = useState([]);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-  const [scrollEventTriggered, setScrollEventTriggered] = useState(false);
-
   const containerRef = useRef(null);
+  const token = localStorage.getItem('accessToken');
 
   const getList = useCallback(async () => {
     setLoading(true);
-    await instance.get(`boards/list?page=${page}`).then((res) => {
-      const newItems = res.data.boardList;
+    await instance.get(`/garbage`, { headers: { authorization: 'Bearer ' + token } }).then((res) => {
+      const newItems = res.data;
       setItems((prevState) => [...prevState, ...newItems]);
-      if (newItems.length === 0) setHasMore(false);
-      setScrollEventTriggered(false); // 스크롤 이벤트 재설정
     });
     setLoading(false);
-  }, [page]);
-
-  const handleScroll = useCallback(() => {
-    const container = containerRef.current;
-    if (container.scrollHeight - container.scrollTop === container.clientHeight && !loading && hasMore && !scrollEventTriggered) {
-      setScrollEventTriggered(true);
-      setPage((prevPage) => prevPage + 1);
-    }
-  }, [loading, hasMore, scrollEventTriggered]);
+  }, [token]);
 
   useEffect(() => {
     getList();
   }, [getList]);
 
-  useEffect(() => {
-    handleScroll();
-  }, [getList, handleScroll]);
-
   return (
     <Container>
       <section>
         <Title>쓰레기통 게시판</Title>
-        <p>쓰레기통 게시판 만들다가 인성 쓰레기된 프엔 개발자</p>
+        <p>여기에 물결 배경에 최근 가장 많이 선택한 감정 보여주기?!</p>
       </section>
       <section>
         <Phone ref={containerRef}>
           <StyleUl>
             {items.map((item, index) => (
-              <StyleLi key={index}>{item.boardNo}</StyleLi>
+              <StyleLi key={index}>{setGarbageContent(index)}</StyleLi>
             ))}
           </StyleUl>
           {loading && <div>Loading...</div>}
-          {!loading && !hasMore && <div>X</div>}
         </Phone>
         <BtnDiv>
           <PhoneBtn to="/garbage/write">

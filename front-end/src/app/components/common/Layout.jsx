@@ -8,15 +8,15 @@ const Layout = () => {
   return (
     <>
       <Header />
-      {location.pathname === '/' || location.pathname === '/garbage' ? (
+      {location.pathname === '/' || location.pathname === '/garbage' || location.pathname === '/algorithm/level' ? (
         <Outlet />
       ) : (
-        <div>
+        <>
           <Container>
             <Outlet />
           </Container>
           <Footer />
-        </div>
+        </>
       )}
     </>
   );

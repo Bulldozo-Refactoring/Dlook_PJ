@@ -1,5 +1,5 @@
 // [ ] 추후 정리 필요
-import { Card, CardActions, CardContent, Typography } from '@mui/material';
+import { Card, CardContent, Typography } from '@mui/material';
 import { SubmitButton } from 'app/style/GlobalStyle';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
@@ -114,7 +114,7 @@ const NoticeDiv = styled.div`
 
 const MainCard = () => {
   return (
-    <Card sx={{ maxWidth: '86%' }}>
+    <Card sx={{ maxWidth: '86%', minHeight: '230px' }}>
       <CardContent sx={{ paddingBottom: 0 }}>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           Bulldozo
@@ -127,13 +127,11 @@ const MainCard = () => {
           <br />
           Dlook 개발자들 입니다.......
         </Typography>
-      </CardContent>
-      <CardActions sx={{ paddingBottom: 2 }}>
         <SubmitButton size="small">GitHub Link</SubmitButton>
-      </CardActions>
+      </CardContent>
     </Card>
   );
 };
 
-export { Main, MainBox01, MainBox02, MainBox03, NoticeUl, NoticeNav, NoticeDiv };
+export { Main, MainBox01, MainBox02, MainBox03, NoticeDiv, NoticeNav, NoticeUl };
 export default MainCard;

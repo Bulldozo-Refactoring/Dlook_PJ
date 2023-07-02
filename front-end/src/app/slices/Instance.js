@@ -61,7 +61,7 @@ instance.interceptors.request.use(
     // console.log(config);
     // const accessToken = localStorage.getItem('accessToken');
     // if (accessToken) config.headers.authorization = `Bearer ${accessToken}`;
-    console.log('interceptor request = ', config);
+    // console.log('interceptor request = ', config);
     return config;
   },
   async (error) => Promise.reject(error)
@@ -78,7 +78,7 @@ instance.interceptors.response.use(
   async (response) => {
     const accessToken = localStorage.getItem('accessToken');
     if (accessToken) response.headers.authorization = `Bearer ${accessToken}`;
-    console.log('interceptor response 성공 = ', response);
+    // console.log('interceptor response 성공 = ', response);
     return response;
   },
   async (error) => {

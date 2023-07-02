@@ -27,17 +27,10 @@ const BoardDetail = () => {
   const handleDelete = async () => {
     if (window.confirm('게시글을 삭제하시겠습니까?')) {
       const accessToken = localStorage.getItem('accessToken');
-      await instance
-        .delete(`/boards/${boardNo}`, {
-          headers: {
-            memberName: memberName,
-            Authorization: `Bearer ${accessToken}`,
-          },
-        })
-        .then(() => {
-          alert('삭제되었습니다.');
-          navigate('/boards/list?page=0');
-        });
+      await instance.delete(`/boards/${boardNo}`, { headers: { memberName: memberName, Authorization: `Bearer ${accessToken}` } }).then(() => {
+        alert('삭제되었습니다.');
+        navigate('/boards/list?page=0');
+      });
     }
   };
 

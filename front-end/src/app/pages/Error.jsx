@@ -54,10 +54,10 @@ const Container = styled.div`
     padding: 75px 45px 35px;
     position: relative;
     -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-}
+    box-sizing: border-box;
+  }
 
-[data-termynal]:before {
+  [data-termynal]:before {
     content: '';
     position: absolute;
     top: 15px;
@@ -69,54 +69,55 @@ const Container = styled.div`
     /* A little hack to display the window buttons in one pseudo element. */
     background: #d9515d;
     -webkit-box-shadow: 25px 0 0 #f4c025, 50px 0 0 #3ec930;
-            box-shadow: 25px 0 0 #f4c025, 50px 0 0 #3ec930;
-}
+    box-shadow: 25px 0 0 #f4c025, 50px 0 0 #3ec930;
+  }
 
-[data-ty] {
+  [data-ty] {
     display: block;
     line-height: 2;
-}
+  }
 
-[data-ty]:before {
+  [data-ty]:before {
     /* Set up defaults and ensure empty lines are displayed. */
     content: '';
     display: inline-block;
     vertical-align: middle;
-}
+  }
 
-[data-ty="input"]:before,
-[data-ty-prompt]:before {
+  [data-ty='input']:before,
+  [data-ty-prompt]:before {
     margin-right: 0.75em;
     color: var(--color-text-subtle);
-}
+  }
 
-[data-ty="input"]:before {
+  [data-ty='input']:before {
     content: '$';
-}
+  }
 
-[data-ty][data-ty-prompt]:before {
+  [data-ty][data-ty-prompt]:before {
     content: attr(data-ty-prompt);
-}
+  }
 
-[data-ty-cursor]:after {
+  [data-ty-cursor]:after {
     content: attr(data-ty-cursor);
     font-family: monospace;
     margin-left: 0.5em;
     -webkit-animation: blink 1s infinite;
-            animation: blink 1s infinite;
-}
+    animation: blink 1s infinite;
+  }
 
+  /* Cursor animation */
 
-/* Cursor animation */
-
-@-webkit-keyframes blink {
+  @-webkit-keyframes blink {
     50% {
-        opacity: 0;
+      opacity: 0;
     }
-}
+  }
 
-@keyframes blink {
+  @keyframes blink {
     50% {
-        opacity: 0;
+      opacity: 0;
+    }
+  }
 `;
 export default Error;

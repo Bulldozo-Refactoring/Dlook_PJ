@@ -1,14 +1,9 @@
+import { createSlice } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import instance from 'app/slices/Instance';
 
 const initialState = {
   userInfo: '',
 };
-
-// export const getUserInfo = createAsyncThunk('users/{memberName}', async (memberName) => {
-//   await instance.get(`/users/${memberName}`, {});
-// });
 
 const BackUserSlice = createSlice({
   name: 'backUser',

@@ -16,9 +16,7 @@ const renderTr = (modifiedDataList, titleUrl, pageNumber) => {
         </NavLink>
       </td>
       {Object.keys(list).map((key) => {
-        if (key !== 'no' && key !== 'title') {
-          return <td key={`${key}-${index}`}>{list[key]}</td>;
-        }
+        if (key !== 'no' && key !== 'title') return <td key={`${key}-${index}`}>{list[key]}</td>;
         return null;
       })}
     </StyledTr>

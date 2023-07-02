@@ -1,9 +1,14 @@
+import { getGarbageCreate } from 'app/slices/BoardSlice';
 import { Title } from 'app/style/GlobalStyle';
 import { Button, Container, ErrorMessage, Form, RadioContainer, RadioInput, RadioLabel } from 'app/style/StyleGarbage';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Garbage = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -11,13 +16,17 @@ const Garbage = () => {
   } = useForm();
   const [selectedCategory, setSelectedCategory] = useState('');
 
-  const onSubmit = (data) => {
-    console.log(data);
-  };
+  const onSubmit = handleSubmit((data) => {
+    dispatch(getGarbageCreate(data))
+      .unwrap()
+      .then((response) => {
+        window.alert('쓰레기통 등록 성공!');
+        navigate(`/garbage`);
+      })
+      .catch((error) => console.log('쓰레기통 등록 실패!'));
+  });
 
-  const handleCategoryChange = (e) => {
-    setSelectedCategory(e.target.value);
-  };
+  const handleCategoryChange = (e) => setSelectedCategory(e.target.value);
 
   return (
     <Container>

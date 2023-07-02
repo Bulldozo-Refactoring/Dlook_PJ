@@ -1,5 +1,5 @@
-import MainCard, { MainBox01, MainBox02, MainBox03, NoticeDiv, NoticeNav, NoticeUl } from 'app/style/StyleMain';
 import { SubmitButton } from 'app/style/GlobalStyle';
+import MainCard, { MainBox01, MainBox02, MainBox03, NoticeDiv, NoticeNav, NoticeUl } from 'app/style/StyleMain';
 import { Section, SectionsContainer } from 'react-fullpage';
 import { useNavigate } from 'react-router-dom';
 
@@ -35,7 +35,7 @@ const MainPage = () => {
             그것은 얼마나 보는 새가 방황하여도,
             <br />
           </p>
-          <SubmitButton onClick={() => navigate('/algorithms/step')}>알고리즘 문제 보러가기</SubmitButton>
+          <SubmitButton onClick={() => navigate('/algorithm/level')}>알고리즘 문제 보러가기</SubmitButton>
         </MainBox01>
       </Section>
       <Section id="main_box02">
@@ -65,8 +65,8 @@ const MainPage = () => {
             <li>
               <NoticeNav to="">+</NoticeNav>
               <NoticeDiv>
-                청춘의 청춘 남는 못하다 봄바람을 있는 속에 실로 것이다. 붙잡아 만천하의 것은 있으며, 그들에게 쓸쓸한 풀밭에 찾아 우는
-                것이다. 이상 가치를 무엇을 피부가 공자는 크고 속에 대고, 이것이다.
+                청춘의 청춘 남는 못하다 봄바람을 있는 속에 실로 것이다. 붙잡아 만천하의 것은 있으며, 그들에게 쓸쓸한 풀밭에 찾아 우는 것이다. 이상 가치를 무엇을
+                피부가 공자는 크고 속에 대고, 이것이다.
               </NoticeDiv>
             </li>
           </NoticeUl>

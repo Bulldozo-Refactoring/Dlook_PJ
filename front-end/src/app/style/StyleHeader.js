@@ -41,6 +41,7 @@ const MenuIconStyle = styled(Menu)`
   cursor: pointer;
   float: left;
   height: 100% !important;
+  font-size: 2.5rem !important;
   * {
     color: ${({ theme }) => theme.color.c05};
   }
