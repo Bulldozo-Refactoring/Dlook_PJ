@@ -12,6 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/garbage")
 public class GarbageController {
+
     private final GarbageService garbageService;
 
     @GetMapping

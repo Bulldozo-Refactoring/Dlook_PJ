@@ -29,36 +29,42 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/list")
-    public ResponseEntity<Map<String, Object>> getAllBoardList(@RequestParam(required = false, value="page") int page){
+    public ResponseEntity<Map<String, Object>> getAllBoardList(@RequestParam(required = false, value="page") int page) {
+
         return boardService.getAllBoardList(page);
     }
 
     @GetMapping("/{boardCtg}")
     public ResponseEntity<Map<String, Object>> getCategoryList(@PathVariable int boardCtg, @RequestParam(required = false, defaultValue = "0",  value = "page") int page) {
+
         return boardService.getCategoryList(boardCtg, page);
     }
 
     // create
     @PostMapping("/write")
     public ResponseEntity<String> boardWrite(@RequestBody BoardDTO boardDTO) {
+
         return boardService.write(boardDTO);
     }
 
     // read
     @GetMapping("/detail/{boardNo}")
     public ResponseEntity<BoardDTO> detail(@PathVariable Long boardNo) {
+
         return boardService.detail(boardNo);
     }
 
     // update
     @PatchMapping("/{boardNo}")
     public ResponseEntity<Board> update(@PathVariable("boardNo") Long boardNo, @RequestBody BoardDTO boardDTO) {
+
         return boardService.update(boardNo, boardDTO);
     }
 
     // delete
     @DeleteMapping("/{boardNo}")
     public ResponseEntity<String> delete(@PathVariable Long boardNo, HttpServletRequest request) {
+
         return boardService.delete(boardNo, request);
     }
 }
