@@ -41,6 +41,9 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+	// Email 종속성
+	implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.1'
 }
 
 tasks.named('test') {

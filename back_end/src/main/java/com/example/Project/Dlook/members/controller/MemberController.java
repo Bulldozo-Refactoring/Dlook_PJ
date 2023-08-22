@@ -1,5 +1,6 @@
 package com.example.Project.Dlook.members.controller;
 
+import com.example.Project.Dlook.members.domain.dto.EmailRequestDto;
 import com.example.Project.Dlook.members.domain.dto.JoinRequestDto;
 import com.example.Project.Dlook.members.domain.dto.LoginRequestDto;
 import com.example.Project.Dlook.members.service.MemberService;
@@ -14,11 +15,17 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping("/members")
 @RequiredArgsConstructor
 public class MemberController {
+
     private final MemberService memberService;
 
     @PostMapping("/join")
     public ResponseEntity<String> join(@RequestBody JoinRequestDto dto) {
         return memberService.join(dto);
+    }
+
+    @PostMapping("/verify")
+    public ResponseEntity<String> join(@RequestBody EmailRequestDto dto) {
+        return memberService.sendMail(dto);
     }
 
     @PostMapping("/login")

@@ -31,6 +31,7 @@ public class JwtProvider {
     private final BlackListRepository blackListRepository;
 
     public JwtProvider(BlackListRepository blackListRepository, @Value("${jwt.secret}") String secretKey) {
+
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         this.key = Keys.hmacShaKeyFor(keyBytes);
         this.blackListRepository = blackListRepository;
@@ -96,6 +97,7 @@ public class JwtProvider {
     }
 
     public boolean validateToken(String token) {
+
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             if(blackListRepository.existsByAccessToken(token)) {
@@ -115,6 +117,7 @@ public class JwtProvider {
     }
 
     private Claims parseClaims(String accessToken) {
+
         try {
             return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
         } catch (ExpiredJwtException e) {
@@ -123,6 +126,7 @@ public class JwtProvider {
     }
 
     public Long getExpiration(String accessToken) {
+
         try {
             Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken);
             Date expiration = claimsJws.getBody().getExpiration();

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Builder
 public class ProblemAlgorithmDto {
+
     private Integer problemId;
     private String titleKo;
     private String key;
