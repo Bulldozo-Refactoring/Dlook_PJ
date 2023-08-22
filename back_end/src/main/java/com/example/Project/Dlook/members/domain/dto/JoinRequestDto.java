@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @NoArgsConstructor
 @Getter
 public class JoinRequestDto {
+
     private String memberName;
     private String memberEmail;
     private String memberPw;

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Builder
 public class ProblemLevelDto {
+
     private Integer problemId;
     private String titleKo;
 }
