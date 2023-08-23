@@ -23,8 +23,8 @@ public class MemberController {
         return memberService.join(dto);
     }
 
-    @PostMapping("/verify")
-    public ResponseEntity<String> join(@RequestBody EmailRequestDto dto) {
+    @PostMapping("/sendMail")
+    public ResponseEntity<String> sendMail(@RequestBody EmailRequestDto dto) {
         return memberService.sendMail(dto);
     }
 

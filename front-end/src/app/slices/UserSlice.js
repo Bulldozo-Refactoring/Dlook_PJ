@@ -16,6 +16,16 @@ export const postJoin = createAsyncThunk('members/join', async (payload) => {
   }
 });
 
+export const postMail = createAsyncThunk('members/sendMail', async (payload) => {
+  try {
+    const response = await instance.post('members/sendMail', payload);
+    return response.data;
+  } catch (error) {
+    console.error('이메일 인증 실패: ', error);
+    throw error;
+  }
+});
+
 /**
  * @brief userSlice
  * @detail 함수, 리듀서 사용

@@ -44,7 +44,7 @@ public class SecurityConfig {
                 // 로그인, 회원가입 API, 재발급은 토큰이 없는 상태에서 요청이 들어오기 때문에 permitAll 설정
                 .and()
                 .authorizeRequests()
-                .antMatchers("/members/join", "/members/login", "/members/reissue", "/boards/list", "/boards/{boardCtg}", "/boards/detail/{boardNo}", "/boards/{boardNo}/reply", "/garbage").permitAll()
+                .antMatchers("/members/join", "/members/sendMail", "/members/login", "/members/reissue", "/boards/list", "/boards/{boardCtg}", "/boards/detail/{boardNo}", "/boards/{boardNo}/reply", "/garbage").permitAll()
                 .antMatchers("/v3/api-docs", "/swagger*/**").permitAll()
                 .anyRequest().authenticated()   // 나머지 API 는 전부 인증 필요
 

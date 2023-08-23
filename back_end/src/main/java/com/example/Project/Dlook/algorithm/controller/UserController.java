@@ -26,12 +26,12 @@ public class UserController {
     }
 
     @GetMapping("/problem/level/{level}")
-    public List<ProblemLevelDto> ProblemsByLevel(@PathVariable int level) throws JsonProcessingException {
+    public List<ProblemLevelDto> problemsByLevel(@PathVariable int level) throws JsonProcessingException {
         return userService.getProblemsByLevel(level);
     }
 
     @GetMapping("/problem/algorithm/{algorithm}")
-    public List<ProblemAlgorithmDto> ProblemsByAlgorithm(@PathVariable String algorithm) throws JsonProcessingException {
+    public List<ProblemAlgorithmDto> problemsByAlgorithm(@PathVariable String algorithm) throws JsonProcessingException {
         return userService.getProblemsByAlgorithm(algorithm);
     }
 }
