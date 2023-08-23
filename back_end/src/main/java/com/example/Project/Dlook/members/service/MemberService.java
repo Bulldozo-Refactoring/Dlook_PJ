@@ -14,6 +14,7 @@ import com.example.Project.Dlook.members.repository.MemberRepository;
 import com.example.Project.Dlook.members.repository.RefreshTokenRepository;
 import com.example.Project.Dlook.utils.JwtProvider;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -34,6 +35,7 @@ import java.util.Random;
  * The type Member service.
  */
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class MemberService {
 
@@ -77,16 +79,17 @@ public class MemberService {
     public ResponseEntity<String> sendMail(EmailRequestDto dto) {
 
         String authNum = createCode();
-
+        log.info(authNum);
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
         try {
             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
-            mimeMessageHelper.setTo(dto.getEmail()); // 메일 수신자
+            mimeMessageHelper.setTo(dto.getMemberEmail()); // 메일 수신자
+            mimeMessageHelper.setSubject("[Dlook] 이메일 인증을 위한 인증코드를 보내 드립니다."); // 메일 제목
+            mimeMessageHelper.setText("<html><body><p>인증 코드: " + authNum + "</p></body></html>", true);
             javaMailSender.send(mimeMessage);
 
             return ResponseEntity.ok().body(authNum);
-
         } catch (MessagingException e) {
 
             throw new RuntimeException(e);

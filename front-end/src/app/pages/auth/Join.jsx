@@ -1,4 +1,4 @@
-import { postJoin } from 'app/slices/UserSlice';
+import { postJoin, postMail } from 'app/slices/UserSlice';
 import {
   Button,
   ErrorMessage,
@@ -23,10 +23,12 @@ const Join = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { isSubmitting, isDirty, errors },
     // setError,
     clearErrors,
   } = useForm();
+
   const [isEmailSent, setIsEmailSent] = useState(false); // Send an email
   const [verificationCode, setVerificationCode] = useState(''); // Error message
   const [isVerified, setIsVerified] = useState(false); // Authentication code
@@ -37,11 +39,17 @@ const Join = () => {
    * @detail Whether it's a success or not
    * @return setIsEmailSent(true/false)
    */
-  const sendVerificationEmail = () => {
-    // 이메일을 성공적으로 전송했다면 setIsEmailSent(true)
-    setIsEmailSent(true);
-    setVerificationCode({ value: '', isValid: false });
-    startTimer();
+  const sendVerificationEmail = (memberEmail) => {
+    console.log(memberEmail)
+    dispatch(postMail({ memberEmail }))
+      .then((response) => {
+        setIsEmailSent(true);
+        setVerificationCode(response.payload); 
+        startTimer();
+      })
+      .catch((error) => {
+        console.log('이메일 전송 실패:', error);
+      });
   };
 
   /**
@@ -65,10 +73,14 @@ const Join = () => {
    * @param
    * @return
    */
-  const verifyCode = () => {
-    // 인증 코드가 맞다면 setIsVerified(true)
-    setIsVerified(true);
-    clearErrors('verificationCode');
+  const verifyCode = (inputCode) => {
+    if (verificationCode === inputCode) {
+      setIsVerified(true);
+      clearErrors('verificationCode');
+    } else {
+      setIsVerified(false);
+      console.log('인증코드가 일치하지 않습니다.');
+    }
   };
 
   /**
@@ -118,8 +130,6 @@ const Join = () => {
             <label style={{ width: '66px' }}>인증번호</label>
             <Input
               type="text"
-              value={verificationCode}
-              onChange={(e) => setVerificationCode(e.target.value)}
               {...register('verificationCode', {
                 required: '인증 번호를 적어주세요.',
               })}
@@ -130,14 +140,14 @@ const Join = () => {
             {isVerified ? (
               <VerificationMessage>PASS</VerificationMessage>
             ) : (
-              <VerifyButton type="button" onClick={verifyCode}>
+              <VerifyButton type="button" onClick={() => verifyCode(watch('verificationCode'))}>
                 확인
               </VerifyButton>
             )}
           </FormStyle>
         ) : (
           <FormStyle>
-            <SendButton type="button" onClick={sendVerificationEmail}>
+            <SendButton type="button" onClick={() => sendVerificationEmail(watch('memberEmail'))}>
               전송
             </SendButton>
           </FormStyle>
