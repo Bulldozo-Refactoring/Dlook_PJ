@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @Getter
 public class EmailRequestDto {
 
-    private String email;
+    private String memberEmail;
 }
