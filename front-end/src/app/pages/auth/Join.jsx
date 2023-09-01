@@ -40,7 +40,6 @@ const Join = () => {
    * @return setIsEmailSent(true/false)
    */
   const sendVerificationEmail = (memberEmail) => {
-    console.log(memberEmail)
     dispatch(postMail({ memberEmail }))
       .then((response) => {
         setIsEmailSent(true);
@@ -79,7 +78,7 @@ const Join = () => {
       clearErrors('verificationCode');
     } else {
       setIsVerified(false);
-      console.log('인증코드가 일치하지 않습니다.');
+      alert("인증코드가 일치하지 않습니다.");
     }
   };
 
@@ -176,7 +175,7 @@ const Join = () => {
           />
           {errors.memberPw && <ErrorMessage role="alert">{errors.memberPw.message}</ErrorMessage>}
         </FormStyle>
-        <Button type="submit" disabled={isSubmitting || !isDirty}>
+        <Button type="submit" disabled={isSubmitting || !isDirty || !isVerified}>
           Sign Up
         </Button>
       </form>
