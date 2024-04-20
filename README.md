@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="./Assets/img/Dlook_image.png" width = 100% height=400vh alt="profile logo">
+    <img src="./Assets/img/Dlook_image.png" width = 85% height=400vh alt="profile logo">
 </div>
 
 ------------------------------------------
@@ -16,18 +16,18 @@
 
 ## 2. ⚙️ 주요 기능
 
-**WF 초안**
+**🖋 WF 초안** <br/><br/>
 
   ![와이어프레임 초안](./Assets/img/Dlook_wireframe.png)
 
 
-**메인 화면**
+**🖋 메인 화면** <br/><br/>
 
   ![메인 화면](./Assets/img/Dlook_main.png)
   ![카테고리](./Assets/img/Dlook_category.png)
 
 
-**1) 회원가입 및 로그인 기능 ( 이메일 인증 )**
+**1) 회원가입 및 로그인 기능 ( 이메일 인증 )** <br/><br/>
   
   ![회원가입](./Assets/img/Dlook_login.png)
 
@@ -59,7 +59,7 @@
   ![현재 자신의 랭크 현황](./Assets/img/Dlook_rank_analyze.png)
 
 
-**4) 게시판 기능**
+**4) 게시판 기능** <br/><br/>
 
   ![알고리즘 카테고리](./Assets/img/Dlook_boards.png)
 
