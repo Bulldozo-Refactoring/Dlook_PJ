@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="./Assets/img/Dlook_image.png" width = 70% height=400vh alt="profile logo">
+    <img src="./Assets/img/Dlook_image.png" width = 100% height=400vh alt="profile logo">
 </div>
 
 ------------------------------------------
@@ -19,7 +19,7 @@
 **WF 초안**
 
   ![와이어프레임 초안](./Assets/img/Dlook_wireframe.png)
-  
+
 
 **메인 화면**
 
