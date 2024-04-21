@@ -38,7 +38,7 @@ public class JwtProvider {
     }
     private static final String AUTHORITIES_KEY = "auth";
     private static final String BEARER_TYPE = "Bearer";
-    private Long accessTokenExpireTimeMs = 1000 * 60l * 60; // 1시간
+    private Long accessTokenExpireTimeMs = 1000 * 60l * 3600; // 1시간
     private Long refreshTokenExpireTimeMs = 1000 * 60l * 10080; // 일주일
 
     public TokenDto generateTokenDto(Authentication authentication) {
