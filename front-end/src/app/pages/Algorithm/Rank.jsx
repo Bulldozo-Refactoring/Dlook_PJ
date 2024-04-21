@@ -42,7 +42,7 @@ const Rank = () => {
       </section>
       <section>
         <StyledSubTitle>기간별 진행도</StyledSubTitle>
-        <Img src={`https://ghchart.rshah.org/219138/${info.user}`} alt="백준 잔디" />
+        <Img src={`http://mazandi.herokuapp.com/api?handle=${info.user}&theme=warm`} alt="백준 잔디" />
         {/* <LinkStyle onClick={() => (document.location.href = 'https://github.com/Bulldozo')}>깃허브 바로가기</LinkStyle> */}
       </section>
     </div>

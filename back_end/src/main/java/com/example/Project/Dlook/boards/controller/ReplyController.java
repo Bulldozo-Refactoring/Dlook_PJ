@@ -19,18 +19,21 @@ public class ReplyController {
 
     @GetMapping
     public ResponseEntity<List<ReplyDTO>> replyList(@PathVariable("boardNo") Long boardNo) {
+
         return replyService.list(boardNo);
     }
 
     //댓글쓰기
     @PostMapping
     public ResponseEntity<String> replyWrite(@PathVariable("boardNo") Long boardNo, @RequestBody ReplyDTO replyDTO) {
+
         return replyService.write(boardNo, replyDTO);
     }
 
     //댓글삭제
     @DeleteMapping("/{replyNo}")
     public ResponseEntity<String> replyDelete(@PathVariable("replyNo") Long replyNo, HttpServletRequest request) {
+
         return replyService.delete(replyNo, request);
     }
 }

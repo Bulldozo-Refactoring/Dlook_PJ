@@ -1,4 +1,4 @@
-import { postJoin } from 'app/slices/UserSlice';
+import { postJoin, postMail } from 'app/slices/UserSlice';
 import {
   Button,
   ErrorMessage,
@@ -23,20 +23,32 @@ const Join = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { isSubmitting, isDirty, errors },
     // setError,
     clearErrors,
   } = useForm();
-  const [isEmailSent, setIsEmailSent] = useState(false);
-  const [verificationCode, setVerificationCode] = useState('');
-  const [isVerified, setIsVerified] = useState(false);
-  const [remainingTime, setRemainingTime] = useState(300);
 
-  const sendVerificationEmail = () => {
-    // 이메일을 성공적으로 전송했다면 setIsEmailSent(true)
-    setIsEmailSent(true);
-    setVerificationCode({ value: '', isValid: false });
-    startTimer();
+  const [isEmailSent, setIsEmailSent] = useState(false); // Send an email
+  const [verificationCode, setVerificationCode] = useState(''); // Error message
+  const [isVerified, setIsVerified] = useState(false); // Authentication code
+  const [remainingTime, setRemainingTime] = useState(300); // Authentication time
+
+  /**
+   * @brief Email transmission successful
+   * @detail Whether it's a success or not
+   * @return setIsEmailSent(true/false)
+   */
+  const sendVerificationEmail = (memberEmail) => {
+    dispatch(postMail({ memberEmail }))
+      .then((response) => {
+        setIsEmailSent(true);
+        setVerificationCode(response.payload); 
+        startTimer();
+      })
+      .catch((error) => {
+        console.log('이메일 전송 실패:', error);
+      });
   };
 
   const startTimer = () => {
@@ -48,10 +60,20 @@ const Join = () => {
     }, 1000);
   };
 
-  const verifyCode = () => {
-    // 인증 코드가 맞다면 setIsVerified(true)
-    setIsVerified(true);
-    clearErrors('verificationCode');
+  /**
+   * @brief
+   * @detail
+   * @param
+   * @return
+   */
+  const verifyCode = (inputCode) => {
+    if (verificationCode === inputCode) {
+      setIsVerified(true);
+      clearErrors('verificationCode');
+    } else {
+      setIsVerified(false);
+      alert("인증코드가 일치하지 않습니다.");
+    }
   };
 
   const onSubmit = handleSubmit((data) => {
@@ -86,8 +108,6 @@ const Join = () => {
             <label style={{ width: '66px' }}>인증번호</label>
             <Input
               type="text"
-              value={verificationCode}
-              onChange={(e) => setVerificationCode(e.target.value)}
               {...register('verificationCode', {
                 required: '인증 번호를 적어주세요.',
               })}
@@ -98,14 +118,14 @@ const Join = () => {
             {isVerified ? (
               <VerificationMessage>PASS</VerificationMessage>
             ) : (
-              <VerifyButton type="button" onClick={verifyCode}>
+              <VerifyButton type="button" onClick={() => verifyCode(watch('verificationCode'))}>
                 확인
               </VerifyButton>
             )}
           </FormStyle>
         ) : (
           <FormStyle>
-            <SendButton type="button" onClick={sendVerificationEmail}>
+            <SendButton type="button" onClick={() => sendVerificationEmail(watch('memberEmail'))}>
               전송
             </SendButton>
           </FormStyle>
@@ -134,7 +154,7 @@ const Join = () => {
           />
           {errors.memberPw && <ErrorMessage role="alert">{errors.memberPw.message}</ErrorMessage>}
         </FormStyle>
-        <Button type="submit" disabled={isSubmitting || !isDirty}>
+        <Button type="submit" disabled={isSubmitting || !isDirty || !isVerified}>
           Sign Up
         </Button>
       </form>

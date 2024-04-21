@@ -194,9 +194,3 @@ public class BoardService {
         return ResponseEntity.ok().body("delete success");
     }
 }
-
-
-
-
-
-

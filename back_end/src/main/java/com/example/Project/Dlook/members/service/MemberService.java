@@ -5,6 +5,7 @@ import com.example.Project.Dlook.exception.ErrorCode;
 import com.example.Project.Dlook.members.domain.BlackList;
 import com.example.Project.Dlook.members.domain.Member;
 import com.example.Project.Dlook.members.domain.RefreshToken;
+import com.example.Project.Dlook.members.domain.dto.EmailRequestDto;
 import com.example.Project.Dlook.members.domain.dto.JoinRequestDto;
 import com.example.Project.Dlook.members.domain.dto.LoginRequestDto;
 import com.example.Project.Dlook.members.domain.dto.TokenDto;
@@ -13,7 +14,10 @@ import com.example.Project.Dlook.members.repository.MemberRepository;
 import com.example.Project.Dlook.members.repository.RefreshTokenRepository;
 import com.example.Project.Dlook.utils.JwtProvider;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -21,21 +25,29 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Random;
 
 /**
  * The type Member service.
  */
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class MemberService {
+
     private final MemberRepository memberRepository;
     private final RefreshTokenRepository refreshTokenRepository;
     private final BlackListRepository blackListRepository;
+
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtProvider jwtProvider;
     private final BCryptPasswordEncoder encoder;
+
+    private final JavaMailSender javaMailSender;
 
     /**
      * Join response entity.
@@ -64,6 +76,43 @@ public class MemberService {
         return ResponseEntity.ok().body("join success");
     }
 
+    public ResponseEntity<String> sendMail(EmailRequestDto dto) {
+
+        String authNum = createCode();
+        log.info(authNum);
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+
+        try {
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
+            mimeMessageHelper.setTo(dto.getMemberEmail()); // 메일 수신자
+            mimeMessageHelper.setSubject("[Dlook] 이메일 인증을 위한 인증코드를 보내 드립니다."); // 메일 제목
+            mimeMessageHelper.setText("<html><body><p>인증 코드: " + authNum + "</p></body></html>", true);
+            javaMailSender.send(mimeMessage);
+
+            return ResponseEntity.ok().body(authNum);
+        } catch (MessagingException e) {
+
+            throw new RuntimeException(e);
+        }
+    }
+
+    public String createCode() {
+
+        Random random = new Random();
+        StringBuilder key = new StringBuilder();
+
+        for (int i = 0; i < 8; i++) {
+            int index = random.nextInt(4);
+
+            switch (index) {
+                case 0: key.append((char) ((int) random.nextInt(26) + 97)); break;
+                case 1: key.append((char) ((int) random.nextInt(26) + 65)); break;
+                default: key.append(random.nextInt(9));
+            }
+        }
+        return key.toString();
+    }
+
     /**
      * Login response entity.
      *
@@ -73,6 +122,7 @@ public class MemberService {
      */
     @Transactional
     public ResponseEntity<String> login(LoginRequestDto dto, HttpServletResponse response) {
+
         // memberEmail 없음
         Member selectedMemberEmail = memberRepository.findByMemberEmail(dto.getMemberEmail())
                 .orElseThrow(() -> new AppException(ErrorCode.MEMBEREMAIL_NOT_FOUND));
@@ -112,6 +162,7 @@ public class MemberService {
      */
     @Transactional
     public ResponseEntity<String> reissue(HttpServletRequest request, HttpServletResponse response) {
+
         String refreshToken = request.getHeader("RefreshToken");
 
         if (!jwtProvider.validateToken(refreshToken)) {
@@ -145,6 +196,7 @@ public class MemberService {
      * @return the response entity
      */
     public ResponseEntity<String> logout(HttpServletRequest request) {
+
         String accessToken = request.getHeader("Authorization").substring(7);
 
         // 1. Access Token 에서 Member ID 가져오기
@@ -154,11 +206,10 @@ public class MemberService {
         RefreshToken refreshTokenValue = refreshTokenRepository.findByRefreshKey(authentication.getName())
                 .orElseThrow(() -> new AppException(ErrorCode.MEMBER_LOGOUT));
 
-        if (refreshTokenValue != null) {
-            refreshTokenRepository.delete(refreshTokenValue);
-        }
+        if (refreshTokenValue != null) { refreshTokenRepository.delete(refreshTokenValue); }
 
         Long expiration = jwtProvider.getExpiration(accessToken);
+
         BlackList blackList = BlackList.builder()
                 .accessToken(accessToken)
                 .message("logout")

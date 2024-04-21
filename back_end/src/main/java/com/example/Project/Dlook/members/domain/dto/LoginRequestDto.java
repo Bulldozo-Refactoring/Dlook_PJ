@@ -9,6 +9,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 @NoArgsConstructor
 @Getter
 public class LoginRequestDto {
+
     private String memberEmail;
     private String memberPw;
 

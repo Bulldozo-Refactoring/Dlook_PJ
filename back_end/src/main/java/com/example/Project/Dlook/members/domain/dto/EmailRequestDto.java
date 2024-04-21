@@ -1,12 +1,13 @@
 package com.example.Project.Dlook.members.domain.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter
+@AllArgsConstructor
 @NoArgsConstructor
-public class TokenRequestDto {
+@Getter
+public class EmailRequestDto {
 
-    private String accessToken;
-    private String refreshToken;
+    private String memberEmail;
 }
