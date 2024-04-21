@@ -144,18 +144,22 @@
 
 <br/>
 <div align="center">
-    <table border="" width="50%">
+    <table border=""4 width="50%">
         <tr>
-            <th style="text-align : center;">FrontEnd</th>
-            <th style="text-align : center;">Backend</th>
+            <th style="text-align : center;" colspan="2">FrontEnd</th>
+            <th style="text-align : center;" colspan="2">Backend</th>
         </tr>
         <tr>
             <td align="center"><a href="https://github.com/OlMinJe"><img src="https://avatars.githubusercontent.com/u/118544134?v=4" width="180px;" style="vertical-align:top" alt=""></td>
+            <td align="center"><a href="https://github.com/gyuonnn"><img src="https://avatars.githubusercontent.com/u/129468485?v=4" width="180px;" style="vertical-align:top" alt=""></td>
             <td align="center"><a href="https://github.com/noxknow"><img src="https://avatars.githubusercontent.com/u/122594223?v=4" width="180px;" style="vertical-align:top" alt=""></td>
+            <td align="center"><a href="https://github.com/loadraw"><img src="https://avatars.githubusercontent.com/u/134680900?v=4" width="180px;" style="vertical-align:top" alt=""></td>
         </tr>
         <tr>
-            <td align="center"><a href="https://github.com/h-beeen">이민제</td>
-            <td align="center"><a href="https://github.com/tioon">이치왕</td>
+            <td align="center"><a href="https://github.com/OlMinJe">이민제</td>
+            <td align="center"><a href="https://github.com/gyuonnn">윤규원</td>
+            <td align="center"><a href="https://github.com/noxknow">이치왕</td>
+            <td align="center"><a href="https://github.com/loadraw">황인환</td>
         </tr>
     </table>
 </div>
