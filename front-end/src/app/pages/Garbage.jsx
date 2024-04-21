@@ -46,15 +46,12 @@ const Garbage = () => {
     setLoading(false);
   }, [token]);
 
-  useEffect(() => {
-    getList();
-  }, [getList]);
+  useEffect(() => getList(), [getList]);
 
   return (
     <Container>
       <section>
         <Title>쓰레기통 게시판</Title>
-        <p>여기에 물결 배경에 최근 가장 많이 선택한 감정 보여주기?!</p>
       </section>
       <section>
         <Phone ref={containerRef}>

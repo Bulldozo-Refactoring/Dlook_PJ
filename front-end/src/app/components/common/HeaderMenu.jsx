@@ -40,7 +40,7 @@ function HeaderMenu() {
           <StyleLi>
             <NavStyle to="/mypages/certify">내 정보</NavStyle>
           </StyleLi>
-          <StyleLi>
+          {/* <StyleLi>
             <NavStyle to="/notice">공지사항/이벤트</NavStyle>
           </StyleLi>
           <StyleLi>
@@ -48,7 +48,7 @@ function HeaderMenu() {
           </StyleLi>
           <StyleLi>
             <NavStyle to="/">서비스 정책</NavStyle>
-          </StyleLi>
+          </StyleLi> */}
         </ul>
       </MenuLi>
     </>

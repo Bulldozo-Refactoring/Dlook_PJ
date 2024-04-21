@@ -52,7 +52,7 @@ const MyCertify = () => {
                 <BlueText>{info.user}</BlueText>
               </div>
               <div style={{ width: '70%', textAlign: 'left', padding: '0 30px' }}>
-                <PinkText02>User Bio - 나는야 퉁퉁이</PinkText02>
+                <PinkText02>User Bio - 오늘도 아자아자!</PinkText02>
                 <div>
                   <div>
                     <WhiteText>SolvedCount</WhiteText>

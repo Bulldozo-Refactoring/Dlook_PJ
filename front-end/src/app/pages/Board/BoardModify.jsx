@@ -30,9 +30,7 @@ const BoardModify = () => {
   const setBoardCtg = setBoardCtgLabel(data.boardCtg);
   // [ ] 오류 수정 필요 - 확인 누르면 status값이 undefined라서 이동이 안됨
   const handleUpdate = (data) => {
-    instance.patch(`/boards/${boardNo}`, data).then(() => {
-      alert('수정되었습니다.');
-    });
+    instance.patch(`/boards/${boardNo}`, data).then(() => alert('수정되었습니다.'));
     navigate(`/boards/detail${boardNo}`);
   };
 
@@ -57,7 +55,13 @@ const BoardModify = () => {
                 <li>
                   <span>제목</span>
                   <span>
-                    <input id="boardTitle" name="boardTitle" type="text" defaultValue={data.boardTitle} {...register('boardTitle')} />
+                    <input
+                      id="boardTitle"
+                      name="boardTitle"
+                      type="text"
+                      defaultValue={data.boardTitle}
+                      {...register('boardTitle')}
+                    />
                   </span>
                 </li>
               </StyleUl>

@@ -1,12 +1,10 @@
-import { styled } from "styled-components";
+import { styled } from 'styled-components';
 
 const Footer = () => {
   return (
     <>
       <div id="footer">
-        <FooterInner>
-          <h2>Footer 내용</h2>
-        </FooterInner>
+        <FooterInner></FooterInner>
       </div>
     </>
   );
@@ -16,6 +14,6 @@ const FooterInner = styled.div`
   margin: 0 auto;
   padding: 0 40px;
   width: 1280px;
-  height: 100%;
+  height: 50px;
 `;
 export default Footer;

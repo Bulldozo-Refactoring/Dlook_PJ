@@ -41,7 +41,7 @@ const MainPage = () => {
       <Section id="main_box02">
         <MainBox02>
           <h1>불도조</h1>
-          <p>
+          {/* <p>
             청춘의 청춘 남는 못하다 봄바람을 있는 속에 실로 것이다.
             <br />
             붙잡아 만천하의 것은 있으며,
@@ -54,7 +54,7 @@ const MainPage = () => {
             <br />
             그것은 얼마나 보는 새가 방황하여도,
             <br />
-          </p>
+          </p> */}
           <MainCard />
         </MainBox02>
       </Section>
@@ -62,13 +62,15 @@ const MainPage = () => {
         <MainBox03>
           <h1>NOTICE</h1>
           <NoticeUl>
-            <li>
-              <NoticeNav to="">+</NoticeNav>
-              <NoticeDiv>
-                청춘의 청춘 남는 못하다 봄바람을 있는 속에 실로 것이다. 붙잡아 만천하의 것은 있으며, 그들에게 쓸쓸한 풀밭에 찾아 우는 것이다. 이상 가치를 무엇을
-                피부가 공자는 크고 속에 대고, 이것이다.
-              </NoticeDiv>
-            </li>
+            {[0, 1, 2, 3].map((e) => {
+              <li>
+                <NoticeNav to="">+</NoticeNav>
+                <NoticeDiv>
+                  청춘의 청춘 남는 못하다 봄바람을 있는 속에 실로 것이다. 붙잡아 만천하의 것은 있으며, 그들에게 쓸쓸한
+                  풀밭에 찾아 우는 것이다. 이상 가치를 무엇을 피부가 공자는 크고 속에 대고, 이것이다.
+                </NoticeDiv>
+              </li>;
+            })}
           </NoticeUl>
         </MainBox03>
       </Section>

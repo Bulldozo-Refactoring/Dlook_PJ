@@ -24,8 +24,7 @@ const BoardWrite = () => {
       .then((response) => {
         window.alert('등록 성공!');
         navigate(`/boards/list?page=0`);
-      })
-      .catch((error) => console.log('회원가입 실패!'));
+      });
   });
 
   return (

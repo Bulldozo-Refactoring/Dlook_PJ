@@ -51,12 +51,6 @@ const Join = () => {
       });
   };
 
-  /**
-   * @brief Check email delivery time
-   * @detail
-   * @param
-   * @return
-   */
   const startTimer = () => {
     let seconds = 300;
     const timer = setInterval(() => {
@@ -82,28 +76,13 @@ const Join = () => {
     }
   };
 
-  /**
-   * @brief
-   * @detail
-   * @param
-   * @return
-   */
   const onSubmit = handleSubmit((data) => {
     dispatch(postJoin(data))
       .unwrap()
-      .then((response) => navigate('/members/joinresult'))
-      .catch((error) => console.log('회원가입 실패!'));
+      .then((response) => navigate('/members/joinresult'));
   });
 
-  /**
-   * @brief
-   * @detail
-   * @param
-   * @return
-   */
-  useEffect(() => {
-    if (remainingTime === 0) setIsEmailSent(false);
-  }, [remainingTime]);
+  useEffect(() => remainingTime === 0 && setIsEmailSent(false), [remainingTime]);
 
   return (
     <SignUpTemplate>
