@@ -1,6 +1,16 @@
 import { Table } from 'app/components/Table';
 import instance from 'app/slices/Instance';
-import { Board, PaginButton, Pagination, StyleLi, StyleP, StyledButton, StyledUl, Tab, Wrap } from 'app/style/StyleBoard';
+import {
+  Board,
+  PaginButton,
+  Pagination,
+  StyleLi,
+  StyleP,
+  StyledButton,
+  StyledUl,
+  Tab,
+  Wrap,
+} from 'app/style/StyleBoard';
 import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -26,9 +36,7 @@ const BoardList = () => {
       });
   }, [pageNumber, categoryTab]);
 
-  useEffect(() => {
-    getBoardList();
-  }, [getBoardList]);
+  useEffect(() => getBoardList(), [getBoardList]);
 
   const handlePagenChange = (indexNumber) => setPageNumber(indexNumber);
   const handleCategoryClick = (category) => {
@@ -46,7 +54,11 @@ const BoardList = () => {
 
   const renderPaginationButtons = () => {
     return Array.from({ length: totalPages }).map((boardCtg, index) => (
-      <PaginButton key={index} className={index === pageNumber ? 'active' : ''} onClick={() => handlePagenChange(index)}>
+      <PaginButton
+        key={index}
+        className={index === pageNumber ? 'active' : ''}
+        onClick={() => handlePagenChange(index)}
+      >
         {index + 1}
       </PaginButton>
     ));

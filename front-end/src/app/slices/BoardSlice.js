@@ -6,15 +6,33 @@ const initialState = {
   boardWriter: null,
 };
 
+const boardSlice = createSlice({
+  name: 'board',
+  initialState,
+  reducers: {
+    setBoardNo: (state, action) => {
+      state.boardNo = action.payload;
+    },
+    setBoardWriter: (state, action) => {
+      state.boardWriter = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getGarbageCreate.rejected, (_, { error }) => {
+        console.error('글 작성 실패: ', error);
+      })
+      .addCase(getGarbageCreate.fulfilled, (_, { payload }) => {})
+      .addCase(getBoardCreate.rejected, (_, { error }) => {
+        console.error('글 작성 실패: ', error);
+      })
+      .addCase(getBoardCreate.fulfilled, (_, { payload }) => {});
+  },
+});
+
 export const getGarbageCreate = createAsyncThunk('garbage/create', async (payload) => {
-  try {
-    const token = localStorage.getItem('accessToken');
-    await instance.post(`/garbage/write`, payload, { headers: { authorization: 'Bearer ' + token } });
-    console.log('성공!');
-  } catch (error) {
-    console.error('글 작성 실패: ', error);
-    throw error;
-  }
+  const token = localStorage.getItem('accessToken');
+  await instance.post(`/garbage/write`, payload, { headers: { authorization: 'Bearer ' + token } });
 });
 
 export const getBoardDetail = (urlType, boardNo, navigate, setData) => {
@@ -36,13 +54,8 @@ export const getBoardDetail = (urlType, boardNo, navigate, setData) => {
 };
 
 export const getBoardCreate = createAsyncThunk('boards/create', async (payload) => {
-  try {
-    await instance.post(`/boards/write`, payload);
-    console.log('성공!');
-  } catch (error) {
-    console.error('글 작성 실패: ', error);
-    throw error;
-  }
+  await instance.post(`/boards/write`, payload);
+  console.log('성공!');
 });
 
 export const setBoardCtgLabel = (boardCtg) => {
@@ -50,19 +63,6 @@ export const setBoardCtgLabel = (boardCtg) => {
   else if (boardCtg === 0) return '자유게시판';
   else return 'Q&A게시판';
 };
-
-const boardSlice = createSlice({
-  name: 'board',
-  initialState,
-  reducers: {
-    setBoardNo: (state, action) => {
-      state.boardNo = action.payload;
-    },
-    setBoardWriter: (state, action) => {
-      state.boardWriter = action.payload;
-    },
-  },
-});
 
 export const { setBoardNo, setBoardWriter } = boardSlice.actions;
 export default boardSlice.reducer;

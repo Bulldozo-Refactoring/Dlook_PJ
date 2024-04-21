@@ -2,6 +2,29 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import instance from 'app/slices/Instance';
 import Cookies from 'js-cookie';
 import jwt_decode from 'jwt-decode';
+import { postJoin } from './UserSlice';
+
+/**
+ * @brief cookieSlice
+ * @detail 함수, 리듀서 사용
+ * @return loading, isLoggenIn
+ */
+const CookieSlice = createSlice({
+  name: 'cookie',
+  initialState: {
+    memberName: null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(postLogin.rejected, (_, { error }) => {
+        console.error('로그인 실패:', error);
+      })
+      .addCase(postJoin.rejected, (_, { error }) => {
+        console.error('로그아웃 실패:', error);
+      });
+  },
+});
 
 /**
  * @brief 로그인 처리 함수(post)
@@ -34,32 +57,16 @@ export const postLogin = createAsyncThunk('members/login', async (payload) => {
  * @return  null
  */
 export const getLogout = createAsyncThunk('members/logout', async () => {
-  try {
-    await instance.get('/members/logout', null, { withCredentials: true });
+  await instance.get('/members/logout', null, { withCredentials: true });
 
-    localStorage.removeItem('accessToken');
-    Cookies.remove('refreshToken', { path: '/' });
-    Cookies.remove('memberName', { path: '/' });
-    Cookies.remove('isLoggedIn', false, { path: '/' });
-    Cookies.remove('userInfo', { path: '/' });
+  localStorage.removeItem('accessToken');
+  Cookies.remove('refreshToken', { path: '/' });
+  Cookies.remove('memberName', { path: '/' });
+  Cookies.remove('isLoggedIn', false, { path: '/' });
+  Cookies.remove('userInfo', { path: '/' });
 
-    console.log('로그아웃 성공');
-    return null;
-  } catch (error) {
-    console.error('로그아웃 실패:', error);
-  }
-});
-
-/**
- * @brief cookieSlice
- * @detail 함수, 리듀서 사용
- * @return loading, isLoggenIn
- */
-const CookieSlice = createSlice({
-  name: 'cookie',
-  initialState: {
-    memberName: null,
-  },
+  console.log('로그아웃 성공');
+  return null;
 });
 
 export default CookieSlice.reducer;

@@ -27,16 +27,11 @@ const Join = () => {
     // setError,
     clearErrors,
   } = useForm();
-  const [isEmailSent, setIsEmailSent] = useState(false); // Send an email
-  const [verificationCode, setVerificationCode] = useState(''); // Error message
-  const [isVerified, setIsVerified] = useState(false); // Authentication code
-  const [remainingTime, setRemainingTime] = useState(300); // Authentication time
+  const [isEmailSent, setIsEmailSent] = useState(false);
+  const [verificationCode, setVerificationCode] = useState('');
+  const [isVerified, setIsVerified] = useState(false);
+  const [remainingTime, setRemainingTime] = useState(300);
 
-  /**
-   * @brief Email transmission successful
-   * @detail Whether it's a success or not
-   * @return setIsEmailSent(true/false)
-   */
   const sendVerificationEmail = () => {
     // 이메일을 성공적으로 전송했다면 setIsEmailSent(true)
     setIsEmailSent(true);
@@ -44,12 +39,6 @@ const Join = () => {
     startTimer();
   };
 
-  /**
-   * @brief Check email delivery time
-   * @detail
-   * @param
-   * @return
-   */
   const startTimer = () => {
     let seconds = 300;
     const timer = setInterval(() => {
@@ -59,40 +48,19 @@ const Join = () => {
     }, 1000);
   };
 
-  /**
-   * @brief
-   * @detail
-   * @param
-   * @return
-   */
   const verifyCode = () => {
     // 인증 코드가 맞다면 setIsVerified(true)
     setIsVerified(true);
     clearErrors('verificationCode');
   };
 
-  /**
-   * @brief
-   * @detail
-   * @param
-   * @return
-   */
   const onSubmit = handleSubmit((data) => {
     dispatch(postJoin(data))
       .unwrap()
-      .then((response) => navigate('/members/joinresult'))
-      .catch((error) => console.log('회원가입 실패!'));
+      .then((response) => navigate('/members/joinresult'));
   });
 
-  /**
-   * @brief
-   * @detail
-   * @param
-   * @return
-   */
-  useEffect(() => {
-    if (remainingTime === 0) setIsEmailSent(false);
-  }, [remainingTime]);
+  useEffect(() => remainingTime === 0 && setIsEmailSent(false), [remainingTime]);
 
   return (
     <SignUpTemplate>

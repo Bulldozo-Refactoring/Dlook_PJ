@@ -22,8 +22,7 @@ const Garbage = () => {
       .then((response) => {
         window.alert('쓰레기통 등록 성공!');
         navigate(`/garbage`);
-      })
-      .catch((error) => console.log('쓰레기통 등록 실패!'));
+      });
   });
 
   const handleCategoryChange = (e) => setSelectedCategory(e.target.value);

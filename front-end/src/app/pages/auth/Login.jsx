@@ -39,8 +39,7 @@ const Login = () => {
         });
         window.alert(memberName + '님 로그인에 성공하셨습니다.!');
         navigate('/');
-      })
-      .catch((error) => console.log('로그인 실패!'));
+      });
   });
 
   return (

@@ -1,30 +1,29 @@
-import React from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import PrivateRoute from 'app/components/common/PrivateRoute';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 // page import
 import Layout from 'app/components/common/Layout';
-import Error from 'app/pages/Error';
-import MainPage from 'app/pages/Main';
-import Notice from 'app/pages/Notice';
-import Garbage from 'app/pages/Garbage';
-import GarbageWrite from 'app/pages/GarbageWrite';
 import Algorithm from 'app/pages/Algorithm/Algorithm';
-import StepLevel from 'app/pages/Algorithm/StepLevel';
-import Step from 'app/pages/Algorithm/Step';
 import Child from 'app/pages/Algorithm/Child';
+import Rank from 'app/pages/Algorithm/Rank';
+import Step from 'app/pages/Algorithm/Step';
+import StepLevel from 'app/pages/Algorithm/StepLevel';
 import Type from 'app/pages/Algorithm/Type';
 import Wrong from 'app/pages/Algorithm/Wrong';
-import Rank from 'app/pages/Algorithm/Rank';
-import Login from 'app/pages/auth/Login';
+import ForgotPassword from 'app/pages/auth/ForgotPassword';
 import Join from 'app/pages/auth/Join';
 import JoinResult from 'app/pages/auth/JoinResult';
-import ForgotPassword from 'app/pages/auth/ForgotPassword';
-import MyCertify from 'app/pages/auth/MyCertify';
+import Login from 'app/pages/auth/Login';
 import MyBoard from 'app/pages/auth/MyBoard';
-import BoardList from 'app/pages/Board/BoardList';
-import BoardWrite from 'app/pages/Board/BoardWrite';
+import MyCertify from 'app/pages/auth/MyCertify';
 import BoardDetail from 'app/pages/Board/BoardDetail';
+import BoardList from 'app/pages/Board/BoardList';
 import BoardModify from 'app/pages/Board/BoardModify';
+import BoardWrite from 'app/pages/Board/BoardWrite';
+import Error from 'app/pages/Error';
+import Garbage from 'app/pages/Garbage';
+import GarbageWrite from 'app/pages/GarbageWrite';
+import MainPage from 'app/pages/Main';
+import Notice from 'app/pages/Notice';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -125,7 +124,11 @@ const App = () => {
         {
           path: 'users',
           errorElement: <Error />,
-          children: [{ path: ':memberName' }, { path: 'problem/level/:level' }, { path: 'problem/algorithm/:algorithm' }],
+          children: [
+            { path: ':memberName' },
+            { path: 'problem/level/:level' },
+            { path: 'problem/algorithm/:algorithm' },
+          ],
         },
         {
           path: 'mypages',
@@ -134,7 +137,7 @@ const App = () => {
           children: [
             { path: 'certify', element: <MyCertify /> },
             { path: 'boards', element: <MyBoard /> },
-            { path: 'replys', element: '헝' },
+            // { path: 'replys', element: '헝' },
           ],
         },
       ],
