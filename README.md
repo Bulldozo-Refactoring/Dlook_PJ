@@ -151,15 +151,15 @@
         </tr>
         <tr>
             <td align="center"><a href="https://github.com/OlMinJe"><img src="https://avatars.githubusercontent.com/u/118544134?v=4" width="180px;" style="vertical-align:top" alt=""></td>
-            <td align="center"><a href="https://github.com/gyuonnn"><img src="https://avatars.githubusercontent.com/u/129468485?v=4" width="180px;" style="vertical-align:top" alt=""></td>
-            <td align="center"><a href="https://github.com/noxknow"><img src="https://avatars.githubusercontent.com/u/122594223?v=4" width="180px;" style="vertical-align:top" alt=""></td>
             <td align="center"><a href="https://github.com/loadraw"><img src="https://avatars.githubusercontent.com/u/134680900?v=4" width="180px;" style="vertical-align:top" alt=""></td>
+            <td align="center"><a href="https://github.com/noxknow"><img src="https://avatars.githubusercontent.com/u/122594223?v=4" width="180px;" style="vertical-align:top" alt=""></td>
+            <td align="center"><a href="https://github.com/gyuonnn"><img src="https://avatars.githubusercontent.com/u/129468485?v=4" width="180px;" style="vertical-align:top" alt=""></td>
         </tr>
         <tr>
             <td align="center"><a href="https://github.com/OlMinJe">이민제</td>
-            <td align="center"><a href="https://github.com/gyuonnn">윤규원</td>
-            <td align="center"><a href="https://github.com/noxknow">이치왕</td>
             <td align="center"><a href="https://github.com/loadraw">황인환</td>
+            <td align="center"><a href="https://github.com/noxknow">이치왕</td>
+            <td align="center"><a href="https://github.com/gyuonnn">윤규원</td>
         </tr>
     </table>
 </div>
