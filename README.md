@@ -8,7 +8,7 @@
 
   ### **취업을 위해 매일 코딩테스트를 풀고 있는 개발자들을 위한 코딩 문제 추천 서비스**
 
-  🌊 Naming : **개발자(Developer)**는 항상 코드를 **봐 (look)’**라는 의미를 가지고 있습니다.
+  🌊 Naming : 개발자(Developer)는 항상 코드를 봐 (look)라는 의미를 가지고 있습니다.
   
     개발자라면 꾸준하게 이용하게 되는 코딩 테스트 사이트인 백준과 연동하여 문제를 추천하는 서비스 입니다.
 
@@ -21,10 +21,16 @@
   ![와이어프레임 초안](./Assets/img/Dlook_wireframe.png)
 
 
+**🖋 Service Architecture** <br/><br/>
+
+  ![서비스 아키텍처](./Assets/img/Dlook_architecture.png)
+
+
 **🖋 메인 화면** <br/><br/>
 
   ![메인 화면](./Assets/img/Dlook_main.png)
   ![카테고리](./Assets/img/Dlook_category.png)
+  ![내정보](./Assets/img/Dlook_information.png)
 
 
 **1) 회원가입 및 로그인 기능 ( 이메일 인증 )** <br/><br/>
@@ -41,11 +47,18 @@
 **2) 알고리즘 문제 추천 기능**
 
     - 실력별 추천 : 풀고자 하는 난이도에 해당하는 문제 10개를 추천
+    
+        - SolvedAc api를 활용하여 난이도에 해당하는 문제 추천
+
+        - 난이도를 고른 후 문제 리스트에서 문제 제목을 클릭하는 경우 백준 사이트의 해당 문제로 이동
 
     - 원하는 알고리즘별 추천 : 풀고자 하는 알고리즘에 해당하는 문제 추천
+    
+        - SolvedAc api를 활용하여 알고리즘에 해당하는 문제 추천
 
   ![알고리즘 카테고리](./Assets/img/Dlook_algorithm_category.png)
   ![알고리즘 실력별 추천](./Assets/img/Dlook_algorithm_level.png)
+  ![알고리즘 문제로 이동](./Assets/img/Dlook_problem.png)
   ![알고리즘별 추천](./Assets/img/Dlook_algorithm.png)
 
 
@@ -53,7 +66,9 @@
 
     - 오답 유형 분석 : 알고리즘별 오답 유형 파악
 
-    - 랭크 분석 : 최장 스트릭, 레이팅, 현재 티어, 푼 문제, 잔디 현황을 확인
+    - 랭크 분석 : 최장 스트릭, 레이팅, 현재 티어, 푼 문제, 스트릭 현황을 확인
+    
+        - SolvedAc api와 연동하여 사용자의 정보 확인
 
   ![알고리즘별 오답 유형](./Assets/img/Dlook_algorithm_analyze.png)
   ![현재 자신의 랭크 현황](./Assets/img/Dlook_rank_analyze.png)
@@ -129,18 +144,22 @@
 
 <br/>
 <div align="center">
-    <table border="" width="50%">
+    <table border=""4 width="50%">
         <tr>
-            <th style="text-align : center;">FrontEnd</th>
-            <th style="text-align : center;">Backend</th>
+            <th style="text-align : center;" colspan="2">FrontEnd</th>
+            <th style="text-align : center;" colspan="2">Backend</th>
         </tr>
         <tr>
             <td align="center"><a href="https://github.com/OlMinJe"><img src="https://avatars.githubusercontent.com/u/118544134?v=4" width="180px;" style="vertical-align:top" alt=""></td>
+            <td align="center"><a href="https://github.com/gyuonnn"><img src="https://avatars.githubusercontent.com/u/129468485?v=4" width="180px;" style="vertical-align:top" alt=""></td>
             <td align="center"><a href="https://github.com/noxknow"><img src="https://avatars.githubusercontent.com/u/122594223?v=4" width="180px;" style="vertical-align:top" alt=""></td>
+            <td align="center"><a href="https://github.com/loadraw"><img src="https://avatars.githubusercontent.com/u/134680900?v=4" width="180px;" style="vertical-align:top" alt=""></td>
         </tr>
         <tr>
-            <td align="center"><a href="https://github.com/h-beeen">이민제</td>
-            <td align="center"><a href="https://github.com/tioon">이치왕</td>
+            <td align="center"><a href="https://github.com/OlMinJe">이민제</td>
+            <td align="center"><a href="https://github.com/gyuonnn">윤규원</td>
+            <td align="center"><a href="https://github.com/noxknow">이치왕</td>
+            <td align="center"><a href="https://github.com/loadraw">황인환</td>
         </tr>
     </table>
 </div>
